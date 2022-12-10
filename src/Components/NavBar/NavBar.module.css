@@ -1,0 +1,26 @@
+.link {
+  background: none;
+  position: relative;
+  text-decoration: none;
+  padding: 0.5vw 1vw;
+  color: rgb(22, 21, 21);
+  font-weight: bold;
+  text-transform: capitalize;
+  position: relative;
+  /* width: 10vw; */
+}
+.active {
+  background: none;
+  position: relative;
+  text-decoration: none;
+  padding: 0.5vw 1vw;
+  color: #f9004d;
+  font-weight: bold;
+  text-transform: capitalize;
+  position: relative;
+  pointer-events: none;
+}
+.imgLogo {
+  height: 60px;
+  width: 130px;
+}

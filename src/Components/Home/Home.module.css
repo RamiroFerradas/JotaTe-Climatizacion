@@ -1,0 +1,55 @@
+body {
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 30px;
+
+  position: absolute;
+  /* width: 100vw; */
+  height: 100vh;
+  left: 135px;
+  top: 0px;
+}
+
+.container h1 {
+  width: 479px;
+  height: 128px;
+
+  /* H1 */
+
+  font-family: "BN Chester Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 66px;
+  line-height: 64px;
+  letter-spacing: 0.01em;
+
+  color: #3d3737;
+}
+.container h3 {
+  width: 382px;
+  height: 81px;
+  margin-top: 40px;
+  /* Body */
+
+  font-family: "Gilroy";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  /* Dark text */
+
+  color: #161616;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
