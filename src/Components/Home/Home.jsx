@@ -1,4 +1,5 @@
 import React from "react";
+import Carrousel from "../Carrousel/Carrousel";
 import NavBar from "../NavBar/NavBar";
 import style from "./Home.module.css";
 
@@ -8,13 +9,12 @@ export default function Home() {
       <NavBar />
       <div className={style.container}>
         <div>
-          <h1>We create yourspace better</h1>
+          <h1>Climatización Ecológica</h1>
           <h3>
-            Our team creates comfortable spaces for our clients. We’ve been
-            designing your everyday life and work through great ideas since
-            1999.
+            Nos dedicamos a la venta e instalación de termotanques solares
           </h3>
         </div>
+        <Carrousel />
       </div>
     </div>
   );

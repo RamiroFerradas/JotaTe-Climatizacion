@@ -11,31 +11,32 @@ import {
   NavDropdown,
   Offcanvas,
 } from "react-bootstrap";
-export default function NavBar({ inicio, about, servicios }) {
+
+export default function NavBar({ inicio, Acerca_de, servicios }) {
   const link = useRef();
 
   const values = [
     {
       id: 1,
-      active: "home",
-      text: `home`,
+      active: "Inicio",
+      text: `Inicio`,
       scrollTo: inicio,
       ref: link,
-      href: "#home",
+      href: "#Inicio",
     },
     {
       id: 2,
-      active: "about",
-      text: `about`,
-      href: "#about",
-      scrollTo: about,
+      active: "Acerca de",
+      text: `Acerca de`,
+      href: "#Acerca_de",
+      scrollTo: Acerca_de,
       ref: link,
     },
     {
       id: 3,
-      active: "services",
-      text: `services`,
-      href: "#services",
+      active: "servicios",
+      text: `Servicios`,
+      href: "#servicios",
       ref: link,
       scrollTo: servicios,
     },
@@ -80,7 +81,7 @@ export default function NavBar({ inicio, about, servicios }) {
               </Nav>
               <NavDropdown
                 className="d-flex pe-5"
-                title="Dropdown"
+                title="Menu"
                 id={`offcanvasNavbarDropdown-expand-${expand}`}
               >
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
