@@ -1,18 +1,18 @@
 .body {
-  max-height: 4vh;
+  min-height: 100vh;
 }
-
 .container {
   display: flex;
+  overflow: hidden;
   flex-direction: row;
   align-items: center;
   padding: 0px;
   gap: 30px;
-
   position: absolute;
-  /* width: 100vw; */
+  width: auto;
   left: 135px;
-  top: 0px;
+  /* right: 135px; */
+  top: 100px;
 }
 
 .container h1 {
@@ -24,13 +24,13 @@
   font-family: "Rubik", sans-serif;
   font-style: normal;
   font-weight: bold;
-  font-size: 68px;
+  /* font-size: 68px; */
   line-height: 64px;
   letter-spacing: 0.01em;
 
   color: #3d3737;
 }
-.container h3 {
+.container h6 {
   width: 382px;
   height: 81px;
   margin-top: 40px;
@@ -39,7 +39,7 @@
   /* font-family: "Gilroy"; */
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
+  /* font-size: 16px; */
   line-height: 170%;
   /* or 27px */
 
@@ -52,4 +52,65 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+
+.buttonHome {
+  box-sizing: border-box;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  width: 138px;
+  height: 45px;
+  background-color: transparent;
+  /* Second color */
+  color: #161616;
+  border: 2px solid #d3a265;
+  border-radius: 8px;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.buttonHome:hover {
+  background-color: #d3a165b8;
+  transition: 0.4s;
+}
+
+.container span {
+  width: 100px;
+  height: 24px;
+
+  /* font-family: "Gilroy"; */
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 24px;
+  /* identical to box height, or 150% */
+
+  display: flex;
+  align-items: center;
+  text-transform: uppercase;
+
+  /* Dark text */
+
+  color: #161616;
+
+  /* Inside auto layout */
+
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  clear: both;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 630px) {
+  .container {
+    left: 0px;
+    right: 00px;
+  }
 }

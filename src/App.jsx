@@ -1,13 +1,16 @@
-import Carrousel from "./Components/Carrousel/Carrousel";
 import Home from "./Components/Home/Home";
-import blancoIMG from "./assets/logotipo-20221208T001432Z-001/logotipo/fondo sólido/Jotaté logotipo circular fondo blanco.png";
+import style from "./App.module.css";
 import NavBar from "./Components/NavBar/NavBar";
+import About from "./Components/About/About";
 
 function App() {
   return (
-    <div className="App">
-      {/* <NavBar /> */}
-      <Home />
+    <div className={style.app}>
+      <NavBar />
+      <section>
+        <Home />
+        <About />
+      </section>
     </div>
   );
 }

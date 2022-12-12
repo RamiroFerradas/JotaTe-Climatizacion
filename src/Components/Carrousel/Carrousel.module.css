@@ -1,0 +1,15 @@
+.container {
+  /* position: absolute; */
+
+  /* min-height: 100px; */
+  overflow: hidden;
+  float: right;
+
+  right: 200px;
+}
+
+.imgCarrousel {
+  max-width: 80vh;
+
+  /* height: 20vh; */
+}

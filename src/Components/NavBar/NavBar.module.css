@@ -24,3 +24,24 @@
   height: 60px;
   width: 130px;
 }
+
+.navbar {
+  white-space: nowrap;
+  padding-top: 0vh;
+
+  z-index: 99999;
+  /* transition: 0.6s; */
+  /* background-color: red; */
+}
+.sticky {
+  width: 100%;
+  padding-top: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  /* background-color: rgba(151, 149, 149, 0.392); */
+  background-color: #d3a16592;
+  backdrop-filter: blur(3px);
+  transition: 0.3s;
+  z-index: 999;
+}

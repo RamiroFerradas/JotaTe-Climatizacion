@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../../assets/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import style from "./NavBar.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,7 +12,15 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 
-export default function NavBar({ inicio, Acerca_de, servicios }) {
+export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
+  const [scroll, setScroll] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", function () {
+      var nav = document.querySelector("nav");
+      nav.classList.toggle(style.sticky, window.scrollY > 0);
+    });
+  }, []);
+
   const link = useRef();
 
   const values = [
@@ -27,7 +35,7 @@ export default function NavBar({ inicio, Acerca_de, servicios }) {
     {
       id: 2,
       active: "Acerca de",
-      text: `Acerca de`,
+      text: `Sobre nosotros`,
       href: "#Acerca_de",
       scrollTo: Acerca_de,
       ref: link,
@@ -40,6 +48,14 @@ export default function NavBar({ inicio, Acerca_de, servicios }) {
       ref: link,
       scrollTo: servicios,
     },
+    {
+      id: 3,
+      active: "servicios",
+      text: `Productos`,
+      href: "#productos",
+      ref: link,
+      scrollTo: productos,
+    },
   ];
 
   const [sectionActive, setsectionActive] = useState("home");
@@ -48,13 +64,13 @@ export default function NavBar({ inicio, Acerca_de, servicios }) {
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
   );
   return (
-    <div>
+    <nav>
       <Navbar
-        bg="light"
+        bg={scroll ? "dark" : "Ligth"}
         sticky="top"
         expand="lg"
         variant="light"
-        className="d-flex justify-content-around"
+        className={`d-flex justify-content-around" ${style.navbar}`}
       >
         <Container>
           <Navbar.Brand href="#">{img}</Navbar.Brand>
@@ -97,6 +113,6 @@ export default function NavBar({ inicio, Acerca_de, servicios }) {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-    </div>
+    </nav>
   );
 }
