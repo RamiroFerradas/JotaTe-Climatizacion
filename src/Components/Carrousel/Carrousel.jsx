@@ -29,10 +29,11 @@ export default function Carrousel() {
         touch
         controls={false}
         indicators={false}
+        className={style.carr}
       >
-        {imgArr.map((e) => {
+        {imgArr?.map((e, index) => {
           return (
-            <Carousel.Item>
+            <Carousel.Item key={index}>
               <div className={style.imgCarrousel}>
                 <img
                   className={`d-block w-100 ${style.imgCarrousel}`}

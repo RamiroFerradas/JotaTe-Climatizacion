@@ -12,11 +12,16 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 
-export default function NavBar({ inicio, about, servicios, productos }) {
+export default function NavBar({ inicio, about, servicios, destacados }) {
   const [scroll, setScroll] = useState(false);
+  const navBarRef = useRef();
+  const link = useRef();
+
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
-      top: elementRef.current.offsetTop,
+      top: navBarRef
+        ? elementRef.current.offsetTop - navBarRef.current?.clientHeight
+        : elementRef.current.offsetTop,
       behavior: "smooth",
     });
   };
@@ -26,7 +31,6 @@ export default function NavBar({ inicio, about, servicios, productos }) {
       nav.classList.toggle(style.sticky, window.scrollY > 0);
     });
   }, []);
-  const link = useRef();
 
   const values = [
     {
@@ -54,16 +58,14 @@ export default function NavBar({ inicio, about, servicios, productos }) {
       scrollTo: servicios,
     },
     {
-      id: 3,
-      active: "servicios",
-      text: `Productos`,
-      href: "#productos",
+      id: 4,
+      active: "destacados",
+      text: `Destacados`,
+      href: "#destacados",
       ref: link,
-      scrollTo: productos,
+      scrollTo: destacados,
     },
   ];
-
-  const [sectionActive, setsectionActive] = useState("home");
   const expand = "lg";
   const img = (
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
@@ -71,6 +73,7 @@ export default function NavBar({ inicio, about, servicios, productos }) {
   return (
     <nav>
       <Navbar
+        ref={navBarRef}
         sticky="top"
         expand="lg"
         variant="light"
@@ -94,6 +97,7 @@ export default function NavBar({ inicio, about, servicios, productos }) {
                 {values.map((e) => {
                   return (
                     <Nav.Link
+                      key={e.id}
                       className="me-5"
                       onClick={() => scrollToSeccion(e.scrollTo)}
                     >
@@ -107,13 +111,18 @@ export default function NavBar({ inicio, about, servicios, productos }) {
                 title="Productos"
                 id={`offcanvasNavbarDropdown-expand-${expand}`}
               >
-                <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action4">
-                  Another action
+                <NavDropdown.Item href="#action1">Utensillos</NavDropdown.Item>
+                <NavDropdown.Item href="#action2">Parrillas</NavDropdown.Item>
+                <NavDropdown.Item href="#action3">
+                  Termotanques
                 </NavDropdown.Item>
+                <NavDropdown.Item href="#action4">Estufas</NavDropdown.Item>
                 <NavDropdown.Divider />
-                <NavDropdown.Item href="#action5">
-                  Something else here
+                <NavDropdown.Item
+                  href="#action5"
+                  onClick={() => scrollToSeccion(servicios)}
+                >
+                  Servicios
                 </NavDropdown.Item>
               </NavDropdown>
             </Offcanvas.Body>

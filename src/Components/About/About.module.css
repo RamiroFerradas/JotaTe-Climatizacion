@@ -1,10 +1,6 @@
 .body {
-  /* align-items: flex-start; */
-  /* gap: 10px; */
-
-  position: absolute;
   width: 100%;
-  height: 385px;
+  height: 70vh;
   left: 0px;
   top: 750px;
   padding: 71px 135px;
@@ -44,6 +40,7 @@
   /* H2 */
 
   font-family: "Rubik", sans-serif;
+  font-family: "BN Chester", sans-serif;
 
   font-style: normal;
   font-weight: 400;
@@ -83,8 +80,8 @@
   flex-grow: 0;
 }
 .container span {
-  color: #d3a165;
-  font-weight: 400;
+  color: #d18d3a;
+  font-weight: 500;
 }
 
 .imgAbout {
