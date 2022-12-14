@@ -1,19 +1,22 @@
 .body {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  padding: 71px 135px;
-  gap: 10px;
+  /* align-items: flex-start; */
+  /* gap: 10px; */
 
   position: absolute;
   width: 100%;
   height: 385px;
   left: 0px;
   top: 750px;
+  padding: 71px 135px;
 
   /* 2 bg */
+  background: #d3a16592;
 
-  background: #f4f4f4;
+  /* background-image: url("../../assets/trabajos/IMG-20221213-WA0003.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: initial;
+  background-attachment: fixed; */
 }
 
 .container {
@@ -62,7 +65,7 @@
 
   /* Body */
 
-  font-family: "Gilroy";
+  /* font-family: "Gilroy"; */
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
@@ -76,10 +79,26 @@
   /* Inside auto layout */
 
   flex: none;
-  order: 1;
+  order: 0;
   flex-grow: 0;
 }
 .container span {
   color: #d3a165;
   font-weight: 400;
+}
+
+.imgAbout {
+  height: 50vh;
+  /* width: 50vw; */
+  position: absolute;
+  /* right: 10px; */
+  object-fit: cover;
+  -webkit-mask-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    from(rgba(0, 0, 1, 1)),
+    to(rgba(0, 0, 0, 0))
+  );
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0));
 }
