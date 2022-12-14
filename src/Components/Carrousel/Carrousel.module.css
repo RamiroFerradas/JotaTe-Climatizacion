@@ -9,7 +9,9 @@
 }
 
 .imgCarrousel {
-  max-width: 80vh;
-
+  width: 40vw;
+  height: 50vh;
+  border-radius: 40px;
+  object-fit: cover;
   /* height: 20vh; */
 }

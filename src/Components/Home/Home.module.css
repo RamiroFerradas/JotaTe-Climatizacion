@@ -14,7 +14,9 @@
   /* right: 135px; */
   top: 100px;
 }
-
+.textHome {
+  min-width: 35vw;
+}
 .container h1 {
   width: 479px;
   height: 128px;

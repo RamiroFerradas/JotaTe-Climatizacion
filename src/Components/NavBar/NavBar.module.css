@@ -29,6 +29,7 @@
   white-space: nowrap;
   padding-top: 0vh;
 
+  transition: 0.3s;
   z-index: 99999;
   /* transition: 0.6s; */
   /* background-color: red; */

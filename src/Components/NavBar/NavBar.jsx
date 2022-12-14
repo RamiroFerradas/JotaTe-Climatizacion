@@ -12,15 +12,20 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 
-export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
+export default function NavBar({ inicio, about, servicios, productos }) {
   const [scroll, setScroll] = useState(false);
+  const scrollToSeccion = (elementRef) => {
+    window.scrollTo({
+      top: elementRef.current.offsetTop,
+      behavior: "smooth",
+    });
+  };
   useEffect(() => {
     window.addEventListener("scroll", function () {
       var nav = document.querySelector("nav");
       nav.classList.toggle(style.sticky, window.scrollY > 0);
     });
   }, []);
-
   const link = useRef();
 
   const values = [
@@ -37,7 +42,7 @@ export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
       active: "Acerca de",
       text: `Sobre nosotros`,
       href: "#Acerca_de",
-      scrollTo: Acerca_de,
+      scrollTo: about,
       ref: link,
     },
     {
@@ -66,7 +71,6 @@ export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
   return (
     <nav>
       <Navbar
-        bg={scroll ? "dark" : "Ligth"}
         sticky="top"
         expand="lg"
         variant="light"
@@ -89,7 +93,10 @@ export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
               <Nav className="justify-content-center flex-grow-1 ">
                 {values.map((e) => {
                   return (
-                    <Nav.Link className="me-5" href={e.href}>
+                    <Nav.Link
+                      className="me-5"
+                      onClick={() => scrollToSeccion(e.scrollTo)}
+                    >
                       {e.text}
                     </Nav.Link>
                   );
@@ -97,7 +104,7 @@ export default function NavBar({ inicio, Acerca_de, servicios, productos }) {
               </Nav>
               <NavDropdown
                 className="d-flex pe-5"
-                title="Menu"
+                title="Productos"
                 id={`offcanvasNavbarDropdown-expand-${expand}`}
               >
                 <NavDropdown.Item href="#action3">Action</NavDropdown.Item>

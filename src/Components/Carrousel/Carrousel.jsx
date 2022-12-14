@@ -1,38 +1,48 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import style from "./Carrousel.module.css";
-import img1 from "../../assets/logotipo-20221208T001432Z-001/logotipo/fondo sólido/Jotaté logotipo circular fondo blanco.png";
-import img2 from "../../assets/logotipo-20221208T001432Z-001/logotipo/fondo sólido/Jotaté logotipo circular fondo naranja.png";
-import img3 from "../../assets/logotipo-20221208T001432Z-001/logotipo/fondo sólido/Jotaté logotipo circular fondo turquesa.png";
+import img1 from "../../assets/trabajos/IMG-20221213-WA0003.jpg";
+import img2 from "../../assets/trabajos/IMG-20221213-WA0005.jpg";
+import img3 from "../../assets/trabajos/IMG-20221213-WA0006.jpg";
+import img4 from "../../assets/trabajos/IMG-20221213-WA0008.jpg";
+import img5 from "../../assets/trabajos/IMG-20221213-WA0009.jpg";
 import useScreenSize from "../../Hooks/useScreenSize";
+
+const imgArr = [
+  // { src: img1, alt: "jotaTeClimatizacion" },
+  { src: img2, alt: "jotaTeClimatizacion" },
+  { src: img3, alt: "jotaTeClimatizacion" },
+  { src: img4, alt: "jotaTeClimatizacion" },
+  { src: img5, alt: "jotaTeClimatizacion" },
+];
 
 export default function Carrousel() {
   const { height, width } = useScreenSize();
 
-  console.log(height, width);
   return (
     <div className={style.body}>
-      <Carousel interval="3000" fade keyboard touch>
-        <Carousel.Item>
-          <div className={style.imgCarrousel}>
-            <img className={`d-block w-100 `} src={img1} alt="Blanco" />
-          </div>
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className={style.imgCarrousel}>
-            <img className={`d-block w-100 `} src={img2} alt="Naranja" />
-          </div>
-
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <div className={style.imgCarrousel}>
-            <img className={`d-block w-100 `} src={img3} alt="Turquesa" />
-          </div>
-
-          <Carousel.Caption></Carousel.Caption>
-        </Carousel.Item>
+      <Carousel
+        interval="3000"
+        fade
+        keyboard
+        touch
+        controls={false}
+        indicators={false}
+      >
+        {imgArr.map((e) => {
+          return (
+            <Carousel.Item>
+              <div className={style.imgCarrousel}>
+                <img
+                  className={`d-block w-100 ${style.imgCarrousel}`}
+                  src={e.src}
+                  alt={e.alt}
+                />
+              </div>
+              <Carousel.Caption></Carousel.Caption>
+            </Carousel.Item>
+          );
+        })}
       </Carousel>
     </div>
   );
