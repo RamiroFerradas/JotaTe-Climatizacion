@@ -5,6 +5,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import About from "./Components/About/About";
 import Servicios from "./Components/Servicios/Servicios";
 import Destacados from "./Components/Destacados/Destacados";
+import Footer from "./Components/Footer/Footer";
 
 function App() {
   const about = useRef();
@@ -25,6 +26,7 @@ function App() {
         <About about={about} />
         <Servicios servicios={servicios} />
         <Destacados destacados={destacados} />
+        {/* <Footer /> */}
       </section>
     </div>
   );
