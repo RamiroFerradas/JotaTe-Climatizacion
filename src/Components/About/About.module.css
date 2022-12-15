@@ -1,36 +1,8 @@
 .body {
-  width: 100%;
-  height: 70vh;
-  left: 0px;
-  top: 750px;
-  padding: 71px 135px;
-
-  /* 2 bg */
+  /* height: 50vh; */
+  padding: 71px;
   background: #d3a16592;
-
-  /* background-image: url("../../assets/trabajos/IMG-20221213-WA0003.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: initial;
-  background-attachment: fixed; */
-}
-
-.container {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 0px;
-  gap: 20vw;
-
-  /* width: 1070px; */
-  height: 243px;
-
-  /* Inside auto layout */
-
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  width: 100%;
 }
 
 .container h1 {

@@ -3,25 +3,14 @@
   src: url("../../Fonts/BNChester.otf") format("woff2");
 }
 .body {
-  min-height: 100vh;
+  /* min-height: 60vh; */
+  padding: 50px;
 }
-.container {
-  display: flex;
-  overflow: hidden;
-  flex-direction: row;
-  align-items: center;
-  padding: 0px;
-  gap: 30px;
-  position: absolute;
-  width: auto;
-  left: 135px;
-  /* right: 135px; */
-  top: 100px;
-}
+
 .textHome {
   min-width: 35vw;
 }
-.container h1 {
+.body h1 {
   width: 479px;
   height: 128px;
 
@@ -36,7 +25,7 @@
 
   color: #3d3737;
 }
-.container h6 {
+.body p {
   width: 382px;
   height: 81px;
   margin-top: 40px;
@@ -84,7 +73,7 @@
   transition: 0.4s;
 }
 
-.container span {
+.body span {
   width: 100px;
   height: 24px;
 
@@ -112,11 +101,4 @@
   display: inline-block;
   overflow: hidden;
   white-space: nowrap;
-}
-
-@media screen and (max-width: 630px) {
-  .container {
-    left: 0px;
-    right: 00px;
-  }
 }

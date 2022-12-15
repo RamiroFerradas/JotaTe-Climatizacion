@@ -14,7 +14,7 @@ function App() {
     <div className={style.app}>
       <NavBar inicio={inicio} about={about} servicios={servicios} />
       <section>
-        <Home inicio={inicio} />
+        <Home inicio={inicio} about={about} />
         <About about={about} />
         <Servicios servicios={servicios} />
       </section>

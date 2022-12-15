@@ -14,9 +14,9 @@ import {
 
 export default function NavBar({ inicio, about, servicios, destacados }) {
   const [scroll, setScroll] = useState(false);
-  const navBarRef = useRef();
   const link = useRef();
 
+  const navBarRef = useRef();
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
       top: navBarRef
