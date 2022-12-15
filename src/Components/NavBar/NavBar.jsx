@@ -71,10 +71,10 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
   );
   return (
-    <nav>
+    <>
       <Navbar
         ref={navBarRef}
-        sticky="top"
+        fixed={"top"}
         expand="lg"
         variant="light"
         className={`d-flex justify-content-around" ${style.navbar}`}
@@ -129,6 +129,6 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-    </nav>
+    </>
   );
 }

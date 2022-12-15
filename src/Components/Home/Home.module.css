@@ -5,6 +5,8 @@
 .body {
   /* min-height: 60vh; */
   padding: 50px;
+  position: relative;
+  margin-top: 10vh;
 }
 
 .textHome {
