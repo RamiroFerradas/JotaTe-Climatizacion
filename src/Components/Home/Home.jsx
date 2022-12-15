@@ -13,7 +13,7 @@ export default function Home({ inicio, about }) {
   };
   return (
     <section ref={inicio} className={style.body}>
-      <Container>
+      <Container fluid className="p-5">
         <Row>
           <Col md={6}>
             <h1 className="display-3">Climatización Ecológica</h1>
