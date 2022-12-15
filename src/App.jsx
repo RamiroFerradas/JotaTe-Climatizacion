@@ -14,12 +14,17 @@ function App() {
 
   return (
     <div className={style.app}>
-      <NavBar inicio={inicio} about={about} servicios={servicios} />
+      <NavBar
+        inicio={inicio}
+        about={about}
+        servicios={servicios}
+        destacados={destacados}
+      />
       <section>
         <Home inicio={inicio} about={about} />
         <About about={about} />
         <Servicios servicios={servicios} />
-        {/* <Destacados destacados={destacados} /> */}
+        <Destacados destacados={destacados} />
       </section>
     </div>
   );

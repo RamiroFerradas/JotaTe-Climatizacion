@@ -10,7 +10,7 @@ import img5 from "../../assets/trabajos/IMG-20221213-WA0009.jpg";
 import useScreenSize from "../../Hooks/useScreenSize";
 
 const imgArr = [
-  // { src: img1, alt: "jotaTeClimatizacion" },
+  { src: img1, alt: "jotaTeClimatizacion" },
   { src: img2, alt: "jotaTeClimatizacion" },
   { src: img3, alt: "jotaTeClimatizacion" },
   { src: img4, alt: "jotaTeClimatizacion" },
