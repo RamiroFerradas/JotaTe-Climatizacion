@@ -31,6 +31,7 @@ export default function SwipperProducts() {
   return (
     <>
       <Swiper
+        className={styles.Swipper}
         loop={true}
         autoplay={{
           delay: 2000,
@@ -40,12 +41,12 @@ export default function SwipperProducts() {
         EffectFlip={true}
         mousewheel={true}
         keyboard={true}
-        slidesPerView={3}
+        // slidesPerView={"3"}
         grid={{
           rows: 1,
           // fill={"row"}
         }}
-        spaceBetween={30}
+        // spaceBetween={30}
         // pagination={{
         //   clickable: true,
         // }}
@@ -55,7 +56,7 @@ export default function SwipperProducts() {
           EffectFade,
           Mousewheel,
           Navigation,
-          EffectFlip,
+          // EffectFlip,
           Autoplay,
         ]}
         breakpoints={{
@@ -78,14 +79,13 @@ export default function SwipperProducts() {
             slidesPerView: 3,
           },
         }}
-        // className="mySwiper"
       >
         {productos?.map((e, index) => {
           return (
             <SwiperSlide
               key={index}
               onClick={() => console.log("clickProduct")}
-              className={styles.Swipper}
+              className={styles.SwipperSlide}
             >
               <p className="fs-5 text text-uppercase">{e.name}</p>
               <img src={e.item} alt="asparri" className={styles.imgs} />

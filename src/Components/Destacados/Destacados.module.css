@@ -36,9 +36,12 @@
   font-weight: 500;
 }
 
-.Swipper {
+.SwipperSlide {
   cursor: grab;
   text-align: center;
+}
+.Swipper {
+  width: 100%;
 }
 .price {
   color: #f18500;
