@@ -38,6 +38,22 @@ export default function Destacados({ destacados }) {
       </div>
 
       <Swiper
+        breakpoints={{
+          // when window width is >= 640px
+          440: {
+            width: 440,
+            slidesPerView: 1,
+          },
+          // when window width is >= 768px
+          768: {
+            width: 768,
+            slidesPerView: 2,
+          },
+          900: {
+            width: 900,
+            slidesPerView: 3,
+          },
+        }}
         loop={true}
         autoplay={{
           delay: 2000,
