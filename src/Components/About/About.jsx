@@ -8,15 +8,15 @@ export default function About({ about }) {
     <section className={style.body} ref={about}>
       <Container>
         <div className={style.container}>
-          <Row className="d-flex align-items-center">
-            <Col lg={5}>
+          <Row className="d-flex align-items-center p-4">
+            <Col lg={6}>
               <h1>
                 Sobre
                 <span> nosotros</span>
               </h1>
             </Col>
 
-            <Col lg={5}>
+            <Col lg={6}>
               <p>
                 Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum,
                 praesentium molestiae incidunt nostrum pariatur fuga dolore
