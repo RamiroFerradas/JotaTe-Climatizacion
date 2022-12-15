@@ -69,12 +69,12 @@
 
 @media screen and (max-width: 768px) {
   .carr {
-    width: 85vw;
+    width: auto;
     height: 50vh;
     /* padding-top: 40px; */
   }
   .imgCarrousel {
-    width: 85vw;
+    width: auto;
     height: 50vh;
     border-radius: 40px;
     object-fit: cover;
