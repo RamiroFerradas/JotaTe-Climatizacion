@@ -27,8 +27,8 @@ export default function Carrousel() {
         fade
         keyboard
         touch
-        controls={false}
-        indicators={false}
+        // controls={false}
+        // indicators={false}
         className={style.carr}
       >
         {imgArr?.map((e, index) => {
