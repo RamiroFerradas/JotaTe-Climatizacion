@@ -36,9 +36,9 @@
   /* background-color: red; */
 }
 .sticky {
-  /* width: 100vw; */
+  width: 100vw;
   padding-top: 5px;
-  position: sticky;
+  position: fixed;
   top: 0;
   left: 0;
   background-color: #d3a16592;

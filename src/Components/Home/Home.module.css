@@ -11,7 +11,7 @@
   min-width: 35vw;
 }
 .body h1 {
-  width: 479px;
+  max-width: 30vw;
   height: 128px;
 
   /* H1 */
@@ -26,24 +26,12 @@
   color: #3d3737;
 }
 .body p {
-  width: 382px;
-  height: 81px;
   margin-top: 40px;
-  /* Body */
 
-  /* font-family: "Gilroy"; */
   font-style: normal;
   font-weight: 400;
-  /* font-size: 16px; */
   line-height: 170%;
-  /* or 27px */
-
-  /* Dark text */
-
   color: #161616;
-
-  /* Inside auto layout */
-
   flex: none;
   order: 1;
   flex-grow: 0;
@@ -76,13 +64,10 @@
 .body span {
   width: 100px;
   height: 24px;
-
-  /* font-family: "Gilroy"; */
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 24px;
-  /* identical to box height, or 150% */
 
   display: flex;
   align-items: center;
