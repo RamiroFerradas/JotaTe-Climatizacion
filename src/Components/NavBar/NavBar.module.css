@@ -5,7 +5,8 @@
 
 .navbar {
   white-space: nowrap;
-  padding-top: 0vh;
+  padding-top: 5vh;
+
   transition: 0.3s;
   z-index: 99999;
   height: 15vh;
@@ -15,7 +16,10 @@
   width: 100%; /* Full width */
 }
 .sticky {
-  height: 12vh;
+  /* padding-top: 5vh; */
+  padding: 100px;
+
+  height: 13vh;
   border-bottom-left-radius: 20%;
   border-bottom-right-radius: 20%;
   background-color: #d3a16592;
@@ -23,4 +27,8 @@
   transition: 0.3s;
   z-index: 999;
   font-weight: 400;
+}
+.textNav {
+  color: rgb(81, 141, 100);
+  font-weight: bold;
 }

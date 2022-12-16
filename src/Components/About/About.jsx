@@ -5,7 +5,7 @@ import { Col, Container, Row } from "react-bootstrap";
 
 export default function About({ about }) {
   return (
-    <section className={style.body} ref={about}>
+    <section className={style.body} ref={about} id="Acerca de">
       <Container>
         <div className={style.container}>
           <Row className="d-flex align-items-center p-4">

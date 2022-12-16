@@ -3,7 +3,7 @@ import styles from "./Destacados.module.css";
 
 export default function Destacados({ destacados }) {
   return (
-    <section ref={destacados} className={styles.body}>
+    <section ref={destacados} className={styles.body} id="destacados">
       <div className={styles.container}>
         <h2>
           Productos <span>destacados</span>

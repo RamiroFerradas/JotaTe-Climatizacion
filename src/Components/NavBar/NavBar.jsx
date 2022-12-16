@@ -1,7 +1,8 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import logo from "../../assets/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import style from "./NavBar.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { useLocalStorage } from "../../Hooks/useLocalStorage";
 
 import {
   Button,
@@ -25,21 +26,38 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
       behavior: "smooth",
     });
   };
+  const [sectionActive, setsectionActive] = useLocalStorage("section", "home");
+
+  const handleScroll = useCallback(() => {
+    let current = "";
+    const section = document.querySelectorAll(`section`);
+    section.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (window.pageYOffset >= sectionTop - 200) {
+        current = section.getAttribute("id");
+        setsectionActive(current);
+        // console.log("estas en", current);
+      }
+    });
+  }, [setsectionActive]);
+
   useEffect(() => {
     window.addEventListener("scroll", function () {
       var nav = document.querySelector("nav");
       nav.classList.toggle(style.sticky, window.scrollY > 0);
+      window.addEventListener("scroll", handleScroll);
     });
-  }, []);
+    console.log("hola");
+  }, [handleScroll]);
 
   const values = [
     {
       id: 1,
-      active: "Inicio",
-      text: `Inicio`,
+      active: "inicio",
+      text: `inicio`,
       scrollTo: inicio,
       ref: link,
-      href: "#Inicio",
+      href: "#inicio",
     },
     {
       id: 2,
@@ -101,7 +119,11 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                       className="me-5"
                       onClick={() => scrollToSeccion(e.scrollTo)}
                     >
-                      {e.text}
+                      <p
+                        className={e.active === sectionActive && style.textNav}
+                      >
+                        {e.text}
+                      </p>
                     </Nav.Link>
                   );
                 })}

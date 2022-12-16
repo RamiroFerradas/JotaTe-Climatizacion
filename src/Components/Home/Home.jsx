@@ -12,7 +12,7 @@ export default function Home({ inicio, about }) {
     });
   };
   return (
-    <section ref={inicio} className={style.body}>
+    <section ref={inicio} className={style.body} id="inicio">
       <Container fluid className="p-5">
         <Row>
           <Col md={6}>

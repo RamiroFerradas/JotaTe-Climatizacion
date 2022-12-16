@@ -26,7 +26,7 @@ function App() {
         <About about={about} />
         <Servicios servicios={servicios} />
         <Destacados destacados={destacados} />
-        {/* <Footer /> */}
+        <Footer />
       </section>
     </div>
   );
