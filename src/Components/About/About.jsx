@@ -9,7 +9,7 @@ export default function About({ about }) {
       <Container>
         <div className={style.container}>
           <Row className="d-flex align-items-center p-4">
-            <Col lg={6}>
+            <Col lg={5}>
               <h1>
                 Sobre
                 <span> nosotros</span>
