@@ -3,13 +3,17 @@ import styles from "./Servicios.module.css";
 import { MdPool } from "react-icons/md";
 import { GiWaterTank, GiThermometerCold } from "react-icons/gi";
 import { Col, Row } from "react-bootstrap";
+import termo from "../../assets/Icons/termotanque.png";
 
 export default function Servicios({ servicios }) {
   const services = [
     {
       title: "Termotanques solares",
       description: "Venta, Instalacion y mantenimiento de termotanques solares",
-      img: <GiWaterTank />,
+      img: (
+        <img className={styles.termo} src={termo} alt="termotanque solar"></img>
+      ),
+      // img: <GiWaterTank />,
     },
     {
       title: "Piscinas",
