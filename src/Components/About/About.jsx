@@ -16,7 +16,7 @@ export default function About({ about }) {
               </h1>
             </Col>
 
-            <Col lg={6} className="w-50 p-5 d-inline-block">
+            <Col lg={6} className=" p-5 d-inline-block">
               <p>
                 Somos una empresa joven y familiar donde nuestros comienzos
                 fueron en el rubro de Climatizacion en general, en la actualidad
