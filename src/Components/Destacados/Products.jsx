@@ -1,6 +1,6 @@
 import React from "react";
 // import product1 from "../../assets/Productos destacados/BASE S 6.PNG";
-import product4 from "../../assets/Productos destacados/DISCO ASAPARRI 3.jpg";
+import product4 from "../../assets/Productos destacados/DISCO ASAPARRI 6.jpg";
 // import product2 from "../../assets/Productos destacados/brasero de pie asaparri 4.JPG";
 // import product3 from "../../assets/Productos destacados/IMG_4139.JPG";
 import product5 from "../../assets/Productos destacados/IMG_0476_Facetune_15-10-2020-10-52-07.jpg";
