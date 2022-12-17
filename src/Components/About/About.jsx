@@ -16,23 +16,15 @@ export default function About({ about }) {
               </h1>
             </Col>
 
-            <Col lg={6}>
+            <Col lg={6} className="w-50 p-5 d-inline-block">
               <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Harum,
-                praesentium molestiae incidunt nostrum pariatur fuga dolore
-                ipsa? Nostrum facilis dicta laudantium, minima tenetur soluta
-                ullam. Corporis a debitis ea aliquam? Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Quis magni labore impedit debitis
-                voluptates, repellat deserunt quisquam beatae eum eius,
-                accusamus maiores cum nemo laborum. Expedita omnis nulla optio
-                ex. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                Harum, praesentium molestiae incidunt nostrum pariatur fuga
-                dolore ipsa? Nostrum facilis dicta laudantium, minima tenetur
-                soluta ullam. Corporis a debitis ea aliquam? Lorem ipsum dolor
-                sit amet consectetur adipisicing elit. Quis magni labore impedit
-                debitis voluptates, repellat deserunt quisquam beatae eum eius,
-                accusamus maiores cum nemo laborum. Expedita omnis nulla optio
-                ex.
+                Somos una empresa joven y familiar donde nuestros comienzos
+                fueron en el rubro de Climatizacion en general, en la actualidad
+                pudimos expandirnos en nuevos horizontes y ampliando amplios
+                sectores del rubro. Hoy en dia, en efecto de un gran esfuerzo de
+                los ultimos años pudimos instalar nuestra primera sucursal en la
+                ciudad de Rafaela, Santa Fe. Donde pudimos expandir nuestra gama
+                de servicios y productos.
               </p>
             </Col>
 
