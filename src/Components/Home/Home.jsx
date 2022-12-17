@@ -17,7 +17,7 @@ export default function Home({ inicio, about }) {
         <Row>
           <Col md={6}>
             <h1 className="display-3">Climatización Ecológica</h1>
-            <p className="w-75">
+            <p>
               Nos dedicamos a la venta e instalación de termotanques solares,
               estufas a pellets, parrilleros, salamandras a leña, entre otros...
             </p>
