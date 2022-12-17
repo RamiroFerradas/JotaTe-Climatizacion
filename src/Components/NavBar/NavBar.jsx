@@ -54,7 +54,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
     {
       id: 1,
       active: "inicio",
-      text: `inicio`,
+      text: `Inicio`,
       scrollTo: inicio,
       ref: link,
       href: "#inicio",
@@ -120,7 +120,11 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                       onClick={() => scrollToSeccion(e.scrollTo)}
                     >
                       <p
-                        className={e.active === sectionActive && style.textNav}
+                        className={
+                          e.active === sectionActive
+                            ? style.textNavActive
+                            : style.noActive
+                        }
                       >
                         {e.text}
                       </p>

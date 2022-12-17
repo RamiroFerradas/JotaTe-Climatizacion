@@ -28,7 +28,11 @@
   z-index: 999;
   font-weight: 400;
 }
-.textNav {
-  color: rgb(81, 141, 100);
+.textNavActive {
+  color: rgb(0, 133, 69);
+  font-weight: bold;
+}
+.noActive:hover {
+  color: rgb(16, 17, 16);
   font-weight: bold;
 }
