@@ -37,6 +37,8 @@ export default function SwipperProducts() {
           delay: 2000,
           disableOnInteraction: true,
         }}
+        preloadImages
+        grabCursor
         navigation={true}
         EffectFlip={true}
         mousewheel={true}
@@ -52,6 +54,7 @@ export default function SwipperProducts() {
         // }}
         modules={[
           Grid,
+
           Pagination,
           EffectFade,
           Mousewheel,

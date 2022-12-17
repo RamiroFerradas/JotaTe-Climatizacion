@@ -37,7 +37,7 @@
 }
 
 .SwipperSlide {
-  cursor: grab;
+  /* cursor: grab; */
   text-align: center;
 }
 .Swipper {
