@@ -1,10 +1,9 @@
 import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Carrousel from "../Carrousel/Carrousel";
-import NavBar from "../NavBar/NavBar";
-import style from "./Home.module.css";
+import style from "./Inicio.module.css";
 
-export default function Home({ inicio, about }) {
+export default function Inicio({ inicio, about }) {
   const scrollToSeccion = (elementRef) => {
     window.scrollTo({
       top: elementRef.current.offsetTop - 100,
@@ -23,7 +22,7 @@ export default function Home({ inicio, about }) {
             </p>
             <br />
             <button
-              className={style.buttonHome}
+              className={style.buttonBeginning}
               onClick={() => scrollToSeccion(about)}
             >
               <span>Conoce mas</span>

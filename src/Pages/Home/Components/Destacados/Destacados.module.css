@@ -48,7 +48,7 @@
   font-weight: bold;
 }
 
-.buttonHome {
+.buttonBeginning {
   padding: 12px;
   background-color: transparent;
   /* Second color */
@@ -59,7 +59,7 @@
   order: 1;
   flex-grow: 0;
 }
-.buttonHome:hover {
+.buttonBeginning:hover {
   background-color: #d3a165b8;
   transition: 0.4s;
 }

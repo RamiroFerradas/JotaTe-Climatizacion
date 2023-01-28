@@ -1,7 +1,9 @@
 import SwipperProducts from "./SwipperProducts";
 import styles from "./Destacados.module.css";
+import { Navigate, useNavigate } from "react-router-dom";
 
 export default function Destacados({ destacados }) {
+  const navigate = useNavigate();
   return (
     <section ref={destacados} className={styles.body} id="destacados">
       <div className={styles.container}>
@@ -11,8 +13,8 @@ export default function Destacados({ destacados }) {
       </div>
       <SwipperProducts />
       <button
-        className={styles.buttonHome}
-        onClick={() => console.log("clickProduct")}
+        className={styles.buttonBeginning}
+        onClick={() => navigate("/shop")}
       >
         <span>Ver todos los productos</span>
       </button>

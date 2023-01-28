@@ -10,22 +10,21 @@ import SwiperCore, {
   Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+SwiperCore.use([Autoplay]);
 
 import styles from "./Destacados.module.css";
-SwiperCore.use([Autoplay]);
 
 // Import Swiper styles
 import "swiper/css";
-
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/mousewheel";
 import "swiper/css/autoplay";
 
-import Products from "./Products";
+import { productos } from "./Products";
 
-const { productos } = Products();
+// import { productos } from "./Products";
 
 export default function SwipperProducts() {
   return (
@@ -83,16 +82,16 @@ export default function SwipperProducts() {
           },
         }}
       >
-        {productos?.map((e, index) => {
+        {productos?.map(({ name, item, price }, index) => {
           return (
             <SwiperSlide
               key={index}
               onClick={() => console.log("clickProduct")}
               className={styles.SwipperSlide}
             >
-              <p className="fs-5 text text-uppercase">{e.name}</p>
-              <img src={e.item} alt="asparri" className={styles.imgs} />
-              <p className={`fw-bolder fs-4 ${styles.price}`}>${e.price}</p>
+              <p className="fs-5 text text-uppercase">{name}</p>
+              <img src={item} alt="asparri" className={styles.imgs} />
+              <p className={`fw-bolder fs-4 ${styles.price}`}>${price}</p>
             </SwiperSlide>
           );
         })}

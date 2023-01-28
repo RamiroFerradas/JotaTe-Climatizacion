@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import logo from "../../assets/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
+import logo from "../../../../assets/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import style from "./NavBar.module.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useLocalStorage } from "../../Hooks/useLocalStorage";
+import { useLocalStorage } from "../../../../Hooks/useLocalStorage";
 
 import {
   Button,
@@ -26,7 +26,10 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
       behavior: "smooth",
     });
   };
-  const [sectionActive, setsectionActive] = useLocalStorage("section", "home");
+  const [sectionActive, setsectionActive] = useLocalStorage(
+    "section",
+    "Beginning"
+  );
 
   const handleScroll = useCallback(() => {
     let current = "";
@@ -44,10 +47,9 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
   useEffect(() => {
     window.addEventListener("scroll", function () {
       var nav = document.querySelector("nav");
-      nav.classList.toggle(style.sticky, window.scrollY > 0);
+      nav.classList?.toggle(style.sticky, window.scrollY > 0);
       window.addEventListener("scroll", handleScroll);
     });
-    console.log("hola");
   }, [handleScroll]);
 
   const values = [

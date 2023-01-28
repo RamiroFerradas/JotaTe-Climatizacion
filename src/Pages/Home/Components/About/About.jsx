@@ -1,6 +1,5 @@
 import React from "react";
 import style from "./About.module.css";
-import img from "../../assets/trabajos/IMG-20221213-WA0003.jpg";
 import { Col, Container, Row } from "react-bootstrap";
 
 export default function About({ about }) {

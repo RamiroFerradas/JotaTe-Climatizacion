@@ -3,7 +3,7 @@ import styles from "./Servicios.module.css";
 import { MdPool } from "react-icons/md";
 import { GiWaterTank, GiThermometerCold } from "react-icons/gi";
 import { Col, Row } from "react-bootstrap";
-import termo from "../../assets/Icons/termotanque.png";
+import termo from "../../../../assets/Icons/termotanque.png";
 
 export default function Servicios({ servicios }) {
   const services = [

@@ -10,7 +10,7 @@
   padding-bottom: 0vh;
 }
 
-.textHome {
+.textBeginning {
   min-width: 35vw;
 }
 .body h1 {
@@ -40,7 +40,7 @@
   flex-grow: 0;
 }
 
-.buttonHome {
+.buttonBeginning {
   box-sizing: border-box;
 
   display: flex;
@@ -59,7 +59,7 @@
   order: 1;
   flex-grow: 0;
 }
-.buttonHome:hover {
+.buttonBeginning:hover {
   background-color: #d3a165b8;
   transition: 0.4s;
 }
