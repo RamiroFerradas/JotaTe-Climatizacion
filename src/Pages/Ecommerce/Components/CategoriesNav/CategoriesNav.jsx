@@ -11,19 +11,28 @@ export default function CategoriesNav() {
     { id: 6, value: "Servicios" },
   ];
   const [linkActive, setLinkActive] = useState("Climatizacion");
-  console.log(linkActive);
+
   return (
-    <Navbar bg="secondary" variant="dark">
-      <Container className=" d-flex justify-content-center align-items-center ">
+    <Navbar className={style.body} variant="dark">
+      <Container
+        fluid
+        className="d-flex justify-content-center align-items-center"
+      >
         {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
-        <Nav className="">
-          {links.map(({ value, id, active }) => (
+        <Nav className={style.nav}>
+          {links.map(({ value, id }) => (
             <Nav.Link
-              onClick={() => setLinkActive(active)}
+              className={`me- ${style.nav}`}
+              onClick={() => setLinkActive(value)}
               id={id}
-              className={`me-4  ${linkActive === value && style.linkActive}`}
             >
-              {value}
+              <span
+                className={`${
+                  value === linkActive ? style.linkActive : style.noActive
+                }`}
+              >
+                {value}
+              </span>
             </Nav.Link>
           ))}
         </Nav>

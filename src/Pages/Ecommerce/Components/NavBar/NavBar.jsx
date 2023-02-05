@@ -19,12 +19,12 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
   const refBodyCanvas = useRef();
   const { width } = useScreenSize();
   const categories = [
-    { id: 1, value: "Climatizacion", active: "Climatizacion" },
-    { id: 2, value: "Utensillos" },
-    { id: 3, value: "Parrilleros" },
-    { id: 4, value: "Estufas" },
-    { id: 5, value: "Termotanques" },
-    { id: 6, value: "Servicios" },
+    { id: 1, text: "Climatizacion" },
+    { id: 2, text: "Utensillos" },
+    { id: 3, text: "Parrilleros" },
+    { id: 4, text: "Estufas" },
+    { id: 5, text: "Termotanques" },
+    { id: 6, text: "Servicios" },
   ];
 
   const expand = "md";
@@ -32,7 +32,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
   );
   return (
-    <>
+    <Container>
       <Navbar key={expand} bg="light" expand={expand} className="mb-3">
         <Container fluid>
           <Navbar.Brand href="/">{img}</Navbar.Brand>
@@ -134,12 +134,12 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                   title="Categorias"
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
                 >
-                  {categories.map(({ value, id }) => (
+                  {categories.map(({ text, id }) => (
                     <NavDropdown.Item
                       className={style.dropdownItem}
                       href="#action3"
                     >
-                      {value}
+                      {text}
                     </NavDropdown.Item>
                   ))}
                 </NavDropdown>
@@ -148,6 +148,6 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-    </>
+    </Container>
   );
 }
