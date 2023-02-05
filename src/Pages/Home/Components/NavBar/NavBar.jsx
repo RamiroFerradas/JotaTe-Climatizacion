@@ -26,7 +26,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
       behavior: "smooth",
     });
   };
-  const [sectionActive, setsectionActive] = useLocalStorage(
+  const [sectionActive, setSectionActive] = useLocalStorage(
     "section",
     "Beginning"
   );
@@ -38,11 +38,11 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
       const sectionTop = section.offsetTop;
       if (window.pageYOffset >= sectionTop - 200) {
         current = section.getAttribute("id");
-        setsectionActive(current);
+        setSectionActive(current);
         // console.log("estas en", current);
       }
     });
-  }, [setsectionActive]);
+  }, [setSectionActive]);
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
@@ -113,7 +113,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-center flex-grow-1 ">
+              <Nav className="justify-content-center flex-grow-1">
                 {values.map((e) => {
                   return (
                     <Nav.Link

@@ -9,7 +9,7 @@
 
   transition: 0.3s;
   z-index: 99999;
-  height: 12vh;
+  height: 15vh;
   /* overflow: hidden; */
   /* background-color: #333; */
   top: 0; /* Position the navbar at the top of the page */
@@ -19,7 +19,7 @@
   /* padding-top: 5vh; */
   padding: 100px;
 
-  height: 15vh;
+  height: 13vh;
   border-bottom-left-radius: 20%;
   border-bottom-right-radius: 20%;
   background-color: #d3a16592;
@@ -35,4 +35,8 @@
 .noActive:hover {
   color: rgb(16, 17, 16);
   font-weight: bold;
+}
+
+.searchbar {
+  width: 35vw;
 }
