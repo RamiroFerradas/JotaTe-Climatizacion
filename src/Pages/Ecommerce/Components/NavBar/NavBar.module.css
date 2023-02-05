@@ -40,3 +40,12 @@
 .searchbar {
   width: 35vw;
 }
+
+.dropdownItem {
+  /* border: none !important; */
+  border: none !important;
+  width: 350px;
+}
+.dropdownMenu {
+  border: 2px solid red;
+}

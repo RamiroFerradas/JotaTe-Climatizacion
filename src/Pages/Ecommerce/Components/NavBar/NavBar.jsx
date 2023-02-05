@@ -16,45 +16,17 @@ import {
 import useScreenSize from "../../../../Hooks/useScreenSize";
 
 export default function NavBar({ inicio, about, servicios, destacados }) {
+  const refBodyCanvas = useRef();
   const { width } = useScreenSize();
-  const [scroll, setScroll] = useState(false);
-  const link = useRef();
-  const navBarRef = useRef();
-
-  const values = [
-    {
-      id: 1,
-      active: "inicio",
-      text: `Inicio`,
-      scrollTo: inicio,
-      ref: link,
-      href: "#inicio",
-    },
-    {
-      id: 2,
-      active: "Acerca de",
-      text: `Sobre nosotros`,
-      href: "#Acerca_de",
-      scrollTo: about,
-      ref: link,
-    },
-    {
-      id: 3,
-      active: "servicios",
-      text: `Servicios`,
-      href: "#servicios",
-      ref: link,
-      scrollTo: servicios,
-    },
-    {
-      id: 4,
-      active: "destacados",
-      text: `Destacados`,
-      href: "#destacados",
-      ref: link,
-      scrollTo: destacados,
-    },
+  const categories = [
+    { id: 1, value: "Climatizacion", active: "Climatizacion" },
+    { id: 2, value: "Utensillos" },
+    { id: 3, value: "Parrilleros" },
+    { id: 4, value: "Estufas" },
+    { id: 5, value: "Termotanques" },
+    { id: 6, value: "Servicios" },
   ];
+
   const expand = "md";
   const img = (
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
@@ -77,8 +49,9 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body
+              ref={refBodyCanvas}
               className={
-                width > 768 &&
+                width >= 768 &&
                 `d-flex justify-content-between align-items-center`
               }
             >
@@ -87,7 +60,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                 <Form.Control
                   type="search"
                   placeholder="Search"
-                  className={`me-2 ${width > 768 && style.searchbar}`}
+                  className={`me-2 ${width >= 768 && style.searchbar}`}
                   aria-label="Search"
                 />
                 <Button variant="outline-success">Search</Button>
@@ -155,20 +128,22 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                     <p>Carrito</p>
                   </div>
                 </Nav.Link>
-                {/* <NavDropdown
-                  title="Dropdown"
+              </Nav>
+              {width < 768 ? (
+                <NavDropdown
+                  title="Categorias"
                   id={`offcanvasNavbarDropdown-expand-${expand}`}
                 >
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown> */}
-              </Nav>
+                  {categories.map(({ value, id }) => (
+                    <NavDropdown.Item
+                      className={style.dropdownItem}
+                      href="#action3"
+                    >
+                      {value}
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+              ) : null}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
