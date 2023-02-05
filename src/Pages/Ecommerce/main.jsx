@@ -16,7 +16,7 @@ export default function Ecommerce() {
     <>
       <NavBar />
       {width >= 768 ? <CategoriesNav /> : null}
-      <Container fluid className={`ps-5 pe-5 ${style.body}`}>
+      <Container fluid className={`p-5  ${style.body}`}>
         <Row>
           {width >= 768 && (
             <Col sm={3}>
