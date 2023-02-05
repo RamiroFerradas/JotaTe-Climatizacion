@@ -36,3 +36,7 @@
   color: rgb(16, 17, 16);
   font-weight: bold;
 }
+.navLink {
+  text-decoration: none;
+  color: black;
+}

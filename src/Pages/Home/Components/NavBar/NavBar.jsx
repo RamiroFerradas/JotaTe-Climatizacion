@@ -12,6 +12,7 @@ import {
   NavDropdown,
   Offcanvas,
 } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 export default function NavBar({ inicio, about, servicios, destacados }) {
   const [scroll, setScroll] = useState(false);
@@ -134,7 +135,13 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                   );
                 })}
               </Nav>
-              <NavDropdown
+              <NavLink
+                className={`d-flex pe-5 pt-2 ${style.navLink}`}
+                to={"/shop"}
+              >
+                Shop
+              </NavLink>
+              {/* <NavDropdown
                 className="d-flex pe-5"
                 title="Productos"
                 id={`offcanvasNavbarDropdown-expand-${expand}`}
@@ -152,7 +159,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                 >
                   Servicios
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </Offcanvas.Body>
           </Navbar.Offcanvas>
         </Container>
