@@ -5,7 +5,7 @@ import CategoriesNav from "./Components/CategoriesNav/CategoriesNav";
 import Filtros from "./Components/Filtros/Filtros";
 import NavBar from "./Components/NavBar/NavBar";
 import style from "./index.module.css";
-import ProductsGrid from "./Components/ProductsGrid/ProductsGrid";
+import ProductsGrid from "./ProducsGrid/ProducsGrid";
 
 export default function Ecommerce() {
   const { width } = useScreenSize();

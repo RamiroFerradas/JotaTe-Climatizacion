@@ -21,10 +21,7 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/mousewheel";
 import "swiper/css/autoplay";
-
-import { productos } from "./Products";
-
-// import { productos } from "./Products";
+import { productos } from "../../../../Products";
 
 export default function SwipperProducts() {
   return (
