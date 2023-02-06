@@ -6,6 +6,7 @@ import NavBar from "./Components/NavBar/NavBar";
 import style from "./index.module.css";
 import ProductsGrid from "./Components/ProducsGrid/ProducsGrid";
 import SidebarMenu from "./Components/SIdebarMenu/SidebarMenu";
+import Footer from "./Components/Footer/Footer";
 
 export default function Ecommerce() {
   const { width } = useScreenSize();
@@ -26,6 +27,7 @@ export default function Ecommerce() {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </>
   );
 }

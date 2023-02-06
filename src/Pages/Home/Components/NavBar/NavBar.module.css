@@ -32,6 +32,7 @@
   color: rgb(0, 133, 69);
   font-weight: bold;
 }
+.textShop:hover,
 .noActive:hover {
   color: rgb(0, 133, 69);
   font-weight: bold;

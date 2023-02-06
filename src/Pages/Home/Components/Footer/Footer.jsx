@@ -55,9 +55,18 @@ export default function Footer() {
       </Container>
       <Container
         fluid
-        className={`d-flex justify-content-center align-items-center text-light ${styles.body2}`}
+        className={`d-flex justify-content-center align-items-center text-light ${styles.copyright}`}
       >
-        <p>© 2022 Copyright: Desing by Ramiro Ferradas</p>
+        <p>
+          {`© Copyright Jota Te Climatizacion. All Rights Reserved Designed by `}
+          <a
+            href="https://www.linkedin.com/in/ramiro-ferradas/"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Ramiro Ferradas
+          </a>
+        </p>
       </Container>
     </section>
   );

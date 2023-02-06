@@ -4,8 +4,12 @@
   font-size: 45px;
   padding: 3vh;
 }
-.body2 {
+.copyright {
   background: #212121;
+}
+.copyright p a {
+  /* color: #00bb2d; */
+  text-decoration: none;
 }
 .body1 a {
   transition: 0.3s;

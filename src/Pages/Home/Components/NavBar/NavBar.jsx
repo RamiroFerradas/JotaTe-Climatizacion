@@ -138,7 +138,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
                 className={`d-flex pe-5 pt-2 ${style.navLink}`}
                 to={"/shop"}
               >
-                Shop
+                <p className={style.textShop}>Shop</p>
               </NavLink>
               {/* <NavDropdown
                 className="d-flex pe-5"
