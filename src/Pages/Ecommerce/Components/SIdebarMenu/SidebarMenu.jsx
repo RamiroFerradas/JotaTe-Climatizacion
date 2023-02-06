@@ -1,8 +1,8 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import style from "./SidebarMenu.module.css";
 import Filters from "./Filters/Filters";
 import Orders from "./Orders/Orders";
+import style from "./SidebarMenu.module.css";
 
 export default function SidebarMenu() {
   return (
