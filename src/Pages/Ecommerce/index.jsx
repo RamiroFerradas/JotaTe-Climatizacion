@@ -4,7 +4,7 @@ import useScreenSize from "../../Hooks/useScreenSize";
 import CategoriesNav from "./Components/CategoriesNav/CategoriesNav";
 import Filtros from "./Components/Filtros/Filtros";
 import NavBar from "./Components/NavBar/NavBar";
-import style from "./main.module.css";
+import style from "./index.module.css";
 
 export default function Ecommerce() {
   const { width } = useScreenSize();

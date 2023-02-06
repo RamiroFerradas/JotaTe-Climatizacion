@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import Home from "../Pages/Home/main";
-import Ecommerce from "../Pages/Ecommerce/main";
+import Home from "../Pages/Home";
+import Ecommerce from "../Pages/Ecommerce/index.jsx";
 
 export default function RouterController() {
   return (
