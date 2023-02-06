@@ -21,9 +21,9 @@ export default function Ecommerce() {
               <Filtros />
             </Col>
           )}
-          <Col sm={width >= 768 ? 9 : 12}>
+          {/* <Col sm={width >= 768 ? 9 : 12}>
             <Productos />
-          </Col>
+          </Col> */}
         </Row>
       </Container>
     </>
