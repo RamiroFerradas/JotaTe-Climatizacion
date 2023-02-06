@@ -1,17 +1,15 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Col, Container, Row } from "react-bootstrap";
 import useScreenSize from "../../Hooks/useScreenSize";
 import CategoriesNav from "./Components/CategoriesNav/CategoriesNav";
 import Filtros from "./Components/Filtros/Filtros";
 import NavBar from "./Components/NavBar/NavBar";
-import Productos from "./Components/Productos/Productos";
+import Productos from "./Components/Productos/Productos.jsx";
 import style from "./main.module.css";
 
 export default function Ecommerce() {
   const { width } = useScreenSize();
 
-  const navigate = useNavigate();
   return (
     <>
       <NavBar />
