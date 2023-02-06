@@ -6,15 +6,15 @@ import s from "./SidebarStyles.module.css";
 
 export default function SidebarMenu() {
   return (
-    <Container className={s.body}>
-      <Row>
+    <Row>
+      <Container className={s.body}>
         <Col>
           <Orders />
         </Col>
         <Col>
           <Filters />
         </Col>
-      </Row>
-    </Container>
+      </Container>
+    </Row>
   );
 }
