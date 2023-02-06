@@ -32,8 +32,8 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
     <img className={style.imgLogo} src={logo} alt="jotaTeClimatizacion" />
   );
   return (
-    <Container>
-      <Navbar key={expand} bg="light" expand={expand} className="mb-3">
+    <Container className={style.body}>
+      <Navbar key={expand} expand={expand} className="mb-3">
         <Container fluid>
           <Navbar.Brand href="/">{img}</Navbar.Brand>
 
