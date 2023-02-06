@@ -20,13 +20,14 @@ export default function CategoriesNav() {
       >
         {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
         <Nav className={style.nav}>
-          {links.map(({ value, id }) => (
+          {links.map(({ value }, i) => (
             <Nav.Link
               className={`me- ${style.nav}`}
               onClick={() => setLinkActive(value)}
-              id={id}
+              key={i}
             >
               <span
+                key={i}
                 className={`${
                   value === linkActive ? style.linkActive : style.noActive
                 }`}
