@@ -2,11 +2,10 @@ import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import Filters from "./Filters/Filters";
 import Orders from "./Orders/Orders";
-import style from "./SidebarMenuStyles.module.css";
 
 export default function SidebarMenu() {
   return (
-    <Row className={style.body}>
+    <Row>
       <Col>
         <Orders />
       </Col>
