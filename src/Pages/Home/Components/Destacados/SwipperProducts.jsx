@@ -1,16 +1,12 @@
 import SwiperCore, {
   Navigation,
   Pagination,
-  Scrollbar,
-  A11y,
   Grid,
   EffectFade,
   Mousewheel,
-  EffectFlip,
   Autoplay,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-SwiperCore.use([Autoplay]);
 
 import styles from "./Destacados.module.css";
 
@@ -23,6 +19,7 @@ import "swiper/css/mousewheel";
 import "swiper/css/autoplay";
 import { productos } from "../../../../Products";
 
+SwiperCore.use([Autoplay]);
 export default function SwipperProducts() {
   return (
     <>
@@ -36,7 +33,6 @@ export default function SwipperProducts() {
         preloadImages
         grabCursor
         navigation={true}
-        EffectFlip={true}
         mousewheel={true}
         keyboard={true}
         // slidesPerView={"3"}
@@ -55,7 +51,6 @@ export default function SwipperProducts() {
           EffectFade,
           Mousewheel,
           Navigation,
-          // EffectFlip,
           Autoplay,
         ]}
         breakpoints={{
