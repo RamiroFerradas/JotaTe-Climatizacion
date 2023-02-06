@@ -4,6 +4,7 @@ import useScreenSize from "../../Hooks/useScreenSize";
 import CategoriesNav from "./Components/CategoriesNav/CategoriesNav";
 import Filtros from "./Components/Filtros/Filtros";
 import NavBar from "./Components/NavBar/NavBar";
+import Productos from "./Components/Productos/Productos";
 import style from "./index.module.css";
 
 export default function Ecommerce() {
@@ -20,9 +21,9 @@ export default function Ecommerce() {
               <Filtros />
             </Col>
           )}
-          {/* <Col sm={width >= 768 ? 9 : 12}>
+          <Col sm={width >= 768 ? 9 : 12}>
             <Productos />
-          </Col> */}
+          </Col>
         </Row>
       </Container>
     </>
