@@ -47,8 +47,7 @@ export default function NavBar({ inicio, about, servicios, destacados }) {
 
   useEffect(() => {
     window.addEventListener("scroll", function () {
-      var nav = document.querySelector("nav");
-      nav.classList?.toggle(style.sticky, window.scrollY > 0);
+      navBarRef.current?.classList.toggle(style.sticky, window.scrollY > 0);
       window.addEventListener("scroll", handleScroll);
     });
   }, [handleScroll]);
