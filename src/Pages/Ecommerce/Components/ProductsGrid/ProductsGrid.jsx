@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { productos } from "../../Home/Components/Destacados/Products";
+import { productos } from "../../../Home/Components/Destacados/Products";
 import CardProduct from "./CardProduct/CardProduct";
 
 export default function ProductsGrid() {
