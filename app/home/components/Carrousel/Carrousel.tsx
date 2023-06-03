@@ -30,6 +30,7 @@ const Carrousel = () => {
             key={index}
             src={img.src}
             alt={img.alt}
+            priority
             className="h-80 w-full object-cover"
           />
         );
