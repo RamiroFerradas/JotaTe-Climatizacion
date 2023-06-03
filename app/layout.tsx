@@ -1,11 +1,8 @@
-"use client";
-
+// "use client";
 import "./tailwind.globals.css";
 import { Inter, Nunito, Roboto, Rubik } from "next/font/google";
 import { ThemeProvider } from "@material-tailwind/react";
 import localFont from "next/font/local";
-import Head from "next/head";
-
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 
 const myFont = localFont({
@@ -27,10 +24,10 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider>
-          {children}
-          <Footer />
-        </ThemeProvider>
+        {/* <ThemeProvider> */}
+        {children}
+        <Footer />
+        {/* </ThemeProvider> */}
       </body>
     </html>
   );

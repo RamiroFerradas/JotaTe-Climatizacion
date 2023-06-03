@@ -1,6 +1,6 @@
 import { MdPool } from "react-icons/md";
 import { GiThermometerCold } from "react-icons/gi";
-import termo from "../../../../public/Icons/termotanque.png";
+import termo from "../../../../public/icons/termotanque.png";
 import Image from "next/image";
 
 export interface Service {
