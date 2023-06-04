@@ -29,8 +29,32 @@ export const productsSlice = createSlice({
         );
       }
     },
+    searchProducts: (state, action) => {
+      const searchTerm = action.payload.toLowerCase();
+      state.filteredProducts = state.allProducts.filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm) ||
+          product.brand.toLowerCase().includes(searchTerm)
+      );
+    },
+    filterProductsByCategory: (state, action) => {
+      const categoryToFilter = action.payload;
+      console.log(categoryToFilter);
+      if (categoryToFilter === "Todos") {
+        state.filteredProducts = state.allProducts;
+      } else {
+        state.filteredProducts = state.allProducts.filter(
+          (product) => product.category === categoryToFilter
+        );
+      }
+    },
   },
 });
 
-export const { addProducts, filterProductsByBrand } = productsSlice.actions;
+export const {
+  addProducts,
+  filterProductsByBrand,
+  searchProducts,
+  filterProductsByCategory,
+} = productsSlice.actions;
 export default productsSlice.reducer;

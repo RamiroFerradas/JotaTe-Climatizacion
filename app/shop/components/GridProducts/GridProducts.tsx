@@ -11,7 +11,7 @@ const GridProducts: React.FC<GridProductsProps> = () => {
 
   return (
     <div className="flex justify-center min-h-[100vh] md:w-3/4 relative">
-      <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 p-5 justify-center items-center">
+      <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 p-5 justify-center items-star h-[90vh] overflow-y-auto custom-scrollbar">
         {loading
           ? Array.from({ length: 6 }).map((_, i) => <CardSkeleton key={i} />)
           : products.map((prod) => (

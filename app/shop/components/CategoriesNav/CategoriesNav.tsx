@@ -1,5 +1,7 @@
 "use client";
+import { filterProductsByCategory } from "@/app/redux/slices/products";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
 export type CategoriesNavProps = {};
 
 interface Category {
@@ -8,7 +10,9 @@ interface Category {
 }
 
 const CategoriesNav: React.FC<CategoriesNavProps> = () => {
+  const dispatch = useDispatch();
   const categories: Category[] = [
+    { id: 0, value: "Todos" },
     { id: 1, value: "Climatizacion" },
     { id: 2, value: "Utensillos" },
     { id: 3, value: "Parrilleros" },
@@ -22,9 +26,12 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   return (
     <nav className="bg-[#006d54] h-16 flex justify-center items-center gap-5 w-full overflow-y-scroll text-center">
       {categories.map(({ value }, i) => (
-        <a
+        <button
           className={`md:w-28`}
-          onClick={() => setCategoryActive(value)}
+          onClick={() => {
+            setCategoryActive(value);
+            dispatch(filterProductsByCategory(value));
+          }}
           key={i}
         >
           <span
@@ -37,7 +44,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
           >
             {value}
           </span>
-        </a>
+        </button>
       ))}
     </nav>
   );

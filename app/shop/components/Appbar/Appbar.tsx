@@ -13,6 +13,7 @@ import { MdFavorite } from "react-icons/md";
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
+import { Searchbar } from "./components";
 
 const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
   return (
@@ -29,23 +30,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
           />
         </Link>
         <div className="flex md:w-max  order-4 sm:order-3 md:order-2 justify-center items-center gap-2 flex-wrap">
-          <div className="flex relative gap-10 flex-row">
-            <Input
-              type="search"
-              label="Panel solar..."
-              className="pr-20 md:w-[40vw]"
-              containerProps={{
-                className: "minw-[288px]",
-              }}
-            />
-            <Button
-              size="sm"
-              className="!absolute right-1 top-1 rounded bg-[#006d54] border border-[#006d54]"
-              color="green"
-            >
-              Buscar
-            </Button>
-          </div>
+          <Searchbar />
         </div>
         <div className="md:hidden flex md:w-max xs:order-4 md:order-4 justify-center items-center gap-2 flex-wrap order-3">
           <button

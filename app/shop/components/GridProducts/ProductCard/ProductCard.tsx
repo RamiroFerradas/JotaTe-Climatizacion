@@ -18,7 +18,7 @@ const ProductCard: React.FC<Product> = ({
   name,
 }) => {
   return (
-    <Card className="border border-gray-400/50 max-w-md">
+    <Card className="border border-gray-400/50 w-80">
       <CardHeader
         shadow={false}
         floated={false}
