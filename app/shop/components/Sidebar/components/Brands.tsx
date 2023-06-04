@@ -1,5 +1,6 @@
 import useListBrands from "@/app/hooks/useListBrands";
 import useProductList from "@/app/hooks/useProductList";
+import { Brand } from "@/app/models";
 import { Product } from "@/app/models/Product";
 import {
   AdjustmentsHorizontalIcon,
@@ -24,7 +25,7 @@ type Props = {
 };
 
 export default function Brands({ open, handleOpen }: Props) {
-  const { products, selectedBrands, setSelectedBrands } = useProductList();
+  const { setSelectedBrands } = useProductList();
   const { allBrands } = useListBrands();
 
   // const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -68,7 +69,7 @@ export default function Brands({ open, handleOpen }: Props) {
       <AccordionBody className="py-1">
         <Card>
           <List>
-            {allBrands.map((brand, i) => (
+            {allBrands.map((brand: Brand, i) => (
               <ListItem className="p-0" key={i}>
                 <label
                   htmlFor={`vertical-list-${brand.label}`}
