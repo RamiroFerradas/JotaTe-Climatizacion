@@ -11,11 +11,14 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
   const [openSidebar, setopenSidebar] = useState(false);
   return (
     <Provider store={store}>
-      <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
-      <CategoriesNav />
-      <div className="flex">
-        <Sidebar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
-        <GridProducts />
+      <div className="overflow-hidden">
+        <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
+        <CategoriesNav />
+        <div className="flex w-screen justify-center items-start">
+          <Sidebar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
+
+          <GridProducts />
+        </div>
       </div>
     </Provider>
   );

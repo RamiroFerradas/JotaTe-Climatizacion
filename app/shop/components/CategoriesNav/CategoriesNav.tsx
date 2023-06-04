@@ -24,7 +24,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   const [categoryActive, setCategoryActive] = useState("Climatizacion");
 
   return (
-    <nav className="bg-[#006d54] h-16 flex justify-center items-center gap-5 w-full overflow-y-scroll text-center">
+    <nav className="bg-[#006d54] h-16 flex justify-center items-center gap-5 w-full overflow-x-auto text-center">
       {categories.map(({ value }, i) => (
         <button
           className={`md:w-28`}

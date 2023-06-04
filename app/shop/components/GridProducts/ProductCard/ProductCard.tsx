@@ -18,7 +18,7 @@ const ProductCard: React.FC<Product> = ({
   name,
 }) => {
   return (
-    <Card className="border border-gray-400/50 w-80">
+    <Card className="border border-gray-400/50 md:w-60 w-80 flex gap-2">
       <CardHeader
         shadow={false}
         floated={false}
@@ -26,13 +26,13 @@ const ProductCard: React.FC<Product> = ({
       >
         <Image
           src={image}
-          className="w-full hover:h-60 transition-all h-44 object-contain"
+          className="w-full hover:scale-125 transition-transform h-40 object-contain"
           alt={name}
           height={200}
           width={200}
         />
       </CardHeader>
-      <CardBody className="h-50 overflow-hidden">
+      <CardBody className="h-40 overflow-hidden">
         <div className=" flex items-center justify-between mb-2">
           <Typography color="blue-gray" className="font-medium">
             {name}
@@ -53,7 +53,7 @@ const ProductCard: React.FC<Product> = ({
         <Button
           ripple={false}
           fullWidth={true}
-          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white"
+          className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white border border-[#006d54]"
         >
           Agregar al carrito
         </Button>

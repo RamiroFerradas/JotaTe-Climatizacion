@@ -44,7 +44,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
     <Card
       className={`md:relative absolute md:top-0 top-32 left-0 h-auto w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-40 ${
         !openSidebar ? `hidden md:block` : `block`
-      } backdrop-blur-[2px] bg-white/80`}
+      } backdrop-blur-[2px] bg-white/80 h-96 md:w-1/4`}
     >
       <div className="mb-2 p-4 flex justify-between">
         <Typography variant="h5" color="blue-gray">

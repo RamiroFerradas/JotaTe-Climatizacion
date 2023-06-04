@@ -10,7 +10,7 @@ import {
 
 export default function CardSkeleton() {
   return (
-    <Card className="border border-gray-400/50 w-80">
+    <Card className="border border-gray-400/50 w-52">
       <CardHeader
         shadow={false}
         floated={false}
