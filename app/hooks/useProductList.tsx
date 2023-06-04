@@ -11,9 +11,7 @@ export default function useProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
-  const { filteredProducts } = useSelector(
-    (state: { products: Product[] }) => ({ filteredProducts: state.products })
-  );
+  const { filteredProducts } = useSelector((state) => state.products);
 
   useEffect(() => {
     const fetchProductList = async () => {

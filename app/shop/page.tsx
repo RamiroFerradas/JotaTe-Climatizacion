@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { Appbar, CategoriesNav, GridProducts } from "./components";
 import { Sidebar } from "./components/Sidebar";
-import { ThemeProvider } from "@material-tailwind/react";
 import { Provider } from "react-redux";
 import store from "../redux/store";
 

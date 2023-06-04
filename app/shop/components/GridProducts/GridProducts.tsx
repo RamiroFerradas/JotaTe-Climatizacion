@@ -7,8 +7,7 @@ import { useEffect } from "react";
 export type GridProductsProps = {};
 
 const GridProducts: React.FC<GridProductsProps> = () => {
-  const { loading, selectedBrands, setSelectedBrands, products } =
-    useProductList();
+  const { loading, products } = useProductList();
 
   return (
     <div className="flex justify-center min-h-[100vh] md:w-3/4 relative">

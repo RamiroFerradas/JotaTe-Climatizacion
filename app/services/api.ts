@@ -14,7 +14,6 @@ export async function fetchProducts(): Promise<Product[]> {
       Papa.parse(response.data, {
         header: true,
         complete: (results) => {
-          console.log(results);
           resolve(results.data as Product[]);
         },
         error: (error) => reject(error.message),

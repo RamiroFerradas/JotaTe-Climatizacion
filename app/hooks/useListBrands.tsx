@@ -7,9 +7,7 @@ import { Brand } from "../models";
 export default function useListBrands() {
   const dispatch = useDispatch();
 
-  const { allProducts } = useSelector((state: { products: Product[] }) => ({
-    allProducts: state.products,
-  }));
+  const { allProducts } = useSelector((state) => state.products);
 
   const { allBrands } = useSelector(
     (state: { brands: { allBrands: Brand[] } }) => state.brands
