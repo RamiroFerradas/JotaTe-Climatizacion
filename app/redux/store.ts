@@ -4,9 +4,8 @@ import { Product } from "../models/Product";
 import { ProductsState, productsSlice } from "./slices/products";
 import { favoritesSlice } from "./slices/favorites";
 import { BrandssState, brandsSlice } from "./slices/brands";
-import { Brand } from "../models";
 
-interface AppStore {
+export interface AppStore {
   products: ProductsState;
   favorites: Product[];
   brands: BrandssState;

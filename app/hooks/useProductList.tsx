@@ -4,6 +4,7 @@ import { Product } from "../models/Product";
 import { useDispatch } from "react-redux";
 import { addProducts, filterProductsByBrand } from "../redux/slices/products";
 import { useSelector } from "react-redux";
+import { AppStore } from "../redux/store";
 
 export default function useProductList() {
   const dispatch = useDispatch();
@@ -11,7 +12,7 @@ export default function useProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
-  const { filteredProducts } = useSelector((state) => state.products);
+  const { filteredProducts } = useSelector((state: AppStore) => state.products);
 
   useEffect(() => {
     const fetchProductList = async () => {
