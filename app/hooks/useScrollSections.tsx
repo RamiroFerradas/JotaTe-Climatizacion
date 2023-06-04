@@ -30,7 +30,7 @@ const useScrollSections = (): ScrollSectionProps => {
   const handleScrollSection = useCallback(() => {
     sectionRef.current.forEach((section) => {
       const sectionTop = section.offsetTop - 300;
-      if (window.pageYOffset >= sectionTop) {
+      if (window.scrollY >= sectionTop) {
         setSectionActive(section.getAttribute("id") || "");
       }
     });

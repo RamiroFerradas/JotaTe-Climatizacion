@@ -1,6 +1,6 @@
 export type ProductCardProps = {};
 
-import { Products } from "@/app/models/Products";
+import { Product } from "@/app/models/Product";
 import {
   Card,
   CardHeader,
@@ -11,7 +11,7 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 
-const ProductCard: React.FC<Products> = ({
+const ProductCard: React.FC<Product> = ({
   image,
   price,
   description,
@@ -32,8 +32,8 @@ const ProductCard: React.FC<Products> = ({
           width={200}
         />
       </CardHeader>
-      <CardBody>
-        <div className="flex items-center justify-between mb-2">
+      <CardBody className="h-50 overflow-hidden">
+        <div className=" flex items-center justify-between mb-2">
           <Typography color="blue-gray" className="font-medium">
             {name}
           </Typography>

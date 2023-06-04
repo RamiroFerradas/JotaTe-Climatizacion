@@ -20,23 +20,14 @@ import {
   ChevronDownIcon,
   AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/solid";
-import SubMenu from "./SubMenu";
+import { Brands, SubMenu } from "./components";
 
 const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   const [open, setOpen] = useState(0);
 
-  const handleOpen = (value: number) => {
+  const handleOpen = (value: number): void => {
     setOpen(open === value ? 0 : value);
   };
-
-  const brands = [
-    { label: "Asparri" },
-    { label: "Qutral" },
-    { label: "Marca 2" },
-    { label: "Marca 3" },
-    { label: "Marca 4" },
-    { label: "Marca 5" },
-  ];
 
   const sold = [
     { label: "Todos", value: "all" },
@@ -68,60 +59,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
         </Typography>
       </div>
       <List>
-        <Accordion
-          open={open === 1}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 1 ? "rotate-180" : ""
-              }`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 1}>
-            <AccordionHeader
-              onClick={() => handleOpen(1)}
-              className="border-b-0 p-3"
-            >
-              <ListItemPrefix>
-                <AdjustmentsHorizontalIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Marcas
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            <Card>
-              <List>
-                {brands.map((brand, i) => (
-                  <ListItem className="p-0" key={i}>
-                    <label
-                      htmlFor={`vertical-list-${brand.label}`}
-                      className="px-3 py-2 flex items-center w-full cursor-pointer"
-                    >
-                      <ListItemPrefix className="mr-3">
-                        <Checkbox
-                          id={`vertical-list-${brand.label}`}
-                          ripple={false}
-                          color="teal"
-                          className="hover:before:opacity-0"
-                          containerProps={{
-                            className: "p-0",
-                          }}
-                        />
-                      </ListItemPrefix>
-                      <Typography color="blue-gray" className="font-medium">
-                        {brand.label}
-                      </Typography>
-                    </label>
-                  </ListItem>
-                ))}
-              </List>
-            </Card>
-          </AccordionBody>
-        </Accordion>
+        <Brands open={open} handleOpen={handleOpen} />
         <Accordion
           open={open === 2}
           icon={
