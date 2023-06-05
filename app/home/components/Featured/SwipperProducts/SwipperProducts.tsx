@@ -1,5 +1,5 @@
 "use client";
-import { products } from "@/api/producjs";
+// import { products } from "@/api/producjs";
 import Image from "next/image";
 import { useRef, useState } from "react";
 import Slider from "react-slick";
@@ -9,11 +9,16 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
+import { useSelector } from "react-redux";
+import useProductList from "@/app/hooks/useProductList";
+import { parseCurrency } from "@/app/utilities/parseCurrency";
 
 const SwipperProducts = () => {
   const slider = useRef<Slider>(null);
 
   const [isDraggin, setIsDraggin] = useState(false);
+
+  const { products } = useProductList();
 
   return (
     <div className="relative">
@@ -47,14 +52,15 @@ const SwipperProducts = () => {
               <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
                 <Image
                   height={300}
-                  src={prod.item}
+                  width={300}
+                  src={prod.image}
                   alt="asparri"
                   className="object-cover"
                 />
               </div>
               <div>
                 <p className="text-[#f18500] font-black text-2xl">
-                  ${prod.price}
+                  {parseCurrency(Number(prod.price))}
                 </p>
               </div>
             </div>

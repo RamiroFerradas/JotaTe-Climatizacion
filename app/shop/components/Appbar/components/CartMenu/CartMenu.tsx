@@ -25,10 +25,9 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   setShowCartMenu,
 }) => {
   const dispatch = useDispatch();
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const { cart } = useSelector((state: AppStore) => state.cart);
 
-  const phone = `5493492528404`;
+  const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
   const totalPriceCart = parseCurrency(
     cart.reduce((acc: number, product: Product) => {
@@ -63,11 +62,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
     const encodedText = encodeURIComponent(text);
     const url = `https://wa.me/${phone}?text=${encodedText}`;
 
-    setIsSubmitting(true);
-
     window.open(url, "_blank");
-
-    setIsSubmitting(false);
   };
 
   return (
@@ -149,7 +144,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
             >
               Vaciar carrito
             </button>
-            <button disabled={!cart.length || isSubmitting}>
+            <button disabled={!cart.length}>
               <a
                 href="#"
                 onClick={handleOrderClick}

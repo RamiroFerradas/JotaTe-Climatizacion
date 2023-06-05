@@ -56,13 +56,15 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
         <Typography variant="h5" color="blue-gray">
           Menu
         </Typography>
-        <Typography
-          variant="h6"
-          color="blue-gray"
-          onClick={() => setopenSidebar(false)}
-        >
-          x
-        </Typography>
+        <div className="md:hidden">
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            onClick={() => setopenSidebar(false)}
+          >
+            x
+          </Typography>
+        </div>
       </div>
       <List>
         <Brands open={open} handleOpen={handleOpen} />

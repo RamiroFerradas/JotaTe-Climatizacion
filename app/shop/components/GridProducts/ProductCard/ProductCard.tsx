@@ -11,6 +11,7 @@ import {
 import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
+import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
 
 interface ProductCardProps {
   product: Product;
@@ -28,7 +29,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       <CardHeader
         shadow={false}
         floated={false}
-        className="h-32  overflow-hidden flex justify-center items-center"
+        className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
+        onClick={() => {
+          dispatch(selectProduct(product));
+          dispatch(openProductDetails());
+        }}
       >
         <Image
           src={product.image}
@@ -39,12 +44,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         />
       </CardHeader>
       <CardBody className="h-40 overflow-hidden">
-        <div className=" flex items-center justify-between mb-2">
+        <div className=" flex items-center justify-between mb-2 flex-col">
           <Typography color="blue-gray" className="font-medium">
             {product.name}
           </Typography>
           <Typography color="blue-gray" className="font-medium">
-            {Number(product.price.toLocaleString())}
+            {parseCurrency(Number(product.price))}
           </Typography>
         </div>
         <Typography

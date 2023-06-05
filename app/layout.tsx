@@ -14,7 +14,9 @@ export const metadata = {
 };
 
 import { NextPage } from "next";
-type RootLayoutProps = {
+import ReduxProvider from "./redux/reduxProvider";
+
+export type RootLayoutProps = {
   children: React.ReactNode;
 };
 
@@ -22,7 +24,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
+        <ReduxProvider>{children}</ReduxProvider>
         <Footer />
       </body>
     </html>

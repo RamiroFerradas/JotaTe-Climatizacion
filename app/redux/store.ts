@@ -4,17 +4,18 @@ import { Product } from "../models/Product";
 import { ProductsState, productsSlice } from "./slices/products";
 import { favoritesSlice } from "./slices/favorites";
 import { BrandssState, brandsSlice } from "./slices/brands";
-import { CartState, cartSlice } from "./slices/cart";
+import { cartSlice } from "./slices/cart";
+import { ProductState, productSlice } from "./slices/product";
 
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import thunk from "redux-thunk";
 
 export interface AppStore {
   products: ProductsState;
   favorites: Product[];
   brands: BrandssState;
   cart: any;
+  product: ProductState;
 }
 
 const persistConfig = {
@@ -27,11 +28,12 @@ const persistedCartReducer = persistReducer(persistConfig, cartSlice.reducer);
 export const store = configureStore({
   reducer: {
     products: productsSlice.reducer,
+    product: productSlice.reducer,
     favorites: favoritesSlice.reducer,
     brands: brandsSlice.reducer,
     cart: persistedCartReducer,
   },
-  devTools: process.env.NODE_ENV !== "production",
+  // devTools: process.env.NODE_ENV !== "production",
   // middleware: [thunk],
 });
 

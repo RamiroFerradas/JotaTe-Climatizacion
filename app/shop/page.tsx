@@ -6,28 +6,23 @@ import { Provider } from "react-redux";
 import { persistor, store } from "../redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Loading } from "../components";
+import { ProductDetails } from "./components/ProductDetails";
 
 export type EcommerceProps = {};
 
 const Ecommerce: React.FC<EcommerceProps> = () => {
   const [openSidebar, setopenSidebar] = useState(false);
   return (
-    <Provider store={store}>
-      <PersistGate loading={<Loading />} persistor={persistor}>
-        <div>
-          <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
-          <CategoriesNav />
-          <div className="flex justify-center items-start">
-            <Sidebar
-              setopenSidebar={setopenSidebar}
-              openSidebar={openSidebar}
-            />
+    <PersistGate loading={<Loading />} persistor={persistor}>
+      <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
+      <CategoriesNav />
+      <div className="flex justify-center items-start">
+        <Sidebar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
-            <GridProducts />
-          </div>
-        </div>
-      </PersistGate>
-    </Provider>
+        <GridProducts />
+      </div>
+      <ProductDetails />
+    </PersistGate>
   );
 };
 
