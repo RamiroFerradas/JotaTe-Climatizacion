@@ -62,13 +62,13 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
         <DialogBody divider>
           <div className="flex items-center mb-4 flex-col md:flex-row">
-            <div className="md:w-1/2">
+            <div className="md:w-1/2 h-80 overflow-hidden flex justify-center items-center">
               <Image
-                width={400}
-                height={400}
+                width={300}
+                height={100}
                 src={selectedProduct.image}
                 alt={selectedProduct.name}
-                className="mr-8"
+                className="mr-8 object-cover"
               />
             </div>
             <div className="md:w-1/2 h-40 overflow-y-auto">
