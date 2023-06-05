@@ -4,13 +4,13 @@ import { Product } from "../models/Product";
 import { ProductsState, productsSlice } from "./slices/products";
 import { favoritesSlice } from "./slices/favorites";
 import { BrandssState, brandsSlice } from "./slices/brands";
-import { CartItem, cartSlice } from "./slices/cart";
+import { CartState, cartSlice } from "./slices/cart";
 
 export interface AppStore {
   products: ProductsState;
   favorites: Product[];
   brands: BrandssState;
-  cart: CartItem[];
+  cart: CartState;
 }
 
 export default configureStore<AppStore>({
