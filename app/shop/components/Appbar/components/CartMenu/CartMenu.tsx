@@ -87,12 +87,12 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
             cart?.map((product: Product) => (
               <div key={product.id} className="flex items-center p-2">
                 <img
-                  src={product?.image}
+                  src={product.image}
                   className="w-10 h-10 mr-2"
-                  alt={product?.name}
+                  alt={product.name}
                 />
                 <div>
-                  <p className="text-gray-800">{product?.name}</p>
+                  <p className="text-gray-800">{product.name}</p>
                   <p className="text-gray-600 text-sm">
                     {parseCurrency(Number(product.price))}
                   </p>

@@ -48,6 +48,19 @@ export const productsSlice = createSlice({
         );
       }
     },
+    orderByPrice: (state, action) => {
+      const { type } = action.payload;
+
+      if (type === "asc") {
+        state.filteredProducts = [...state.filteredProducts].sort(
+          (a, b) => a.price - b.price
+        );
+      } else if (type === "desc") {
+        state.filteredProducts = [...state.filteredProducts].sort(
+          (a, b) => b.price - a.price
+        );
+      }
+    },
   },
 });
 
@@ -56,5 +69,6 @@ export const {
   filterProductsByBrand,
   searchProducts,
   filterProductsByCategory,
+  orderByPrice,
 } = productsSlice.actions;
 export default productsSlice.reducer;

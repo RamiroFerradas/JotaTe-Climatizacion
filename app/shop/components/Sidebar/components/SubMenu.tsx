@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Typography,
   List,
@@ -22,6 +22,7 @@ interface SubMenuProps {
   identifier: number;
   title: string;
   name: string;
+  handleChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function SubMenu({
@@ -29,6 +30,7 @@ export default function SubMenu({
   identifier,
   title,
   name,
+  handleChange,
 }: SubMenuProps) {
   const [openSubAccordion, setOpenSubAccordion] = useState(0);
   const handleOpenSubAccordion = (value: number) => {
@@ -75,6 +77,7 @@ export default function SubMenu({
                     ripple={false}
                     color="teal"
                     value={value.value}
+                    onChange={handleChange}
                     defaultChecked={value.value === "all"}
                     className="hover:before:opacity-0"
                     containerProps={{

@@ -10,6 +10,7 @@ import {
 } from "@material-tailwind/react";
 import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
+import { parseCurrency } from "@/app/utilities/parseCurrency";
 
 interface ProductCardProps {
   product: Product;
@@ -43,7 +44,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             {product.name}
           </Typography>
           <Typography color="blue-gray" className="font-medium">
-            {product.price}
+            {Number(product.price.toLocaleString())}
           </Typography>
         </div>
         <Typography

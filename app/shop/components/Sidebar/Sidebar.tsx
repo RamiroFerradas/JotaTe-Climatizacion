@@ -4,7 +4,7 @@ export type SidebarProps = {
   openSidebar: boolean;
 };
 
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import {
   Card,
   Typography,
@@ -21,6 +21,8 @@ import {
   AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/solid";
 import { Brands, SubMenu } from "./components";
+import { useDispatch } from "react-redux";
+import { orderByPrice } from "@/app/redux/slices/products";
 
 const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   const [open, setOpen] = useState(0);
@@ -36,10 +38,14 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   ];
   const price = [
     { label: "Todos", value: "all" },
-    { label: "Mayor precio", value: "highPrice" },
-    { label: "Menor precio", value: "lowPrice" },
+    { label: "Mayor precio", value: "asc" },
+    { label: "Menor precio", value: "desc" },
   ];
-
+  const dispatch = useDispatch();
+  const handleOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const type = e.target.value;
+    dispatch(orderByPrice({ type }));
+  };
   return (
     <Card
       className={`md:relative absolute md:top-0 top-32 left-0 h-auto w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-40 ${
@@ -85,17 +91,18 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
             </AccordionHeader>
           </ListItem>
           <AccordionBody className="py-1">
-            <SubMenu
+            {/* <SubMenu
               title="Ordenar por ventas"
               items={sold}
               identifier={1}
               name="orderSales"
-            />
+            /> */}
             <SubMenu
               title="Ordenar por precio"
               items={price}
               identifier={2}
               name="orderPrice"
+              handleChange={handleOrderChange}
             />
           </AccordionBody>
         </Accordion>
