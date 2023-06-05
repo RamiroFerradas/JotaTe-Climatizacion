@@ -94,7 +94,10 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
 
   return (
     showCartMenu && (
-      <div className="min-h-[30%] absolute right-0 top-14 w-96 bg-white shadow-lg rounded-lg">
+      <div
+        className="min-h-[30%] absolute right-0 top-14 w-96 bg-white shadow-lg rounded-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="min-h-[40vh] max-h-[60vh] overflow-auto">
           {!cart.length ? (
             <div className="flex items-center justify-center h-[40vh]">

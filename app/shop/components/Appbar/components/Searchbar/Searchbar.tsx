@@ -9,7 +9,7 @@ const Searchbar: React.FC<SearchbarProps> = () => {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  const handleSearch = () => {
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (isSearching) {
       // Limpiar búsqueda
       dispatch(searchProducts(""));

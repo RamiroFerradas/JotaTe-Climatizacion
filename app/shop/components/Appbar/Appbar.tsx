@@ -13,7 +13,7 @@ import { MdFavorite } from "react-icons/md";
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { CartMenu, Searchbar } from "./components";
+import { CartIcon, CartMenu, Searchbar } from "./components";
 import { useState } from "react";
 import { AppStore } from "@/app/redux/store";
 import { useSelector } from "react-redux";
@@ -66,17 +66,10 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
 
             <p>Favoritos</p>
           </div>
-          <button
-            className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
-            onClick={(e) => {
-              e.stopPropagation();
-              setShowCartMenu(!showCartMenu);
-            }}
-          >
-            <FaShoppingCart />
-
-            <p>Carrito</p>
-          </button>
+          <CartIcon
+            setShowCartMenu={setShowCartMenu}
+            showCartMenu={showCartMenu}
+          />
         </div>
         <CartMenu
           setShowCartMenu={setShowCartMenu}
