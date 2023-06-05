@@ -9,7 +9,7 @@ export interface ProductState {
 const initialProduct: Product = {
   id: "",
   name: "",
-  image: "",
+  image: [],
   description: "",
   price: 0,
   brand: "",

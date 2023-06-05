@@ -52,7 +52,7 @@ const SwipperProducts = () => {
                 <Image
                   height={300}
                   width={300}
-                  src={prod.image}
+                  src={prod.image[0]}
                   alt="asparri"
                   className="object-cover"
                 />

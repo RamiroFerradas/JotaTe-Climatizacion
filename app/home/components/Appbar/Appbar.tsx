@@ -87,9 +87,17 @@ const Appbar: React.FC<NavbarProps> = () => {
       <Collapse open={openNav}>
         <div className="container mx-auto flex justify-center items-center flex-col">
           <Navlist />
-          <Button variant="gradient" size="sm" fullWidth className="mb-2 w-28">
-            <span>Shop</span>
-          </Button>
+          <Link href={"/shop"}>
+            <Button
+              variant="gradient"
+              size="sm"
+              fullWidth
+              className="mb-2 w-28"
+              onClick={() => setOpenNav(false)}
+            >
+              <span>Shop</span>
+            </Button>
+          </Link>
         </div>
       </Collapse>
     </nav>

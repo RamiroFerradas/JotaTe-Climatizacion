@@ -22,12 +22,31 @@ export async function fetchProducts(): Promise<Product[]> {
         complete: (results) => {
           const products = results.data as Product[];
           const filteredProducts = products.filter((product) => product.name);
-          resolve(filteredProducts);
+
+          // Separar las URLs en un array si no están separadas por comas
+          const productsWithMultipleImages = filteredProducts.map(
+            (product: Product) => {
+              let imageUrls: string[];
+              if (Array.isArray(product.image)) {
+                imageUrls = product.image;
+              } else {
+                imageUrls = product.image
+                  .split(",")
+                  .map((url: string) => url.trim());
+              }
+              return {
+                ...product,
+                image: imageUrls,
+              };
+            }
+          );
+
+          resolve(productsWithMultipleImages);
         },
-        error: (error: Error) => reject(error.message),
+        error: (error: Error) => reject(new Error(error.message)),
       });
     });
-  } catch (error: any) {
-    throw new Error(error.message);
+  } catch (error) {
+    throw new Error((error as Error).message);
   }
 }

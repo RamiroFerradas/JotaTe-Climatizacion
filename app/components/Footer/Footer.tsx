@@ -4,6 +4,7 @@ import { BiMailSend, BiPhoneCall } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 
 const Footer: React.FC<FooterProps> = () => {
+  const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   return (
     <section id="footer">
       <div
@@ -20,7 +21,7 @@ const Footer: React.FC<FooterProps> = () => {
         {/* Agregar enlaces a otras redes sociales */}
         <a
           target="_blank"
-          href="https://api.whatsapp.com/send?phone=5493492410583"
+          href={`https://api.whatsapp.com/send?phone=${phone}`}
           rel="noreferrer"
           className="text-[#dbd8d8] hover:text-[#00bb2d]"
         >

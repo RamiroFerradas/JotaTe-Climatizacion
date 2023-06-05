@@ -28,7 +28,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
 
   const { cart, open } = useSelector((state: AppStore) => state.cart);
 
-  const phone = `5493492528404`;
+  const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
   const totalPriceCart = parseCurrency(
     cart.reduce((acc: number, product: Product) => {
@@ -83,7 +83,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
             cart?.map((product: Product) => (
               <div key={product.id} className="flex items-center p-2">
                 <img
-                  src={product.image}
+                  src={product.image[0]}
                   className="w-10 h-10 mr-2"
                   alt={product.name}
                 />

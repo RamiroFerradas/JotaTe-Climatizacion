@@ -48,7 +48,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   };
   return (
     <Card
-      className={`md:relative absolute md:top-0 top-32 left-0 h-auto w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-40 ${
+      className={`md:relative absolute md:top-0 top-32 left-0 h-auto w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-50 ${
         !openSidebar ? `hidden md:block` : `block`
       } backdrop-blur-[2px] bg-white/80 h-96 md:w-1/4`}
     >

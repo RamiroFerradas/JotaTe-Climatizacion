@@ -66,7 +66,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
               <Image
                 width={300}
                 height={100}
-                src={selectedProduct.image}
+                src={selectedProduct.image[0]}
                 alt={selectedProduct.name}
                 className="mr-8 object-cover"
               />
