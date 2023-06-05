@@ -13,11 +13,19 @@ import { MdFavorite } from "react-icons/md";
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { Searchbar } from "./components";
+import { CartMenu, Searchbar } from "./components";
+import { useState } from "react";
+import { AppStore } from "@/app/redux/store";
+import { useSelector } from "react-redux";
 
 const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
+  const [showCartMenu, setShowCartMenu] = useState(false);
+
   return (
-    <Navbar className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8">
+    <Navbar
+      className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8 relative z-50"
+      onClick={() => setShowCartMenu(false)}
+    >
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
         <Link href={"/home"}>
           <Image
@@ -58,14 +66,22 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
 
             <p>Favoritos</p>
           </div>
-          <div
+          <button
             className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowCartMenu(!showCartMenu);
+            }}
           >
             <FaShoppingCart />
 
             <p>Carrito</p>
-          </div>
+          </button>
         </div>
+        <CartMenu
+          setShowCartMenu={setShowCartMenu}
+          showCartMenu={showCartMenu}
+        />
       </div>
     </Navbar>
   );

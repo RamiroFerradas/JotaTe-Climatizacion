@@ -11,7 +11,7 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
   const [openSidebar, setopenSidebar] = useState(false);
   return (
     <Provider store={store}>
-      <div className="overflow-hidden">
+      <div>
         <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
         <CategoriesNav />
         <div className="flex w-screen justify-center items-start">

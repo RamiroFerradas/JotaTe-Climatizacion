@@ -13,7 +13,6 @@ export const brandsSlice = createSlice({
   initialState,
   reducers: {
     addBrands: (state, action) => {
-      // console.log(action.payload)
       state.allBrands = action.payload;
     },
   },

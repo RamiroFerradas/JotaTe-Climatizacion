@@ -39,7 +39,7 @@ export const productsSlice = createSlice({
     },
     filterProductsByCategory: (state, action) => {
       const categoryToFilter = action.payload;
-      console.log(categoryToFilter);
+
       if (categoryToFilter === "Todos") {
         state.filteredProducts = state.allProducts;
       } else {

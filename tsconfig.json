@@ -29,7 +29,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/main.js",
-    "app/app.tsx"
+    "app/app.tsx",
+    "app/shop/components/Appbar/components/CartMenu/CartMenu.tsx"
   ],
   "exclude": ["node_modules"]
 }
