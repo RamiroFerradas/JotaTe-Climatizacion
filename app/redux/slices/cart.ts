@@ -30,21 +30,12 @@ export const cartSlice = createSlice({
       }
     },
 
-    removeFromCart: (state, action: PayloadAction<string>) => {
-      const productId = action.payload;
-      const existingProductIndex = state.cart.findIndex(
-        (item) => item.id === productId
+    removeFromCart: (state, action) => {
+      const productIdToRemove = action.payload;
+      state.cart = state.cart.filter(
+        (product) => product.id !== productIdToRemove
       );
-      if (existingProductIndex !== -1) {
-        const existingProduct = state.cart[existingProductIndex];
-        if (existingProduct.quantity === 1) {
-          state.cart.splice(existingProductIndex, 1);
-        } else {
-          existingProduct.quantity -= 1;
-        }
-      }
     },
-
     decrementQuantityCart: (state, action: PayloadAction<string>) => {
       const productId = action.payload;
       const existingProduct = state.cart.find((item) => item.id === productId);

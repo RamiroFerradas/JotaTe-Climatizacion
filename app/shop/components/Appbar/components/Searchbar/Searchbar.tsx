@@ -9,7 +9,9 @@ const Searchbar: React.FC<SearchbarProps> = () => {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  const handleSearch = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     if (isSearching) {
       // Limpiar búsqueda
       dispatch(searchProducts(""));
@@ -23,7 +25,7 @@ const Searchbar: React.FC<SearchbarProps> = () => {
   };
 
   return (
-    <div className="flex relative gap-10 flex-row">
+    <form className="flex relative gap-10 flex-row" onSubmit={handleSubmit}>
       <Input
         type="input"
         label="Buscar producto"
@@ -38,13 +40,13 @@ const Searchbar: React.FC<SearchbarProps> = () => {
 
       <Button
         size="sm"
+        type="submit"
         className="!absolute right-1 top-1 rounded bg-[#006d54] border border-[#006d54]"
         color="green"
-        onClick={handleSearch}
       >
         {isSearching ? "Limpiar" : "Buscar"}
       </Button>
-    </div>
+    </form>
   );
 };
 

@@ -23,9 +23,16 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   showCartMenu,
   setShowCartMenu,
 }) => {
-  const totalPriceCart = 99;
-
   const { cart } = useSelector((state: AppStore) => state.cart);
+
+  const totalPriceCart = cart
+    .reduce((acc, product) => {
+      if (product.quantity && product.price) {
+        return acc + product.quantity * product.price;
+      }
+      return acc;
+    }, 0)
+    .toLocaleString();
 
   // const handlePay = () => {
   //   !isAuthenticated
@@ -145,7 +152,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
                 </div>
                 <div className="flex items-end gap-2 ml-4">
                   <button
-                    onClick={() => handleRemoveFromCart(product)}
+                    onClick={() => dispatch(removeFromCart(product.id))}
                     className={` text-white px-2 py-2 rounded-md bg-red-500 hover:bg-red-800 focus:outline-none focus:bg-gray-700 `}
                   >
                     <BsFillCartXFill className="text-gray-200 text-lg" />
@@ -159,7 +166,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
         <div className="border-t border-gray-700/50">
           <div className="flex justify-between p-2">
             <p className="text-gray-800 font-bold">Total:</p>
-            <p className="text-gray-800 font-bold">{totalPriceCart}</p>
+            <p className="text-gray-800 font-bold">${totalPriceCart}</p>
           </div>
           <div className="p-2 flex justify-center gap-4">
             <button

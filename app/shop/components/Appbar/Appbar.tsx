@@ -3,11 +3,10 @@ export type AppbarProps = {
   setopenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   openSidebar: boolean;
 };
-import { Navbar, Button, Input, IconButton } from "@material-tailwind/react";
+import { Navbar } from "@material-tailwind/react";
 import Image from "next/image";
-// import { BellIcon, Cog6ToothIcon } from "@heroicons/react/24/solid";
 
-import { FaShoppingCart, FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
 import { MdFavorite } from "react-icons/md";
 
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
@@ -15,8 +14,6 @@ import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { CartIcon, CartMenu, Searchbar } from "./components";
 import { useState } from "react";
-import { AppStore } from "@/app/redux/store";
-import { useSelector } from "react-redux";
 
 const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
   const [showCartMenu, setShowCartMenu] = useState(false);
@@ -52,7 +49,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
         </div>
 
         <div className="md:gap-6 gap-3 text-gray-600 flex justify-center items-center order-2 md:order-3">
-          <div
+          {/* <div
             className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
           >
             <FaUser />
@@ -65,7 +62,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
             <MdFavorite />
 
             <p>Favoritos</p>
-          </div>
+          </div> */}
           <CartIcon
             setShowCartMenu={setShowCartMenu}
             showCartMenu={showCartMenu}
