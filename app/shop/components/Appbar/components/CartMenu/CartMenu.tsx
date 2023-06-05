@@ -7,8 +7,9 @@ import {
 } from "@/app/redux/slices/cart";
 
 import { AppStore } from "@/app/redux/store";
+import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { Typography } from "@material-tailwind/react";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useMemo, useState } from "react";
 // import Swal from "sweetalert2";
 import { BsDash, BsFillCartXFill, BsPlus } from "react-icons/bs";
 import { useSelector } from "react-redux";
@@ -23,80 +24,49 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   showCartMenu,
   setShowCartMenu,
 }) => {
+  const dispatch = useDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const { cart } = useSelector((state: AppStore) => state.cart);
 
-  const totalPriceCart = cart
-    .reduce((acc, product) => {
+  const phone = `5493492528404`;
+
+  const totalPriceCart = parseCurrency(
+    cart.reduce((acc, product) => {
       if (product.quantity && product.price) {
         return acc + product.quantity * product.price;
       }
       return acc;
     }, 0)
-    .toLocaleString();
+  );
 
-  // const handlePay = () => {
-  //   !isAuthenticated
-  //     ? loginWithRedirect()
-  //     : Swal.fire({
-  //         title: "Realizar el pago",
-  //         text: `Desea realizar el pago por $${totalPriceCart}?`,
-  //         icon: "warning",
-  //         showCancelButton: true,
-  //         confirmButtonColor: "##3B82F6",
-  //         cancelButtonColor: "#d33",
-  //         confirmButtonText: "Pagar",
-  //         cancelButtonText: "Cancelar",
-  //       }).then((result) => {
-  //         if (result.isConfirmed) {
-  //           // Swal.fire("Deleted!", "Your file has been deleted.", "success");
-  //           let timerInterval: NodeJS.Timeout;
-  //           Swal.fire({
-  //             title: "Procesando pago",
-  //             // html: "I will close in <b></b> milliseconds.",
-  //             text: "Aguarde por favor",
-  //             timer: 2000,
-  //             timerProgressBar: true,
-  //             didOpen: () => {
-  //               Swal.showLoading();
-  //               const b = Swal.getHtmlContainer().querySelector("b");
-  //               timerInterval = setInterval(() => {
-  //                 if (b) {
-  //                   b.textContent = Swal.getTimerLeft().toString();
-  //                 }
-  //               }, 100);
-  //             },
-  //             willClose: () => {
-  //               clearInterval(timerInterval);
-  //             },
-  //           }).then((result) => {
-  //             /* Read more about handling dismissals below */
-  //             if (result.dismiss === Swal.DismissReason.timer) {
-  //               handleClearCart();
-  //               setShowCartMenu(false);
-  //               Swal.fire({
-  //                 icon: "success",
-  //                 title: "Pago realizado con éxito",
-  //                 showConfirmButton: false,
-  //                 timer: 1500,
-  //               });
-  //             }
-  //           });
-  //         }
-  //       });
-  // };
+  const text = useMemo(() => {
+    const introText =
+      "¡Hola! Estoy interesado/a en los siguientes productos:\n\n";
+    const productText = cart.reduce(
+      (message, product) =>
+        message.concat(
+          `- ${product.name} (${product.quantity} unidades) - $${
+            product.price * product.quantity
+          }\n`
+        ),
+      ""
+    );
+    const totalText = `El total es: $${totalPriceCart}`;
 
-  const dispatch = useDispatch();
+    return introText + productText + "\n" + totalText;
+  }, [cart, totalPriceCart]);
 
-  const handleRemoveFromCart = (product: Product) => {
-    dispatch(removeFromCart(product.id));
-  };
+  const handleOrderClick = () => {
+    if (!cart.length) return;
 
-  const handleAddToCart = (product: Product) => {
-    dispatch(addToCart(product));
-  };
+    const encodedText = encodeURIComponent(text);
+    const url = `https://wa.me/${phone}?text=${encodedText}`;
 
-  const handleClearCart = () => {
-    dispatch(clearCart());
+    setIsSubmitting(true);
+
+    window.open(url, "_blank");
+
+    setIsSubmitting(false);
   };
 
   return (
@@ -122,7 +92,9 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
                 />
                 <div>
                   <p className="text-gray-800">{product?.name}</p>
-                  <p className="text-gray-600 text-sm">{product?.price}</p>
+                  <p className="text-gray-600 text-sm">
+                    {parseCurrency(Number(product.price))}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2 ml-auto">
                   <button
@@ -166,22 +138,24 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
         <div className="border-t border-gray-700/50">
           <div className="flex justify-between p-2">
             <p className="text-gray-800 font-bold">Total:</p>
-            <p className="text-gray-800 font-bold">${totalPriceCart}</p>
+            <p className="text-gray-800 font-bold">{totalPriceCart}</p>
           </div>
           <div className="p-2 flex justify-center gap-4">
             <button
               disabled={!cart.length}
-              onClick={handleClearCart}
+              onClick={() => dispatch(clearCart())}
               className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 mr-2 disabled:bg-gray-500"
             >
               Vaciar carrito
             </button>
-            <button
-              disabled={!cart.length}
-              // onClick={() => handlePay()}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
-            >
-              Pagar
+            <button disabled={!cart.length || isSubmitting}>
+              <a
+                href="#"
+                onClick={handleOrderClick}
+                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+              >
+                Completar pedido
+              </a>
             </button>
           </div>
         </div>
