@@ -31,7 +31,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   const phone = `5493492528404`;
 
   const totalPriceCart = parseCurrency(
-    cart.reduce((acc, product) => {
+    cart.reduce((acc: number, product: Product) => {
       if (product.quantity && product.price) {
         return acc + product.quantity * product.price;
       }
@@ -43,18 +43,19 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
     const introText =
       "¡Hola! Estoy interesado/a en los siguientes productos:\n\n";
     const productText = cart.reduce(
-      (message, product) =>
+      (message: string, product: Product) =>
         message.concat(
-          `- ${product.name} (${product.quantity} unidades) - $${
-            product.price * product.quantity
+          `- ${product.name} (${product.quantity ?? 0} unidades) - $${
+            product.price * (product.quantity ?? 0)
           }\n`
         ),
       ""
     );
-    const totalText = `El total es: $${totalPriceCart}`;
+
+    const totalText = `El total es: ${totalPriceCart}`;
 
     return introText + productText + "\n" + totalText;
-  }, [cart, totalPriceCart]);
+  }, [cart]);
 
   const handleOrderClick = () => {
     if (!cart.length) return;
