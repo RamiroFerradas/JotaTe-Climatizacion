@@ -27,7 +27,7 @@ export default function CardSkeleton() {
       </CardBody>
       <CardFooter className="pt-0">
         <div className="flex items-center justify-center">
-          <div className="animate-pulse bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white rounded-full px-6 py-2">
+          <div className="animate-pulse bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100  hover:text-white rounded-full px-6 py-2">
             <span className="opacity-0">Agregar al carrito</span>
           </div>
         </div>

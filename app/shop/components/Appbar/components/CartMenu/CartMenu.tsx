@@ -25,9 +25,10 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   setShowCartMenu,
 }) => {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state: AppStore) => state.cart);
 
-  const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
+  const { cart, open } = useSelector((state: AppStore) => state.cart);
+
+  const phone = `5493492528404`;
 
   const totalPriceCart = parseCurrency(
     cart.reduce((acc: number, product: Product) => {
@@ -66,7 +67,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
   };
 
   return (
-    showCartMenu && (
+    open && (
       <div
         className="min-h-[30%] absolute right-0 top-14 w-96 bg-white shadow-lg rounded-lg"
         onClick={(e) => e.stopPropagation()}
@@ -144,14 +145,11 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
             >
               Vaciar carrito
             </button>
-            <button disabled={!cart.length}>
-              <a
-                href="#"
-                onClick={handleOrderClick}
-                className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
-              >
-                Completar pedido
-              </a>
+            <button
+              disabled={!cart.length}
+              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+            >
+              <span onClick={handleOrderClick}>Completar pedido</span>
             </button>
           </div>
         </div>

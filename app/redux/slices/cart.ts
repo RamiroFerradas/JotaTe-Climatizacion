@@ -48,11 +48,11 @@ export const cartSlice = createSlice({
       state.cart = [];
     },
 
-    openCart: (state, action) => {
-      return {
-        ...state,
-        open: action.payload,
-      };
+    openMenuCart: (state) => {
+      state.open = true;
+    },
+    closeMenuCart: (state) => {
+      state.open = false;
     },
   },
 });
@@ -62,7 +62,8 @@ export const {
   removeFromCart,
   clearCart,
   decrementQuantityCart,
-  openCart,
+  openMenuCart,
+  closeMenuCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

@@ -9,7 +9,6 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
-import { useSelector } from "react-redux";
 import useProductList from "@/app/hooks/useProductList";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 

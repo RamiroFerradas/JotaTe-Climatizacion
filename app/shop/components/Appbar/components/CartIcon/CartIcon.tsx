@@ -1,6 +1,8 @@
+import { closeMenuCart, openMenuCart } from "@/app/redux/slices/cart";
 import { AppStore } from "@/app/redux/store";
 import { Dispatch, SetStateAction } from "react";
 import { FaShoppingCart } from "react-icons/fa";
+import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 export type CartIconProps = {
@@ -12,13 +14,15 @@ const CartIcon: React.FC<CartIconProps> = ({
   setShowCartMenu,
   showCartMenu,
 }) => {
-  const { cart } = useSelector((state: AppStore) => state.cart);
+  const { cart, open } = useSelector((state: AppStore) => state.cart);
+
+  const dispatch = useDispatch();
 
   return (
     <div
       onClick={(e) => {
         e.stopPropagation();
-        setShowCartMenu(!showCartMenu);
+        !open ? dispatch(openMenuCart()) : dispatch(closeMenuCart());
       }}
       className="relative inline-block mt-1 cursor-pointer mr-5"
     >

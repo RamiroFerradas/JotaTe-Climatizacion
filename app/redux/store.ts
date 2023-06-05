@@ -7,7 +7,17 @@ import { BrandssState, brandsSlice } from "./slices/brands";
 import { cartSlice } from "./slices/cart";
 import { ProductState, productSlice } from "./slices/product";
 
-import { persistStore, persistReducer } from "redux-persist";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
+
 import storage from "redux-persist/lib/storage";
 
 export interface AppStore {
@@ -21,6 +31,7 @@ export interface AppStore {
 const persistConfig = {
   key: "cart",
   storage,
+  version: 1,
 };
 
 const persistedCartReducer = persistReducer(persistConfig, cartSlice.reducer);
@@ -33,8 +44,13 @@ export const store = configureStore({
     brands: brandsSlice.reducer,
     cart: persistedCartReducer,
   },
-  // devTools: process.env.NODE_ENV !== "production",
-  // middleware: [thunk],
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
