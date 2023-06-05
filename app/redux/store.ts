@@ -7,6 +7,8 @@ import { BrandssState, brandsSlice } from "./slices/brands";
 import { cartSlice } from "./slices/cart";
 import { ProductState, productSlice } from "./slices/product";
 
+import storage from "./storage";
+
 import {
   persistStore,
   persistReducer,
@@ -17,8 +19,6 @@ import {
   PURGE,
   REGISTER,
 } from "redux-persist";
-
-import storage from "redux-persist/lib/storage";
 
 export interface AppStore {
   products: ProductsState;
