@@ -24,28 +24,30 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   const [categoryActive, setCategoryActive] = useState("Climatizacion");
 
   return (
-    <nav className="bg-[#006d54] h-16 flex justify-center items-center gap-5 w-full overflow-x-auto text-center">
-      {categories.map(({ value }, i) => (
-        <button
-          className={`md:w-28`}
-          onClick={() => {
-            setCategoryActive(value);
-            dispatch(filterProductsByCategory(value));
-          }}
-          key={i}
-        >
-          <span
+    <nav className="bg-[#006d54] h-16 flex items-center w-full overflow-x-auto text-center px-4 md:justify-center">
+      <div className="flex gap-5 ">
+        {categories.map(({ value }, i) => (
+          <button
+            className={`md:w-28`}
+            onClick={() => {
+              setCategoryActive(value);
+              dispatch(filterProductsByCategory(value));
+            }}
             key={i}
-            className={`${
-              value === categoryActive
-                ? `text-[#ff6e25] font-black text-lg cursor-pointer`
-                : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black hover:text-lg`
-            }`}
           >
-            {value}
-          </span>
-        </button>
-      ))}
+            <span
+              key={i}
+              className={`${
+                value === categoryActive
+                  ? `text-[#ff6e25] font-black text-lg cursor-pointer`
+                  : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black hover:text-lg`
+              }`}
+            >
+              {value}
+            </span>
+          </button>
+        ))}
+      </div>
     </nav>
   );
 };
