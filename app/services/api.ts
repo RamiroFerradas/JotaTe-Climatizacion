@@ -10,7 +10,8 @@ if (!DB_URL) {
 export async function fetchProducts(): Promise<Product[]> {
   try {
     const response = await fetch(DB_URL, {
-      next: { revalidate: 1000 },
+      next: { revalidate: 10 },
+      cache: "force-cache",
     });
     const blob = await response.blob();
     const text = await new Response(blob).text();
