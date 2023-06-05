@@ -13,7 +13,7 @@ export const metadata = {
   description: "Climatizacion ecologica",
 };
 
-import { NextPage } from "next";
+import { GetStaticProps, NextPage } from "next";
 import ReduxProvider from "./redux/reduxProvider";
 
 export type RootLayoutProps = {

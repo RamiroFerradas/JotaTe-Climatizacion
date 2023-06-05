@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Product } from "../models/Product";
 import Papa from "papaparse";
 
@@ -10,21 +9,24 @@ if (!DB_URL) {
 
 export async function fetchProducts(): Promise<Product[]> {
   try {
-    const response = await axios.get(DB_URL, {
-      responseType: "blob",
+    const response = await fetch(DB_URL, {
+      next: { revalidate: 1000 },
     });
+    const blob = await response.blob();
+    const text = await new Response(blob).text();
+
     return new Promise<Product[]>((resolve, reject) => {
-      Papa.parse(response.data, {
+      Papa.parse(text, {
         header: true,
         complete: (results) => {
           const products = results.data as Product[];
           const filteredProducts = products.filter((product) => product.name);
           resolve(filteredProducts);
         },
-        error: (error) => reject(error.message),
+        error: (error: Error) => reject(error.message),
       });
     });
-  } catch (error: unknown) {
-    throw new Error((error as Error).message);
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
