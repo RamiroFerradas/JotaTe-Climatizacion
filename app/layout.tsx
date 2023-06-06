@@ -9,8 +9,8 @@ const myFont = localFont({
 });
 
 export const metadata = {
-  title: "Jota Te Climatizacion",
-  description: "Climatizacion ecologica",
+  title: "Jotaté Climatización",
+  description: "Climatización Ecológica",
 };
 
 import { GetStaticProps, NextPage } from "next";

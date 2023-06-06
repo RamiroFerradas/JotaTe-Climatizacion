@@ -25,7 +25,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Card className="border border-gray-400/50 md:w-60 w-80 flex gap-2 relative z-40">
+    <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2 relative z-40">
       <CardHeader
         shadow={false}
         floated={false}

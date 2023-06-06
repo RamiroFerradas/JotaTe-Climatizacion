@@ -18,7 +18,7 @@ const Footer: React.FC<FooterProps> = () => {
         >
           <BsInstagram />
         </a>
-        {/* Agregar enlaces a otras redes sociales */}
+
         <a
           target="_blank"
           href={`https://api.whatsapp.com/send?phone=${phone}`}
@@ -57,10 +57,13 @@ const Footer: React.FC<FooterProps> = () => {
         className={`flex flex-col justify-center items-center text-white bg-[#212121] py-5`}
       >
         <p className="text-[#dbd8d8] ml-4">
-          Horario de atención: Lunes a viernes de 9:00 AM a 6:00 PM
+          Horario de atención: Lunes a viernes de 8:30 AM a 12:00 PM y de 4:00
+          PM a 8:00 PM, sábados de 9:00 AM a 1:00 PM.
         </p>
+
         <p>
-          {`© Derechos de autor Jota Te Climatización. Todos los derechos reservados. Diseñado por `}
+          © Derechos de autor Jota Te Climatización. Todos los derechos
+          reservados. Diseñado y desarrollado por
           <a
             href="https://www.linkedin.com/in/ramiro-ferradas/"
             target="_blank"
