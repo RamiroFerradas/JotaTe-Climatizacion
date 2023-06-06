@@ -19,7 +19,12 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
 
   return (
     <PersistGate loading={<Loading />} persistor={persistor}>
-      <main onClick={() => dispatch(closeMenuCart())}>
+      <main
+        onClick={() => {
+          dispatch(closeMenuCart());
+          setopenSidebar(false);
+        }}
+      >
         <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
         <CategoriesNav />
         <div className="flex justify-center items-start">

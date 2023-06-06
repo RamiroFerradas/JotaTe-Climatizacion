@@ -28,6 +28,18 @@ module.exports = withMT({
       xxs: "280px",
       xs: "410px",
     },
+    carousel: {
+      styles: {
+        base: {
+          carousel: {
+            display: "flex",
+          },
+          arrow: {
+            color: "red", // Cambia el color de las flechas aquí
+          },
+        },
+      },
+    },
   },
   plugins: [],
 });

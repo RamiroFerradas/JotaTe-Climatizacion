@@ -1,6 +1,6 @@
 export interface Product {
   name: string;
-  image: string | string[];
+  image: string[];
   price: number;
   description: string;
   id: string;
