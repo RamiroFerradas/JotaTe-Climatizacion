@@ -41,7 +41,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
               setopenSidebar(!openSidebar);
             }}
             // size="sm"
-            className="rounded bg-[#006d54] border border-[#006d54] overflow-hidden md:hidden w-8 flex items-center justify-center h-9 text-white"
+            className="rounded bg-[#006d54] border border-[#006d54] overflow-hidden md:hidden w-10 flex items-center justify-center h-9 text-white mr-2"
             color="green"
           >
             <AdjustmentsHorizontalIcon className="h-5 w-5" />
