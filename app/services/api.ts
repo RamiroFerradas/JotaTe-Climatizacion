@@ -27,13 +27,17 @@ export async function fetchProducts(): Promise<Product[]> {
           const productsWithMultipleImages = filteredProducts.map(
             (product: Product) => {
               let imageUrls: string[];
+
               if (Array.isArray(product.image)) {
                 imageUrls = product.image;
-              } else {
+              } else if (typeof product.image === "string") {
                 imageUrls = product.image
                   .split(",")
                   .map((url: string) => url.trim());
+              } else {
+                imageUrls = [];
               }
+
               return {
                 ...product,
                 image: imageUrls,
