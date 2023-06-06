@@ -6,9 +6,6 @@ export type AppbarProps = {
 import { Navbar } from "@material-tailwind/react";
 import Image from "next/image";
 
-import { FaUser } from "react-icons/fa";
-import { MdFavorite } from "react-icons/md";
-
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
@@ -39,7 +36,10 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
         </div>
         <div className="md:hidden flex md:w-max xs:order-4 md:order-4 justify-center items-center gap-2 flex-wrap order-3">
           <button
-            onClick={() => setopenSidebar(!openSidebar)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setopenSidebar(!openSidebar);
+            }}
             // size="sm"
             className="rounded bg-[#006d54] border border-[#006d54] overflow-hidden md:hidden w-8 flex items-center justify-center h-9 text-white"
             color="green"
@@ -64,7 +64,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
             <p>Favoritos</p>
           </div> */}
           <CartIcon
-            setShowCartMenu={setShowCartMenu}
+            setopenSidebar={setopenSidebar}
             showCartMenu={showCartMenu}
           />
         </div>

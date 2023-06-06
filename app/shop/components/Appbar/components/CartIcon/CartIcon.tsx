@@ -6,14 +6,11 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
 export type CartIconProps = {
-  setShowCartMenu: Dispatch<SetStateAction<boolean>>;
+  setopenSidebar: Dispatch<SetStateAction<boolean>>;
   showCartMenu: any;
 };
 
-const CartIcon: React.FC<CartIconProps> = ({
-  setShowCartMenu,
-  showCartMenu,
-}) => {
+const CartIcon: React.FC<CartIconProps> = ({ setopenSidebar }) => {
   const { cart, open } = useSelector((state: AppStore) => state.cart);
 
   const dispatch = useDispatch();
@@ -23,6 +20,7 @@ const CartIcon: React.FC<CartIconProps> = ({
       onClick={(e) => {
         e.stopPropagation();
         !open ? dispatch(openMenuCart()) : dispatch(closeMenuCart());
+        setopenSidebar(false);
       }}
       className="relative inline-block mt-1 cursor-pointer mr-5"
     >
