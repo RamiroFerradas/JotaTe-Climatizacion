@@ -19,6 +19,7 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
 
   return (
     <PersistGate loading={<Loading />} persistor={persistor}>
+      <ProductDetails />
       <main
         onClick={() => {
           dispatch(closeMenuCart());
@@ -32,7 +33,6 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
 
           <GridProducts />
         </div>
-        <ProductDetails />
       </main>
     </PersistGate>
   );

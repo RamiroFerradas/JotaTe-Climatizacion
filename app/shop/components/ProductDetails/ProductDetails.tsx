@@ -3,25 +3,20 @@ import {
   Button,
   Dialog,
   DialogHeader,
-  DialogBody,
   DialogFooter,
   Typography,
-  Carousel,
-  IconButton,
 } from "@material-tailwind/react";
-import { FaCartPlus, FaShoppingCart } from "react-icons/fa";
+import { FaCartPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { AppStore } from "@/app/redux/store";
-import product, { closeProductDetails } from "@/app/redux/slices/product";
+import { closeProductDetails } from "@/app/redux/slices/product";
 import { useDispatch } from "react-redux";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
-import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
-import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 import { IoIosCloseCircleOutline } from "react-icons/io";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { BsWhatsapp } from "react-icons/bs";
 import { ImagesProduct } from "./ImagesProduct";
+import { useParams } from "next/navigation";
 
 interface ProductDetailsProps {}
 
@@ -34,21 +29,21 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
   const dispatch = useDispatch();
 
+  const { id } = useParams();
+  console.log(id);
+
   const text = useMemo(() => {
     const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
     const productText = `${selectedProduct.name} - ${parseCurrency(
       Number(selectedProduct.price)
     )}\n`;
-
     return introText + productText;
   }, [selectedProduct]);
 
   const handleOrderClick = () => {
     if (!selectedProduct) return;
-
     const encodedText = encodeURIComponent(text);
     const url = `https://wa.me/${phone}?text=${encodedText}`;
-
     window.open(url, "_blank");
   };
   return (

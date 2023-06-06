@@ -12,6 +12,7 @@ import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
+import Link from "next/link";
 
 interface ProductCardProps {
   product: Product;
