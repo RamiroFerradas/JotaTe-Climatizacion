@@ -62,8 +62,7 @@ const Footer: React.FC<FooterProps> = () => {
         </p>
 
         <p>
-          © Derechos de autor Jota Te Climatización. Todos los derechos
-          reservados. Diseñado y desarrollado por
+          {`© Derechos de autor Jotaté Climatización. Todos los derechos reservados. Diseñado y desarrollado por `}
           <a
             href="https://www.linkedin.com/in/ramiro-ferradas/"
             target="_blank"
