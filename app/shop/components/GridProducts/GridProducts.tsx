@@ -14,9 +14,9 @@ const GridProducts: React.FC<GridProductsProps> = () => {
       {loading
         ? Array.from({ length: 8 }).map((_, i) => <CardSkeleton key={i} />)
         : products.map((prod) => <ProductCard key={prod.id} product={prod} />)}
-      <Stack spacing={2}>
+      {/* <Stack spacing={2}>
         <Pagination count={11} defaultPage={6} siblingCount={0} />
-        <Pagination count={11} defaultPage={6} /> {/* Default ranges */}
+        <Pagination count={11} defaultPage={6} /> 
         <Pagination
           count={11}
           defaultPage={6}
@@ -24,7 +24,7 @@ const GridProducts: React.FC<GridProductsProps> = () => {
           boundaryCount={2}
         />
         <Pagination count={11} defaultPage={6} boundaryCount={2} />
-      </Stack>
+      </Stack> */}
     </div>
   );
 };
