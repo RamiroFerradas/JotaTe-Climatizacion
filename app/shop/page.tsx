@@ -9,6 +9,7 @@ import { ProductDetails } from "./components/ProductDetails";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
+import { Pagination, Stack } from "@mui/material";
 
 export type EcommerceProps = {};
 
@@ -35,10 +36,17 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
       >
         <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
         <CategoriesNav />
-        <div className="flex justify-center items-start relative">
-          <Sidebar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
-          <GridProducts />
+        <div className="flex justify-center items-start relative">
+          <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full p-4">
+            <Sidebar
+              setopenSidebar={setopenSidebar}
+              openSidebar={openSidebar}
+            />
+          </div>
+          <div className="md:w-3/4 ">
+            <GridProducts />
+          </div>
         </div>
       </main>
     </PersistGate>

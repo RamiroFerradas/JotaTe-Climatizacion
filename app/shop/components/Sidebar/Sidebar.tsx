@@ -43,14 +43,16 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   ];
   const dispatch = useDispatch();
   const handleOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
     const type = e.target.value;
     dispatch(orderByPrice({ type }));
   };
   return (
     <Card
-      className={`absolute md:top-0 left-0 w-56 max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-50 backdrop-blur-[2px] bg-white/80 md:w-1/4 md:sticky h-full ${
+      className={`shadow-xl shadow-blue-gray-900/5 z-50 backdrop-blur-[2px] bg-white/80 h-full ${
         !openSidebar ? `hidden md:block` : `block`
-      } `}
+      }`}
+      onClick={(e) => e.stopPropagation()}
     >
       {/* className=
       {`absolute left-0 h-full w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5 z-50 ${
