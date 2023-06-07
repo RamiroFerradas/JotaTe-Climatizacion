@@ -9,6 +9,9 @@ export type ImagesProductProps = {
 };
 
 const ImagesProduct: React.FC<ImagesProductProps> = ({ selectedProduct }) => {
+  const images = selectedProduct.image;
+  const imagesLengthCondition = images.length > 1;
+
   return (
     <DialogBody divider>
       <div className="flex items-center flex-col md:flex-row">
@@ -18,17 +21,20 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ selectedProduct }) => {
             className="rounded-xl overflow-hidden"
             navigation={({ setActiveIndex, activeIndex, length }) => (
               <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2">
-                {new Array(length).fill("").map((_, i) => (
-                  <span
-                    key={i}
-                    className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                      activeIndex === i
-                        ? "bg-teal-500 w-8"
-                        : "bg-teal-500/50 w-4"
-                    }`}
-                    onClick={() => setActiveIndex(i)}
-                  />
-                ))}
+                {images.length > 1 &&
+                  new Array(length)
+                    .fill("")
+                    .map((_, i) => (
+                      <span
+                        key={i}
+                        className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                          activeIndex === i
+                            ? "bg-teal-500 w-8"
+                            : "bg-teal-500/50 w-4"
+                        }`}
+                        onClick={() => setActiveIndex(i)}
+                      />
+                    ))}
               </div>
             )}
             prevArrow={({ handlePrev }) => (
@@ -37,7 +43,9 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ selectedProduct }) => {
                 color="teal"
                 size="lg"
                 onClick={handlePrev}
-                className="!absolute top-2/4 -translate-y-2/4 left-4"
+                className={`${
+                  !imagesLengthCondition && `hidden`
+                } !absolute top-2/4 -translate-y-2/4 left-4`}
               >
                 <ChevronLeftIcon strokeWidth={10} className="w-10 h-10" />
               </IconButton>
@@ -48,13 +56,15 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({ selectedProduct }) => {
                 color="teal"
                 size="lg"
                 onClick={handleNext}
-                className="!absolute top-2/4 -translate-y-2/4 !right-4"
+                className={`${
+                  !imagesLengthCondition && `hidden`
+                } !absolute top-2/4 -translate-y-2/4 !right-4`}
               >
                 <ChevronRightIcon strokeWidth={2} className="w-10 h-10" />
               </IconButton>
             )}
           >
-            {selectedProduct.image.map((img: string, i: number) => (
+            {images.map((img: string, i: number) => (
               <div key={i} className="flex items-center justify-center h-full">
                 <Image
                   width={300}

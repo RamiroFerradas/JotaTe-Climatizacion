@@ -12,7 +12,10 @@ import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
-import Link from "next/link";
+import toast from "react-hot-toast";
+import { BaseSyntheticEvent } from "react";
+import { FaCartPlus, FaShoppingCart } from "react-icons/fa";
+import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 
 interface ProductCardProps {
   product: Product;
@@ -21,8 +24,10 @@ interface ProductCardProps {
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (event: BaseSyntheticEvent) => {
+    event.stopPropagation();
     dispatch(addToCart(product));
+    toastAddToCart();
   };
 
   return (
@@ -66,10 +71,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           ripple={false}
           fullWidth={true}
           className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white border border-[#006d54]"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleAddToCart();
-          }}
+          onClick={(e) => handleAddToCart(e)}
         >
           Agregar al carrito
         </Button>

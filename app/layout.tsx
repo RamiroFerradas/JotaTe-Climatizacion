@@ -1,7 +1,9 @@
 import "./tailwind.globals.css";
 import { Inter, Nunito, Roboto, Rubik } from "next/font/google";
+import ReduxProvider from "./redux/reduxProvider";
 import localFont from "next/font/local";
 import { Footer } from "./components/Footer";
+import { NextPage } from "next";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 
 const myFont = localFont({
@@ -13,9 +15,6 @@ export const metadata = {
   description: "Climatización Ecológica",
 };
 
-import { GetStaticProps, NextPage } from "next";
-import ReduxProvider from "./redux/reduxProvider";
-
 export type RootLayoutProps = {
   children: React.ReactNode;
 };
@@ -24,8 +23,10 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProvider>{children}</ReduxProvider>
-        <Footer />
+        <ReduxProvider>
+          {children}
+          <Footer />
+        </ReduxProvider>
       </body>
     </html>
   );

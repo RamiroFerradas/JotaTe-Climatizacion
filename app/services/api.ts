@@ -1,13 +1,21 @@
 import { Product } from "../models/Product";
 import Papa from "papaparse";
 
-const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
+const DB_URL =
+  process.env.NODE_ENV === "production"
+    ? (process.env.NEXT_PUBLIC_DB_BASE_URL as string)
+    : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
+
+const DB_URL_AUX =
+  process.env.NODE_ENV === "production"
+    ? (process.env.NEXT_PUBLIC_DB_BASE_URL_AUX as string)
+    : (process.env.NEXT_PUBLIC_DB_BASE_URL_AUX_LOCAL as string);
 
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
 
-export async function fetchProducts(): Promise<Product[]> {
+export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const response = await fetch(DB_URL, {
       next: { revalidate: 10 },
@@ -49,4 +57,25 @@ export async function fetchProducts(): Promise<Product[]> {
   } catch (error) {
     throw new Error((error as Error).message);
   }
-}
+};
+
+export const inserProduct = async (data: Product) => {
+  try {
+    const response = await fetch(DB_URL_AUX, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (response.ok) {
+      console.log("La solicitud POST se realizó correctamente.");
+    } else {
+      console.log("Error al realizar la solicitud POST:", response.status);
+    }
+  } catch (error) {
+    console.log("Error al realizar la solicitud POST:", error);
+  }
+};

@@ -15,15 +15,9 @@ import { BsDash, BsFillCartXFill, BsPlus } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
-type CartMenuProps = {
-  setShowCartMenu: Dispatch<SetStateAction<boolean>>;
-  showCartMenu: any;
-};
+type CartMenuProps = {};
 
-const CartMenu: React.FunctionComponent<CartMenuProps> = ({
-  showCartMenu,
-  setShowCartMenu,
-}) => {
+const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
   const dispatch = useDispatch();
 
   const { cart, open } = useSelector((state: AppStore) => state.cart);
@@ -96,7 +90,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
                 <div className="flex items-center gap-2 ml-auto">
                   <button
                     onClick={() => dispatch(decrementQuantityCart(product.id))}
-                    className={`text-white px-1 py-1 rounded-md bg-gray-500 enabled:hover:bg-gray-800 focus:outline-none focus:bg-gray-700 
+                    className={`text-white px-1 py-1 rounded-md bg-red-500 enabled:hover:bg-red-800 focus:outline-none focus:bg-red-700 
                   disabled:opacity-50 cursor-not-allowe`}
                     disabled={product.quantity === 1}
                   >
@@ -114,7 +108,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = ({
                   />
                   <button
                     onClick={() => dispatch(addToCart(product))}
-                    className="text-white px-1 py-1 rounded-md bg-gray-500 hover:bg-gray-800 focus:outline-none focus:bg-gray-700"
+                    className="text-white px-1 py-1 rounded-md bg-teal-500 hover:bg-teal-800 focus:outline-none focus:bg-teal-700"
                   >
                     <BsPlus className="text-gray-200 text-lg" />
                   </button>

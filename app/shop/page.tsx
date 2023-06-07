@@ -8,7 +8,7 @@ import { Loading } from "../components";
 import { ProductDetails } from "./components/ProductDetails";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
-import { GetStaticProps } from "next";
+import { Toaster } from "react-hot-toast";
 
 export type EcommerceProps = {};
 
@@ -20,6 +20,13 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
   return (
     <PersistGate loading={<Loading />} persistor={persistor}>
       <ProductDetails />
+      <Toaster
+        containerStyle={{
+          // position: "fixed",
+          zIndex: 9999,
+        }}
+        position="top-right"
+      />
       <main
         onClick={() => {
           dispatch(closeMenuCart());

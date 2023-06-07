@@ -68,10 +68,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
             showCartMenu={showCartMenu}
           />
         </div>
-        <CartMenu
-          setShowCartMenu={setShowCartMenu}
-          showCartMenu={showCartMenu}
-        />
+        <CartMenu />
       </div>
     </Navbar>
   );

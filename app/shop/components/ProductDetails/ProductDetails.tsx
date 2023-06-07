@@ -16,7 +16,7 @@ import { addToCart } from "@/app/redux/slices/cart";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BsWhatsapp } from "react-icons/bs";
 import { ImagesProduct } from "./ImagesProduct";
-import { useParams } from "next/navigation";
+import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 
 interface ProductDetailsProps {}
 
@@ -29,28 +29,29 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
 
   const dispatch = useDispatch();
 
-  const { id } = useParams();
-  console.log(id);
+  const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
+  const productText = `${selectedProduct.name} - ${parseCurrency(
+    Number(selectedProduct.price)
+  )}\n`;
 
-  const text = useMemo(() => {
-    const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
-    const productText = `${selectedProduct.name} - ${parseCurrency(
-      Number(selectedProduct.price)
-    )}\n`;
-    return introText + productText;
-  }, [selectedProduct]);
+  const text = introText + productText;
 
-  const handleOrderClick = () => {
+  const handleConsultProduct = () => {
     if (!selectedProduct) return;
     const encodedText = encodeURIComponent(text);
     const url = `https://wa.me/${phone}?text=${encodedText}`;
     window.open(url, "_blank");
   };
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(selectedProduct));
+    toastAddToCart();
+  };
   return (
     <Fragment>
       <Dialog
         size="xl"
-        className="p-2"
+        className="p-2 relative z-10"
         open={openModal}
         handler={() => dispatch(closeProductDetails())}
         animate={{
@@ -73,10 +74,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         <ImagesProduct selectedProduct={selectedProduct} />
 
         <DialogFooter className="flex justify-center md:justify-end p-1 md:px-4 md:py-2 gap-2">
-          <Button
-            className="flex items-center gap-3"
-            onClick={() => dispatch(addToCart(selectedProduct))}
-          >
+          <Button className="flex items-center gap-3" onClick={handleAddToCart}>
             <FaCartPlus className="h-5 w-5" />
             <span className="hidden md:block">Agregar</span>
           </Button>
@@ -85,12 +83,15 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
             variant="gradient"
             color="green"
             className="flex items-center gap-3"
-            onClick={handleOrderClick}
+            onClick={handleConsultProduct}
           >
             <BsWhatsapp className="h-5 w-5" />
             <span>Consultar</span>
           </Button>
         </DialogFooter>
+        {/* <div className="absolute top-0 right-0 z-50">
+            <Toaster position="top-right" />
+          </div> */}
       </Dialog>
     </Fragment>
   );
