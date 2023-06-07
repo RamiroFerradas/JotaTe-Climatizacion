@@ -35,7 +35,7 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
       >
         <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
         <CategoriesNav />
-        <div className="flex justify-center items-start">
+        <div className="flex justify-center items-start relative">
           <Sidebar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
           <GridProducts />
