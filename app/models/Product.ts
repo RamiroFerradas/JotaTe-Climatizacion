@@ -3,7 +3,7 @@ export interface Product {
   image: string[];
   price: number;
   description: string;
-  id: string;
+  id: `${string}-${string}-${string}-${string}-${string}`;
   brand: string;
   category?: string;
   stock?: number;

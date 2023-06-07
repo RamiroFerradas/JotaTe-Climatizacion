@@ -47,6 +47,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     dispatch(addToCart(selectedProduct));
     toastAddToCart();
   };
+
+  const AMOUNT: number = 30000;
   return (
     <Fragment>
       <Dialog
@@ -89,9 +91,6 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
             <span>Consultar</span>
           </Button>
         </DialogFooter>
-        {/* <div className="absolute top-0 right-0 z-50">
-            <Toaster position="top-right" />
-          </div> */}
       </Dialog>
     </Fragment>
   );
