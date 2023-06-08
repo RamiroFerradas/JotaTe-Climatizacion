@@ -2,7 +2,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { Product } from "../models/Product";
 import { ProductsState, productsSlice } from "./slices/products";
-import { favoritesSlice } from "./slices/favorites";
 import { BrandssState, brandsSlice } from "./slices/brands";
 import { cartSlice } from "./slices/cart";
 import { ProductState, productSlice } from "./slices/product";
@@ -40,7 +39,6 @@ export const store = configureStore({
   reducer: {
     products: productsSlice.reducer,
     product: productSlice.reducer,
-    favorites: favoritesSlice.reducer,
     brands: brandsSlice.reducer,
     cart: persistedCartReducer,
   },
