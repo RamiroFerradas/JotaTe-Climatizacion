@@ -27,7 +27,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
   const totalPriceCart = parseCurrency(
     cart.reduce((acc: number, product: Product) => {
       if (product.quantity && product.price) {
-        return acc + product.quantity * product.price;
+        return acc + Number(product.quantity) * Number(product.price);
       }
       return acc;
     }, 0)
@@ -40,7 +40,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
       (message: string, product: Product) =>
         message.concat(
           `- ${product.name} (${product.quantity ?? 0} unidades) - $${
-            product.price * (product.quantity ?? 0)
+            Number(product.price) * (Number(product.quantity) ?? 0)
           }\n`
         ),
       ""
