@@ -1,3 +1,4 @@
 export * from "./Brand";
-export * from "./Product";
 export * from "./Localstorage";
+export * from "./Product";
+export * from "./index";
