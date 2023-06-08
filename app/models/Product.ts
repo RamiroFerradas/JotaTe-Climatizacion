@@ -7,6 +7,6 @@ export interface Product {
   brand: string;
   category?: string;
   stock?: string;
-  quantity?: string;
+  quantity?: string | number;
   consults?: string;
 }

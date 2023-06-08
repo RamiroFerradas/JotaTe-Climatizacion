@@ -11,7 +11,7 @@ const initialProduct: Product = {
   name: "",
   image: [],
   description: "",
-  price: 0,
+  price: "",
   brand: "",
 };
 
