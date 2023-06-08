@@ -1,5 +1,7 @@
 import { Product } from "../models/Product";
 import Papa from "papaparse";
+import { convertPropertiesToNumbers } from "../utilities/convertPropertiesToNumbers";
+import { findDuplicateIds } from "../utilities/findDuplicateIds";
 
 const DB_URL =
   process.env.NODE_ENV === "production"
@@ -15,20 +17,6 @@ if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
 
-const findDuplicateIds = (products: Product[]): string[] => {
-  const countById: Record<string, number> = {};
-  const duplicateIds: string[] = [];
-
-  for (const product of products) {
-    const id = product.id;
-    countById[id] = (countById[id] || 0) + 1;
-    if (countById[id] === 2) {
-      duplicateIds.push(id);
-    }
-  }
-
-  return duplicateIds;
-};
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const response = await fetch(DB_URL, {
@@ -43,11 +31,12 @@ export const fetchProducts = async (): Promise<Product[]> => {
         header: true,
         complete: (results) => {
           const parsedProducts = results.data as Product[];
+          //Solo traer productos que tengan "name"
           const filteredProducts = parsedProducts.filter(
             (product) => product.name
           );
 
-          // Separar las URLs en un array si no están separadas por comas
+          // Crear un array con las urls de las imagenes proporcionadas
           const productsWithMultipleImages = filteredProducts.map((product) => {
             let imageUrls: string[];
             if (Array.isArray(product.image)) {
@@ -62,6 +51,11 @@ export const fetchProducts = async (): Promise<Product[]> => {
               image: imageUrls,
             };
           });
+
+          //Transformar valores tipo string a numbers
+          // const stringToNumber = productsWithMultipleImages.map(
+          //   (prod: Product) => convertPropertiesToNumbers(prod)
+          // );
 
           resolve(productsWithMultipleImages);
         },
@@ -99,5 +93,50 @@ export const inserProduct = async (data: Product) => {
     }
   } catch (error) {
     console.log("Error al realizar la solicitud POST:", error);
+  }
+};
+
+export const fetchProductById = async (productId: string) => {
+  const url = `${DB_URL_AUX}/query?id=__eq(${productId})`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to fetch product");
+    }
+
+    const data = await response.json();
+    // Si esperas un solo producto, puedes devolver directamente el primer elemento del array
+    const product = data[0];
+    console.log(data);
+    return product;
+  } catch (error: any) {
+    throw new Error(error.message);
+  }
+};
+
+export const updateProduct = async (id: string, body: {}) => {
+  console.log(id);
+  console.log(body);
+  const url = `${DB_URL_AUX}/id/*${id}*`;
+
+  try {
+    const response = await fetch(url, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update name");
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 };

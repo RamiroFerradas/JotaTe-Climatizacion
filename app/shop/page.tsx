@@ -38,7 +38,7 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
         <CategoriesNav />
 
         <div className="flex justify-center items-start relative">
-          <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full p-4">
+          <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:h-[80vh] overflow-y-auto p-4 custom-scrollbar">
             <Sidebar
               setopenSidebar={setopenSidebar}
               openSidebar={openSidebar}

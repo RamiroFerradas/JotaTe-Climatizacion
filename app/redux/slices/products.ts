@@ -50,14 +50,26 @@ export const productsSlice = createSlice({
     },
     orderByPrice: (state, action) => {
       const { type } = action.payload;
-
       if (type === "asc") {
         state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => a.price - b.price
+          (a, b) => Number(a.price) - Number(b.price)
         );
       } else if (type === "desc") {
         state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => b.price - a.price
+          (a, b) => Number(b.price) - Number(a.price)
+        );
+      }
+    },
+    orderByConsults: (state, action) => {
+      const { type } = action.payload;
+
+      if (type === "asc") {
+        state.filteredProducts = [...state.filteredProducts].sort(
+          (a, b) => Number(b.consults) - Number(a.consults)
+        );
+      } else if (type === "desc") {
+        state.filteredProducts = [...state.filteredProducts].sort(
+          (a, b) => Number(a.consults) - Number(b.consults)
         );
       }
     },
@@ -70,5 +82,6 @@ export const {
   searchProducts,
   filterProductsByCategory,
   orderByPrice,
+  orderByConsults,
 } = productsSlice.actions;
 export default productsSlice.reducer;

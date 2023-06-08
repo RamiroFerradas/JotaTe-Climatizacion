@@ -22,9 +22,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { Brands, SubMenu } from "./components";
 import { useDispatch } from "react-redux";
-import { orderByPrice } from "@/app/redux/slices/products";
+import { orderByConsults, orderByPrice } from "@/app/redux/slices/products";
 
 const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value: number): void => {
@@ -41,15 +42,27 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
     { label: "Mayor precio", value: "asc" },
     { label: "Menor precio", value: "desc" },
   ];
-  const dispatch = useDispatch();
+  const consults = [
+    { label: "Todos", value: "all" },
+    { label: "Mas consultados", value: "asc" },
+    { label: "Menos consultados", value: "desc" },
+  ];
+
   const handleOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     const type = e.target.value;
     dispatch(orderByPrice({ type }));
   };
+
+  const handleOrderConsults = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    const type = e.target.value;
+    dispatch(orderByConsults({ type }));
+  };
+
   return (
     <Card
-      className={`shadow-xl shadow-blue-gray-900/5 z-50 backdrop-blur-[2px] bg-white/80 h-full ${
+      className={`shadow-none shadow-blue-gray-900/5 z-50 backdrop-blur-[2px] bg-white/80 h-full ${
         !openSidebar ? `hidden md:block` : `block`
       }`}
       onClick={(e) => e.stopPropagation()}
@@ -100,10 +113,11 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
           </ListItem>
           <AccordionBody className="py-1">
             {/* <SubMenu
-              title="Ordenar por ventas"
-              items={sold}
+              title="Ordenar por consultas"
+              items={consults}
               identifier={1}
               name="orderSales"
+              handleChange={handleOrderConsults}
             /> */}
             <SubMenu
               title="Ordenar por precio"

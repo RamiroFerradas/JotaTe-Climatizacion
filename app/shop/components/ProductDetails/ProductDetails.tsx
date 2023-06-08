@@ -17,6 +17,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 import { BsWhatsapp } from "react-icons/bs";
 import { ImagesProduct } from "./ImagesProduct";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
+import { fetchProductById, updateProduct } from "@/app/services/api";
 
 interface ProductDetailsProps {}
 
@@ -33,14 +34,26 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const productText = `${selectedProduct.name} - ${parseCurrency(
     Number(selectedProduct.price)
   )}\n`;
-
   const text = introText + productText;
+
+  const addConsult = async () => {
+    // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
+    const product = await fetchProductById(selectedProduct.id);
+    if (!product) return;
+    const newConsult = product.consults && parseInt(product.consults) + 1;
+    const newData = { consults: parseInt(newConsult) };
+    const produtcUpdate = await updateProduct(selectedProduct.id, newData);
+    // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
+  };
 
   const handleConsultProduct = () => {
     if (!selectedProduct) return;
+
     const encodedText = encodeURIComponent(text);
     const url = `https://wa.me/${phone}?text=${encodedText}`;
     window.open(url, "_blank");
+
+    // addConsult();
   };
 
   const handleAddToCart = () => {

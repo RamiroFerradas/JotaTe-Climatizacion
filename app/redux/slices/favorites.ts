@@ -1,5 +1,5 @@
 import { Product } from "@/app/models/Product";
-import { LocalStorageTypes } from "@/app/models/localstorage";
+import { LocalStorageTypes } from "@/app/models/Localstorage";
 import {
   getLocalStorage,
   setLocalStorage,

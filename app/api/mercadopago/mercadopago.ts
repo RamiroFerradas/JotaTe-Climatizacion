@@ -7,14 +7,27 @@ mercadopago.configure({
 export async function createPreference() {
   let preference = {
     purpose: "wallet_purchase",
+    binary_mode: true,
     items: [
       {
         id: "item-ID-1234",
         title: "Mi producto",
         quantity: 1,
         unit_price: 75.76,
+        currency_id: "ARS",
       },
     ],
+    payer: {
+      name: "user",
+      surname: "user_surname",
+      email: "asd@test.com",
+    },
+    back_urls: {
+      sucess: "https://success.com",
+      failure: "https://success.com",
+      pending: "https://success.com",
+    },
+    // auto return "aprproved"
   };
 
   try {
