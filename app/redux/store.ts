@@ -21,7 +21,6 @@ import {
 
 export interface AppStore {
   products: ProductsState;
-  favorites: Product[];
   brands: BrandssState;
   cart: any;
   product: ProductState;
