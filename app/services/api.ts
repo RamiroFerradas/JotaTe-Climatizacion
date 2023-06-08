@@ -1,6 +1,5 @@
 import { Product } from "../models/Product";
 import Papa from "papaparse";
-import { convertPropertiesToNumbers } from "../utilities/convertPropertiesToNumbers";
 import { findDuplicateIds } from "../utilities/findDuplicateIds";
 
 const DB_URL =
