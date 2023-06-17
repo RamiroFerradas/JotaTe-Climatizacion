@@ -62,7 +62,7 @@ const ProductDetails = ({}: Props) => {
     if (!product) return;
     const newConsult =
       product.consults && parseInt(product.consults as string) + 1;
-    const newData = { consults: parseInt(newConsult as string) };
+    const newData = { consults: newConsult };
     const produtcUpdate = await updateProduct(selectedProduct?.id, newData);
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
   };
