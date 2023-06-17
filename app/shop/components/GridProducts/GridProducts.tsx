@@ -7,8 +7,8 @@ import { useRouter } from "next/navigation";
 import { Product } from "@/app/models";
 
 export type GridProductsProps = {
-  products: Product;
-  loading: boolean;
+  // products: Product;
+  // loading: boolean;
 };
 
 const GridProducts: React.FC<GridProductsProps> = (
