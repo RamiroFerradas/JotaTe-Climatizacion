@@ -11,6 +11,7 @@ import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
 import useProductList from "@/app/hooks/useProductList";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
+import { Product } from "../../../../models";
 
 const SwipperProducts = () => {
   const slider = useRef<Slider>(null);

@@ -18,8 +18,10 @@ export default function useProductList() {
     const fetchProductList = async () => {
       try {
         setLoading(true);
-        const productsData = await fetchProducts();
-        dispatch(addProducts(productsData));
+        if (filteredProducts.length === 0) {
+          const productsData = await fetchProducts();
+          dispatch(addProducts(productsData));
+        }
       } catch (error: any) {
         console.error("Error fetching product list:", error.message);
       } finally {

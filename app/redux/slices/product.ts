@@ -6,17 +6,10 @@ export interface ProductState {
   openModal: boolean;
 }
 
-const initialProduct: Product = {
-  id: "",
-  name: "",
-  image: [],
-  description: "",
-  price: "",
-  brand: "",
-};
+const initialProduct = {};
 
 const initialState: ProductState = {
-  selectedProduct: initialProduct,
+  selectedProduct: initialProduct as Product,
   openModal: false,
 };
 
@@ -28,14 +21,14 @@ export const productSlice = createSlice({
       state.selectedProduct = action.payload;
     },
     clearSelectedProduct: (state) => {
-      state.selectedProduct = initialProduct;
+      state.selectedProduct = initialProduct as Product;
     },
     openProductDetails: (state) => {
       state.openModal = true;
     },
     closeProductDetails: (state) => {
       state.openModal = false;
-      state.selectedProduct = initialProduct;
+      state.selectedProduct = initialProduct as Product;
     },
   },
 });

@@ -18,39 +18,7 @@ const Ecommerce: React.FC<EcommerceProps> = () => {
 
   const dispatch = useDispatch();
 
-  return (
-    <PersistGate loading={<Loading />} persistor={persistor}>
-      <ProductDetails />
-      <Toaster
-        containerStyle={{
-          // position: "fixed",
-          zIndex: 9999,
-        }}
-        position="top-right"
-      />
-      <main
-        onClick={() => {
-          dispatch(closeMenuCart());
-          setopenSidebar(false);
-        }}
-      >
-        <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
-        <CategoriesNav />
-
-        <div className="flex justify-center items-start relative">
-          <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:h-[80vh] overflow-y-auto p-4 custom-scrollbar">
-            <Sidebar
-              setopenSidebar={setopenSidebar}
-              openSidebar={openSidebar}
-            />
-          </div>
-          <div className="md:w-3/4 ">
-            <GridProducts />
-          </div>
-        </div>
-      </main>
-    </PersistGate>
-  );
+  return <></>;
 };
 
 export default Ecommerce;

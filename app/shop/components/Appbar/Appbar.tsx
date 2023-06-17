@@ -17,7 +17,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
 
   return (
     <Navbar
-      className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8 relative z-50"
+      className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8 relative"
       onClick={() => setShowCartMenu(false)}
     >
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">

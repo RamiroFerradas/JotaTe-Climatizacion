@@ -16,6 +16,19 @@ if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
 
+const imagesToArray = (product: Product) => {
+  let imageUrls: string[];
+  if (Array.isArray(product.image)) {
+    imageUrls = product.image;
+  } else {
+    imageUrls = (product.image as string).split(",").map((url) => url.trim());
+  }
+  return {
+    ...product,
+    image: imageUrls,
+  };
+};
+
 export const fetchProducts = async (): Promise<Product[]> => {
   try {
     const response = await fetch(DB_URL, {
@@ -37,18 +50,7 @@ export const fetchProducts = async (): Promise<Product[]> => {
 
           // Crear un array con las urls de las imagenes proporcionadas
           const productsWithMultipleImages = filteredProducts.map((product) => {
-            let imageUrls: string[];
-            if (Array.isArray(product.image)) {
-              imageUrls = product.image;
-            } else {
-              imageUrls = (product.image as string)
-                .split(",")
-                .map((url) => url.trim());
-            }
-            return {
-              ...product,
-              image: imageUrls,
-            };
+            return imagesToArray(product);
           });
 
           //Transformar valores tipo string a numbers
@@ -99,15 +101,19 @@ export const fetchProductById = async (productId: string) => {
   const url = `${DB_URL_AUX}/query?id=__eq(${productId})`;
 
   try {
-    const response = await fetch(url);
+    const response = await fetch(url, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     if (!response.ok) {
       throw new Error("Failed to fetch product");
     }
 
     const data = await response.json();
     // Si esperas un solo producto, puedes devolver directamente el primer elemento del array
-    const product = data[0];
-    console.log(data);
+    const product = imagesToArray(data[0]);
+    console.log(product);
     return product;
   } catch (error: any) {
     throw new Error(error.message);

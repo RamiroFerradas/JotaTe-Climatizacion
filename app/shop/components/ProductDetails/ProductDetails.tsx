@@ -1,10 +1,11 @@
-import { Fragment, useMemo } from "react";
+import { Fragment, useMemo, useState } from "react";
 import {
   Button,
   Dialog,
   DialogHeader,
   DialogFooter,
   Typography,
+  Spinner,
 } from "@material-tailwind/react";
 import { FaCartPlus } from "react-icons/fa";
 import { useSelector } from "react-redux";
@@ -18,6 +19,8 @@ import { BsWhatsapp } from "react-icons/bs";
 import { ImagesProduct } from "./ImagesProduct";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 import { fetchProductById, updateProduct } from "@/app/services/api";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface ProductDetailsProps {}
 
@@ -27,6 +30,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
   const { selectedProduct, openModal } = useSelector(
     (state: AppStore) => state.product
   );
+  const router = useRouter();
 
   const dispatch = useDispatch();
 
@@ -61,11 +65,40 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     toastAddToCart();
   };
 
-  const AMOUNT: number = 30000;
+  const [loading, setloading] = useState(false);
+
+  const handlePayMercadoPago = async () => {
+    setloading(true);
+    const body = { unit_price: Number(selectedProduct.price) };
+
+    try {
+      const response = await fetch("/api/checkout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error en la solicitud: " + response.status);
+      }
+
+      const data = await response.json();
+      if (data.init_point) {
+        router.push(data.init_point);
+        setloading(false);
+      }
+    } catch (error) {
+      console.error("Error en la solicitud:", error);
+    } finally {
+    }
+  };
+
   return (
     <Fragment>
       <Dialog
-        size="xl"
+        size="xxl"
         className="p-2 relative z-10"
         open={openModal}
         handler={() => dispatch(closeProductDetails())}
@@ -89,6 +122,12 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
         <ImagesProduct selectedProduct={selectedProduct} />
 
         <DialogFooter className="flex justify-center md:justify-end p-1 md:px-4 md:py-2 gap-2">
+          <button
+            onClick={handlePayMercadoPago}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-64 flex items-center justify-center"
+          >
+            {loading ? <Spinner /> : `Pagar con Mercado Pago`}
+          </button>
           <Button className="flex items-center gap-3" onClick={handleAddToCart}>
             <FaCartPlus className="h-5 w-5" />
             <span className="hidden md:block">Agregar</span>

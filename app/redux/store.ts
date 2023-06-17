@@ -23,7 +23,7 @@ export interface AppStore {
   products: ProductsState;
   brands: BrandssState;
   cart: any;
-  product: ProductState;
+  product: any;
 }
 
 const persistConfig = {
@@ -31,13 +31,22 @@ const persistConfig = {
   storage,
   version: 1,
 };
+const persistConfigProduct = {
+  key: "product",
+  storage,
+  version: 1,
+};
 
 const persistedCartReducer = persistReducer(persistConfig, cartSlice.reducer);
+const persistedProductReducer = persistReducer(
+  persistConfigProduct,
+  productSlice.reducer
+);
 
 export const store = configureStore({
   reducer: {
     products: productsSlice.reducer,
-    product: productSlice.reducer,
+    product: persistedProductReducer,
     brands: brandsSlice.reducer,
     cart: persistedCartReducer,
   },
