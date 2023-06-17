@@ -44,8 +44,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = () => {
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
     const product = await fetchProductById(selectedProduct.id);
     if (!product) return;
-    const newConsult = product.consults && parseInt(product.consults) + 1;
-    const newData = { consults: parseInt(newConsult) };
+    const newConsult =
+      product.consults && parseInt(product.consults as string) + 1;
+    const newData = { consults: newConsult };
     const produtcUpdate = await updateProduct(selectedProduct.id, newData);
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
   };
