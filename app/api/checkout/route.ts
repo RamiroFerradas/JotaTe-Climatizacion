@@ -20,9 +20,7 @@ export interface Item {
   currency_id: "ARS";
 }
 
-export async function GET(req: NextRequest, res: NextResponse) {
-  return NextResponse.json({ message: "entro" });
-}
+
 export async function POST(req: NextRequest, res: NextResponse) {
   console.log("entro");
   const { unit_price } = await req.json();

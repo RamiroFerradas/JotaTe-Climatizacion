@@ -1,6 +1,7 @@
 import { Product } from "../models/Product";
 import Papa from "papaparse";
 import { findDuplicateIds } from "../utilities/findDuplicateIds";
+import { imagesToArray } from "../utilities/imagesToArray";
 
 const DB_URL =
   process.env.NODE_ENV === "production"
@@ -15,66 +16,6 @@ const DB_URL_AUX =
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
-
-const imagesToArray = (product: Product) => {
-  let imageUrls: string[];
-  if (Array.isArray(product.image)) {
-    imageUrls = product.image;
-  } else {
-    imageUrls = (product.image as string).split(",").map((url) => url.trim());
-  }
-  return {
-    ...product,
-    image: imageUrls,
-  };
-};
-
-export const fetchProducts = async (): Promise<Product[]> => {
-  try {
-    const response = await fetch(DB_URL, {
-      next: { revalidate: 10 },
-      cache: "force-cache",
-    });
-    const blob = await response.blob();
-    const text = await new Response(blob).text();
-
-    const products = await new Promise<Product[]>((resolve, reject) => {
-      Papa.parse(text, {
-        header: true,
-        complete: (results) => {
-          const parsedProducts = results.data as Product[];
-          //Solo traer productos que tengan "name"
-          const filteredProducts = parsedProducts.filter(
-            (product) => product.name
-          );
-
-          // Crear un array con las urls de las imagenes proporcionadas
-          const productsWithMultipleImages = filteredProducts.map((product) => {
-            return imagesToArray(product);
-          });
-
-          //Transformar valores tipo string a numbers
-          // const stringToNumber = productsWithMultipleImages.map(
-          //   (prod: Product) => convertPropertiesToNumbers(prod)
-          // );
-
-          resolve(productsWithMultipleImages);
-        },
-        error: (error: Error) => reject(new Error(error.message)),
-      });
-    });
-
-    const duplicateIds = findDuplicateIds(products);
-    if (duplicateIds.length) console.error("IDs duplicadas:", duplicateIds);
-
-    const filteredProducts = products.filter(
-      (product) => !duplicateIds.includes(product.id)
-    );
-    return filteredProducts;
-  } catch (error) {
-    throw new Error((error as Error).message);
-  }
-};
 
 export const inserProduct = async (data: Product) => {
   try {

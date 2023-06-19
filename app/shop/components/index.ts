@@ -7,8 +7,6 @@ export * from "./CategoriesNav";
 export * from "./GridProducts/ProductCard";
 export * from "./GridProducts";
 export * from "./Paginate";
-export * from "./ProductDetails/ImagesProduct";
-export * from "./ProductDetails";
 export * from "./Sidebar/components";
 export * from "./Sidebar";
 export * from "./index";

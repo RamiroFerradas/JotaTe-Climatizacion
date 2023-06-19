@@ -38,7 +38,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Link href={`/shop/${product.id}`} onClick={handleClick}>
+    <Link scroll={false} href={`/shop/${product.id}`} onClick={handleClick}>
       <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2 relative z-40">
         <CardHeader
           shadow={false}
@@ -76,7 +76,10 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             ripple={false}
             fullWidth={true}
             className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white border border-[#006d54]"
-            onClick={(e) => handleAddToCart(e)}
+            onClick={(e) => {
+              e.preventDefault();
+              handleAddToCart(e);
+            }}
           >
             Agregar al carrito
           </Button>

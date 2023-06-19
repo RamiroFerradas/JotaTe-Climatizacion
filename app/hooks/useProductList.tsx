@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { fetchProducts } from "../services/api";
 import { Product } from "../models/Product";
 import { useDispatch } from "react-redux";
 import { addProducts, filterProductsByBrand } from "../redux/slices/products";
 import { useSelector } from "react-redux";
 import { AppStore } from "../redux/store";
+import { fetchProducts } from "../services/fetchProducts";
 
 export default function useProductList() {
   const dispatch = useDispatch();
@@ -12,7 +12,9 @@ export default function useProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
-  const { filteredProducts } = useSelector((state: AppStore) => state.products);
+  const { filteredProducts, allProducts } = useSelector(
+    (state: AppStore) => state.products
+  );
 
   useEffect(() => {
     const fetchProductList = async () => {
@@ -41,5 +43,6 @@ export default function useProductList() {
     selectedBrands,
     setSelectedBrands,
     products: filteredProducts,
+    allProducts: allProducts,
   };
 }

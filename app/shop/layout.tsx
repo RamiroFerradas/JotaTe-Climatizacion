@@ -2,16 +2,14 @@
 import { useState } from "react";
 import { Appbar, CategoriesNav, GridProducts } from "./components";
 import { Sidebar } from "./components/Sidebar";
-import { AppStore, persistor } from "../redux/store";
+import { persistor } from "../redux/store";
 import { PersistGate } from "redux-persist/integration/react";
 import { Loading } from "../components";
-import { ProductDetails } from "./components/ProductDetails";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
-import { Pagination, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
-import useProductList from "../hooks/useProductList";
+import { useScrollRestoration } from "../hooks";
+import { useRouter } from "next/navigation";
 export default function RootLayout({
   children,
 }: {
@@ -20,22 +18,12 @@ export default function RootLayout({
   const [openSidebar, setopenSidebar] = useState(false);
 
   const dispatch = useDispatch();
-  const { selectedProduct, openModal } = useSelector(
-    (state: AppStore) => state.product
-  );
-  // const { products, loading } = useProductList();
+  const router = useRouter();
 
   return (
     <main>
       <PersistGate loading={<Loading />} persistor={persistor}>
-        {/* <ProductDetails /> */}
-        <Toaster
-          containerStyle={{
-            // position: "fixed",
-            zIndex: 9999,
-          }}
-          position="top-right"
-        />
+        <Toaster position="top-right" />
         {children}
 
         <div
@@ -46,11 +34,7 @@ export default function RootLayout({
         >
           <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
-          <div
-          //  className={`${
-          //  Object.keys(selectedProduct).length ? `hidden` : `block`
-          // }`}
-          >
+          <div>
             <CategoriesNav />
 
             <div className="flex justify-center items-start relative">
@@ -61,9 +45,7 @@ export default function RootLayout({
                 />
               </div>
               <div className="md:w-3/4 ">
-                <GridProducts
-                // products={products} loading={loading}
-                />
+                <GridProducts />
               </div>
             </div>
           </div>

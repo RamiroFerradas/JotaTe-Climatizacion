@@ -48,6 +48,17 @@ export const productsSlice = createSlice({
         );
       }
     },
+    filterProductsBySubCategory: (state, action) => {
+      const subcategoryToFilter = action.payload;
+
+      if (subcategoryToFilter === "Todos") {
+        state.filteredProducts = state.allProducts;
+      } else {
+        state.filteredProducts = state.allProducts.filter(
+          (product) => product.subcategory === subcategoryToFilter
+        );
+      }
+    },
     orderByPrice: (state, action) => {
       const { type } = action.payload;
       if (type === "asc") {
@@ -83,5 +94,6 @@ export const {
   filterProductsByCategory,
   orderByPrice,
   orderByConsults,
+  filterProductsBySubCategory,
 } = productsSlice.actions;
 export default productsSlice.reducer;

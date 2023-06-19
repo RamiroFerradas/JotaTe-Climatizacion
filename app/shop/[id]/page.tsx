@@ -1,60 +1,52 @@
 "use client";
-
-import { product } from "@/app/redux/slices";
 import { addToCart } from "@/app/redux/slices/cart";
-import { closeProductDetails, selectProduct } from "@/app/redux/slices/product";
-import { AppStore } from "@/app/redux/store";
 import { fetchProductById, updateProduct } from "@/app/services/api";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 
-import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
-import { use, useEffect, useMemo, useState } from "react";
-import { IoIosCloseCircleOutline, IoMdArrowBack } from "react-icons/io";
-import { useSelector } from "react-redux";
+import { MouseEventHandler, KeyboardEvent, useState } from "react";
+
 import { useDispatch } from "react-redux";
-import { ImagesProduct } from "../components/ProductDetails/ImagesProduct";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
-import Link from "next/link";
-import MercadoPagoButton from "./components/MercadoPagoButton";
-import { XMarkIcon } from "@heroicons/react/24/solid";
 import Drawer from "@mui/material/Drawer";
-// import Button from "@mui/material/Button";
 
 import { CardActions, CardContent, CardMedia, Typography } from "@mui/material";
-// import { Card } from "@material-tailwind/react";
+
 import Card from "@mui/material/Card";
 import useProductList from "@/app/hooks/useProductList";
 import { Button } from "@material-tailwind/react";
+import { ImagesProduct } from "./components";
 
-type Props = {};
-const ProductDetails = ({}: Props) => {
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+
+const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [openDrawer, setOpenDrawer] = useState(true);
 
   const { products } = useProductList();
-
-  const selectedProduct = useMemo(
-    () => products.find((_product) => _product.id === id),
-    [products, id]
-  );
-
-  if (!selectedProduct) {
-    return;
-  }
+  const selectedProduct = products.find((_product) => _product.id === id);
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
   const router = useRouter();
 
   const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
-  const productText = `${selectedProduct.name} - ${parseCurrency(
+  const productText = `${selectedProduct?.name} - ${parseCurrency(
     Number(selectedProduct?.price)
   )}\n`;
   const text = introText + productText;
+
+  const formattedDescription = selectedProduct?.description
+    .replace(/mm/g, " mm\n")
+    .replace(/cm/g, " cm\n")
+    .replace(/kg/g, " kg\n")
+    .replace(/m²/g, " m²\n")
+    .split("\n");
+
+  // Renderizamos las líneas formateadas
 
   const addConsult = async () => {
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
@@ -63,6 +55,7 @@ const ProductDetails = ({}: Props) => {
     const newConsult =
       product.consults && parseInt(product.consults as string) + 1;
     const newData = { consults: newConsult };
+
     const produtcUpdate = await updateProduct(selectedProduct?.id, newData);
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
   };
@@ -82,14 +75,7 @@ const ProductDetails = ({}: Props) => {
     toastAddToCart();
   };
 
-  const toggleDrawer = () => (event: React.KeyboardEvent) => {
-    if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
+  const toggleDrawer = () => () => {
     if (openDrawer) {
       router.push("/shop");
       setOpenDrawer(false);
@@ -97,16 +83,27 @@ const ProductDetails = ({}: Props) => {
   };
 
   return (
-    <Drawer anchor={"right"} open={openDrawer} onClose={toggleDrawer()}>
+    <Drawer
+      anchor={"right"}
+      open={openDrawer}
+      onClose={toggleDrawer()}
+      className="max-w-[100vw]"
+    >
       <Card
-        sx={{ width: 600, height: 1000 }}
-        className="flex flex-col justify-start items-center"
+        sx={{ height: 1000 }}
+        className="flex flex-col max-w-2xl justify-between items-center px-10 gap-5"
       >
-        <CardMedia>
-          <ImagesProduct selectedProduct={selectedProduct} />
-        </CardMedia>
-        <CardContent>
-          <div className="p-10">
+        <div>
+          <button
+            onClick={toggleDrawer()}
+            className="absolute left-4 md:left-1 top-1"
+          >
+            <KeyboardBackspaceIcon fontSize="large" />
+          </button>
+          <CardMedia className="">
+            <ImagesProduct selectedProduct={selectedProduct} />
+          </CardMedia>
+          <CardContent>
             <Typography variant="h5" component="div" className="font-bold">
               {selectedProduct?.name}
             </Typography>
@@ -118,15 +115,23 @@ const ProductDetails = ({}: Props) => {
             >
               {selectedProduct?.brand}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {selectedProduct?.description}
-            </Typography>
-          </div>
-        </CardContent>
+
+            <ul className="overflow-y-auto h-52">
+              {formattedDescription?.map((linea, index) => (
+                <li key={index}>
+                  <Typography variant="body2" color="text.secondary">
+                    {linea}
+                  </Typography>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </div>
+
         <CardActions className="flex w-full">
-          <div className="w-full items-center  flex justify-around ">
+          <div className="w-full items-center flex-co flex justify-around gap-5">
             <Button
-              className="flex items-center gap-3"
+              className="flex w-full items-center gap-3 justify-center"
               onClick={handleAddToCart}
             >
               <FaCartPlus className="h-5 w-5" />
@@ -136,7 +141,7 @@ const ProductDetails = ({}: Props) => {
             <Button
               // variant="contained"
               color="green"
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 w-full justify-center"
               onClick={handleConsultProduct}
             >
               <BsWhatsapp className="h-5 w-5" />
