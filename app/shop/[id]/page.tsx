@@ -5,7 +5,7 @@ import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 
 import { useParams, useRouter } from "next/navigation";
-import { MouseEventHandler, KeyboardEvent, useState } from "react";
+import { MouseEventHandler, KeyboardEvent, useState, useEffect } from "react";
 
 import { useDispatch } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";

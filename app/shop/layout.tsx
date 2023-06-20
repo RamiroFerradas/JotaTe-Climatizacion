@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Appbar, CategoriesNav, GridProducts } from "./components";
 import { Sidebar } from "./components/Sidebar";
 import { persistor } from "../redux/store";
@@ -8,17 +8,42 @@ import { Loading } from "../components";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
-import { useScrollRestoration } from "../hooks";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const [openSidebar, setopenSidebar] = useState(false);
-
   const dispatch = useDispatch();
   const router = useRouter();
+
+  const pathname = usePathname();
+  console.log(pathname);
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      sessionStorage.setItem("scrollPosition", String(scrollPosition));
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+    if (savedScrollPosition) {
+      window.scrollTo(0, parseInt(savedScrollPosition, 10));
+    }
+
+    return () => {
+      // Remover el listener al desmontar el componente
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [pathname]);
+
+  const handleClick = () => {
+    dispatch(closeMenuCart());
+    setopenSidebar(false);
+  };
 
   return (
     <main>
@@ -26,25 +51,20 @@ export default function RootLayout({
         <Toaster position="top-right" />
         {children}
 
-        <div
-          onClick={() => {
-            dispatch(closeMenuCart());
-            setopenSidebar(false);
-          }}
-        >
+        <div onClick={handleClick}>
           <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
           <div>
             <CategoriesNav />
 
             <div className="flex justify-center items-start relative">
-              <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:h-[80vh] overflow-y-auto p-4 custom-scrollbar">
+              <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:minh-[80vh] overflow-y-auto p-4 custom-scrollbar">
                 <Sidebar
                   setopenSidebar={setopenSidebar}
                   openSidebar={openSidebar}
                 />
               </div>
-              <div className="md:w-3/4 ">
+              <div className="md:w-3/4">
                 <GridProducts />
               </div>
             </div>

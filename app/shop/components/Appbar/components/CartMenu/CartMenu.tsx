@@ -9,6 +9,7 @@ import {
 import { AppStore } from "@/app/redux/store";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { Typography } from "@material-tailwind/react";
+import Image from "next/image";
 import { Dispatch, SetStateAction, useMemo, useState } from "react";
 // import Swal from "sweetalert2";
 import { BsDash, BsFillCartXFill, BsPlus } from "react-icons/bs";
@@ -63,7 +64,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
   return (
     open && (
       <div
-        className="min-h-[30%] absolute right-0 top-14 w-96 bg-white shadow-lg rounded-lg"
+        className="min-h-[30%] absolute right-0 top-14 w-96 bg-white shadow-lg rounded-lg z-50"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="min-h-[40vh] max-h-[60vh] overflow-auto">
@@ -76,10 +77,12 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
           ) : (
             cart?.map((product: Product) => (
               <div key={product.id} className="flex items-center p-2">
-                <img
+                <Image
                   src={product.image[0]}
                   className="w-10 h-10 mr-2"
                   alt={product.name}
+                  width={10}
+                  height={10}
                 />
                 <div>
                   <p className="text-gray-800">{product.name}</p>

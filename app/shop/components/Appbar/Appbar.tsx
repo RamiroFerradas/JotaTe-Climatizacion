@@ -17,7 +17,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
 
   return (
     <Navbar
-      className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8 relative"
+      className="mx-auto max-w-screen-2xl md:py-3 px-2 md:px-8 relative z-50"
       onClick={() => setShowCartMenu(false)}
     >
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
@@ -49,20 +49,6 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
         </div>
 
         <div className="md:gap-6 gap-3 text-gray-600 flex justify-center items-center order-2 md:order-3">
-          {/* <div
-            className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
-          >
-            <FaUser />
-
-            <p>Perfil</p>
-          </div>
-          <div
-            className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
-          >
-            <MdFavorite />
-
-            <p>Favoritos</p>
-          </div> */}
           <CartIcon
             setopenSidebar={setopenSidebar}
             showCartMenu={showCartMenu}

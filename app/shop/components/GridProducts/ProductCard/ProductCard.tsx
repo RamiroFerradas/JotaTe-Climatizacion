@@ -12,12 +12,8 @@ import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
-import toast from "react-hot-toast";
 import { BaseSyntheticEvent } from "react";
-import { FaCartPlus, FaShoppingCart } from "react-icons/fa";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-import { useParams, useRouter } from "next/navigation";
-import { format } from "url";
 import Link from "next/link";
 
 interface ProductCardProps {
@@ -38,8 +34,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Link scroll={false} href={`/shop/${product.id}`} onClick={handleClick}>
-      <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2 relative z-40">
+    <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2">
+      <Link scroll={false} href={`/shop/${product.id}`} onClick={handleClick}>
         <CardHeader
           shadow={false}
           floated={false}
@@ -84,8 +80,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             Agregar al carrito
           </Button>
         </CardFooter>
-      </Card>
-    </Link>
+      </Link>
+    </Card>
   );
 };
 

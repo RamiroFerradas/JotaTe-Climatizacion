@@ -19,8 +19,6 @@
     "@reduxjs/toolkit": "^1.9.5",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
-    "google-auth-library": "^8.8.0",
-    "googleapis": "^118.0.0",
     "mercadopago": "^1.5.16",
     "next": "13.4.4",
     "next-redux-wrapper": "^8.1.0",

@@ -1,41 +1,14 @@
 "use client";
 import useProductList from "@/app/hooks/useProductList";
-import {
-  filterProductsByCategory,
-  filterProductsBySubCategory,
-} from "@/app/redux/slices/products";
+import { filterProductsBySubCategory } from "@/app/redux/slices/products";
 import { Button, Menu, MenuItem } from "@mui/material";
-import { MouseEvent, useEffect, useRef, useState } from "react";
+import { MouseEvent, useState } from "react";
 import { useDispatch } from "react-redux";
 export type CategoriesNavProps = {};
-
-export function useOnHoverOutside(ref, handler) {
-  useEffect(() => {
-    const listener = (event) => {
-      if (!ref.current || ref.current.contains(event.target)) {
-        return;
-      }
-      handler(event);
-    };
-    document.addEventListener("mouseover", listener);
-    return () => {
-      document.removeEventListener("mouseout", listener);
-    };
-  }, [ref, handler]);
-}
 
 const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   const { allProducts, loading } = useProductList();
   const dispatch = useDispatch();
-  // const categories: Category[] = [
-  //   { id: 0, value: "Todos" },
-  //   { id: 1, value: "Climatizacion" },
-  //   { id: 2, value: "Utensillos" },
-  //   { id: 3, value: "Parrilleros" },
-  //   { id: 4, value: "Estufas" },
-  //   { id: 5, value: "Termotanques" },
-  //   { id: 6, value: "Servicios" },
-  // ];
 
   const uniqueCategories = [];
   const categoriesSet = new Set();
@@ -46,7 +19,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
       uniqueCategories.push(product.category);
     }
   });
-  const [categoryActive, setCategoryActive] = useState("Climatizacion");
+  const [categoryActive, setCategoryActive] = useState("Todos");
 
   const [anchorEl, setAnchorEl] = useState<(null | HTMLElement)[]>([]);
 
@@ -74,7 +47,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
       {!loading && (
         <div className="flex gap-5">
           <Button
-            onMouseOver={() => {
+            onClick={() => {
               dispatch(filterProductsBySubCategory("Todos"));
               setCategoryActive("Todos");
             }}
@@ -82,7 +55,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
             <span
               className={`${
                 "Todos" === categoryActive
-                  ? `text-[#ff6e25] font-black text-lg cursor-pointer`
+                  ? `text-[#ff6e25] font-black cursor-pointer`
                   : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black`
               }`}
             >
@@ -109,7 +82,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                     key={i}
                     className={`${
                       cat === categoryActive
-                        ? `text-[#ff6e25] font-black text-lg cursor-pointer`
+                        ? `text-[#ff6e25] font-black cursor-pointer`
                         : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black`
                     }`}
                   >
