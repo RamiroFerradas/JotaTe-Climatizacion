@@ -52,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </CardHeader>
         <CardBody className="h-40 overflow-hidden">
           <div className=" flex items-center justify-between mb-2 flex-col">
-            <Typography color="blue-gray" className="font-medium">
+            <Typography color="blue-gray" className="font-medium uppercase">
               {product.name}
             </Typography>
             <Typography color="blue-gray" className="font-medium">

@@ -104,7 +104,11 @@ const ProductDetails = () => {
             <ImagesProduct selectedProduct={selectedProduct} />
           </CardMedia>
           <CardContent>
-            <Typography variant="h5" component="div" className="font-bold">
+            <Typography
+              variant="h5"
+              component="div"
+              className="font-bold uppercase"
+            >
               {selectedProduct?.name}
             </Typography>
             <Typography
