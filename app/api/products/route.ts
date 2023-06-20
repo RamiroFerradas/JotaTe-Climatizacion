@@ -55,7 +55,7 @@ async function getProductById(id: string) {
 async function getAllProducts() {
   try {
     const response = await fetch(DB_URL, {
-      cache: "force-cache",
+      next: { revalidate: 1000 },
     });
     const blob = await response.blob();
     const text = await new Response(blob).text();
