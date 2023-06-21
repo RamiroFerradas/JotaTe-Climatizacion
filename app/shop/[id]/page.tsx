@@ -5,21 +5,23 @@ import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 
 import { useParams, useRouter } from "next/navigation";
-import { MouseEventHandler, KeyboardEvent, useState, useEffect } from "react";
+import { useState } from "react";
+// import Chip from "@mui/material/Chip";
 
 import { useDispatch } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import Drawer from "@mui/material/Drawer";
 
-import { CardActions, CardContent, CardMedia, Typography } from "@mui/material";
+import { CardActions, CardMedia, Typography, Chip, Card } from "@mui/material";
 
-import Card from "@mui/material/Card";
 import useProductList from "@/app/hooks/useProductList";
 import { Button } from "@material-tailwind/react";
 import { ImagesProduct } from "./components";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
+import { useSelector } from "react-redux";
+import { AppStore } from "@/app/redux/store";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -28,6 +30,8 @@ const ProductDetails = () => {
 
   const { products } = useProductList();
   const selectedProduct = products.find((_product) => _product.id === id);
+
+  const { cart } = useSelector((state: AppStore) => state.cart);
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
@@ -141,7 +145,7 @@ const ProductDetails = () => {
           <div className="flex flex-col justify-center items-center flex-grow overflow-y-auto h-5/6 w-full">
             <ul className="w-full overflow-y-auto">
               {formattedDescription?.map((linea, index) => (
-                <li key={index}>
+                <li key={index} className="mb-2">
                   <Typography variant="body2" color="text.secondary">
                     {linea}
                   </Typography>
@@ -160,6 +164,7 @@ const ProductDetails = () => {
               >
                 <FaCartPlus className="h-5 w-5" />
                 <span className="hidden md:block">Agregar</span>
+                {/* <Chip label={`${cart.length} productos`} /> */}
               </Button>
 
               <Button
