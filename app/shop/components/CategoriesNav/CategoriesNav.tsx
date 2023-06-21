@@ -23,14 +23,11 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
 
   const [anchorEl, setAnchorEl] = useState<(null | HTMLElement)[]>([]);
 
-  const handleClick = (
-    event: MouseEvent<HTMLButtonElement>,
-    index: number,
-    cat: string
-  ) => {
+  const handleClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
     const newAnchorEl = [...anchorEl];
     newAnchorEl[index] = event.currentTarget;
     setAnchorEl(newAnchorEl);
+    console.log(event);
   };
 
   const handleClose = (index: number, subcategory?: string, cat?: string) => {
@@ -76,7 +73,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                   aria-controls={`basic-menu-${i}`}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
-                  onClick={(event) => handleClick(event, i, cat)}
+                  onClick={(event) => handleClick(event, i)}
                 >
                   <span
                     key={i}
@@ -93,7 +90,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                   id={`basic-menu-${i}`}
                   anchorEl={anchorEl[i]}
                   open={open}
-                  onClose={() => handleClose(i, cat)}
+                  // onClose={() => handleClose(i)}
                   MenuListProps={{
                     "aria-labelledby": `basic-button-${i}`,
                   }}

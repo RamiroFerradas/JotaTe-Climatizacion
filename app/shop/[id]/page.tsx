@@ -77,40 +77,57 @@ const ProductDetails = () => {
 
   const toggleDrawer = () => () => {
     if (openDrawer) {
-      router.push("/shop");
-      setOpenDrawer(false);
+      if (zoom) {
+        setZoom(false);
+      } else {
+        router.push("/shop");
+        setOpenDrawer(false);
+      }
     }
   };
+  const [zoom, setZoom] = useState(false);
 
   return (
     <Drawer
       anchor={"right"}
       open={openDrawer}
       onClose={toggleDrawer()}
-      className="max-w-[100vw]"
+      className="h-screen overflow-y-auto"
     >
       <Card
-        sx={{ height: 1000 }}
-        className="flex flex-col max-w-2xl justify-between items-center px-10 gap-5"
+        // sx={{ height: 1000 }}
+        className="flex flex-col w-screen md:max-w-3xl justify-between items-center px-10 h-full overflow-y-auto"
       >
-        <div>
+        <div className="w-full h-2/6 mb-10">
           <button
             onClick={toggleDrawer()}
-            className="absolute left-4 md:left-1 top-1"
+            className="absolute left-4 md:left-1 top-1 z-50"
           >
             <KeyboardBackspaceIcon fontSize="large" />
           </button>
-          <CardMedia className="">
-            <ImagesProduct selectedProduct={selectedProduct} />
+          <CardMedia className="h-full">
+            <ImagesProduct
+              zoom={zoom}
+              setZoom={setZoom}
+              selectedProduct={selectedProduct}
+            />
           </CardMedia>
-          <CardContent>
+        </div>
+
+        <div
+          className={`p-2 transition-all w-full h-3/6 flex justify-center items-start flex-col gap-5 ${
+            !zoom ? "block" : "md:hidden"
+          }`}
+        >
+          <div className="h-1/6">
             <Typography
               variant="h5"
               component="div"
-              className="font-bold uppercase"
+              className="font-bold uppercase "
             >
               {selectedProduct?.name}
             </Typography>
+
             <Typography
               gutterBottom
               variant="h6"
@@ -119,8 +136,10 @@ const ProductDetails = () => {
             >
               {selectedProduct?.brand}
             </Typography>
+          </div>
 
-            <ul className="overflow-y-auto h-52">
+          <div className="flex flex-col justify-center items-center flex-grow overflow-y-auto h-5/6 w-full">
+            <ul className="w-full overflow-y-auto">
               {formattedDescription?.map((linea, index) => (
                 <li key={index}>
                   <Typography variant="body2" color="text.secondary">
@@ -129,31 +148,33 @@ const ProductDetails = () => {
                 </li>
               ))}
             </ul>
-          </CardContent>
+          </div>
         </div>
 
-        <CardActions className="flex w-full">
-          <div className="w-full items-center flex-co flex justify-around gap-5">
-            <Button
-              className="flex w-full items-center gap-3 justify-center"
-              onClick={handleAddToCart}
-            >
-              <FaCartPlus className="h-5 w-5" />
-              <span className="hidden md:block">Agregar</span>
-            </Button>
+        <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
+          <CardActions>
+            <div className="w-full items-center flex justify-around gap-5">
+              <Button
+                className="flex w-full items-center gap-3 justify-center"
+                onClick={handleAddToCart}
+              >
+                <FaCartPlus className="h-5 w-5" />
+                <span className="hidden md:block">Agregar</span>
+              </Button>
 
-            <Button
-              // variant="contained"
-              color="green"
-              className="flex items-center gap-3 w-full justify-center"
-              onClick={handleConsultProduct}
-            >
-              <BsWhatsapp className="h-5 w-5" />
-              <span>Consultar</span>
-            </Button>
-          </div>
-          {/* <MercadoPagoButton selectedProduct={selectedProduct} /> */}
-        </CardActions>
+              <Button
+                // variant="contained"
+                color="green"
+                className="flex items-center gap-3 w-full justify-center"
+                onClick={handleConsultProduct}
+              >
+                <BsWhatsapp className="h-5 w-5" />
+                <span>Consultar</span>
+              </Button>
+            </div>
+            {/* <MercadoPagoButton selectedProduct={selectedProduct} /> */}
+          </CardActions>
+        </div>
       </Card>
     </Drawer>
 
