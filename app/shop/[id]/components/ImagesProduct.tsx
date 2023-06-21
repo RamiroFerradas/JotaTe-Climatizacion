@@ -4,7 +4,6 @@ import { Product } from "@/app/models";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import Image from "next/image";
-import ReactImageZoom from "react-image-zoom";
 
 export type ImagesProductProps = {
   selectedProduct: Product;
