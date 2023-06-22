@@ -11,7 +11,8 @@ import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
 import useProductList from "@/app/hooks/useProductList";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
-import { Product } from "../../../../models";
+import Link from "next/link";
+import { Button } from "@material-tailwind/react";
 
 const SwipperProducts = () => {
   const slider = useRef<Slider>(null);
@@ -38,12 +39,10 @@ const SwipperProducts = () => {
         >
           {products.map((prod, i) => (
             <div
-              className="relative flex items-center justify-center flex-col text-center"
+              className="relative flex items-center justify-center flex-col text-center w-full"
               key={i}
-              // onClick={() => setdraggin(true)}
               onMouseUp={() => setIsDraggin(false)}
               onMouseDown={() => setIsDraggin(true)}
-              // onDrag={}
             >
               <div>
                 <p className="text-xl font-bold uppercase">{prod.name}</p>
@@ -58,10 +57,19 @@ const SwipperProducts = () => {
                   className="object-cover"
                 />
               </div>
+
               <div>
                 <p className="text-[#f18500] font-black text-2xl">
                   {parseCurrency(Number(prod.price))}
                 </p>
+              </div>
+              <div className="flex flex-col items-center justify-center">
+                <Link
+                  href={`/productos/${prod.id}`}
+                  className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
+                >
+                  <p className="font-semibold">Consultar</p>
+                </Link>
               </div>
             </div>
           ))}

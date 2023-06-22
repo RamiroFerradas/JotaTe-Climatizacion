@@ -75,7 +75,7 @@ const ProductDetails = () => {
     if (zoom) {
       setZoom(false);
     } else {
-      router.push("/shop");
+      router.push("/productos");
     }
   };
   const [zoom, setZoom] = useState(false);
@@ -168,51 +168,6 @@ const ProductDetails = () => {
         </div>
       </Card>
     </Drawer>
-
-    // <div
-    //   className="p-2 fixed w-full z-50 bg-[#00000066] h-full right-0 flex justify-end top-0"
-    //   onClick={() => dispatch(closeProductDetails())}
-
-    // animate={{
-    //   mount: { scale: 1, y: 0 },
-    //   unmount: { scale: 0.9, y: -100 },
-    // }}
-
-    /* <div className="flex flex-col bg-white right-0 relative translate-x-0 transition-all max-w-lg h-full w-full">
-        <div className="flex justify-between px-4 gap-0 relative">
-          <div className="mt-2 top-0">
-            <Link href="/shop">
-              <IoMdArrowBack className="h-8 w-8 border text-gray-600 border-gray-600/50 p-1" />
-            </Link>
-          </div>
-          <div>
-            <div className="px-0">{selectedProduct.name}</div>
-            <Typography>{selectedProduct.brand}</Typography>
-          </div>
-        </div>
-
-        <ImagesProduct selectedProduct={selectedProduct} />
-
-        <div className="flex justify-center md:justify-end p-1 md:px-4 md:py-2 gap-2">
-          <MercadoPagoButton selectedProduct={selectedProduct} />
-          <Button className="flex items-center gap-3" onClick={handleAddToCart}>
-            <FaCartPlus className="h-5 w-5" />
-            <span className="hidden md:block">Agregar</span>
-          </Button>
-
-          <Button
-            variant="gradient"
-            color="green"
-            className="flex items-center gap-3"
-            onClick={handleConsultProduct}
-          >
-            <BsWhatsapp className="h-5 w-5" />
-            <span>Consultar</span>
-          </Button>
-        </div> 
-      </div>*/
-
-    // </div>
   );
 };
 

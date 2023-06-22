@@ -35,7 +35,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2">
-      <Link scroll={false} href={`/shop/${product.id}`} onClick={handleClick}>
+      <Link
+        scroll={false}
+        href={`/productos/${product.id}`}
+        onClick={handleClick}
+      >
         <CardHeader
           shadow={false}
           floated={false}

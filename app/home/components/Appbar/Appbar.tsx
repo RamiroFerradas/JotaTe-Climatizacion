@@ -36,13 +36,13 @@ const Appbar: React.FC<NavbarProps> = () => {
         <div className="hidden lg:block">
           <Navlist />
         </div>
-        <Link href="/shop">
+        <Link href="/productos">
           <Button
             size="sm"
             className="rounded bg-[#006d54] border border-[#006d54] hidden lg:inline-block"
             color="green"
           >
-            <span>Shop</span>
+            <span>Productos</span>
           </Button>
         </Link>
 
@@ -87,7 +87,7 @@ const Appbar: React.FC<NavbarProps> = () => {
       <Collapse open={openNav}>
         <div className="container mx-auto flex justify-center items-center flex-col">
           <Navlist />
-          <Link href={"/shop"}>
+          <Link href={"/productos"}>
             <Button
               variant="gradient"
               size="sm"
@@ -95,7 +95,7 @@ const Appbar: React.FC<NavbarProps> = () => {
               className="mb-2 w-28"
               onClick={() => setOpenNav(false)}
             >
-              <span>Shop</span>
+              <span>Productos</span>
             </Button>
           </Link>
         </div>

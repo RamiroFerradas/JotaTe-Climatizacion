@@ -21,7 +21,7 @@ const Featured: React.FC<FeaturedProps> = () => {
       <div className="p-10">
         <Link
           className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center h-12 w-52 text-center justify-center"
-          href="/shop"
+          href="/productos"
         >
           <p className="font-semibold">Ver todos los productos</p>
         </Link>
