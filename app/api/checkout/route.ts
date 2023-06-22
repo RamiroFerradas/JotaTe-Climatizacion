@@ -20,11 +20,8 @@ export interface Item {
   currency_id: "ARS";
 }
 
-
 export async function POST(req: NextRequest, res: NextResponse) {
-  console.log("entro");
   const { unit_price } = await req.json();
-  console.log(unit_price);
   // Crear un objeto de preferencia
   let preference = {
     // el "purpose": "wallet_purchase" solo permite pagos registrados

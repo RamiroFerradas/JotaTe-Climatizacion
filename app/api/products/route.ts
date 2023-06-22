@@ -2,6 +2,8 @@ import { Product } from "@/app/models";
 import { findDuplicateIds } from "@/app/utilities/findDuplicateIds";
 import { imagesToArray } from "@/app/utilities/imagesToArray";
 import { NextRequest, NextResponse } from "next/server";
+import { headers } from "next/headers";
+
 import Papa from "papaparse";
 
 const DB_URL =
@@ -12,8 +14,16 @@ const DB_URL =
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
+const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  const headersInstance = headers();
+  const authorization = headersInstance.get("authorization");
+
+  if (!authorization || authorization !== TOKEN) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
@@ -32,7 +42,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
 async function getProductById(id: string) {
   try {
     const products = await getAllProducts();
-    console.log(products);
     // Buscar el producto por su ID en la lista de productos
     const product = products.find((product) => product.id === id);
 

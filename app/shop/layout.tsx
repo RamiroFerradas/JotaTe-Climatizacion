@@ -8,7 +8,7 @@ import { Loading } from "../components";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 
 export default function RootLayout({
   children,
@@ -17,10 +17,9 @@ export default function RootLayout({
 }) {
   const [openSidebar, setopenSidebar] = useState(false);
   const dispatch = useDispatch();
-  const router = useRouter();
 
   const pathname = usePathname();
-  console.log(pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;

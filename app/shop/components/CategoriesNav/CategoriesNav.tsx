@@ -12,22 +12,20 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
 
   const uniqueCategories = [];
   const categoriesSet = new Set();
-
   allProducts.forEach((product) => {
     if (!categoriesSet.has(product.category)) {
       categoriesSet.add(product.category);
       uniqueCategories.push(product.category);
     }
   });
-  const [categoryActive, setCategoryActive] = useState("Todos");
 
+  const [categoryActive, setCategoryActive] = useState("Todos");
   const [anchorEl, setAnchorEl] = useState<(null | HTMLElement)[]>([]);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
     const newAnchorEl = [...anchorEl];
     newAnchorEl[index] = event.currentTarget;
     setAnchorEl(newAnchorEl);
-    console.log(event);
   };
 
   const handleClose = (index: number, subcategory?: string, cat?: string) => {
@@ -35,12 +33,25 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
     newAnchorEl[index] = null;
     setAnchorEl(newAnchorEl);
     subcategory && dispatch(filterProductsBySubCategory(subcategory));
-
     cat && setCategoryActive(cat);
   };
 
+  const closeAllMenus = () => {
+    const isOpen = anchorEl.some((el) => el !== null);
+    if (isOpen) {
+      const newAnchorEl = anchorEl.map(() => null);
+      setAnchorEl(newAnchorEl);
+    }
+  };
+
   return (
-    <nav className="bg-[#006d54] h-16 flex items-center w-full overflow-x-auto text-center px-4 md:justify-center">
+    <nav
+      className="bg-[#006d54] h-16 flex items-center w-full overflow-x-auto text-center px-4 md:justify-center"
+      onClick={(e) => {
+        e.stopPropagation();
+        closeAllMenus();
+      }}
+    >
       {!loading && (
         <div className="flex gap-5">
           <Button
@@ -67,13 +78,17 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
             const open = Boolean(anchorEl[i]);
 
             return (
-              <>
+              <div key={i}>
                 <Button
                   id={`basic-button-${i}`}
                   aria-controls={`basic-menu-${i}`}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
                   onClick={(event) => handleClick(event, i)}
+                  onMouseEnter={(event) => {
+                    closeAllMenus();
+                    handleClick(event, i);
+                  }}
                 >
                   <span
                     key={i}
@@ -90,9 +105,10 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                   id={`basic-menu-${i}`}
                   anchorEl={anchorEl[i]}
                   open={open}
-                  // onClose={() => handleClose(i)}
+                  onClose={() => handleClose(i)}
                   MenuListProps={{
                     "aria-labelledby": `basic-button-${i}`,
+                    onMouseLeave: closeAllMenus,
                   }}
                 >
                   {Array.from(subcategoriesSet).map((subcategory) => (
@@ -104,7 +120,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                     </MenuItem>
                   ))}
                 </Menu>
-              </>
+              </div>
             );
           })}
         </div>
@@ -113,23 +129,4 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   );
 };
 
-// <button
-//   className={`md:w-28`}
-//   onClick={() => {
-//     setCategoryActive(value);
-//     dispatch(filterProductsByCategory(value));
-//   }}
-//   key={i}
-// >
-//   <span
-//     key={i}
-//     className={`${
-//       value === categoryActive
-//         ? `text-[#ff6e25] font-black text-lg cursor-pointer`
-//         : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black hover:text-lg`
-//     }`}
-//   >
-//     {value}
-//   </span>
-// </button>
 export default CategoriesNav;

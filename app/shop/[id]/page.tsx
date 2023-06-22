@@ -22,11 +22,11 @@ import { ImagesProduct } from "./components";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { useSelector } from "react-redux";
 import { AppStore } from "@/app/redux/store";
+import { formattedText } from "@/app/utilities/formattedText";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const [openDrawer, setOpenDrawer] = useState(true);
 
   const { products } = useProductList();
   const selectedProduct = products.find((_product) => _product.id === id);
@@ -34,7 +34,6 @@ const ProductDetails = () => {
   const { cart } = useSelector((state: AppStore) => state.cart);
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
-
   const router = useRouter();
 
   const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
@@ -43,14 +42,7 @@ const ProductDetails = () => {
   )}\n`;
   const text = introText + productText;
 
-  const formattedDescription = selectedProduct?.description
-    .replace(/mm/g, " mm\n")
-    .replace(/cm/g, " cm\n")
-    .replace(/kg/g, " kg\n")
-    .replace(/m²/g, " m²\n")
-    .split("\n");
-
-  // Renderizamos las líneas formateadas
+  const formattedDescription = formattedText(selectedProduct?.description);
 
   const addConsult = async () => {
     // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
@@ -80,13 +72,10 @@ const ProductDetails = () => {
   };
 
   const toggleDrawer = () => () => {
-    if (openDrawer) {
-      if (zoom) {
-        setZoom(false);
-      } else {
-        router.push("/shop");
-        setOpenDrawer(false);
-      }
+    if (zoom) {
+      setZoom(false);
+    } else {
+      router.push("/shop");
     }
   };
   const [zoom, setZoom] = useState(false);
@@ -94,14 +83,11 @@ const ProductDetails = () => {
   return (
     <Drawer
       anchor={"right"}
-      open={openDrawer}
+      open={true}
       onClose={toggleDrawer()}
       className="h-screen overflow-y-auto"
     >
-      <Card
-        // sx={{ height: 1000 }}
-        className="flex flex-col w-screen md:max-w-3xl justify-between items-center px-10 h-full overflow-y-auto"
-      >
+      <Card className="flex flex-col w-screen md:max-w-3xl justify-between items-center px-10 h-full overflow-y-auto">
         <div className="w-full h-2/6 mb-10">
           <button
             onClick={toggleDrawer()}

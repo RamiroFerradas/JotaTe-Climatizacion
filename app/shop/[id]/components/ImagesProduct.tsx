@@ -75,46 +75,27 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
           </IconButton>
         )}
       >
-        {images?.map((img: string, i: number) => {
-          const props = {
-            width: 300,
-            height: 300,
-            zoomWidth: 800,
-            zoomHeight: 800,
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            img: img,
-            zoomPosition: "original",
-          };
-
-          return (
-            <div className="flex w-full h-full justify-center items-center">
-              {/* <ReactImageZoom
-                {...props}
-                className={`rounded-xl max-w-2xl object-contain transition-all ${
-                  !zoom ? "h-60 hover:cursor-zoom-in" : "hover:cursor-zoom-out"
-                }`}
-                onClick={() => setZoom(!zoom)}
-              /> */}
-              <Image
-                priority
-                width={1000}
-                height={1000}
-                src={img}
-                alt={selectedProduct.name}
-                onLoad={() => <Loading />}
-                className={`p-8 max-w-3xl object-contain md:transition-all ${
-                  !zoom
-                    ? "h-[100vh md:h-80 hover:cursor-zoom-in"
-                    : "hover:cursor-zoom-out"
-                }`}
-                onClick={() => setZoom(!zoom)}
-              />
-            </div>
-          );
-        })}
+        {images?.map((img: string, i: number) => (
+          <div
+            key={i}
+            className="flex w-full h-full justify-center items-center"
+          >
+            <Image
+              priority
+              width={1000}
+              height={1000}
+              src={img}
+              alt={selectedProduct.name}
+              onLoad={() => <Loading />}
+              className={`p-8 max-w-3xl object-contain md:transition-all ${
+                !zoom
+                  ? "h-[100vh md:h-80 hover:cursor-zoom-in"
+                  : "hover:cursor-zoom-out"
+              }`}
+              onClick={() => setZoom(!zoom)}
+            />
+          </div>
+        ))}
       </Carousel>
     </div>
   );

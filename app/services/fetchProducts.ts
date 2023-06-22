@@ -1,6 +1,12 @@
 import { Product } from "../models";
 
 const DB_URL = process.env.NEXT_PUBLIC_API_URL as string;
+const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
+const headers = {
+  headers: {
+    Authorization: TOKEN,
+  },
+};
 
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
@@ -9,7 +15,7 @@ if (!DB_URL) {
 export async function fetchProducts(): Promise<Product[]> {
   try {
     const url = `${DB_URL}/api/products`;
-    const response = await fetch(url);
+    const response = await fetch(url, headers);
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }
@@ -23,7 +29,7 @@ export async function fetchProducts(): Promise<Product[]> {
 export async function fetchProductById(id: string): Promise<Product> {
   try {
     const url = `${DB_URL}/api/products?id=${id}`;
-    const response = await fetch(url);
+    const response = await fetch(url, headers);
     if (!response.ok) {
       throw new Error(`Error al obtener el producto con ID ${id}`);
     }

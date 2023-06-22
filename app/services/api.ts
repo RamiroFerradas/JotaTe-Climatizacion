@@ -1,6 +1,4 @@
 import { Product } from "../models/Product";
-import Papa from "papaparse";
-import { findDuplicateIds } from "../utilities/findDuplicateIds";
 import { imagesToArray } from "../utilities/imagesToArray";
 
 const DB_URL =
@@ -62,8 +60,6 @@ export const fetchProductById = async (productId: string) => {
 };
 
 export const updateProduct = async (id: string, body: {}) => {
-  console.log(id);
-  console.log(body);
   const url = `${DB_URL_AUX}/id/*${id}*`;
 
   try {

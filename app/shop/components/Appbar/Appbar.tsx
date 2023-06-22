@@ -21,7 +21,7 @@ const Appbar: React.FC<AppbarProps> = ({ setopenSidebar, openSidebar }) => {
       onClick={() => setShowCartMenu(false)}
     >
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
-        <Link href={"/home"}>
+        <Link href="/">
           <Image
             src={jotaTeLogo}
             alt="logo_jota_te"
