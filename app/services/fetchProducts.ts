@@ -2,10 +2,10 @@ import { Product } from "../models";
 
 const DB_URL = process.env.NEXT_PUBLIC_API_URL as string;
 const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
+
 const headers = {
-  headers: {
-    Authorization: TOKEN,
-  },
+  "Content-Type": "application/json",
+  Authorization: TOKEN,
 };
 
 if (!DB_URL) {
@@ -15,7 +15,8 @@ if (!DB_URL) {
 export async function fetchProducts(): Promise<Product[]> {
   try {
     const url = `${DB_URL}/api/products`;
-    const response = await fetch(url, headers);
+    const response = await fetch(url, { headers });
+    console.log(response);
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }
@@ -28,12 +29,13 @@ export async function fetchProducts(): Promise<Product[]> {
 
 export async function fetchProductById(id: string): Promise<Product> {
   try {
-    const url = `${DB_URL}/api/products?id=${id}`;
-    const response = await fetch(url, headers);
+    const url = `${DB_URL}/api/products/${id}`;
+    const response = await fetch(url, { headers });
     if (!response.ok) {
       throw new Error(`Error al obtener el producto con ID ${id}`);
     }
     const data = await response.json();
+    console.log(data);
     return data as Product;
   } catch (error) {
     throw new Error(

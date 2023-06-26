@@ -11,6 +11,9 @@ const DB_URL_AUX =
     ? (process.env.NEXT_PUBLIC_DB_BASE_URL_AUX as string)
     : (process.env.NEXT_PUBLIC_DB_BASE_URL_AUX_LOCAL as string);
 
+const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
@@ -50,35 +53,63 @@ export const fetchProductById = async (productId: string) => {
     }
 
     const data = await response.json();
-    // Si esperas un solo producto, puedes devolver directamente el primer elemento del array
+
     const product = imagesToArray(data[0]);
-    console.log(product);
     return product;
   } catch (error: any) {
     throw new Error(error.message);
   }
 };
 
-export const updateProduct = async (id: string, body: {}) => {
-  const url = `${DB_URL_AUX}/id/*${id}*`;
+// export const updateProduct = async (id: string, body: {}) => {
+//   const url = `${DB_URL_AUX}/id/*${id}*`;
+
+//   try {
+//     const response = await fetch(url, {
+//       method: "PATCH",
+//       mode: "cors",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(body),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error("Failed to update name");
+//     }
+
+//     const data = await response.json();
+//     return data;
+//   } catch (error: any) {
+//     throw new Error(error.message);
+//   }
+// };
+export async function updateProduct(
+  id: string,
+  updatedData: Product
+): Promise<Product | null> {
+  console.log(id, updatedData, "DATAAAAAAAAAAAA");
 
   try {
+    const url = `${API_URL}/api/products/${id}`;
     const response = await fetch(url, {
-      method: "PATCH",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
+      method: "PUT",
+      // headers: {
+      //   "Content-Type": "application/json",
+      //   Authorization: TOKEN,
+      // },
+      body: JSON.stringify(updatedData),
     });
 
     if (!response.ok) {
-      throw new Error("Failed to update name");
+      throw new Error(`Error al actualizar el producto con ID ${id}`);
     }
 
     const data = await response.json();
-    return data;
-  } catch (error: any) {
-    throw new Error(error.message);
+    console.log(`Se actualizó el producto con ID ${id}`);
+    return data as Product;
+  } catch (error) {
+    console.error(`Error al actualizar el producto con ID ${id}:`, error);
+    return null;
   }
-};
+}
