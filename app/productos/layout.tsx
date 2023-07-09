@@ -50,7 +50,7 @@ export default function RootLayout({
         <Toaster position="top-right" />
         {children}
 
-        <div onClick={handleClick}>
+        <div onClick={handleClick} className="">
           <Appbar setopenSidebar={setopenSidebar} openSidebar={openSidebar} />
 
           <div>

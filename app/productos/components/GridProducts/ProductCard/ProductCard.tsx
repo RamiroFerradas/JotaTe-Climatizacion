@@ -40,7 +40,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       href={`/productos/${product.id}`}
       onClick={handleClick}
     >
-      <Card className="border border-gray-400/50 md:h-72 h-60 w-44 md:w-60 flex gap-2 overflow-hidden">
+      <Card className="border border-gray-400/50 md:h-72 h-60 w-44 md:w-52 flex gap-2 overflow-hidden shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
         <CardHeader
           shadow={false}
           floated={false}
@@ -49,7 +49,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         >
           <Image
             src={product.image[0]}
-            className="w-full hover:scale-125 transition-transform h-40 object-contain"
+            className="w-full h-40 object-contain transition-transform "
             alt={product.name}
             height={200}
             width={200}
@@ -70,7 +70,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
           <Typography
             color="blue-gray"
-            className="font-medium font-body text-xs  md:text-lg"
+            className="font-medium font-body text-xs md:text-lg"
           >
             {parseCurrency(Number(product.price))}
           </Typography>

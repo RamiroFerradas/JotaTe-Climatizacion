@@ -7,31 +7,31 @@ import {
   Button,
 } from "@material-tailwind/react";
 // import { Skeleton } from "@material-ui/lab";
+import { Skeleton } from "@mui/material";
 
 export default function CardSkeleton() {
   return (
-    <Card className="border border-gray-400/50 md:w-60 h-96 w-80 flex gap-2">
+    <Card className="border border-gray-400/50 md:h-72 h-60 w-44 md:w-52 flex gap-2 overflow-hidden shadow-md">
       <CardHeader
         shadow={false}
         floated={false}
-        className="h-40 overflow-hidden flex justify-center items-center"
+        className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
       >
-        <div className="animate-pulse bg-gray-300 w-full hover:h-60 transition-all h-44"></div>
+        <Skeleton
+          height={400}
+          variant="rectangular"
+          className="w-full h-40 object-contain"
+        />
       </CardHeader>
-      <CardBody className="flex flex-col justify-center items-center">
-        <div className="h-10 flex items-center justify-between mb-2">
-          <div className="animate-pulse bg-gray-300 h-4 w-1/3"></div>
-          <div className="animate-pulse bg-gray-300 h-4 w-1/4"></div>
+      <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">
+        <div className="flex flex-col items-center justify-center">
+          <Skeleton variant="text" width={100} />
+
+          <Skeleton variant="text" width={150} />
         </div>
-        <div className="animate-pulse bg-gray-300 h-20 w-5/6"></div>
+
+        <Skeleton variant="text" width={80} />
       </CardBody>
-      <CardFooter className="pt-0">
-        <div className="flex items-center justify-center">
-          <div className="animate-pulse bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100  hover:text-white rounded-full px-6 py-2">
-            <span className="opacity-0">Agregar al carrito</span>
-          </div>
-        </div>
-      </CardFooter>
     </Card>
   );
 }

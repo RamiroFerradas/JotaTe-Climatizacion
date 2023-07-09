@@ -32,13 +32,16 @@ import { formattedText } from "@/app/utilities/formattedText";
 import { Loading } from "@/app/components";
 import { fetchProductById } from "@/app/services/fetchProducts";
 import { useProductList } from "@/app/hooks";
+import Image from "next/image";
+import Link from "next/link";
+import { ProductCard } from "../components";
 
 const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
   const [product, setProduct] = useState(null);
-  const [loading, setloading] = useState(false);
+  // const [loading, setloading] = useState(false);
 
   // useEffect(() => {
   //   const getProduct = async () => {
@@ -55,14 +58,16 @@ const ProductDetails = () => {
   //   getProduct();
   // }, [id]);
 
-  const { products } = useProductList();
-  console.log(products);
+  const { products, loading } = useProductList();
+
   const selectedProduct = products.find((_product) => _product.id === id);
 
+  const isSalamandra =
+    selectedProduct?.category === "Salamandras" &&
+    selectedProduct.subcategory !== "Kits de combustion";
   const kitsCombustion = products.filter(
     (p) => p.subcategory === "Kits de combustion"
   );
-  console.log(kitsCombustion);
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
@@ -109,7 +114,7 @@ const ProductDetails = () => {
     if (zoom) {
       setZoom(false);
     } else {
-      router.push("/productos");
+      router.back();
     }
   };
   const [zoom, setZoom] = useState(false);
@@ -121,70 +126,90 @@ const ProductDetails = () => {
       anchor={"right"}
       open={true}
       onClose={toggleDrawer()}
-      className="h-screen w-scree"
+      className="min-h-screen w-scree"
     >
       <Card className="flex flex-col  md:max-w-3xl justify-between items-center px-0 h-full ove`rflow-y-auto md:w-full w-screen">
-        {loading ? (
-          <Loading />
-        ) : (
-          <div className="overflow-y-auto w-full">
-            <div className="">
-              <button
-                onClick={toggleDrawer()}
-                className="absolute left-4 md:left-1 top-1 z-50"
-              >
-                <KeyboardBackspaceIcon fontSize="large" />
-              </button>
-              <CardMedia className="h-full w-full">
-                <ImagesProduct
-                  zoom={zoom}
-                  setZoom={setZoom}
-                  selectedProduct={selectedProduct}
-                />
-              </CardMedia>
+        <div className="overflow-y-auto w-full">
+          {loading ? (
+            <div className="w-[48vw] flex flex-col">
+              <Loading />
             </div>
-            <div className=" px-3 md:px-8">
-              <div
-                className={`p-2 transition-all w-full flex justify-center items-start flex-col gap-5 ${
-                  !zoom ? "block" : "md:hidden"
-                }`}
-              >
-                <div className="h-1/6">
-                  <Typography
-                    variant="h5"
-                    component="div"
-                    className="font-black uppercase"
-                  >
-                    {selectedProduct?.name}
-                  </Typography>
-                  <Typography
-                    gutterBottom
-                    variant="h6"
-                    component="div"
-                    className="text-gray-600"
-                  >
-                    {selectedProduct?.brand}
-                  </Typography>
+          ) : (
+            <div className="flex flex-col gap-5 min-h-screen justify-between">
+              <div>
+                <button
+                  onClick={toggleDrawer()}
+                  className="absolute left-4 md:left-1 top-0 z-50"
+                >
+                  <KeyboardBackspaceIcon fontSize="large" />
+                </button>
+                <CardMedia className="h-full w-full">
+                  <ImagesProduct
+                    zoom={zoom}
+                    setZoom={setZoom}
+                    selectedProduct={selectedProduct}
+                  />
+                </CardMedia>
+              </div>
+              <div className="px-3 md:px-8">
+                <div
+                  className={`p-2 transition-all w-full flex justify-center items-start flex-col gap-5 ${
+                    !zoom ? "block" : "md:hidden"
+                  }`}
+                >
+                  <div className="h-1/6">
+                    <Typography
+                      variant="h5"
+                      component="div"
+                      className="font-black uppercase"
+                    >
+                      {selectedProduct?.name}
+                    </Typography>
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      className="text-gray-600"
+                    >
+                      {selectedProduct?.brand}
+                    </Typography>
+                    <Divider />
+                  </div>
+
+                  <div className="flex flex-col justify-center items-center flex-growh-auto w-full">
+                    <ul className="w-full overflow-y-auto">
+                      {formattedDescription?.map((linea, index) => (
+                        <li key={index} className="mb-1">
+                          <Typography variant="body2" color="text.secondary">
+                            {linea}
+                          </Typography>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                   <Divider />
                 </div>
-
-                <div className="flex flex-col justify-center items-center flex-growh-auto w-full">
-                  <ul className="w-full overflow-y-auto">
-                    {formattedDescription?.map((linea, index) => (
-                      <li key={index} className="mb-1">
-                        <Typography variant="body2" color="text.secondary">
-                          {linea}
-                        </Typography>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                {isSalamandra && (
+                  <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      className="font-semibold"
+                    >
+                      ¡Este producto requiere un kit de combustión, te mostramos
+                      algunas de nuestras opciones!
+                    </Typography>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                      {kitsCombustion.map((kit, index) => (
+                        <ProductCard key={kit.id} product={kit} />
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-              <div></div>
-
-              <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
+              <div className="sticky bottom-0">
                 <CardActions>
-                  <div className="w-full items-center flex justify-around gap-5">
+                  <div className="w-full items-center flex justify-center gap-5">
                     <Button
                       className="flex w-full items-center gap-3 justify-center"
                       onClick={handleAddToCart}
@@ -195,7 +220,6 @@ const ProductDetails = () => {
                     </Button>
 
                     <Button
-                      // variant="contained"
                       color="green"
                       className="flex items-center gap-3 w-full justify-center"
                       onClick={handleConsultProduct}
@@ -208,8 +232,8 @@ const ProductDetails = () => {
                 </CardActions>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </Card>
     </Drawer>
   );
