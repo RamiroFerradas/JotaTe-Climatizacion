@@ -45,7 +45,7 @@ export default function RootLayout({
   };
 
   return (
-    <main>
+    <main className="">
       <PersistGate loading={<Loading />} persistor={persistor}>
         <Toaster position="top-right" />
         {children}

@@ -197,7 +197,7 @@ const ProductDetails = () => {
                       ¡Este producto requiere un kit de combustión, te mostramos
                       algunas de nuestras opciones!
                     </Typography>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-2">
+                    <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
                       {kitsCombustion.map((kit, index) => (
                         <ProductCard key={kit.id} product={kit} />
                       ))}
@@ -208,25 +208,19 @@ const ProductDetails = () => {
               <div className="sticky bottom-0">
                 <CardActions>
                   <div className="w-full items-center flex justify-center gap-5">
-                    <Button
-                      className="flex w-full items-center gap-3 justify-center"
-                      onClick={handleAddToCart}
-                    >
+                    <Button className="flex w-full items-center gap-3 justify-center">
                       <FaCartPlus className="h-5 w-5" />
                       <span className="hidden md:block">Agregar</span>
-                      {/* <Chip label={`${cart.length} productos`} /> */}
                     </Button>
 
                     <Button
                       color="green"
                       className="flex items-center gap-3 w-full justify-center"
-                      onClick={handleConsultProduct}
                     >
                       <BsWhatsapp className="h-5 w-5" />
                       <span>Consultar</span>
                     </Button>
                   </div>
-                  {/* <MercadoPagoButton selectedProduct={selectedProduct} /> */}
                 </CardActions>
               </div>
             </div>

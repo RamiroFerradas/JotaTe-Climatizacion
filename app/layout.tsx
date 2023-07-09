@@ -24,8 +24,10 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          {children}
-          <Footer />
+          <div className="min-h-screen flex flex-col">
+            <div className="flex-grow flex flex-col">{children}</div>
+            <Footer />
+          </div>
         </ReduxProvider>
       </body>
     </html>
