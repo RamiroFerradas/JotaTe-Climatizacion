@@ -21,7 +21,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
     .map((category) => category.replace(" a leña", ""));
 
   const { categoryActive } = useSelector((state: AppStore) => state.products);
-  console.log(categoryActive);
+
   // const [categoryActive, setCategoryActive] = useState("Todos");
   const [anchorEl, setAnchorEl] = useState<(null | HTMLElement)[]>([]);
 

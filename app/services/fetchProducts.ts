@@ -35,7 +35,7 @@ export async function fetchProductById(id: string): Promise<Product> {
       throw new Error(`Error al obtener el producto con ID ${id}`);
     }
     const data = await response.json();
-    console.log(data);
+
     return data as Product;
   } catch (error) {
     throw new Error(
