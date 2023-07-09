@@ -15,6 +15,7 @@ import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
 import { BaseSyntheticEvent } from "react";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 import Link from "next/link";
+import { Loading } from "@/app/components";
 
 interface ProductCardProps {
   product: Product;
@@ -34,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2">
+    <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2 overflow-hidden">
       <Link
         scroll={false}
         href={`/productos/${product.id}`}
@@ -52,26 +53,34 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             alt={product.name}
             height={200}
             width={200}
+            priority
           />
         </CardHeader>
-        <CardBody className="h-40 overflow-hidden">
+        <CardBody className="h-56 overflow-hidden relative p-4">
           <div className=" flex items-center justify-between mb-2 flex-col">
-            <Typography color="blue-gray" className="font-medium uppercase">
+            <Typography
+              color="blue-gray"
+              className="uppercase font-bold text-center"
+            >
               {product.name}
             </Typography>
-            <Typography color="blue-gray" className="font-medium">
+            <Typography
+              color="blue-gray"
+              className="font-medium font-body text-lg"
+            >
               {parseCurrency(Number(product.price))}
             </Typography>
           </div>
           <Typography
             variant="small"
             color="gray"
-            className="font-normal opacity-75"
+            // className="font-normal bg-gradient-to-b from-transparent to-gray-300 "
           >
             {product.description}
           </Typography>
+          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent"></div>
         </CardBody>
-        <CardFooter className="pt-0">
+        {/* <CardFooter className="pt-0">
           <Button
             ripple={false}
             fullWidth={true}
@@ -83,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             Agregar al carrito
           </Button>
-        </CardFooter>
+        </CardFooter> */}
       </Link>
     </Card>
   );

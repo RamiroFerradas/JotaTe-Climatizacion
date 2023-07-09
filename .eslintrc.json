@@ -22,26 +22,25 @@
     "sourceType": "module"
   },
   "plugins": ["react", "react-hooks"],
+
   "rules": {
-    "rules": {
-      "sort-imports": "error",
-      "import/order": [
-        "error",
-        {
-          "groups": [["builtin", "external"], "parent", "sibling", "index"],
-          "newlines-between": "always"
-        }
-      ]
-    },
-    "react/react-in-jsx-scope": "off",
-    "no-unused-vars": "warn",
-    "no-self-assign": "warn",
-    "react/prop-types": "off",
-    "no-useless-escape": "warn",
-    "react/jsx-key": [
-      "warn",
-      { "checkFragmentShorthand": true, "checkKeyMustBeforeSpread": true }
+    "sort-imports": "error",
+    "import/order": [
+      "error",
+      {
+        "groups": [["builtin", "external"], "parent", "sibling", "index"],
+        "newlines-between": "always"
+      }
     ]
-    // "max-len": ["warn", 140]
-  }
+  },
+  "react/react-in-jsx-scope": "off",
+  "no-unused-vars": "warn",
+  "no-self-assign": "warn",
+  "react/prop-types": "off",
+  "no-useless-escape": "warn",
+  "react/jsx-key": [
+    "warn",
+    { "checkFragmentShorthand": true, "checkKeyMustBeforeSpread": true }
+  ]
+  // "max-len": ["warn", 140]
 }

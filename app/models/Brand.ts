@@ -1,3 +1,3 @@
 export interface Brand {
-  label: string;
+  label: string[];
 }

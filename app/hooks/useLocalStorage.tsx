@@ -3,10 +3,10 @@ import { useState, useEffect } from "react";
 type SetValueFunction<T> = (value: T) => void;
 type UseLocalStorageReturnType<T> = [T, SetValueFunction<T>];
 
-export const useLocalStorage = <T,>(
+export default function useLocalStorage<T>(
   key: string,
   initialValue: T
-): UseLocalStorageReturnType<T> => {
+): UseLocalStorageReturnType<T> {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
   const setValue: SetValueFunction<T> = (value) => {
@@ -31,4 +31,4 @@ export const useLocalStorage = <T,>(
   }, [key, initialValue]);
 
   return [storedValue, setValue];
-};
+}

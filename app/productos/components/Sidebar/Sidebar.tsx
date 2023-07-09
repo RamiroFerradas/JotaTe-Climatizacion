@@ -5,26 +5,72 @@ export type SidebarProps = {
 };
 
 import { ChangeEvent, useState } from "react";
-import {
-  Card,
-  Typography,
-  List,
-  ListItem,
-  ListItemPrefix,
-  Accordion,
-  AccordionHeader,
-  AccordionBody,
-  Checkbox,
-} from "@material-tailwind/react";
-import {
-  ChevronDownIcon,
-  AdjustmentsHorizontalIcon,
-} from "@heroicons/react/24/solid";
-import { Brands, SubMenu } from "./components";
+import { Card, Typography, List } from "@material-tailwind/react";
+import { MenuCheckbox, SubMenu } from "./components";
 import { useDispatch } from "react-redux";
-import { orderByConsults, orderByPrice } from "@/app/redux/slices/products";
+import {
+  filterProductsBySubCategory,
+  orderByConsults,
+  orderByPrice,
+} from "@/app/redux/slices/products";
+import { useFilterProducts, useListBrands } from "@/app/hooks";
+import { AppStore } from "@/app/redux/store";
+import { useSelector } from "react-redux";
+import Orders from "./components/Orders";
+
+export interface Option {
+  label: string;
+  value: string;
+}
 
 const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
+  const { allProducts, filteredProducts } = useSelector(
+    (state: AppStore) => state.products
+  );
+
+  const allMatchCategory = !filteredProducts.some(
+    (prod) => prod.category !== "Salamandras a leña"
+  );
+
+  // const salamandrasLeñaSubcategoriesSet = new Set(
+  //   allProducts
+  //     .filter((prod) => prod.category === "Salamandras a leña")
+  //     .map((prod) => prod.subcategory)
+  // );
+
+  // const salamandrasLeñaSubcategories = Array.from(
+  //   salamandrasLeñaSubcategoriesSet
+  // ).map((subcategory) => ({ value: subcategory, label: subcategory }));
+
+  // console.log(salamandrasLeñaSubcategories);
+
+  const salamandrasLeñaSubcategoriesSet = new Set(
+    allProducts
+      .filter((prod) => prod.category === "Salamandras a leña")
+      .map((prod) => prod.subcategory)
+  );
+
+  const salamandrasLeñaSubcategories = Array.from(
+    salamandrasLeñaSubcategoriesSet
+  ).map((subcategory) => ({ value: subcategory, label: subcategory }));
+
+  const allSubcategories = salamandrasLeñaSubcategories.reduce(
+    (result, subcategory) => {
+      result.push(subcategory.value);
+      return result;
+    },
+    []
+  );
+
+  salamandrasLeñaSubcategories.unshift({
+    value: allSubcategories as any,
+    label: "Todos",
+  });
+
+  const { allBrands, brandsFiltered } = useListBrands();
+  const { selectedBrands, setSelectedBrands, setSelectedLines, selectedLines } =
+    useFilterProducts();
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(0);
 
@@ -32,32 +78,16 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
     setOpen(open === value ? 0 : value);
   };
 
-  const sold = [
-    { label: "Todos", value: "all" },
-    { label: "Mas vendidos", value: "highSold" },
-    { label: "Menos vendidos", value: "lowSold" },
-  ];
-  const price = [
-    { label: "Todos", value: "all" },
-    { label: "Mayor precio", value: "asc" },
-    { label: "Menor precio", value: "desc" },
-  ];
-  const consults = [
-    { label: "Todos", value: "all" },
-    { label: "Mas consultados", value: "asc" },
-    { label: "Menos consultados", value: "desc" },
-  ];
-
-  const handleOrderChange = (e: ChangeEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-    const type = e.target.value;
-    dispatch(orderByPrice({ type }));
-  };
-
   const handleOrderConsults = (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     const type = e.target.value;
     dispatch(orderByConsults({ type }));
+  };
+
+  const handleOrderList = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    dispatch(filterProductsBySubCategory(value));
   };
 
   return (
@@ -86,48 +116,27 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
         </div>
       </div>
       <List>
-        <Brands open={open} handleOpen={handleOpen} />
-        <Accordion
-          open={open === 2}
-          icon={
-            <ChevronDownIcon
-              strokeWidth={2.5}
-              className={`mx-auto h-4 w-4 transition-transform ${
-                open === 2 ? "rotate-180" : ""
-              }`}
-            />
-          }
-        >
-          <ListItem className="p-0" selected={open === 2}>
-            <AccordionHeader
-              onClick={() => handleOpen(2)}
-              className="border-b-0 p-3"
-            >
-              <ListItemPrefix>
-                <AdjustmentsHorizontalIcon className="h-5 w-5" />
-              </ListItemPrefix>
-              <Typography color="blue-gray" className="mr-auto font-normal">
-                Ordenar
-              </Typography>
-            </AccordionHeader>
-          </ListItem>
-          <AccordionBody className="py-1">
-            {/* <SubMenu
-              title="Ordenar por consultas"
-              items={consults}
-              identifier={1}
-              name="orderSales"
-              handleChange={handleOrderConsults}
-            /> */}
-            <SubMenu
-              title="Ordenar por precio"
-              items={price}
-              identifier={2}
-              name="orderPrice"
-              handleChange={handleOrderChange}
-            />
-          </AccordionBody>
-        </Accordion>
+        <MenuCheckbox
+          items={brandsFiltered}
+          isOpen={1}
+          title={"Marcas"}
+          open={open}
+          handleOpen={handleOpen}
+          setSelected={setSelectedBrands}
+          selected={selectedBrands}
+        />
+
+        {allMatchCategory && (
+          <SubMenu
+            items={salamandrasLeñaSubcategories}
+            handleChange={handleOrderList}
+            title={"Lineas"}
+            name={"filterSubcategory"}
+            identifier={0}
+          />
+        )}
+
+        <Orders open={open} handleOpen={handleOpen} />
         {/* <ListItem>
           <ListItemPrefix>
             <InboxIcon className="h-5 w-5" />

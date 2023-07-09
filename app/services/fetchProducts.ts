@@ -16,7 +16,7 @@ export async function fetchProducts(): Promise<Product[]> {
   try {
     const url = `${DB_URL}/api/products`;
     const response = await fetch(url, { headers });
-    console.log(response);
+
     if (!response.ok) {
       throw new Error("Error al obtener los productos");
     }

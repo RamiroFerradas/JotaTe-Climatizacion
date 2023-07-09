@@ -81,8 +81,8 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
                   src={product.image[0]}
                   className="w-10 h-10 mr-2"
                   alt={product.name}
-                  width={10}
-                  height={10}
+                  width={200}
+                  height={200}
                 />
                 <div>
                   <p className="text-gray-800">{product.name}</p>

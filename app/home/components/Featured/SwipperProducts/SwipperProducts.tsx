@@ -9,10 +9,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
-import useProductList from "@/app/hooks/useProductList";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import Link from "next/link";
 import SkeletonFeatured from "./skeletonFeatured";
+import { useProductList } from "@/app/hooks";
 
 const SwipperProducts = () => {
   const slider = useRef<Slider>(null);

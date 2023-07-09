@@ -15,7 +15,6 @@ import Drawer from "@mui/material/Drawer";
 
 import { CardActions, CardMedia, Typography, Chip, Card } from "@mui/material";
 
-import useProductList from "@/app/hooks/useProductList";
 import { Button } from "@material-tailwind/react";
 import { ImagesProduct } from "./components";
 
@@ -25,6 +24,7 @@ import { AppStore } from "@/app/redux/store";
 import { formattedText } from "@/app/utilities/formattedText";
 import { Loading } from "@/app/components";
 import { fetchProductById } from "@/app/services/fetchProducts";
+import { useProductList } from "@/app/hooks";
 
 const ProductDetails = () => {
   const { id } = useParams();

@@ -1,21 +1,17 @@
 import { ProductCard } from "./ProductCard";
-import useProductList from "@/app/hooks/useProductList";
 import CardSkeleton from "./ProductCard/CardSkeleton";
 import { Paginate } from "../Paginate";
 import { useState, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Product } from "@/app/models";
+import { useProductList } from "@/app/hooks";
 
 export type GridProductsProps = {
   // products: Product;
   // loading: boolean;
 };
 
-const GridProducts: React.FC<GridProductsProps> = (
-  {
-    // products, loading
-  }
-) => {
+const GridProducts: React.FC<GridProductsProps> = () => {
   const { loading, products } = useProductList();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;

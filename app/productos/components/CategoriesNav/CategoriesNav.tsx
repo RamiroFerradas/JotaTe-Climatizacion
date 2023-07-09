@@ -1,39 +1,57 @@
 "use client";
-import useProductList from "@/app/hooks/useProductList";
-import { filterProductsBySubCategory } from "@/app/redux/slices/products";
+import { useProductList } from "@/app/hooks";
+import {
+  filterProductsByCategory,
+  filterProductsBySubCategory,
+  selectCategory,
+} from "@/app/redux/slices/products";
+import { AppStore } from "@/app/redux/store";
 import { Button, Menu, MenuItem } from "@mui/material";
 import { MouseEvent, useState } from "react";
+import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 export type CategoriesNavProps = {};
 
 const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   const { allProducts, loading } = useProductList();
   const dispatch = useDispatch();
+  const uniqueCategories = allProducts
+    .map((product) => product.category)
+    .filter((category, index, array) => array.indexOf(category) === index)
+    .map((category) => category.replace(" a leña", ""));
 
-  const uniqueCategories = [];
-  const categoriesSet = new Set();
-  allProducts.forEach((product) => {
-    if (!categoriesSet.has(product.category)) {
-      categoriesSet.add(product.category);
-      uniqueCategories.push(product.category);
-    }
-  });
-
-  const [categoryActive, setCategoryActive] = useState("Todos");
+  const { categoryActive } = useSelector((state: AppStore) => state.products);
+  console.log(categoryActive);
+  // const [categoryActive, setCategoryActive] = useState("Todos");
   const [anchorEl, setAnchorEl] = useState<(null | HTMLElement)[]>([]);
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>, index: number) => {
+    // if (anchorEl[index] !== undefined) {
     const newAnchorEl = [...anchorEl];
     newAnchorEl[index] = event.currentTarget;
     setAnchorEl(newAnchorEl);
+    // }
   };
 
   const handleClose = (index: number, subcategory?: string, cat?: string) => {
-    const newAnchorEl = [...anchorEl];
-    newAnchorEl[index] = null;
-    setAnchorEl(newAnchorEl);
-    subcategory && dispatch(filterProductsBySubCategory(subcategory));
-    cat && setCategoryActive(cat);
+    if (anchorEl[index] !== undefined) {
+      const newAnchorEl = [...anchorEl];
+      newAnchorEl[index] = null;
+      setAnchorEl(newAnchorEl);
+
+      if (cat) {
+        dispatch(selectCategory(cat));
+        if (cat.includes("Salamandras")) {
+          dispatch(
+            filterProductsByCategory(`${cat} ${subcategory?.toLowerCase()}`)
+          );
+        } else if (cat.includes("Parrillas")) {
+          dispatch(filterProductsByCategory(`Parrillas ${subcategory}`));
+        } else {
+          dispatch(filterProductsBySubCategory(subcategory));
+        }
+      }
+    }
   };
 
   const closeAllMenus = () => {
@@ -57,7 +75,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
           <Button
             onClick={() => {
               dispatch(filterProductsBySubCategory("Todos"));
-              setCategoryActive("Todos");
+              dispatch(selectCategory("Todos"));
             }}
           >
             <span
@@ -76,6 +94,12 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
               submenu.map((prod) => prod.subcategory)
             );
             const open = Boolean(anchorEl[i]);
+            const options =
+              cat === "Salamandras"
+                ? ["A leña", "A pellets"]
+                : cat === "Parrillas"
+                ? ["Fijas", "Móviles"]
+                : Array.from(subcategoriesSet);
 
             return (
               <div key={i}>
@@ -111,12 +135,12 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                     onMouseLeave: closeAllMenus,
                   }}
                 >
-                  {Array.from(subcategoriesSet).map((subcategory) => (
+                  {options.map((option) => (
                     <MenuItem
-                      key={subcategory}
-                      onClick={() => handleClose(i, subcategory, cat)}
+                      key={option}
+                      onClick={() => handleClose(i, option, cat)}
                     >
-                      {subcategory}
+                      {option}
                     </MenuItem>
                   ))}
                 </Menu>

@@ -18,7 +18,7 @@ export default function CardSkeleton() {
       >
         <div className="animate-pulse bg-gray-300 w-full hover:h-60 transition-all h-44"></div>
       </CardHeader>
-      <CardBody>
+      <CardBody className="flex flex-col justify-center items-center">
         <div className="h-10 flex items-center justify-between mb-2">
           <div className="animate-pulse bg-gray-300 h-4 w-1/3"></div>
           <div className="animate-pulse bg-gray-300 h-4 w-1/4"></div>

@@ -2,7 +2,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { Product } from "../models/Product";
 import { ProductsState, productsSlice } from "./slices/products";
-import { BrandssState, brandsSlice } from "./slices/brands";
+import { BrandsState, brandsSlice } from "./slices/brands";
 import { cartSlice } from "./slices/cart";
 import { ProductState, productSlice } from "./slices/product";
 
@@ -21,7 +21,7 @@ import {
 
 export interface AppStore {
   products: ProductsState;
-  brands: BrandssState;
+  brands: BrandsState;
   cart: any;
   product: any;
 }

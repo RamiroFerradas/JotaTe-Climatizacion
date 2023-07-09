@@ -36,20 +36,20 @@ export default function SubMenu({
   const handleOpenSubAccordion = (value: number) => {
     setOpenSubAccordion(openSubAccordion === value ? 0 : value);
   };
-
+  const isOpen = openSubAccordion === identifier;
   return (
     <Accordion
-      open={openSubAccordion === identifier}
+      open={isOpen}
       icon={
         <ChevronDownIcon
           strokeWidth={2.5}
           className={`mx-auto h-4 w-4 transition-transform ${
-            openSubAccordion === identifier ? "rotate-180" : ""
+            isOpen ? "rotate-180" : ""
           }`}
         />
       }
     >
-      <ListItem className="p-0" selected={openSubAccordion === identifier}>
+      <ListItem className="p-0" selected={isOpen}>
         <AccordionHeader
           onClick={() => handleOpenSubAccordion(identifier)}
           className="border-b-0 p-3"

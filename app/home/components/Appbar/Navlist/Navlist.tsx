@@ -1,6 +1,6 @@
 "use client";
 import { Routes } from "@/app/home/routes/routes";
-import useScrollSections from "@/app/hooks/useScrollSections";
+import { useScrollSections } from "@/app/hooks";
 import { Typography } from "@material-tailwind/react";
 
 export type NavlistProps = {};

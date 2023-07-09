@@ -4,11 +4,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export interface ProductsState {
   allProducts: Product[];
   filteredProducts: Product[];
+  filteredProductsByCategory: Product[];
+  categoryActive: string;
+  subCategoryActive: string;
 }
 
 const initialState: ProductsState = {
   allProducts: [],
   filteredProducts: [],
+  filteredProductsByCategory: [],
+  categoryActive: "Todos",
+  subCategoryActive: "",
 };
 
 export const productsSlice = createSlice({
@@ -19,17 +25,8 @@ export const productsSlice = createSlice({
       state.allProducts = action.payload;
       state.filteredProducts = action.payload;
     },
-    filterProductsByBrand: (state, action) => {
-      const brandsToFilter = action.payload;
-      if (brandsToFilter.length === 0) {
-        state.filteredProducts = state.allProducts;
-      } else {
-        state.filteredProducts = state.allProducts.filter((product) =>
-          brandsToFilter.includes(product.brand)
-        );
-      }
-    },
     searchProducts: (state, action) => {
+      state.categoryActive = "Todos";
       const searchTerm = action.payload.toLowerCase();
       state.filteredProducts = state.allProducts.filter(
         (product) =>
@@ -37,52 +34,87 @@ export const productsSlice = createSlice({
           product.brand.toLowerCase().includes(searchTerm)
       );
     },
-    filterProductsByCategory: (state, action) => {
-      const categoryToFilter = action.payload;
-
-      if (categoryToFilter === "Todos") {
+    filterProductsByBrand: (state, action) => {
+      const brandsToFilter = action.payload;
+      if (brandsToFilter.length === 0 && state.categoryActive === "Todos") {
         state.filteredProducts = state.allProducts;
+      } else if (brandsToFilter.length === 0) {
+        state.filteredProducts = state.allProducts.filter((product) =>
+          product.subcategory.includes(state.subCategoryActive)
+        );
       } else {
         state.filteredProducts = state.allProducts.filter(
-          (product) => product.category === categoryToFilter
+          (product) =>
+            brandsToFilter.includes(product.brand) &&
+            product.subcategory.includes(state.subCategoryActive)
         );
+      }
+    },
+
+    filterProductsByCategory: (state, action) => {
+      const categoryToFilter = action.payload;
+      console.log(categoryToFilter);
+      if (categoryToFilter) {
+        if (categoryToFilter === "Todos") {
+          state.filteredProducts = state.allProducts;
+        } else {
+          state.filteredProducts = state.allProducts.filter(
+            (product) => product.category === categoryToFilter
+          );
+        }
       }
     },
     filterProductsBySubCategory: (state, action) => {
       const subcategoryToFilter = action.payload;
+      state.subCategoryActive = subcategoryToFilter;
 
-      if (subcategoryToFilter === "Todos") {
-        state.filteredProducts = state.allProducts;
-      } else {
-        state.filteredProducts = state.allProducts.filter(
-          (product) => product.subcategory === subcategoryToFilter
-        );
+      if (subcategoryToFilter) {
+        if (subcategoryToFilter === "Todos") {
+          console.log(subcategoryToFilter);
+          state.filteredProducts = state.allProducts;
+        } else {
+          state.filteredProducts = state.allProducts.filter((product) =>
+            subcategoryToFilter?.includes(product.subcategory)
+          );
+        }
       }
     },
+
     orderByPrice: (state, action) => {
       const { type } = action.payload;
       if (type === "asc") {
-        state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => Number(a.price) - Number(b.price)
-        );
+        state.filteredProducts = [...state.filteredProducts]
+          .filter((product) =>
+            product.subcategory.includes(state.subCategoryActive)
+          )
+          .sort((a, b) => Number(a.price) - Number(b.price));
       } else if (type === "desc") {
-        state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => Number(b.price) - Number(a.price)
-        );
+        state.filteredProducts = [...state.filteredProducts]
+          .filter((product) =>
+            product.subcategory.includes(state.subCategoryActive)
+          )
+          .sort((a, b) => Number(b.price) - Number(a.price));
       }
     },
+
     orderByConsults: (state, action) => {
       const { type } = action.payload;
-
       if (type === "asc") {
-        state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => Number(b.consults) - Number(a.consults)
-        );
+        state.filteredProducts = [...state.filteredProducts]
+          .filter((product) =>
+            product.subcategory.includes(state.subCategoryActive)
+          )
+          .sort((a, b) => Number(b.consults) - Number(a.consults));
       } else if (type === "desc") {
-        state.filteredProducts = [...state.filteredProducts].sort(
-          (a, b) => Number(a.consults) - Number(b.consults)
-        );
+        state.filteredProducts = [...state.filteredProducts]
+          .filter((product) =>
+            product.subcategory.includes(state.subCategoryActive)
+          )
+          .sort((a, b) => Number(a.consults) - Number(b.consults));
       }
+    },
+    selectCategory: (state, action) => {
+      state.categoryActive = action.payload;
     },
   },
 });
@@ -95,5 +127,6 @@ export const {
   orderByPrice,
   orderByConsults,
   filterProductsBySubCategory,
+  selectCategory,
 } = productsSlice.actions;
 export default productsSlice.reducer;

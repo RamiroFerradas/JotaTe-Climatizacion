@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useLocalStorage } from "./useLocalStorage";
+import { useLocalStorage } from "@/app/hooks";
 
 interface ScrollSectionProps {
   scrolled: boolean;
