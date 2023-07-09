@@ -13,7 +13,14 @@ import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import Drawer from "@mui/material/Drawer";
 
-import { CardActions, CardMedia, Typography, Chip, Card } from "@mui/material";
+import {
+  CardActions,
+  CardMedia,
+  Typography,
+  Chip,
+  Card,
+  Divider,
+} from "@mui/material";
 
 import { Button } from "@material-tailwind/react";
 import { ImagesProduct } from "./components";
@@ -49,8 +56,13 @@ const ProductDetails = () => {
   // }, [id]);
 
   const { products } = useProductList();
+  console.log(products);
   const selectedProduct = products.find((_product) => _product.id === id);
-  // const selectedProduct = product;
+
+  const kitsCombustion = products.filter(
+    (p) => p.subcategory === "Kits de combustion"
+  );
+  console.log(kitsCombustion);
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
@@ -102,26 +114,28 @@ const ProductDetails = () => {
   };
   const [zoom, setZoom] = useState(false);
 
+  // const isSalamandra = selectedProduct.category === "Salamandras";
+  // console.log(isSalamandra);
   return (
     <Drawer
       anchor={"right"}
       open={true}
       onClose={toggleDrawer()}
-      className="h-screen overflow-y-auto"
+      className="h-screen w-scree"
     >
-      <Card className="flex flex-col w-screen md:max-w-3xl justify-between items-center px-3 md:px-10 h-full overflow-y-auto">
+      <Card className="flex flex-col  md:max-w-3xl justify-between items-center px-0 h-full ove`rflow-y-auto md:w-full w-screen">
         {loading ? (
           <Loading />
         ) : (
-          <>
-            <div className="w-full h-2/6 mb-10">
+          <div className="overflow-y-auto w-full">
+            <div className="">
               <button
                 onClick={toggleDrawer()}
                 className="absolute left-4 md:left-1 top-1 z-50"
               >
                 <KeyboardBackspaceIcon fontSize="large" />
               </button>
-              <CardMedia className="h-full">
+              <CardMedia className="h-full w-full">
                 <ImagesProduct
                   zoom={zoom}
                   setZoom={setZoom}
@@ -129,70 +143,72 @@ const ProductDetails = () => {
                 />
               </CardMedia>
             </div>
-
-            <div
-              className={`p-2 transition-all w-full h-3/6 flex justify-center items-start flex-col gap-5 ${
-                !zoom ? "block" : "md:hidden"
-              }`}
-            >
-              <div className="h-1/6">
-                <Typography
-                  variant="h5"
-                  component="div"
-                  className="font-bold uppercase "
-                >
-                  {selectedProduct?.name}
-                </Typography>
-
-                <Typography
-                  gutterBottom
-                  variant="h6"
-                  component="div"
-                  className="text-gray-600"
-                >
-                  {selectedProduct?.brand}
-                </Typography>
-              </div>
-
-              <div className="flex flex-col justify-center items-center flex-grow overflow-y-auto h-5/6 w-full">
-                <ul className="w-full overflow-y-auto">
-                  {formattedDescription?.map((linea, index) => (
-                    <li key={index} className="mb-2">
-                      <Typography variant="body2" color="text.secondary">
-                        {linea}
-                      </Typography>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
-              <CardActions>
-                <div className="w-full items-center flex justify-around gap-5">
-                  <Button
-                    className="flex w-full items-center gap-3 justify-center"
-                    onClick={handleAddToCart}
+            <div className=" px-3 md:px-8">
+              <div
+                className={`p-2 transition-all w-full flex justify-center items-start flex-col gap-5 ${
+                  !zoom ? "block" : "md:hidden"
+                }`}
+              >
+                <div className="h-1/6">
+                  <Typography
+                    variant="h5"
+                    component="div"
+                    className="font-black uppercase"
                   >
-                    <FaCartPlus className="h-5 w-5" />
-                    <span className="hidden md:block">Agregar</span>
-                    {/* <Chip label={`${cart.length} productos`} /> */}
-                  </Button>
-
-                  <Button
-                    // variant="contained"
-                    color="green"
-                    className="flex items-center gap-3 w-full justify-center"
-                    onClick={handleConsultProduct}
+                    {selectedProduct?.name}
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="h6"
+                    component="div"
+                    className="text-gray-600"
                   >
-                    <BsWhatsapp className="h-5 w-5" />
-                    <span>Consultar</span>
-                  </Button>
+                    {selectedProduct?.brand}
+                  </Typography>
+                  <Divider />
                 </div>
-                {/* <MercadoPagoButton selectedProduct={selectedProduct} /> */}
-              </CardActions>
+
+                <div className="flex flex-col justify-center items-center flex-growh-auto w-full">
+                  <ul className="w-full overflow-y-auto">
+                    {formattedDescription?.map((linea, index) => (
+                      <li key={index} className="mb-1">
+                        <Typography variant="body2" color="text.secondary">
+                          {linea}
+                        </Typography>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+              <div></div>
+
+              <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
+                <CardActions>
+                  <div className="w-full items-center flex justify-around gap-5">
+                    <Button
+                      className="flex w-full items-center gap-3 justify-center"
+                      onClick={handleAddToCart}
+                    >
+                      <FaCartPlus className="h-5 w-5" />
+                      <span className="hidden md:block">Agregar</span>
+                      {/* <Chip label={`${cart.length} productos`} /> */}
+                    </Button>
+
+                    <Button
+                      // variant="contained"
+                      color="green"
+                      className="flex items-center gap-3 w-full justify-center"
+                      onClick={handleConsultProduct}
+                    >
+                      <BsWhatsapp className="h-5 w-5" />
+                      <span>Consultar</span>
+                    </Button>
+                  </div>
+                  {/* <MercadoPagoButton selectedProduct={selectedProduct} /> */}
+                </CardActions>
+              </div>
             </div>
-          </>
+          </div>
         )}
       </Card>
     </Drawer>

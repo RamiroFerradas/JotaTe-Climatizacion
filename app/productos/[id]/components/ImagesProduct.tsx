@@ -21,7 +21,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
 
   return (
     <div
-      className={`flex items-center flex-col md:flex-row h-96 justify-center max-w-2xl ${
+      className={`flex items-center flex-col md:flex-row h-96 justify-center md:max-w-2xl ${
         zoom ? `md:h-screen ` : `md:h-56 overflow-hidden`
       }`}
     >
@@ -29,7 +29,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
         loop
         autoplay
         autoplayDelay={10000}
-        className="rounded-xl overflow-hidden"
+        className="overflow-hidden"
         navigation={({ setActiveIndex, activeIndex, length }) => (
           <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2 l">
             {images?.length > 1 &&
@@ -87,7 +87,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}
-              className={`p-8 max-w-3xl object-contain md:transition-all ${
+              className={` max-w-3xl object-contain md:transition-all ${
                 !zoom
                   ? "h-[100vh md:h-80 hover:cursor-zoom-in"
                   : "hover:cursor-zoom-out"
