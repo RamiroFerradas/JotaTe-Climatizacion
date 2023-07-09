@@ -35,7 +35,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Card className="border border-gray-400/50 h-96 md:w-60 w-80 flex gap-2 overflow-hidden">
+    <Card className="border border-gray-400/50 md:h-96 h-80 w-44 md:w-60 flex gap-2 overflow-hidden">
       <Link
         scroll={false}
         href={`/productos/${product.id}`}
@@ -78,7 +78,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           >
             {product.description}
           </Typography>
-          <div className="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-white to-transparent"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-32  md:h-12 bg-gradient-to-t from-white to-transparent"></div>
         </CardBody>
         {/* <CardFooter className="pt-0">
           <Button

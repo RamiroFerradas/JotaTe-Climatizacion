@@ -35,7 +35,11 @@ export default function useListBrands() {
       label: brand,
     }));
 
-    dispatch(addBrandsFiltered(brandsFiltered));
+    dispatch(
+      addBrandsFiltered(
+        subCategoryActive !== "Todos" ? brandsFiltered : allBrands
+      )
+    );
   }, [filteredProducts]);
 
   return { allBrands, brandsFiltered };

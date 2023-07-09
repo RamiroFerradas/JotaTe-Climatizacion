@@ -27,13 +27,21 @@ const GridProducts: React.FC<GridProductsProps> = () => {
 
   return (
     <>
-      <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 p-5 justify-center items-star ">
-        {loading
-          ? Array.from({ length: 8 }).map((_, i) => <CardSkeleton key={i} />)
-          : productsToShow.map((prod) => (
-              <ProductCard key={prod.id} product={prod} />
-            ))}
-      </div>
+      {productsToShow.length > 0 ? (
+        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-star ">
+          {loading
+            ? Array.from({ length: 8 }).map((_, i) => <CardSkeleton key={i} />)
+            : productsToShow.map((prod) => (
+                <ProductCard key={prod.id} product={prod} />
+              ))}
+        </div>
+      ) : (
+        <div className="flex items-center justify-center h-48">
+          <p className="text-center text-gray-600 text-lg">
+            No hubo resultados para tu búsqueda.
+          </p>
+        </div>
+      )}
       {!loading && (
         <Paginate
           totalPages={totalPages}

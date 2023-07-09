@@ -125,16 +125,16 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
           setSelected={setSelectedBrands}
           selected={selectedBrands}
         />
-
-        {allMatchCategory && (
-          <SubMenu
-            items={salamandrasLeñaSubcategories}
-            handleChange={handleOrderList}
-            title={"Lineas"}
-            name={"filterSubcategory"}
-            identifier={0}
-          />
-        )}
+        {/* 
+              {allMatchCategory && (
+                <SubMenu
+                  items={salamandrasLeñaSubcategories}
+                  handleChange={handleOrderList}
+                  title={"Lineas"}
+                  name={"filterSubcategory"}
+                  identifier={0}
+                />
+              )} */}
 
         <Orders open={open} handleOpen={handleOpen} />
         {/* <ListItem>

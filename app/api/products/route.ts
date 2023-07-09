@@ -11,6 +11,8 @@ const DB_URL =
     ? (process.env.NEXT_PUBLIC_DB_BASE_URL as string)
     : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
 
+const isProduction = process.env.NODE_ENV === "production";
+console.log(isProduction);
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
@@ -64,7 +66,7 @@ async function getProductById(id: string) {
 async function getAllProducts() {
   try {
     const response = await fetch(DB_URL, {
-      next: { revalidate: 1000 },
+      next: { revalidate: isProduction ? 1000 : 0 },
     });
     const blob = await response.blob();
     const text = await new Response(blob).text();

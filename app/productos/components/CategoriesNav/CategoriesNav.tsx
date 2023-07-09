@@ -4,6 +4,7 @@ import {
   filterProductsByCategory,
   filterProductsBySubCategory,
   selectCategory,
+  selectSubCategory,
 } from "@/app/redux/slices/products";
 import { AppStore } from "@/app/redux/store";
 import { Button, Menu, MenuItem } from "@mui/material";
@@ -17,8 +18,8 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
   const dispatch = useDispatch();
   const uniqueCategories = allProducts
     .map((product) => product.category)
-    .filter((category, index, array) => array.indexOf(category) === index)
-    .map((category) => category.replace(" a leña", ""));
+    .filter((category, index, array) => array.indexOf(category) === index);
+  // .map((category) => category.replace(" a leña", ""));
 
   const { categoryActive } = useSelector((state: AppStore) => state.products);
 
@@ -39,15 +40,20 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
       newAnchorEl[index] = null;
       setAnchorEl(newAnchorEl);
 
+      subcategory === "A leña" && (subcategory = "Salamandras a leña");
+
       if (cat) {
         dispatch(selectCategory(cat));
-        if (cat.includes("Salamandras")) {
-          dispatch(
-            filterProductsByCategory(`${cat} ${subcategory?.toLowerCase()}`)
-          );
-        } else if (cat.includes("Parrillas")) {
+        // if (cat.includes("Salamandras")) {
+        //   dispatch(
+        //     filterProductsByCategory(`${cat} ${subcategory?.toLowerCase()}`)
+        //   );
+        // } else
+
+        if (cat.includes("Parrillas")) {
           dispatch(filterProductsByCategory(`Parrillas ${subcategory}`));
         } else {
+          console.log(cat, subcategory);
           dispatch(filterProductsBySubCategory(subcategory));
         }
       }
@@ -76,6 +82,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
             onClick={() => {
               dispatch(filterProductsBySubCategory("Todos"));
               dispatch(selectCategory("Todos"));
+              dispatch(selectSubCategory("Todos"));
             }}
           >
             <span
@@ -96,13 +103,13 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
             const open = Boolean(anchorEl[i]);
             const options =
               cat === "Salamandras"
-                ? ["A leña", "A pellets"]
+                ? ["A leña", "A pellets", "Kits de combustion"]
                 : cat === "Parrillas"
                 ? ["Fijas", "Móviles"]
                 : Array.from(subcategoriesSet);
 
             return (
-              <div key={i}>
+              <div key={i} className="flex items-center justify-center">
                 <Button
                   id={`basic-button-${i}`}
                   aria-controls={`basic-menu-${i}`}

@@ -36,19 +36,16 @@ export const productsSlice = createSlice({
     },
     filterProductsByBrand: (state, action) => {
       const brandsToFilter = action.payload;
-      if (brandsToFilter.length === 0 && state.categoryActive === "Todos") {
-        state.filteredProducts = state.allProducts;
-      } else if (brandsToFilter.length === 0) {
-        state.filteredProducts = state.allProducts.filter((product) =>
-          product.subcategory.includes(state.subCategoryActive)
-        );
-      } else {
-        state.filteredProducts = state.allProducts.filter(
-          (product) =>
-            brandsToFilter.includes(product.brand) &&
-            product.subcategory.includes(state.subCategoryActive)
-        );
-      }
+      const isAllCategories = state.categoryActive === "Todos";
+
+      state.filteredProducts = state.allProducts.filter((product) => {
+        const brandMatches =
+          brandsToFilter.length === 0 || brandsToFilter.includes(product.brand);
+        const categoryMatches =
+          isAllCategories ||
+          product.subcategory.includes(state.subCategoryActive);
+        return brandMatches && categoryMatches;
+      });
     },
 
     filterProductsByCategory: (state, action) => {
@@ -115,6 +112,9 @@ export const productsSlice = createSlice({
     selectCategory: (state, action) => {
       state.categoryActive = action.payload;
     },
+    selectSubCategory: (state, action) => {
+      state.subCategoryActive = action.payload;
+    },
   },
 });
 
@@ -127,5 +127,6 @@ export const {
   orderByConsults,
   filterProductsBySubCategory,
   selectCategory,
+  selectSubCategory,
 } = productsSlice.actions;
 export default productsSlice.reducer;
