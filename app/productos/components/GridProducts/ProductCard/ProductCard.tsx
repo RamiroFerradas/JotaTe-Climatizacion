@@ -35,12 +35,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   };
 
   return (
-    <Card className="border border-gray-400/50 md:h-96 h-80 w-44 md:w-60 flex gap-2 overflow-hidden">
-      <Link
-        scroll={false}
-        href={`/productos/${product.id}`}
-        onClick={handleClick}
-      >
+    <Link
+      scroll={false}
+      href={`/productos/${product.id}`}
+      onClick={handleClick}
+    >
+      <Card className="border border-gray-400/50 md:h-72 h-60 w-44 md:w-60 flex gap-2 overflow-hidden">
         <CardHeader
           shadow={false}
           floated={false}
@@ -56,45 +56,27 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             priority
           />
         </CardHeader>
-        <CardBody className="h-56 overflow-hidden relative p-4">
-          <div className=" flex items-center justify-between mb-2 flex-col">
+        <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">
+          <div>
+            <Typography color="blue-gray" className="text-center">
+              {product.brand}
+            </Typography>
             <Typography
               color="blue-gray"
-              className="uppercase font-bold text-center"
+              className="uppercase font-bold text-center text-xs md:text-base"
             >
               {product.name}
             </Typography>
-            <Typography
-              color="blue-gray"
-              className="font-medium font-body text-lg"
-            >
-              {parseCurrency(Number(product.price))}
-            </Typography>
           </div>
           <Typography
-            variant="small"
-            color="gray"
-            // className="font-normal bg-gradient-to-b from-transparent to-gray-300 "
+            color="blue-gray"
+            className="font-medium font-body text-xs  md:text-lg"
           >
-            {product.description}
+            {parseCurrency(Number(product.price))}
           </Typography>
-          <div className="absolute bottom-0 left-0 right-0 h-32  md:h-12 bg-gradient-to-t from-white to-transparent"></div>
         </CardBody>
-        {/* <CardFooter className="pt-0">
-          <Button
-            ripple={false}
-            fullWidth={true}
-            className="bg-blue-gray-900/10 text-blue-gray-900 shadow-none hover:shadow-none hover:scale-105 focus:shadow-none focus:scale-105 active:scale-100 hover:bg-[#006d54] hover:text-white border border-[#006d54]"
-            onClick={(e) => {
-              e.preventDefault();
-              handleAddToCart(e);
-            }}
-          >
-            Agregar al carrito
-          </Button>
-        </CardFooter> */}
-      </Link>
-    </Card>
+      </Card>
+    </Link>
   );
 };
 
