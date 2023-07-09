@@ -119,8 +119,6 @@ const ProductDetails = () => {
   };
   const [zoom, setZoom] = useState(false);
 
-  // const isSalamandra = selectedProduct.category === "Salamandras";
-  // console.log(isSalamandra);
   return (
     <Drawer
       anchor={"right"}
