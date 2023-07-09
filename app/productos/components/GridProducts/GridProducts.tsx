@@ -12,7 +12,7 @@ export type GridProductsProps = {
 };
 
 const GridProducts: React.FC<GridProductsProps> = () => {
-  const { loading, products } = useProductList();
+  const { loading, products, searchPerformed } = useProductList();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
 
@@ -24,11 +24,10 @@ const GridProducts: React.FC<GridProductsProps> = () => {
 
   const totalPages = Math.ceil(products?.length / productsPerPage);
   const router = useRouter();
-
   return (
     <>
-      {productsToShow.length > 0 ? (
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-star ">
+      {productsToShow.length > 0 || loading ? (
+        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-start">
           {loading
             ? Array.from({ length: 8 }).map((_, i) => <CardSkeleton key={i} />)
             : productsToShow.map((prod) => (
@@ -36,12 +35,15 @@ const GridProducts: React.FC<GridProductsProps> = () => {
               ))}
         </div>
       ) : (
-        <div className="flex items-center justify-center h-48">
-          <p className="text-center text-gray-600 text-lg">
-            No hubo resultados para tu búsqueda.
-          </p>
-        </div>
+        searchPerformed && (
+          <div className="flex items-center justify-center h-48">
+            <p className="text-center text-gray-600 text-lg">
+              No hubo resultados para tu búsqueda.
+            </p>
+          </div>
+        )
       )}
+
       {!loading && (
         <Paginate
           totalPages={totalPages}

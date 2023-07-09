@@ -12,7 +12,7 @@ export default function useProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
-  const { filteredProducts, allProducts } = useSelector(
+  const { filteredProducts, allProducts, searchPerformed } = useSelector(
     (state: AppStore) => state.products
   );
 
@@ -44,5 +44,6 @@ export default function useProductList() {
     setSelectedBrands,
     products: filteredProducts,
     allProducts: allProducts,
+    searchPerformed,
   };
 }

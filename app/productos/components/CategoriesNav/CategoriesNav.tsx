@@ -53,7 +53,6 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
         if (cat.includes("Parrillas")) {
           dispatch(filterProductsByCategory(`Parrillas ${subcategory}`));
         } else {
-          console.log(cat, subcategory);
           dispatch(filterProductsBySubCategory(subcategory));
         }
       }

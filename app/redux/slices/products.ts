@@ -7,6 +7,7 @@ export interface ProductsState {
   filteredProductsByCategory: Product[];
   categoryActive: string;
   subCategoryActive: string;
+  searchPerformed: boolean;
 }
 
 const initialState: ProductsState = {
@@ -15,6 +16,7 @@ const initialState: ProductsState = {
   filteredProductsByCategory: [],
   categoryActive: "Todos",
   subCategoryActive: "",
+  searchPerformed: false,
 };
 
 export const productsSlice = createSlice({
@@ -27,6 +29,7 @@ export const productsSlice = createSlice({
     },
     searchProducts: (state, action) => {
       state.categoryActive = "Todos";
+      state.searchPerformed = true;
       const searchTerm = action.payload.toLowerCase();
       state.filteredProducts = state.allProducts.filter(
         (product) =>

@@ -12,7 +12,7 @@ const DB_URL =
     : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
 
 const isProduction = process.env.NODE_ENV === "production";
-console.log(isProduction);
+
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
