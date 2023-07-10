@@ -208,7 +208,10 @@ const ProductDetails = () => {
               <div className="sticky bottom-0">
                 <CardActions>
                   <div className="w-full items-center flex justify-center gap-5">
-                    <Button className="flex w-full items-center gap-3 justify-center">
+                    <Button
+                      className="flex w-full items-center gap-3 justify-center"
+                      onClick={handleAddToCart}
+                    >
                       <FaCartPlus className="h-5 w-5" />
                       <span className="hidden md:block">Agregar</span>
                     </Button>
@@ -216,6 +219,7 @@ const ProductDetails = () => {
                     <Button
                       color="green"
                       className="flex items-center gap-3 w-full justify-center"
+                      onClick={handleConsultProduct}
                     >
                       <BsWhatsapp className="h-5 w-5" />
                       <span>Consultar</span>
