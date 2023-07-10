@@ -58,14 +58,14 @@ const ProductDetails = () => {
   //   getProduct();
   // }, [id]);
 
-  const { products, loading } = useProductList();
+  const { products, loading, allProducts } = useProductList();
 
   const selectedProduct = products.find((_product) => _product.id === id);
 
   const isSalamandra =
     selectedProduct?.category === "Salamandras" &&
     selectedProduct.subcategory !== "Kits de combustion";
-  const kitsCombustion = products.filter(
+  const kitsCombustion = allProducts.filter(
     (p) => p.subcategory === "Kits de combustion"
   );
 

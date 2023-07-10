@@ -1,7 +1,7 @@
 import { ProductCard } from "./ProductCard";
 import CardSkeleton from "./ProductCard/CardSkeleton";
 import { Paginate } from "../Paginate";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Product } from "@/app/models";
 import { useProductList } from "@/app/hooks";
@@ -21,9 +21,12 @@ const GridProducts: React.FC<GridProductsProps> = () => {
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     return products?.slice(indexOfFirstProduct, indexOfLastProduct);
   }, [products, currentPage]);
-
   const totalPages = Math.ceil(products?.length / productsPerPage);
-  const router = useRouter();
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [products]);
+
   return (
     <>
       {loading ? (
