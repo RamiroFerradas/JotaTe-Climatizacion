@@ -58,9 +58,9 @@ const ProductDetails = () => {
   //   getProduct();
   // }, [id]);
 
-  const { products, loading, allProducts } = useProductList();
+  const { loading, allProducts } = useProductList();
 
-  const selectedProduct = products.find((_product) => _product.id === id);
+  const selectedProduct = allProducts.find((_product) => _product.id === id);
 
   const isSalamandra =
     selectedProduct?.category === "Salamandras" &&
@@ -68,7 +68,6 @@ const ProductDetails = () => {
   const kitsCombustion = allProducts.filter(
     (p) => p.subcategory === "Kits de combustion"
   );
-
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
