@@ -57,5 +57,4 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     </html>
   );
 };
-console.log("AAAAAAAAA");
 export default RootLayout;
