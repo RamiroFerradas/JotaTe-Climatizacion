@@ -34,8 +34,6 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     dispatch(openProductDetails());
   };
 
-  console.log(product.id);
-
   return (
     <Link
       scroll={false}
