@@ -26,14 +26,10 @@ import { Button } from "@material-tailwind/react";
 import { ImagesProduct } from "./components";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { useSelector } from "react-redux";
-import { AppStore } from "@/app/redux/store";
 import { formattedText } from "@/app/utilities/formattedText";
 import { Loading } from "@/app/components";
 import { fetchProductById } from "@/app/services/fetchProducts";
-import { useProductList } from "@/app/hooks";
-import Image from "next/image";
-import Link from "next/link";
+import { useConditionProducts, useProductList } from "@/app/hooks";
 import { ProductCard } from "../components";
 
 const ProductDetails = () => {
@@ -62,12 +58,24 @@ const ProductDetails = () => {
 
   const selectedProduct = allProducts.find((_product) => _product.id === id);
 
-  const isSalamandra =
-    selectedProduct?.category === "Salamandras" &&
-    selectedProduct.subcategory !== "Kits de combustion";
-  const kitsCombustion = allProducts.filter(
-    (p) => p.subcategory === "Kits de combustion"
-  );
+  // const isSalamandra =
+  //   selectedProduct?.category === "Salamandras" &&
+  //   selectedProduct.subcategory !== "Kits de combustion";
+  // const kitsCombustion = allProducts.filter(
+  //   (p) => p.subcategory === "Kits de combustion"
+  // );
+
+  // const isFogonero =
+  //   selectedProduct?.id === "789c11f0-a0dc-4e41-b2ab-b48e0374349e";
+
+  // var optionalText: string,
+  //   optionalText = isSalamandra && "un kit de combustión";
+  // optionalText = isFogonero && "una estaca";
+
+  const { conditionProduct, isSalamandra } = useConditionProducts({
+    selectedProduct,
+  });
+
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
@@ -109,15 +117,22 @@ const ProductDetails = () => {
     toastAddToCart();
   };
 
-  const toggleDrawer = () => () => {
+  const backModal = () => () => {
     if (zoom) {
       setZoom(false);
     } else {
       router.back();
     }
   };
-  const [zoom, setZoom] = useState(false);
 
+  const toggleDrawer = () => () => {
+    if (zoom) {
+      setZoom(false);
+    } else {
+      router.push("/productos");
+    }
+  };
+  const [zoom, setZoom] = useState(false);
   return (
     <Drawer
       anchor={"right"}
@@ -135,7 +150,7 @@ const ProductDetails = () => {
             <div className="flex flex-col gap-5 min-h-screen justify-between">
               <div>
                 <button
-                  onClick={toggleDrawer()}
+                  onClick={backModal()}
                   className="absolute left-4 md:left-1 top-0 z-50"
                 >
                   <KeyboardBackspaceIcon fontSize="large" />
@@ -186,18 +201,17 @@ const ProductDetails = () => {
                   </div>
                   <Divider />
                 </div>
-                {isSalamandra && (
+                {conditionProduct && (
                   <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
                     <Typography
                       variant="h6"
                       component="div"
                       className="font-semibold"
                     >
-                      ¡Este producto requiere un kit de combustión, te mostramos
-                      algunas de nuestras opciones!
+                      {conditionProduct.text}
                     </Typography>
                     <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
-                      {kitsCombustion.map((kit, index) => (
+                      {conditionProduct.products.map((kit, index) => (
                         <ProductCard key={kit.id} product={kit} />
                       ))}
                     </div>
