@@ -1,4 +1,5 @@
 export * from "./index";
+export { default as useConditionProducts } from "./useConditionProducts";
 export { default as useFilterProducts } from "./useFilterProducts";
 export { default as useListBrands } from "./useListBrands";
 export { default as useLocalStorage } from "./useLocalStorage";
