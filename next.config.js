@@ -6,6 +6,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "res.cloudinary.com",
       },
+      {
+        protocol: "https",
+        hostname: "d3ugyf2ht6aenh.cloudfront.net",
+      },
     ],
   },
   // async redirects() {
