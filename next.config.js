@@ -10,6 +10,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "d3ugyf2ht6aenh.cloudfront.net",
       },
+      {
+        protocol: "https",
+        hostname: "www.somosfenix.com.ar",
+      },
     ],
   },
   // async redirects() {

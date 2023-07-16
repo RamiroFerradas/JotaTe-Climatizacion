@@ -16,7 +16,7 @@ export default function useConditionProducts({ selectedProduct }: Props) {
 
   const isSalamandra =
     selectedProduct?.category === "Salamandras" &&
-    selectedProduct.subcategory !== "Kits de combustion";
+    selectedProduct?.subcategory !== "Kits de combustion";
   const isFogonero = selectedProduct?.name.includes("Fogonero");
   const kitsCombustion = allProducts.filter(
     (p) => p.subcategory === "Kits de combustion"
@@ -24,7 +24,7 @@ export default function useConditionProducts({ selectedProduct }: Props) {
 
   const isChulengon =
     selectedProduct?.name.includes("Chulengo") ||
-    selectedProduct.name.includes("Balconera");
+    selectedProduct?.name.includes("Balconera");
   const isHornito = selectedProduct?.name.includes("Hornito");
   const isDisco = selectedProduct?.name.includes("Disco");
 

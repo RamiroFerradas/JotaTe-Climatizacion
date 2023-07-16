@@ -12,7 +12,8 @@ export type GridProductsProps = {
 };
 
 const GridProducts: React.FC<GridProductsProps> = () => {
-  const { loading, products, searchPerformed } = useProductList();
+  const { loading, products, searchPerformed, subCategoryActive } =
+    useProductList();
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 10;
 
@@ -25,7 +26,7 @@ const GridProducts: React.FC<GridProductsProps> = () => {
 
   useEffect(() => {
     setCurrentPage(1);
-  }, [products]);
+  }, [subCategoryActive]);
 
   return (
     <>

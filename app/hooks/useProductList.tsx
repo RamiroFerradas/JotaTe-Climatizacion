@@ -12,9 +12,8 @@ export default function useProductList() {
   const [loading, setLoading] = useState(true);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
 
-  const { filteredProducts, allProducts, searchPerformed } = useSelector(
-    (state: AppStore) => state.products
-  );
+  const { filteredProducts, allProducts, searchPerformed, subCategoryActive } =
+    useSelector((state: AppStore) => state.products);
 
   useEffect(() => {
     const fetchProductList = async () => {
@@ -45,5 +44,6 @@ export default function useProductList() {
     products: filteredProducts,
     allProducts: allProducts,
     searchPerformed,
+    subCategoryActive,
   };
 }
