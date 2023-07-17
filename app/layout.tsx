@@ -36,6 +36,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
           }}
         />
         <link rel="icon" href="./favicon.ico" />
+        <link rel="canonical" href="https://www.jotateclimatizacion.com/" />
       </Head>
       <body className={inter.className}>
         {/* Agrega el código de Google Tag Manager después de la etiqueta <body> */}
