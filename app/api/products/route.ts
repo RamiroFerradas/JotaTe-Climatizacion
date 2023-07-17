@@ -7,7 +7,7 @@ import { headers } from "next/headers";
 import Papa from "papaparse";
 
 const DB_URL =
-  process.env.NODE_ENV === "production"
+  process.env.NODE_ENV !== "production"
     ? (process.env.NEXT_PUBLIC_DB_BASE_URL as string)
     : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
 
