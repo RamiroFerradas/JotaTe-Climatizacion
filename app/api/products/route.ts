@@ -19,6 +19,7 @@ if (!DB_URL) {
 const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
 
 export async function GET(req: NextRequest, res: NextResponse) {
+  console.log("hola");
   const headersInstance = headers();
   const authorization = headersInstance.get("authorization");
 
