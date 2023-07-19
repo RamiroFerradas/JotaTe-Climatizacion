@@ -61,7 +61,7 @@ export default function useConditionProducts({ selectedProduct }: Props) {
     optionalProducts = [...baseS];
   } else if (isBalconera) {
     optionalText = "¡Agrega tambien alguna de estas opciones!";
-    optionalProducts = [...filterProductsByFundaName("balconera")];
+    optionalProducts = [...filterProductsByFundaName("balconera / fogonero")];
   }
 
   function filterProductsByFundaName(fundaName: string) {
