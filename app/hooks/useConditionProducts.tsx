@@ -22,9 +22,8 @@ export default function useConditionProducts({ selectedProduct }: Props) {
     (p) => p.subcategory === "Kits de combustion"
   );
 
-  const isChulengon =
-    selectedProduct?.name.includes("Chulengo") ||
-    selectedProduct?.name.includes("Balconera");
+  const isChulengon = selectedProduct?.name.includes("Chulengo");
+  const isBalconera = selectedProduct?.name.includes("Balconera");
   const isHornito = selectedProduct?.name.includes("Hornito");
   const isDisco = selectedProduct?.name.includes("Disco");
 
@@ -34,10 +33,6 @@ export default function useConditionProducts({ selectedProduct }: Props) {
       p.name.includes("Brasero colgante") || p.name.includes("Brasero de pie")
   );
   const ruedas = allProducts.filter((p) => p.name.includes("Kit ruedas"));
-  const fundaFogoneroBalconera = allProducts.filter((p) =>
-    p.name.includes("Funda balconera / fogonero")
-  );
-
   const baseS = allProducts.filter((p) => p.name.includes("Base ¨S¨"));
 
   var optionalText: string | undefined;
@@ -53,10 +48,29 @@ export default function useConditionProducts({ selectedProduct }: Props) {
     optionalProducts = estacas;
   } else if (isChulengon) {
     optionalText = "¡Agrega tambien alguna de estas opciones!";
-    optionalProducts = [...braseros, ...ruedas, ...fundaFogoneroBalconera];
-  } else if (isHornito || isDisco) {
+    optionalProducts = [
+      ...braseros,
+      ...ruedas,
+      ...filterProductsByFundaName("chulengon"),
+    ];
+  } else if (isHornito) {
+    optionalText = "¡Agrega tambien alguna de estas opciones!";
+    optionalProducts = [...baseS, ...filterProductsByFundaName("hornito")];
+  } else if (isDisco) {
     optionalText = "¡Agrega tambien alguna de estas opciones!";
     optionalProducts = [...baseS];
+  } else if (isBalconera) {
+    optionalText = "¡Agrega tambien alguna de estas opciones!";
+    optionalProducts = [...filterProductsByFundaName("balconera")];
+  }
+
+  function filterProductsByFundaName(fundaName: string) {
+    const filteredProducts = allProducts.filter(
+      (product) =>
+        product.name.toLowerCase().includes("funda") &&
+        product.name.toLowerCase().includes(fundaName.toLowerCase())
+    );
+    return filteredProducts;
   }
 
   useEffect(() => {
