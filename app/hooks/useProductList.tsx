@@ -33,10 +33,6 @@ export default function useProductList() {
     fetchProductList();
   }, []);
 
-  useEffect(() => {
-    dispatch(filterProductsByBrand(selectedBrands));
-  }, [selectedBrands]);
-
   return {
     loading,
     selectedBrands,

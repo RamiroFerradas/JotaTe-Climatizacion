@@ -17,6 +17,8 @@ import SubMenu from "./SubMenu";
 import { ChangeEvent, FormEvent } from "react";
 import { Option } from "../Sidebar";
 import { Product } from "@/app/models";
+import { useDispatch } from "react-redux";
+import { filterProductsByBrand } from "@/app/redux/slices/products";
 
 type Props = {
   open: number;
@@ -36,6 +38,7 @@ export default function MenuCheckbox({
   setSelected,
   selected,
 }: Props) {
+  const dispatch = useDispatch();
   const handleChecked = (event: FormEvent<HTMLInputElement>) => {
     const { value, checked } = event.currentTarget;
 
