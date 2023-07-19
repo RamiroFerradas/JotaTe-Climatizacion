@@ -41,6 +41,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
           href="https://www.jotateclimatizacion.com/productos"
         />
         <title>My page</title>
+        <meta property="og:title" content="My page title" key="title" />
       </Head>
       <body className={inter.className}>
         {/* Agrega el código de Google Tag Manager después de la etiqueta <body> */}
