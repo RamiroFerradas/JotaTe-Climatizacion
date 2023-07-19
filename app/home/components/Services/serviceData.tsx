@@ -1,5 +1,5 @@
 import { MdPool } from "react-icons/md";
-import { GiThermometerCold } from "react-icons/gi";
+import { GiFireplace, GiThermometerCold } from "react-icons/gi";
 import termo from "../../../../public/icons/termotanque.png";
 import Image from "next/image";
 
@@ -36,5 +36,12 @@ export const servicesData: Service[] = [
     description:
       "Instalación de aires acondicionados. Mantenga su hogar u oficina frescos y cómodos durante los meses de calor con nuestros sistemas de aire acondicionado eficientes y de alta calidad.",
     img: <GiThermometerCold />,
+  },
+  {
+    title: "Salamandras",
+    description:
+      "Venta, instalación y mantenimiento de salamandras a leña y a pellets. Mantenga su hogar cálido y acogedor en los meses más fríos con nuestras salamandras de alta calidad y eficiencia.",
+
+    img: <GiFireplace />,
   },
 ];

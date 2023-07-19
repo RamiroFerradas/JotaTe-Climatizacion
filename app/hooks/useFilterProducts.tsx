@@ -16,7 +16,7 @@ export default function useFilterProducts() {
   }, [selectedBrands]);
   useEffect(() => {
     dispatch(filterProductsBySubCategory(selectedLines));
-  }, [, selectedLines]);
+  }, [selectedLines]);
 
   return { selectedBrands, setSelectedBrands, setSelectedLines, selectedLines };
 }
