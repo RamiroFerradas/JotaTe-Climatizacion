@@ -1,3 +1,5 @@
+import Head from "next/head";
+
 import { About, Featured, Landing, Navbar, Services } from "./components";
 
 export type HomeProps = {};
