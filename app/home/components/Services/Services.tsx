@@ -23,7 +23,7 @@ const Services: React.FC<ServicesProps> = () => {
             >
               <p className="text-9xl text-[#d18d3a]">{e.img}</p>
               <p className="uppercase font-semibold text-lg">{e.title}</p>
-              <p className="flex-grow">{e.description}</p>
+              <p className="flex-grow text-center">{e.description}</p>
             </div>
           );
         })}
