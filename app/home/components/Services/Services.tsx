@@ -21,7 +21,7 @@ const Services: React.FC<ServicesProps> = () => {
               key={index}
               className="p-10 gap-3 flex flex-col justify-center items-center md:w-1/3"
             >
-              <p className="text-9xl  text-[#d18d3a]">{e.img}</p>
+              <p className="text-9xl tex t-[#d18d3a]">{e.img}</p>
               <p className="uppercase font-semibold text-lg">{e.title}</p>
               <p className="">{e.description}</p>
             </div>

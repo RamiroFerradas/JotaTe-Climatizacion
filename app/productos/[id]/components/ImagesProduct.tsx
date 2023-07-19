@@ -21,7 +21,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
 
   return (
     <div
-      className={`flex items-center flex-col md:flex-row h-96 justify-center md:max-w-2xl ${
+      className={`flex items-center flex-col md:flex-row h-96 justify-center mdmax-w-2xl ${
         zoom ? `md:h-screen ` : `md:h-56 overflow-hidden`
       }`}
     >
@@ -30,24 +30,6 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
         autoplay
         autoplayDelay={10000}
         className="overflow-hidden"
-        navigation={({ setActiveIndex, activeIndex, length }) => (
-          <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2 l">
-            {images?.length > 1 &&
-              new Array(length)
-                .fill("")
-                .map((_, i) => (
-                  <span
-                    key={i}
-                    className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
-                      activeIndex === i
-                        ? "bg-teal-500 w-8"
-                        : "bg-teal-500/50 w-4"
-                    }`}
-                    onClick={() => setActiveIndex(i)}
-                  />
-                ))}
-          </div>
-        )}
         prevArrow={({ handlePrev }) => (
           <IconButton
             variant="text"
@@ -74,23 +56,41 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
             <ChevronRightIcon strokeWidth={2} className="w-10 h-10" />
           </IconButton>
         )}
+        navigation={({ setActiveIndex, activeIndex, length }) => (
+          <div className="absolute bottom-4 left-2/4 z-50 flex -translate-x-2/4 gap-2 wull">
+            {images?.length > 1 &&
+              new Array(length)
+                .fill("")
+                .map((_, i) => (
+                  <span
+                    key={i}
+                    className={`block h-1 cursor-pointer rounded-2xl transition-all content-[''] ${
+                      activeIndex === i
+                        ? "bg-teal-500 w-8"
+                        : "bg-teal-500/50 w-4"
+                    }`}
+                    onClick={() => setActiveIndex(i)}
+                  />
+                ))}
+          </div>
+        )}
       >
         {images?.map((img: string, i: number) => (
           <div
             key={i}
-            className="flex w-full h-full justify-center items-center"
+            className={`flex mb-52 pb-96 ${
+              zoom && `items-center`
+            } justify-center overflow-hidden w-[42rem]`}
           >
             <Image
               priority
-              width={1000}
-              height={1000}
+              width={400}
+              height={300}
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}
-              className={` max-w-3xl object-contain md:transition-all ${
-                !zoom
-                  ? "h-[100vh md:h-80 hover:cursor-zoom-in"
-                  : "hover:cursor-zoom-out"
+              className={`max-w-3xl pb-20 object-contain md:transition-all ${
+                !zoom ? "md:h-80 hover:cursor-zoom-in" : "hover:cursor-zoom-out"
               }`}
               onClick={() => setZoom(!zoom)}
             />

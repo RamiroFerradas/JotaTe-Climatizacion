@@ -97,7 +97,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
           {uniqueCategories.map((cat, i) => {
             const submenu = allProducts.filter((prod) => prod.category === cat);
             const subcategoriesSet = new Set(
-              submenu.map((prod) => prod.subcategory)
+              submenu.map((prod) => prod.subcategory.trim())
             );
             const open = Boolean(anchorEl[i]);
             const options =

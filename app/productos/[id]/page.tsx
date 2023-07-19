@@ -147,7 +147,7 @@ const ProductDetails = () => {
               <Loading />
             </div>
           ) : (
-            <div className="flex flex-col gap-5 min-h-screen justify-between">
+            <div className="flex flex-col min-h-screen justify-between">
               <div>
                 <button
                   onClick={backModal()}
@@ -218,7 +218,7 @@ const ProductDetails = () => {
                   </div>
                 )}
               </div>
-              <div className="sticky bottom-0">
+              <div className={`sticky bottom-0 ${zoom ? "hidden" : ""}`}>
                 <CardActions>
                   <div className="w-full items-center flex justify-center gap-5">
                     <Button
