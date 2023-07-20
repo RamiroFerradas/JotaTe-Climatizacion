@@ -17,6 +17,9 @@ export const metadata = {
   alternates: {
     canonical: `https://www.jotateclimatizacion.com/`,
   },
+  icons: {
+    icon: "./favicon.ico",
+  },
 };
 
 export type RootLayoutProps = {
