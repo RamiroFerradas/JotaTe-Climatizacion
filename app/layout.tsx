@@ -14,6 +14,9 @@ const myFont = localFont({
 export const metadata = {
   title: "Jotaté Climatización",
   description: "Climatización Ecológica",
+  alternates: {
+    canonical: `https://www.jotateclimatizacion.com/`,
+  },
 };
 
 export type RootLayoutProps = {
