@@ -14,6 +14,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "www.somosfenix.com.ar",
       },
+      {
+        protocol: "https",
+        hostname: "static.wixstatic.com",
+      },
     ],
   },
   // async redirects() {
