@@ -76,20 +76,15 @@ async function getAllProducts() {
         header: true,
         complete: (results) => {
           const parsedProducts = results.data as Product[];
-          //Solo traer productos que tengan "name"
+          // Filtrar solo los productos que tengan "name" y "id"
           const filteredProducts = parsedProducts.filter(
-            (product) => product.name
+            (product) => product.name && product.id
           );
 
           // Crear un array con las urls de las imagenes proporcionadas
-          const productsWithMultipleImages = filteredProducts.map((product) => {
-            return imagesToArray(product);
-          });
-
-          //Transformar valores tipo string a numbers
-          // const stringToNumber = productsWithMultipleImages.map(
-          //   (prod: Product) => convertPropertiesToNumbers(prod)
-          // );
+          const productsWithMultipleImages = parsedProducts.map((product) =>
+            imagesToArray(product)
+          );
 
           resolve(productsWithMultipleImages);
         },
@@ -103,6 +98,7 @@ async function getAllProducts() {
     const filteredProducts = products.filter(
       (product) => !duplicateIds.includes(product.id)
     );
+    console.log(filteredProducts.length);
     return filteredProducts;
   } catch (error) {
     throw new Error((error as Error).message);
