@@ -98,7 +98,7 @@ async function getAllProducts() {
     const filteredProducts = products.filter(
       (product) => !duplicateIds.includes(product.id)
     );
-    console.log(filteredProducts.length);
+
     return filteredProducts;
   } catch (error) {
     throw new Error((error as Error).message);
