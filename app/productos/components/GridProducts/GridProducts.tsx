@@ -31,13 +31,13 @@ const GridProducts: React.FC<GridProductsProps> = () => {
   return (
     <>
       {loading ? (
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 grid-cols-2 p-5 justify-center items-start">
+        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-start">
           {Array.from({ length: 10 }).map((_, i) => (
             <CardSkeleton key={i} />
           ))}
         </div>
       ) : productsToShow.length > 0 ? (
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 grid-cols-2 p-5 justify-center items-start">
+        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-start">
           {productsToShow.map((prod) => (
             <ProductCard key={prod.id} product={prod} />
           ))}

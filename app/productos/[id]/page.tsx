@@ -58,21 +58,7 @@ const ProductDetails = () => {
 
   const selectedProduct = allProducts.find((_product) => _product.id === id);
 
-  // const isSalamandra =
-  //   selectedProduct?.category === "Salamandras" &&
-  //   selectedProduct.subcategory !== "Kits de combustion";
-  // const kitsCombustion = allProducts.filter(
-  //   (p) => p.subcategory === "Kits de combustion"
-  // );
-
-  // const isFogonero =
-  //   selectedProduct?.id === "789c11f0-a0dc-4e41-b2ab-b48e0374349e";
-
-  // var optionalText: string,
-  //   optionalText = isSalamandra && "un kit de combustión";
-  // optionalText = isFogonero && "una estaca";
-
-  const { conditionProduct, isSalamandra } = useConditionProducts({
+  const { conditionProduct } = useConditionProducts({
     selectedProduct,
   });
 

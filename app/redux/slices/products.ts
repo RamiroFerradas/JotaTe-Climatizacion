@@ -66,7 +66,7 @@ export const productsSlice = createSlice({
     filterProductsBySubCategory: (state, action) => {
       const subcategoryToFilter = action.payload;
       state.subCategoryActive = subcategoryToFilter;
-      console.log(subcategoryToFilter);
+
       if (subcategoryToFilter) {
         if (subcategoryToFilter === "Todos") {
           state.filteredProducts = state.allProducts;
