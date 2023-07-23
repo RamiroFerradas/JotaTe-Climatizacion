@@ -23,10 +23,10 @@ export default function useProductList() {
           const productsData = await fetchProducts();
           dispatch(addProducts(productsData));
         }
+        setLoading(false);
       } catch (error: any) {
         console.error("Error fetching product list:", error.message);
-      } finally {
-        setLoading(false);
+        setLoading(true);
       }
     };
 
