@@ -1,3 +1,4 @@
+"use client";
 import { useDispatch } from "react-redux";
 import { Product } from "@/app/models/Product";
 import {
@@ -12,7 +13,7 @@ import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
-import { BaseSyntheticEvent } from "react";
+import { BaseSyntheticEvent, useState } from "react";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 import Link from "next/link";
 import { Loading } from "@/app/components";
@@ -23,6 +24,15 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const dispatch = useDispatch();
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
   const handleAddToCart = (event: BaseSyntheticEvent) => {
     event.stopPropagation();
     dispatch(addToCart(product));
@@ -40,7 +50,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
       href={`/productos/${product.id}`}
       onClick={handleClick}
     >
-      <Card className="border border-gray-400/50 md:h-72 h-60 w-44 md:w-52 flex gap-2 overflow-hidden shadow-md hover:shadow-lg transform hover:scale-105 transition-all duration-300">
+      <Card
+        className={`border border-gray-400/50 md:h-72 h-60 w-44 md:w-52 flex gap-2 overflow-hidden shadow-md hover:shadow-lg transform ${
+          isHovered ? "hover:scale-105 transition-all duration-300" : ""
+        }`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
         <CardHeader
           shadow={false}
           floated={false}
@@ -48,8 +64,12 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={handleClick}
         >
           <Image
-            src={product.image[0]}
-            className="w-full h-40 object-contain transition-transform "
+            src={
+              isHovered && product.image[1]
+                ? product.image[1]
+                : product.image[0]
+            }
+            className="w-full h-40 object-contain transition-transform"
             alt={product.name}
             height={200}
             width={200}

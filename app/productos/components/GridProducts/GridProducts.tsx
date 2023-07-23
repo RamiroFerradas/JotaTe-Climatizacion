@@ -30,27 +30,21 @@ const GridProducts: React.FC<GridProductsProps> = () => {
 
   return (
     <>
-      {loading ? (
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-start">
-          {Array.from({ length: 10 }).map((_, i) => (
-            <CardSkeleton key={i} />
-          ))}
-        </div>
-      ) : productsToShow.length > 0 ? (
-        <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-5 xl:grid-cols-4 grid-cols-2 p-5 justify-center items-start">
-          {productsToShow.map((prod) => (
-            <ProductCard key={prod.id} product={prod} />
-          ))}
-        </div>
-      ) : (
-        searchPerformed && (
-          <div className="flex items-center justify-center h-48">
-            <p className="text-center text-gray-600 text-lg">
-              No hubo resultados para tu búsqueda.
-            </p>
-          </div>
-        )
-      )}
+      <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
+        {loading
+          ? Array.from({ length: 10 }).map((_, i) => <CardSkeleton key={i} />)
+          : productsToShow.length > 0
+          ? productsToShow.map((prod) => (
+              <ProductCard key={prod.id} product={prod} />
+            ))
+          : searchPerformed && (
+              <div className="flex items-center justify-center h-48">
+                <p className="text-center text-gray-600 text-lg">
+                  No hubo resultados para tu búsqueda.
+                </p>
+              </div>
+            )}
+      </div>
 
       {!loading && (
         <Paginate
