@@ -126,7 +126,7 @@ const ProductDetails = () => {
       onClose={toggleDrawer()}
       className="min-h-screen w-scree"
     >
-      <Card className="flex flex-col  md:max-w-3xl justify-between items-center px-0 h-full ove`rflow-y-auto md:w-full w-screen">
+      <Card className="flex flex-col md:w-[48rem] justify-between items-center px-0 h-full overflow-y-auto w-screen">
         <div className="overflow-y-auto w-full">
           {loading ? (
             <div className="w-[48vw] flex flex-col">

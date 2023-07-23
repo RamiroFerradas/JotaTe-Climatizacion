@@ -78,14 +78,14 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
         {images?.map((img: string, i: number) => (
           <div
             key={i}
-            className={`flex mb-52 pb-96 ${
+            className={`flex ${
               zoom && `items-center`
-            } justify-center overflow-hidden w-[42rem]`}
+            } justify-center overflow-hidden `}
           >
             <Image
               priority
-              width={400}
-              height={300}
+              width={300}
+              height={200}
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}
