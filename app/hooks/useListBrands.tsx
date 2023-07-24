@@ -18,11 +18,10 @@ export default function useListBrands() {
 
   useEffect(() => {
     const listBrands = new Set(allProducts.map((prod: Product) => prod.brand));
-
     const brands = Array.from(listBrands).map((brand) => ({ label: brand }));
 
     dispatch(addBrands(brands));
-  }, []);
+  }, [allProducts]);
 
   useEffect(() => {
     const listBrandsFiltered = new Set(
@@ -35,11 +34,11 @@ export default function useListBrands() {
       label: brand,
     }));
 
-    // dispatch(
-    //   addBrandsFiltered(
-    //     subCategoryActive !== "Todos" ? brandsFiltered : allBrands
-    //   )
-    // );
+    dispatch(
+      addBrandsFiltered(
+        subCategoryActive !== "Todos" ? brandsFiltered : allBrands
+      )
+    );
   }, [filteredProducts]);
 
   return { allBrands, brandsFiltered };

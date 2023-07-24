@@ -73,8 +73,8 @@ export const productsSlice = createSlice({
         } else {
           state.filteredProducts = state.allProducts.filter(
             (product) =>
-              subcategoryToFilter.toLowerCase() ===
-              product.subcategory.toLowerCase()
+              subcategoryToFilter?.toLowerCase() ===
+              product.subcategory?.toLowerCase()
           );
         }
       }
