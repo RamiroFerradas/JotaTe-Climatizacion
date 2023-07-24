@@ -6,6 +6,9 @@ type Props = { selectedProduct: Product };
 export default function useConditionProducts({ selectedProduct }: Props) {
   const { loading, allProducts } = useProductList();
 
+  var optionalText: string | undefined;
+  var optionalProducts: Product[] = [];
+
   const [conditionProduct, setConditionProduct] = useState<{
     text: string;
     products: Product[];
@@ -17,7 +20,7 @@ export default function useConditionProducts({ selectedProduct }: Props) {
   const isSalamandra =
     selectedProduct?.category === "Salamandras" &&
     selectedProduct?.subcategory !== "Kits de combustion";
-  const isFogonero = selectedProduct?.name.includes("Fogonero");
+  const isFogonero = selectedProduct?.name === "Fogonero";
   const kitsCombustion = allProducts.filter(
     (p) => p.subcategory === "Kits de combustion"
   );
@@ -26,6 +29,9 @@ export default function useConditionProducts({ selectedProduct }: Props) {
   const isBalconera = selectedProduct?.name.includes("Balconera");
   const isHornito = selectedProduct?.name.includes("Hornito");
   const isDisco = selectedProduct?.name.includes("Disco");
+  const is4Vientos = selectedProduct?.name.includes("4 vientos");
+  const isFogon = selectedProduct?.name === "Fogon";
+  const isBraseroDePie = selectedProduct?.name.includes("Brasero de pie");
 
   const estacas = allProducts.filter((p) => p.name === "Estaca Asaparri");
   const braseros = allProducts.filter(
@@ -34,9 +40,9 @@ export default function useConditionProducts({ selectedProduct }: Props) {
   );
   const ruedas = allProducts.filter((p) => p.name.includes("Kit ruedas"));
   const baseS = allProducts.filter((p) => p.name.includes("Base ¨S¨"));
-
-  var optionalText: string | undefined;
-  var optionalProducts: Product[] = [];
+  const braseroColgante = allProducts.filter((p) =>
+    p.name.includes("Brasero colgante")
+  );
 
   if (isSalamandra) {
     optionalText =
@@ -61,7 +67,20 @@ export default function useConditionProducts({ selectedProduct }: Props) {
     optionalProducts = [...baseS];
   } else if (isBalconera) {
     optionalText = "¡Agrega tambien alguna de estas opciones!";
-    optionalProducts = [...filterProductsByFundaName("balconera / fogonero")];
+    optionalProducts = [
+      ...filterProductsByFundaName("balconera / fogonero"),
+      ...braseroColgante,
+      ...ruedas,
+    ];
+  } else if (is4Vientos) {
+    optionalText = "¡Agrega tambien alguna de estas opciones!";
+    optionalProducts = [...filterProductsByFundaName("4 vientos")];
+  } else if (isFogon) {
+    optionalText = "¡Agrega tambien alguna de estas opciones!";
+    optionalProducts = [...filterProductsByFundaName("Funda fogón")];
+  } else if (isBraseroDePie) {
+    optionalText = "¡Agrega tambien alguna de estas opciones!";
+    optionalProducts = [...filterProductsByFundaName("Brasero de pie")];
   }
 
   function filterProductsByFundaName(fundaName: string) {
