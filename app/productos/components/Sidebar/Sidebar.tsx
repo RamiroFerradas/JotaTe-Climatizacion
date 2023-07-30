@@ -70,7 +70,7 @@ const Sidebar: React.FC<SidebarProps> = ({ setopenSidebar, openSidebar }) => {
   const { allBrands, brandsFiltered } = useListBrands();
   const { selectedBrands, setSelectedBrands, setSelectedLines, selectedLines } =
     useFilterProducts();
-  console.log(brandsFiltered);
+
   const dispatch = useDispatch();
   const [open, setOpen] = useState(0);
 
