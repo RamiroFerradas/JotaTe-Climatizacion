@@ -203,6 +203,27 @@ const ProductDetails = () => {
                     </div>
                   </div>
                 )}
+                <div>
+                  <Divider />
+                  <div className="flex justify-end ">
+                    <p className="flex justify-between items-center text-xl font-bold ">
+                      {/* <Typography
+                      variant="h6"
+                      component="div"
+                      className="font-black uppercase"
+                    >
+                      Precio
+                    </Typography> */}
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        className="font-black uppercase"
+                      >
+                        {parseCurrency(Number(selectedProduct.price))}
+                      </Typography>
+                    </p>
+                  </div>
+                </div>
               </div>
               <div className={`sticky bottom-0 ${zoom ? "hidden" : ""}`}>
                 <CardActions>
