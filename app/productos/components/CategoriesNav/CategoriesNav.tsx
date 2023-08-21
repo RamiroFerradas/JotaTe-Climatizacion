@@ -106,7 +106,6 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                 : cat === "Parrillas"
                 ? ["Fijas", "Móviles"]
                 : Array.from(subcategoriesSet);
-
             return (
               <div key={i} className="flex items-center justify-center">
                 <Button
@@ -114,7 +113,11 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                   aria-controls={`basic-menu-${i}`}
                   aria-haspopup="true"
                   aria-expanded={open ? "true" : undefined}
-                  onClick={(event) => handleClick(event, i)}
+                  onClick={(event) => {
+                    options.length > 1
+                      ? handleClick(event, i)
+                      : dispatch(filterProductsByCategory(cat));
+                  }}
                   onMouseEnter={(event) => {
                     closeAllMenus();
                     handleClick(event, i);
@@ -131,25 +134,27 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                     {cat}
                   </span>
                 </Button>
-                <Menu
-                  id={`basic-menu-${i}`}
-                  anchorEl={anchorEl[i]}
-                  open={open}
-                  onClose={() => handleClose(i)}
-                  MenuListProps={{
-                    "aria-labelledby": `basic-button-${i}`,
-                    onMouseLeave: closeAllMenus,
-                  }}
-                >
-                  {options.map((option) => (
-                    <MenuItem
-                      key={option}
-                      onClick={() => handleClose(i, option, cat)}
-                    >
-                      {option}
-                    </MenuItem>
-                  ))}
-                </Menu>
+                {options.length > 1 && (
+                  <Menu
+                    id={`basic-menu-${i}`}
+                    anchorEl={anchorEl[i]}
+                    open={open}
+                    onClose={() => handleClose(i)}
+                    MenuListProps={{
+                      "aria-labelledby": `basic-button-${i}`,
+                      onMouseLeave: closeAllMenus,
+                    }}
+                  >
+                    {options.map((option) => (
+                      <MenuItem
+                        key={option}
+                        onClick={() => handleClose(i, option, cat)}
+                      >
+                        {option}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                )}
               </div>
             );
           })}
