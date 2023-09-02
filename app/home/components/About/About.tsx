@@ -2,7 +2,7 @@ export type AboutProps = {};
 
 const About: React.FC<AboutProps> = () => {
   return (
-    <section className="min-h-[90vh] md:h-screen" id="about">
+    <section className="min-h-[80vh] md:hscreen" id="about">
       <div className="flex items-center justify-center p-4 flex-col md:flex-row bg-[#d3a16592] min-h-[60vh]">
         <div className="md:w-1/2 flex flex-col justify-center items-center">
           <div className="text-5xl font-bold">
@@ -11,7 +11,7 @@ const About: React.FC<AboutProps> = () => {
           </div>
         </div>
 
-        <div className="md:w-1/2 flex justify-center items-center p-10 md:p-20 text-md leading-7">
+        <div className="md:w-1/2 flex justify-center items-center p-10 md:p-20 text-xl leading-7">
           <p>
             Somos una empresa familiar joven que inició en el sector de
             climatización. Con el paso del tiempo, hemos logrado expandirnos

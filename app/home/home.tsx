@@ -1,4 +1,11 @@
-import { About, Featured, Landing, Navbar, Services } from "./components";
+import {
+  About,
+  Featured,
+  Installations,
+  Landing,
+  Navbar,
+  Services,
+} from "./components";
 
 export type HomeProps = {};
 
@@ -9,6 +16,7 @@ const Home: React.FC<HomeProps> = () => {
       <Landing />
       <About />
       <Services />
+      <Installations />
       <Featured />
     </>
   );

@@ -1,4 +1,4 @@
-import { Carrousel } from "../Carrousel";
+import { Carrousel, carrouselDataInicio } from "../Carrousel";
 
 export type LandingProps = {};
 
@@ -24,7 +24,10 @@ const Landing: React.FC<LandingProps> = () => {
           </a>
         </div>
         <div className="md:w-1/2 p-1 flex items-center justify-center relative">
-          <Carrousel />
+          <Carrousel
+            dataImage={carrouselDataInicio}
+            className="h-80 w-full object-cover"
+          />
         </div>
       </div>
     </section>

@@ -1,10 +1,15 @@
 "use client";
 
+import { CarrouselImages } from "@/app/models/Carrousel";
 import { Carousel } from "@material-tailwind/react";
-import { Carrousel, carrouselData } from "./carrouselData";
 import Image from "next/image";
 
-const Carrousel = () => {
+interface CarrouselProps {
+  dataImage: CarrouselImages[];
+  className?: string;
+}
+
+const Carrousel = ({ dataImage, className }: CarrouselProps) => {
   return (
     <Carousel
       className="rounded-3xl"
@@ -24,14 +29,14 @@ const Carrousel = () => {
         </div>
       )}
     >
-      {carrouselData?.map((img: Carrousel, index) => {
+      {dataImage?.map((img: CarrouselImages, index) => {
         return (
           <Image
             key={index}
             src={img.src}
             alt={img.alt}
             priority
-            className="h-80 w-full object-cover"
+            className={className}
           />
         );
       })}

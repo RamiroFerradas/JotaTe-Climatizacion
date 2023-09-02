@@ -19,6 +19,12 @@ export const Routes = [
   },
   {
     id: 4,
+    active: "installations",
+    text: `Instalaciones`,
+    href: "#installations",
+  },
+  {
+    id: 5,
     active: "featured",
     text: `Destacados`,
     href: "#featured",
