@@ -78,7 +78,9 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
           <div
             key={i}
             className={`flex items-center
-             justify-center overflow-hidden flex-col max-h-screen`}
+             justify-center overflow-hidden flex-col max-h-screen
+             
+             `}
           >
             <Image
               priority
