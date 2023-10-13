@@ -77,9 +77,8 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
         {images?.map((img: string, i: number) => (
           <div
             key={i}
-            className={`flex ${
-              zoom && `items-center`
-            } justify-center overflow-hidden `}
+            className={`flex items-center
+             justify-center overflow-hidden flex-col max-h-screen`}
           >
             <Image
               priority
