@@ -1,6 +1,5 @@
 import { Loading } from "@/app/components";
 import { Product } from "@/app/models";
-
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Carousel, IconButton } from "@material-tailwind/react";
 import Image from "next/image";
@@ -84,13 +83,15 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
           >
             <Image
               priority
-              width={300}
-              height={200}
+              width={!zoom ? 300 : 768}
+              height={!zoom ? 200 : 320}
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}
               className={`max-w-3xl pb-20 object-cover md:transition-all ${
-                !zoom ? "md:h-80 hover:cursor-zoom-in" : "hover:cursor-zoom-out"
+                !zoom
+                  ? "md:h-80 hover:cursor-zoom-in pointer-events-none md:pointer-events-auto"
+                  : "hover:cursor-zoom-out"
               }`}
               onClick={() => setZoom(!zoom)}
             />
@@ -102,53 +103,3 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
 };
 
 export default ImagesProduct;
-{
-  /* <Image
-              priority
-              width={350}
-              height={200}
-              src={img}
-              alt={selectedProduct.name}
-              className="rounded-xl max-w-2xl object-contain h-60"
-            /> */
-}
-
-// <div
-//   key={i}
-//   className="flex flex-col items-center justify-center overflow-hidde h-full w-full"
-// >
-//   <div
-//     className="w-56 h-full flex justify-center items-center flex-row"
-//     id="magnify"
-//   >
-//     <ReactImageMagnify
-//       {...{
-//         smallImage: {
-//           alt: "Wristwatch by Ted Baker London",
-//           isFluidWidth: true,
-//           src: img,
-//           width: 400,
-//           height: 800,
-//         },
-//         largeImage: {
-//           src: img,
-//           width: 300,
-//           height: 600,
-//         },
-
-//         isHintEnabled: true,
-
-//         hintComponent: customHintComponent,
-//         enlargedImagePosition: "over",
-//         enlargedImageContainerDimensions: {
-//           width: "100%",
-//           height: "100%",
-//         },
-//       }}
-//     />
-//   </div>
-// </div>
-// <div
-//   key={i}
-//   className="flex flex-col items-center justify-center overflow-hidde h-40 w-52"
-// >

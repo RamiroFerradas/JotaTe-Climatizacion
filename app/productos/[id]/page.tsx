@@ -3,11 +3,8 @@ import { addToCart } from "@/app/redux/slices/cart";
 import { updateProduct } from "@/app/services/api";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-
 import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
-// import Chip from "@mui/material/Chip";
-
 import { useDispatch } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
@@ -17,7 +14,6 @@ import {
   CardActions,
   CardMedia,
   Typography,
-  Chip,
   Card,
   Divider,
 } from "@mui/material";
@@ -203,17 +199,10 @@ const ProductDetails = () => {
                     </div>
                   </div>
                 )}
-                <div>
+                <div className={!zoom ? "block" : "hidden"}>
                   <Divider />
                   <div className="flex justify-end ">
                     <p className="flex justify-between items-center text-xl font-bold ">
-                      {/* <Typography
-                      variant="h6"
-                      component="div"
-                      className="font-black uppercase"
-                    >
-                      Precio
-                    </Typography> */}
                       <Typography
                         variant="h6"
                         component="div"
