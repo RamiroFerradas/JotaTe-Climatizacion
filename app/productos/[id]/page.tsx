@@ -3,7 +3,6 @@ import { addToCart } from "@/app/redux/slices/cart";
 import { updateProduct } from "@/app/services/api";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-import { useParams, useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { FaCartPlus } from "react-icons/fa";
@@ -27,6 +26,7 @@ import { Loading } from "@/app/components";
 import { fetchProductById } from "@/app/services/fetchProducts";
 import { useConditionProducts, useProductList } from "@/app/hooks";
 import { ProductCard } from "../components";
+import { useParams, useRouter } from "next/navigation";
 
 const ProductDetails = () => {
   const { id } = useParams();

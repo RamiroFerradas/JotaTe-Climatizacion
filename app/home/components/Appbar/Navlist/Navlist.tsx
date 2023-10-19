@@ -2,6 +2,7 @@
 import { Routes } from "@/app/home/routes/routes";
 import { useScrollSections } from "@/app/hooks";
 import { Typography } from "@material-tailwind/react";
+import { Link as LinkScroll } from "react-scroll";
 
 export type NavlistProps = {};
 
@@ -22,9 +23,17 @@ const Navlist: React.FC<NavlistProps> = () => {
               : `text-[#008545] font-bold`
           }`}
         >
-          <a href={r.href} className="flex items-center ">
+          {/* <a href={r.href} className="flex items-center ">
             {r.text}
-          </a>
+          </a> */}
+          <LinkScroll
+            smooth={true}
+            duration={500}
+            to={r.href}
+            className="cursor-pointer"
+          >
+            {r.text}
+          </LinkScroll>{" "}
         </Typography>
       ))}
     </ul>

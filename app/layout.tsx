@@ -1,10 +1,10 @@
+import { NextPage } from "next";
 import "./tailwind.globals.css";
 import { Inter, Nunito, Roboto, Rubik } from "next/font/google";
-import ReduxProvider from "./redux/reduxProvider";
-import localFont from "next/font/local";
-import { Footer } from "./components/Footer";
-import { NextPage } from "next";
 import Head from "next/head";
+import localFont from "next/font/local";
+import ReduxProvider from "./redux/reduxProvider";
+import { Footer } from "./components";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 
 const myFont = localFont({
