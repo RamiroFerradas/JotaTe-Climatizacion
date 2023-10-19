@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import { ReactNode } from "react";
 import "./tailwind.globals.css";
 import { Inter, Nunito, Roboto, Rubik } from "next/font/google";
 import Head from "next/head";
@@ -23,13 +24,13 @@ export const metadata = {
 };
 
 export type RootLayoutProps = {
-  children: React.ReactNode;
+  children: ReactNode;
 };
 
 const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
-      <Head>
+      {/* <Head>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -46,17 +47,16 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
           rel="canonical"
           href="https://www.jotateclimatizacion.com/productos"
         />
-      </Head>
+      </Head> */}
       <body className={inter.className}>
-        {/* Agrega el código de Google Tag Manager después de la etiqueta <body> */}
-        <noscript
+        {/* <noscript
           dangerouslySetInnerHTML={{
             __html: `
               <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KNWJJVW"
               height="0" width="0" style="display:none;visibility:hidden"></iframe>
             `,
           }}
-        />
+        /> */}
         <ReduxProvider>
           <div className="min-h-screen flex flex-col">
             <div className="flex-grow flex flex-col">{children}</div>
