@@ -7,6 +7,7 @@ import localFont from "next/font/local";
 import ReduxProvider from "./redux/reduxProvider";
 import { Footer } from "./components";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
+import Favicon from "../public/favicon.ico";
 
 const myFont = localFont({
   src: "../public/fonts/BNChester.otf",
@@ -18,9 +19,7 @@ export const metadata = {
   alternates: {
     canonical: `https://www.jotateclimatizacion.com/`,
   },
-  icons: {
-    icon: "../public/favicon.ico",
-  },
+  icons: [{ rel: "icon", url: Favicon.src }],
 };
 
 export type RootLayoutProps = {
