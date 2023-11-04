@@ -1,5 +1,5 @@
 {
-  "name": "jotate_2.0",
+  "name": "client",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "react": "^18",
+    "react-dom": "^18",
+    "next": "14.0.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
     "@heroicons/react": "^2.0.18",
@@ -18,17 +21,14 @@
     "@mui/material": "^5.13.3",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-scroll": "^1.8.9",
-    "autoprefixer": "10.4.14",
+    "autoprefixer": "10.4.16",
     "axios": "^1.4.0",
     "encoding": "^0.1.13",
     "googleapis": "^118.0.0",
     "mercadopago": "^1.5.16",
-    "next": "13.4.4",
     "next-redux-wrapper": "^8.1.0",
     "papaparse": "^5.4.1",
-    "postcss": "8.4.24",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "postcss": "8.4.31",
     "react-gtm-module": "^2.0.11",
     "react-hot-toast": "^2.4.1",
     "react-icons": "^4.9.0",
@@ -41,17 +41,17 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "slick-carousel": "^1.8.1",
-    "tailwindcss": "3.3.2"
+    "tailwindcss": "3.3.5"
   },
   "devDependencies": {
-    "@types/node": "20.2.5",
-    "@types/papaparse": "^5.3.7",
-    "@types/react": "18.2.7",
-    "@types/react-dom": "18.2.4",
-    "@types/react-redux": "^7.1.25",
-    "@types/react-slick": "^0.23.10",
-    "eslint": "8.41.0",
-    "eslint-config-next": "13.4.4",
-    "typescript": "5.0.4"
+    "typescript": "^5",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "eslint": "^8",
+    "eslint-config-next": "14.0.1"
   }
 }

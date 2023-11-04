@@ -19,7 +19,7 @@ export const metadata = {
     canonical: `https://www.jotateclimatizacion.com/`,
   },
   icons: {
-    icon: "./favicon.ico",
+    icon: "../public/favicon.ico",
   },
 };
 
