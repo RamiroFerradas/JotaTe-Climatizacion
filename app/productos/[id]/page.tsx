@@ -199,19 +199,24 @@ const ProductDetails = () => {
                     </div>
                   </div>
                 )}
-                <div className={!zoom ? "block" : "hidden"}>
+                <div className={!zoom ? "block mt-10" : "hidden"}>
                   <Divider />
-                  <div className="flex justify-end ">
-                    <p className="flex justify-between items-center text-xl font-bold ">
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        className="font-black uppercase"
-                      >
-                        {parseCurrency(Number(selectedProduct.price))}
-                      </Typography>
-                    </p>
-                  </div>
+                  <p className="flex justify-between items-center text-xl font-bold w-full ">
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      className="font-black "
+                    >
+                      Precio
+                    </Typography>
+                    <Typography
+                      variant="h6"
+                      component="div"
+                      className="font-black uppercase"
+                    >
+                      {parseCurrency(Number(selectedProduct.price))}
+                    </Typography>
+                  </p>
                 </div>
               </div>
               <div className={`sticky bottom-0 ${zoom ? "hidden" : ""}`}>
