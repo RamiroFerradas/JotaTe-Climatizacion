@@ -2,8 +2,6 @@ import { ProductCard } from "./ProductCard";
 import CardSkeleton from "./ProductCard/CardSkeleton";
 import { Paginate } from "../Paginate";
 import { useState, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { Product } from "@/app/models";
 import { useProductList } from "@/app/hooks";
 
 export type GridProductsProps = {
