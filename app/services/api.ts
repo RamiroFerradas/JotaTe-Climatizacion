@@ -1,10 +1,7 @@
 import { Product } from "../models/Product";
 import { imagesToArray } from "../utilities/imagesToArray";
 
-const DB_URL =
-  process.env.NODE_ENV === "production"
-    ? (process.env.NEXT_PUBLIC_DB_BASE_URL as string)
-    : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
+const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
 const DB_URL_AUX =
   process.env.NODE_ENV === "production"

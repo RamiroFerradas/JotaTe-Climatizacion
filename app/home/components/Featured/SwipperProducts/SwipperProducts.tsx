@@ -21,34 +21,20 @@ const SwipperProducts = () => {
 
   const { products, loading } = useProductList();
 
-  // Filtrar productos con imagen
-  const productsWithImage = products.filter((prod) =>
-    prod.image.some((img) => typeof img === "string")
+  const productosDestacadosFiltrados = products.filter(
+    (prod) =>
+      prod.image.some((img) => typeof img === "string") &&
+      prod.image.length > 0 &&
+      prod.image[0] !== "" &&
+      prod.destacado
   );
 
-  // Función para mezclar aleatoriamente un array
-  function shuffle(array) {
-    let currentIndex = array.length;
-    let temporaryValue, randomIndex;
-
-    while (0 !== currentIndex) {
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-  }
-
-  // Obtener 10 productos aleatorios sin imágenes vacías
-  const randomProducts = shuffle(
-    productsWithImage.filter(
-      (prod) => prod.image.length > 0 && prod.image[0] !== ""
-    )
-  ).slice(0, 10);
+  const productosToAdd = productosDestacadosFiltrados.slice(
+    0,
+    3 - productosDestacadosFiltrados.length
+  );
+  const productosDestacados =
+    productosDestacadosFiltrados.concat(productosToAdd);
 
   return (
     <div className="relative">
@@ -68,7 +54,7 @@ const SwipperProducts = () => {
         >
           {loading
             ? [1, 2, 3, 4].map((index) => <SkeletonFeatured key={index} />)
-            : randomProducts.map((prod, i) => (
+            : productosDestacados.map((prod, i) => (
                 <div
                   className="relative flex items-center justify-center flex-col text-center w-full"
                   key={i}

@@ -6,16 +6,14 @@ import { headers } from "next/headers";
 
 import Papa from "papaparse";
 
-const DB_URL =
-  process.env.NODE_ENV === "production"
-    ? (process.env.NEXT_PUBLIC_DB_BASE_URL as string)
-    : (process.env.NEXT_PUBLIC_DB_BASE_URL_LOCAL as string);
+const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
 const isProduction = process.env.NODE_ENV === "production";
 
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
+
 const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
 
 export async function GET(req: NextRequest, res: NextResponse) {
@@ -98,7 +96,9 @@ async function getAllProducts() {
     const filteredProducts = products.filter(
       (product) => !duplicateIds.includes(product.id)
     );
-
+    filteredProducts.forEach((producto) => {
+      producto.destacado = !!producto.destacado;
+    });
     return filteredProducts;
   } catch (error) {
     throw new Error((error as Error).message);

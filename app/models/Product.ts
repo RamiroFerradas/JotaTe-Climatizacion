@@ -10,4 +10,5 @@ export interface Product {
   stock?: string | number;
   quantity?: string | number;
   consults?: string | number;
+  destacado: boolean;
 }
