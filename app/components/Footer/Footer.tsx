@@ -64,7 +64,7 @@ const Footer: React.FC<FooterProps> = () => {
         <p>
           {`© Derechos de autor Jotaté Climatización. Todos los derechos reservados. Diseñado y desarrollado por `}
           <a
-            href="https://www.linkedin.com/in/ramiro-ferradas/"
+            href="https://www.ramiroferradas.com.ar/"
             target="_blank"
             rel="noreferrer"
             className="hover:text-blue-500 font-semibold"
