@@ -1,15 +1,15 @@
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { headers } from "next/headers";
 
-export async function GET() {
-  const headersInstance = headers();
-  const authorization = headersInstance.get("authorization");
+export async function GET(request) {
+  const searchParams = request.nextUrl.searchParams;
+  const secret = searchParams.get("secret");
 
-  if (authorization !== process.env.NEXT_PUBLIC_SECRET_TOKEN) {
+  if (secret !== process.env.NEXT_PUBLIC_SECRET_TOKEN) {
     return Response.json({ revalidated: false });
   }
   revalidatePath("/productos");
-  revalidatePath("/products");
   revalidatePath("/");
+  revalidateTag("productos");
   return Response.json({ revalidated: true });
 }
