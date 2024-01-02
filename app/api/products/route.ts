@@ -64,7 +64,7 @@ async function getProductById(id: string) {
 async function getAllProducts() {
   try {
     const response = await fetch(DB_URL, {
-      next: { revalidate: 1000, tags: ["productos"] },
+      next: { revalidate: 0, tags: ["productos"] },
     });
     const blob = await response.blob();
     const text = await new Response(blob).text();

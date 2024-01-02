@@ -6,8 +6,6 @@ import {
   CardHeader,
   CardBody,
   Typography,
-  Button,
-  CardFooter,
 } from "@material-tailwind/react";
 import Image from "next/image";
 import { addToCart } from "@/app/redux/slices/cart";
