@@ -16,31 +16,6 @@ if (!DB_URL) {
 
 const TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
 
-const cache = new Map<string, any>();
-
-// Función para obtener datos con caché
-async function getDataWithCache(
-  key: string,
-  fetchDataFunction: () => Promise<any>
-): Promise<any> {
-  // Verificar si los datos están en caché
-  if (cache.has(key)) {
-    !isProduction &&
-      console.log(`Obteniendo datos de caché para la clave: ${key}`);
-    return cache.get(key);
-  }
-
-  // Si los datos no están en caché, obtenerlos y almacenar en caché
-  !isProduction &&
-    console.log(
-      `Recuperando datos y almacenando en caché para la clave: ${key}`
-    );
-  const data = await fetchDataFunction();
-  cache.set(key, data);
-
-  return data;
-}
-
 export async function GET(req: NextRequest, res: NextResponse) {
   const headersInstance = headers();
   const authorization = headersInstance.get("authorization");
@@ -52,20 +27,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
   try {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
-
     if (id) {
-      // Obtener producto por ID con caché
-      const product = await getDataWithCache(`product_${id}`, () =>
-        getProductById(id)
-      );
-      return NextResponse.json(product);
+      return getProductById(id);
     } else {
-      // Obtener todos los productos con caché
-      const allProducts = await getDataWithCache(
-        "all_products",
-        getAllProducts
-      );
-      return NextResponse.json(allProducts);
+      const allProduscts = await getAllProducts();
+      return NextResponse.json(allProduscts);
     }
   } catch (error: any) {
     console.error(error.message);
