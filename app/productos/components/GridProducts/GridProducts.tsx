@@ -29,19 +29,22 @@ const GridProducts: React.FC<GridProductsProps> = () => {
   return (
     <>
       <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
-        {loading
-          ? Array.from({ length: 10 }).map((_, i) => <CardSkeleton key={i} />)
-          : productsToShow.length > 0
-          ? productsToShow.map((prod) => (
-              <ProductCard key={prod.id} product={prod} />
-            ))
-          : searchPerformed && (
-              <div className="flex items-center justify-center h-48">
-                <p className="text-center text-gray-600 text-lg">
-                  No hubo resultados para tu búsqueda.
-                </p>
-              </div>
-            )}
+        {
+          // loading
+          // ? Array.from({ length: 10 }).map((_, i) => <CardSkeleton key={i} />)
+          // :
+          productsToShow.length > 0
+            ? productsToShow.map((prod) => (
+                <ProductCard key={prod.id} product={prod} />
+              ))
+            : searchPerformed && (
+                <div className="flex items-center justify-center h-48">
+                  <p className="text-center text-gray-600 text-lg">
+                    No hubo resultados para tu búsqueda.
+                  </p>
+                </div>
+              )
+        }
       </div>
 
       {!loading && (

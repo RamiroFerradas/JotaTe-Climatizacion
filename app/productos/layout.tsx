@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
 import { usePathname } from "next/navigation";
+import { useProductList } from "../hooks";
 
 export default function RootLayout({
   children,
@@ -17,7 +18,7 @@ export default function RootLayout({
 }) {
   const [openSidebar, setopenSidebar] = useState(false);
   const dispatch = useDispatch();
-
+  const { loading } = useProductList();
   const pathname = usePathname();
 
   useEffect(() => {
@@ -44,9 +45,11 @@ export default function RootLayout({
     setopenSidebar(false);
   };
 
+  if (loading) return <Loading />;
+
   return (
     <main className="">
-      <PersistGate loading={<Loading />} persistor={persistor}>
+      <PersistGate persistor={persistor}>
         <Toaster position="top-right" />
         {children}
 
