@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Product } from "../models/Product";
 import { useDispatch } from "react-redux";
-import { addProducts, filterProductsByBrand } from "../redux/slices/products";
+import { addProducts } from "../redux/slices/products";
 import { useSelector } from "react-redux";
 import { AppStore } from "../redux/store";
 import { fetchProducts } from "../services/fetchProducts";

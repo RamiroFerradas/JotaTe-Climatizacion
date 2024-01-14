@@ -23,18 +23,8 @@ const SwipperProducts = () => {
 
   const productosDestacadosFiltrados = products.filter(
     (prod) =>
-      prod.image.some((img) => typeof img === "string") &&
-      prod.image.length > 0 &&
-      prod.image[0] !== "" &&
-      prod.destacado
+      prod.image.some((img) => typeof img === "string") && prod.destacado
   );
-
-  const productosToAdd = productosDestacadosFiltrados.slice(
-    0,
-    3 - productosDestacadosFiltrados.length
-  );
-  const productosDestacados =
-    productosDestacadosFiltrados.concat(productosToAdd);
 
   return (
     <div className="relative">
@@ -54,7 +44,7 @@ const SwipperProducts = () => {
         >
           {loading
             ? [1, 2, 3, 4].map((index) => <SkeletonFeatured key={index} />)
-            : productosDestacados.map((prod, i) => (
+            : productosDestacadosFiltrados.map((prod, i) => (
                 <div
                   className="relative flex items-center justify-center flex-col text-center w-full"
                   key={i}
