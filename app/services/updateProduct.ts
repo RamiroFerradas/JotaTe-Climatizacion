@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Product } from "../models";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
+import { TABLE_PRODUCTS } from "../constants";
 
 export const updateProducts = async (
   existingProducts: Product[],
@@ -38,7 +39,7 @@ export const updateProducts = async (
       if (hasChanges) {
         // Solo actualiza si hay cambios
         const { error: updateError } = await supabase
-          .from("products")
+          .from(TABLE_PRODUCTS)
           .update({
             price: selectedProduct.price,
             category: selectedProduct.category,
