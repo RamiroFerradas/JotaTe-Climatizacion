@@ -3,8 +3,14 @@ import { findDuplicateIds } from "@/app/utilities/findDuplicateIds";
 import { imagesToArray } from "@/app/utilities/imagesToArray";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
+import { cookies } from "next/headers";
 
 import Papa from "papaparse";
+import {
+  createRouteHandlerClient,
+  createServerComponentClient,
+} from "@supabase/auth-helpers-nextjs";
+import { processImagesString } from "@/app/utilities/processImagesString";
 
 const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
@@ -20,9 +26,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const headersInstance = headers();
   const authorization = headersInstance.get("authorization");
 
-  if (!authorization || authorization !== TOKEN) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
+  // if (!authorization || authorization !== TOKEN) {
+  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  // }
 
   try {
     const { searchParams } = new URL(req.url);
@@ -63,43 +69,58 @@ async function getProductById(id: string) {
 
 async function getAllProducts() {
   try {
-    const response = await fetch(DB_URL, {
-      next: { revalidate: 0, tags: ["productos"] },
-    });
-    const blob = await response.blob();
-    const text = await new Response(blob).text();
+    // const response = await fetch(DB_URL, {
+    //   next: { revalidate: 0, tags: ["productos"] },
+    // });
+    // const blob = await response.blob();
+    // const text = await new Response(blob).text();
 
-    const products = await new Promise<Product[]>((resolve, reject) => {
-      Papa.parse(text, {
-        header: true,
-        complete: (results) => {
-          const parsedProducts = results.data as Product[];
-          // Filtrar solo los productos que tengan "name" y "id"
-          const filteredProducts = parsedProducts.filter(
-            (product) => product.name && product.id
-          );
+    const supabase = createServerComponentClient({ cookies });
+    const { data, error } = await supabase.from("products").select("*");
 
-          // Crear un array con las urls de las imagenes proporcionadas
-          const productsWithMultipleImages = filteredProducts.map((product) =>
-            imagesToArray(product)
-          );
+    if (error) {
+      throw new Error(`Error al obtener datos de Supabase: ${error.message}`);
+    }
 
-          resolve(productsWithMultipleImages);
-        },
-        error: (error: Error) => reject(new Error(error.message)),
-      });
-    });
+    // Procesar las imágenes para convertirlas en arrays de strings
+    const productsWithParsedImages = data.map((product) => ({
+      ...product,
+      image: processImagesString(product.image || ""),
+    }));
 
-    const duplicateIds = findDuplicateIds(products);
-    if (duplicateIds.length) console.error("IDs duplicadas:", duplicateIds);
+    return productsWithParsedImages;
 
-    const filteredProducts = products.filter(
-      (product) => !duplicateIds.includes(product.id)
-    );
-    filteredProducts.forEach((producto) => {
-      producto.destacado = !!producto.destacado;
-    });
-    return filteredProducts;
+    // const products = await new Promise<Product[]>((resolve, reject) => {
+    //   Papa.parse(text, {
+    //     header: true,
+    //     complete: (results) => {
+    //       const parsedProducts = results.data as Product[];
+    //       // Filtrar solo los productos que tengan "name" y "id"
+    //       const filteredProducts = parsedProducts.filter(
+    //         (product) => product.name && product.id
+    //       );
+
+    //       // Crear un array con las urls de las imagenes proporcionadas
+    //       const productsWithMultipleImages = filteredProducts.map((product) =>
+    //         imagesToArray(product)
+    //       );
+
+    //       resolve(productsWithMultipleImages);
+    //     },
+    //     error: (error: Error) => reject(new Error(error.message)),
+    //   });
+    // });
+
+    // const duplicateIds = findDuplicateIds(products);
+    // if (duplicateIds.length) console.error("IDs duplicadas:", duplicateIds);
+
+    // const filteredProducts = products.filter(
+    //   (product) => !duplicateIds.includes(product.id)
+    // );
+    // filteredProducts.forEach((producto) => {
+    //   producto.destacado = !!producto.destacado;
+    // });
+    // return filteredProducts;
   } catch (error) {
     throw new Error((error as Error).message);
   }

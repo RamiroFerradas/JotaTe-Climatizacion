@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  experimental: {
+    serverActions: true,
+  },
   images: {
     remotePatterns: [
       {
@@ -21,6 +24,10 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "acdn.mitiendanube.com",
+      },
+      {
+        protocol: "https",
+        hostname: "d2r9epyceweg5n.cloudfront.net",
       },
     ],
   },

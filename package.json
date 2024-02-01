@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 9090",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --coverage"
   },
   "dependencies": {
     "@emotion/react": "^11.11.0",
@@ -16,7 +17,11 @@
     "@mercadopago/sdk-react": "^0.0.11",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.3",
+    "@mui/utils": "^5.15.6",
+    "@mui/x-data-grid": "^6.19.2",
     "@reduxjs/toolkit": "^1.9.5",
+    "@supabase/auth-helpers-nextjs": "^0.8.7",
+    "@supabase/supabase-js": "^2.39.3",
     "autoprefixer": "10.4.16",
     "axios": "^1.4.0",
     "encoding": "^0.1.13",
@@ -34,6 +39,7 @@
     "react-quick-pinch-zoom": "^4.9.0",
     "react-redux": "^8.0.5",
     "react-scroll": "^1.9.0",
+    "react-select": "^5.8.0",
     "react-slick": "^0.29.0",
     "react-zoom-pan-pinch": "^3.0.8",
     "redux": "^4.2.1",
@@ -44,18 +50,22 @@
     "tailwindcss": "3.3.5"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^6.2.1",
+    "@testing-library/react": "^14.1.2",
+    "@types/jest": "^29.5.11",
     "@types/node": "^20",
+    "@types/papaparse": "^5.3.7",
     "@types/react": "v18.2.19",
     "@types/react-dom": "^18",
+    "@types/react-redux": "^7.1.25",
+    "@types/react-scroll": "^1.8.9",
+    "@types/react-slick": "^0.23.10",
     "autoprefixer": "^10.0.1",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
     "postcss": "^8",
+    "react-test-renderer": "^18.2.0",
     "tailwindcss": "^3.3.0",
-    "typescript": "^5",
-    "@types/papaparse": "^5.3.7",
-    "@types/react-redux": "^7.1.25",
-    "@types/react-slick": "^0.23.10",
-    "@types/react-scroll": "^1.8.9"
+    "typescript": "^5"
   }
 }

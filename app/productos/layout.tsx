@@ -4,7 +4,7 @@ import { Appbar, CategoriesNav, GridProducts } from "./components";
 import { Sidebar } from "./components/Sidebar";
 import { persistor } from "../redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-import { Loading } from "../components";
+import { Footer, Loading } from "../components";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
@@ -72,6 +72,7 @@ export default function RootLayout({
             </div>
           </div>
         </div>
+        <Footer />
       </PersistGate>
     </main>
   );

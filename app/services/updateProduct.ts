@@ -1,0 +1,66 @@
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { Product } from "../models";
+import { revalidatePath } from "next/cache";
+import { cookies } from "next/headers";
+
+export const updateProducts = async (
+  existingProducts: Product[],
+  productsToUpdate: Product[]
+) => {
+  "use server";
+
+  try {
+    const supabase = createServerComponentClient({ cookies });
+
+    // Indexar los productos existentes por su ID
+    const existingProductsIndex = existingProducts.reduce((index, product) => {
+      index[product.id] = product;
+      return index;
+    }, {});
+
+    let updatedProductsCount = 0; // Inicializar el contador
+
+    for (const selectedProduct of productsToUpdate) {
+      // Obtener el producto correspondiente del índice
+      const existingProduct = existingProductsIndex[selectedProduct.id];
+
+      if (!existingProduct) {
+        console.error(
+          `Error: No se pudo encontrar el producto existente con ID: ${selectedProduct.id}`
+        );
+        continue;
+      }
+
+      const hasChanges = Object.keys(selectedProduct).some(
+        (key) => selectedProduct[key] !== existingProduct[key]
+      );
+
+      if (hasChanges) {
+        // Solo actualiza si hay cambios
+        const { error: updateError } = await supabase
+          .from("products")
+          .update({
+            price: selectedProduct.price,
+            category: selectedProduct.category,
+            subcategory: selectedProduct.subcategory,
+            destacado: selectedProduct.destacado,
+          })
+          .eq("id", selectedProduct.id);
+
+        if (updateError) {
+          throw new Error(
+            `Error al actualizar el producto: ${updateError.message}`
+          );
+        }
+
+        updatedProductsCount++;
+      }
+    }
+
+    revalidatePath("/admin");
+    console.log(`Total de productos actualizados: ${updatedProductsCount}`);
+  } catch (error) {
+    console.error("Error al guardar:", error.message);
+    throw error;
+  }
+};

@@ -6,9 +6,9 @@ import { Button, IconButton, Collapse } from "@material-tailwind/react";
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Image from "next/image";
 
-import { Navlist } from "./Navlist";
 import Link from "next/link";
 import { useScrollSections } from "@/app/hooks";
+import Navlist from "./Navlist/Navlist";
 export type NavbarProps = {};
 
 const Appbar: React.FC<NavbarProps> = () => {

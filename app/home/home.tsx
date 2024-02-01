@@ -1,9 +1,9 @@
 import {
   About,
+  Appbar,
   Featured,
   Installations,
   Landing,
-  Navbar,
   Services,
 } from "./components";
 
@@ -12,7 +12,7 @@ export type HomeProps = {};
 const Home: React.FC<HomeProps> = () => {
   return (
     <>
-      <Navbar />
+      <Appbar />
       <Landing />
       <About />
       <Services />

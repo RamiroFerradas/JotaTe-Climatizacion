@@ -1,10 +1,10 @@
-export * from "./About";
-export * from "./Appbar/Navlist";
-export * from "./Appbar";
+export { default as About } from "./About/About";
+export { default as Appbar } from "./Appbar/Appbar";
+export { default as Navlist } from "./Appbar/Navlist/Navlist";
 export * from "./Carrousel";
 export * from "./Featured/SwipperProducts";
 export * from "./Featured";
 export { default as Installations } from "./Installations/Installations";
-export * from "./Landing";
+export { default as Landing } from "./Landing/Landing";
 export * from "./Services";
 export * from "./index";

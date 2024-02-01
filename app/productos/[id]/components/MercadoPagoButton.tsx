@@ -1,3 +1,4 @@
+"use client";
 import { Product } from "@/app/models";
 import { Spinner } from "@material-tailwind/react";
 import { useRouter } from "next/navigation";
