@@ -4,7 +4,7 @@ import { Product } from "../models";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { processImagesString } from "../utilities/processImagesString";
-// export const dynamic = "force-dynamic";
+import { TABLE_PRODUCTS } from "../constants";
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 // const AUTH_TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;
@@ -46,12 +46,11 @@ export async function fetchProducts(): Promise<Product[]> {
     // const response = await fetch(url, { headers });
 
     const supabase = createServerComponentClient({ cookies });
-    const { data, error } = await supabase.from("products").select("*");
+    const { data, error } = await supabase.from(TABLE_PRODUCTS).select("*");
 
     if (error) {
       throw new Error(`Error al obtener datos de Supabase: ${error.message}`);
     }
-
     // Procesar las imágenes para convertirlas en arrays de strings
     const productsWithParsedImages = data.map((product) => ({
       ...product,
@@ -73,7 +72,7 @@ export async function fetchProductById(id: string): Promise<Product> {
     // const { id } = params;
     console.log(id);
     const { data, error } = await supabase
-      .from("products")
+      .from(TABLE_PRODUCTS)
       .select("*")
       .eq("id", id);
     const productsWithParsedImages = data.map((product) => ({

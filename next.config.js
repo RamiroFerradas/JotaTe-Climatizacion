@@ -31,15 +31,12 @@ const nextConfig = {
       },
     ],
   },
-  // async redirects() {
-  //   return [
-  //     {
-  //       source: "/",
-  //       destination: "/home",
-  //       permanent: false,
-  //     },
-  //   ];
-  // },
+  env: {
+    NEXT_PUBLIC_TABLE_PRODUCTS:
+      process.env.NEXT_PUBLIC_ENVIRONMENT === "dev"
+        ? "products_dev"
+        : "products",
+  },
 };
 
 module.exports = nextConfig;
