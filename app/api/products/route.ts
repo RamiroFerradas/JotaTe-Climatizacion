@@ -4,6 +4,7 @@ import { imagesToArray } from "@/app/utilities/imagesToArray";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { cookies } from "next/headers";
+export const dynamic = "force-dynamic";
 
 import Papa from "papaparse";
 import {

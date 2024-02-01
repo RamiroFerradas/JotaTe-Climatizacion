@@ -4,6 +4,7 @@ import { Product } from "../models";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { processImagesString } from "../utilities/processImagesString";
+// export const dynamic = "force-dynamic";
 
 // const API_URL = process.env.NEXT_PUBLIC_API_URL as string;
 // const AUTH_TOKEN = process.env.NEXT_PUBLIC_SECRET_TOKEN;

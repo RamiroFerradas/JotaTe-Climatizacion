@@ -2,8 +2,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 import FormLogin from "./FormLogin";
-import { useRouter } from "next/navigation";
 import Dashboard from "./components/Dashboard";
+export const dynamic = "force-dynamic";
 
 export default async function Login() {
   const supabase = createServerComponentClient({ cookies });

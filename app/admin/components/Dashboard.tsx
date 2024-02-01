@@ -1,6 +1,4 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import ProductsTable from "./ProductsTable/ProductsTable";
-import { Product } from "@/app/models";
 import { fetchProducts } from "@/app/services/fetchProducts";
 import { getOptionsByProperty } from "@/app/utilities/getOptionsByPropertyProduct";
 import { updateProducts } from "@/app/services/updateProduct";
