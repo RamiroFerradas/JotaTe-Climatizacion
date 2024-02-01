@@ -261,7 +261,6 @@ export default function ProductsTable({
                             onMenuOpen={() => handleClickRow(row, true)}
                             onMenuClose={() => handleClickRow(row, true)}
                             onChange={(e) => {
-                              console.log(e.key);
                               setSelected((prevProducts) =>
                                 updateProductInSelected(prevProducts, row.id, {
                                   category: e.label,

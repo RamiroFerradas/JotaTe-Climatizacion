@@ -70,7 +70,6 @@ export async function fetchProductById(id: string): Promise<Product> {
   try {
     const supabase = createServerComponentClient({ cookies });
     // const { id } = params;
-    console.log(id);
     const { data, error } = await supabase
       .from(TABLE_PRODUCTS)
       .select("*")

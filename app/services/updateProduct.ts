@@ -58,8 +58,10 @@ export const updateProducts = async (
       }
     }
 
-    revalidatePath("/admin");
     console.log(`Total de productos actualizados: ${updatedProductsCount}`);
+    setTimeout(() => {
+      revalidatePath("/admin");
+    }, 300);
   } catch (error) {
     console.error("Error al guardar:", error.message);
     throw error;

@@ -19,7 +19,6 @@ export default function SearchBar({
     const filtered = products.filter((product) =>
       product.name.toLowerCase().includes(value.toLowerCase())
     );
-    console.log(filtered);
     setFilteredProducts(filtered);
   };
 
