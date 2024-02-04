@@ -41,7 +41,6 @@ export default function Percentage({
         ),
       }));
 
-      // Actualizar el estado con los productos modificados
       setSelected(updatedProducts);
     }
   };
@@ -55,6 +54,7 @@ export default function Percentage({
         (product) => product.brand === selectedOption.value
       );
       setFilteredProducts(filteredProducts);
+      setSelected(filteredProducts);
       setPage(0);
     }
   };

@@ -51,7 +51,6 @@ export default function FormCreateProduct({
     formState: { errors, isSubmitting, isValid },
   } = method;
   const formValues = watch();
-  console.log(formValues);
   const [section, setSection] = useState<"info" | "images">("info");
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 

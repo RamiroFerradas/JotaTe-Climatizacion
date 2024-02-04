@@ -62,13 +62,15 @@ export default function EnhancedTableToolbar({
           Productos
         </Typography>
       )}
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
+      {
+        //   numSelected > 0 ? (
+        //   <Tooltip title="Delete">
+        //     <IconButton>
+        //       <DeleteIcon />
+        //     </IconButton>
+        //   </Tooltip>
+        // ) :
+
         <Percentage
           products={products}
           setSelected={setSelected}
@@ -77,7 +79,7 @@ export default function EnhancedTableToolbar({
           setFilteredProducts={setFilteredProducts}
           setPage={setPage}
         />
-      )}
+      }
     </Toolbar>
   );
 }
