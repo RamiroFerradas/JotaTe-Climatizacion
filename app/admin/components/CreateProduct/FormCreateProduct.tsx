@@ -90,7 +90,6 @@ export default function FormCreateProduct({
   const handleClose = () => {
     setOpenModalForm(false);
   };
-  console.log();
   useEffect(() => {
     const brand = watch("brand");
     const category = watch("category");

@@ -21,7 +21,6 @@ export default function InformationProduct({
     getValues,
   } = method;
   const classnameInputs = "border border-green-principal p-1 rounded-md w-full";
-  console.log(getValues());
   return (
     <section
       id="load-information-product"

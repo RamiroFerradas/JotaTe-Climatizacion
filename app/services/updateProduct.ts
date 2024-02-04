@@ -14,7 +14,6 @@ export const updateProducts = async (
 
   try {
     const supabase = createServerComponentClient({ cookies });
-
     // Indexar los productos existentes por su ID
     const existingProductsIndex = existingProducts.reduce((index, product) => {
       index[product.id] = product;
@@ -33,17 +32,15 @@ export const updateProducts = async (
         );
         continue;
       }
-
       const hasChanges = Object.keys(selectedProduct).some(
         (key) => selectedProduct[key] !== existingProduct[key]
       );
-
       if (hasChanges) {
         // Solo actualiza si hay cambios
         const { error: updateError } = await supabase
           .from(TABLE_PRODUCTS)
           .update({
-            price: selectedProduct.price,
+            price: selectedProduct.newPrice,
             category: selectedProduct.category,
             subcategory: selectedProduct.subcategory,
             destacado: selectedProduct.destacado,

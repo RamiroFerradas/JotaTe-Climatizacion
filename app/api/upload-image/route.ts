@@ -14,7 +14,7 @@ export async function POST(request) {
     const name = data.get("name");
     const category = data.get("category");
     const subcategory = data.get("subcategory");
-    
+
     if (!image) {
       return NextResponse.json("No se ha detectado una imagen para subir");
     }
@@ -30,7 +30,10 @@ export async function POST(request) {
       }/${brand}/${category}/${subcategory}/${name}`,
     });
 
-    return NextResponse.json(result);
+    const resultCopy = { ...result };
+    delete resultCopy.api_key;
+
+    return NextResponse.json(resultCopy);
   } catch (error) {
     console.error("Error al subir la imagen a Cloudinary:", error.message);
     throw error;

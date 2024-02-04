@@ -32,7 +32,6 @@ export default function Percentage({
 
   const handleApplyPercentage = () => {
     const percentageValue = parseFloat(percentage);
-
     if (!isNaN(percentageValue)) {
       const updatedProducts = selectedProducts.map((product) => ({
         ...product,

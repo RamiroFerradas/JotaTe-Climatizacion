@@ -66,7 +66,6 @@ export default function LoadImages({
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
   };
-  console.log(!Array.isArray(uploadedImages) || uploadedImages.length === 0);
   return (
     <section id="load-images">
       <div className="flex flex-wrap items-center justify-start w-full h-full gap-3">
