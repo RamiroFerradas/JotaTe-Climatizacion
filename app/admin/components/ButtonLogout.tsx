@@ -15,11 +15,9 @@ function ButtonLogout({}: Props) {
     router.push("/");
   };
   return (
-    <div>
-      <Button onClick={handleSignOut}>
-        <AiOutlineLogout className={"text-[#006d54] text-2xl"} />
-      </Button>
-    </div>
+    <Button onClick={handleSignOut}>
+      <AiOutlineLogout className={"text-[#006d54] text-2xl"} />
+    </Button>
   );
 }
 export default ButtonLogout;

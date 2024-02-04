@@ -29,7 +29,7 @@ export default function SearchBar({
         placeholder="Producto..."
         value={searchValue}
         onChange={handleInputChange}
-        className="p-2 border border-gray-300 rounded-md w-80"
+        className="p-2 border border-gray-300 rounded-md md:w-80"
       />
     </div>
   );

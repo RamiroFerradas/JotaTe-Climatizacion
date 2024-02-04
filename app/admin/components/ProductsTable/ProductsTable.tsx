@@ -17,25 +17,19 @@ import { stableSort } from "./helpers/stableSort";
 import { createDataFromAPI } from "./helpers/createDataFromAPI";
 import { isSelected } from "./helpers/isSelected";
 import { getComparator } from "./helpers/getComparator";
-import {
-  Alert,
-  Input,
-  Modal,
-  Slide,
-  SlideProps,
-  Snackbar,
-  TextField,
-} from "@mui/material";
+import { Alert, Modal, Slide, SlideProps, Snackbar } from "@mui/material";
 import { Loading } from "@/app/components";
 import SearchBar from "../Searchbar";
 import ButtonLogout from "../ButtonLogout";
 import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
+import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import FormCreateProduct from "../CreateProduct/FormCreateProduct";
-import { OptionType } from "@/app/models/OptionType";
 import { selectStyles } from "../../StylesSelect";
+import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
+import { useScreenSize } from "@/app/hooks";
 
 type Props = {
   products: Product[];
@@ -171,16 +165,22 @@ export default function ProductsTable({
     );
   };
 
+  const { width } = useScreenSize();
+
+  const isMobile = width < 720;
+
+  const logoResponsive = isMobile ? jotaTeLogoResponsive : jotaTeLogo;
+
   return (
-    <>
+    <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
       <Box sx={{ width: "100%" }}>
-        <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-full py-1">
+        <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
           <Link href={"/"}>
             <Image
-              src={jotaTeLogo}
+              src={logoResponsive}
               alt="logo_jota_te"
-              width={130}
-              height={130}
+              width={!isMobile ? 130 : 50}
+              height={!isMobile ? 130 : 50}
               className="cursor-pointer"
             />
           </Link>
@@ -188,22 +188,24 @@ export default function ProductsTable({
             products={products}
             setFilteredProducts={setFilteredProducts}
           />
-          <div className="flex gap-2">
+          <div className="flex gap-1 md:gap-2 justify-center items-center">
             <Button
               size="sm"
-              className="rounded bg-[#F65B36] border border-[#F65B36] hidden lg:inline-block"
+              className="hidden md:block rounded bg-[#F65B36] border border-[#F65B36]  "
               onClick={() => setOpenModalForm(true)}
             >
-              <span>Nuevo prodcuto</span>
+              <span className="hidden md:block">Nuevo prodcuto</span>
+              <IoMdAddCircleOutline size={24} className="block md:hidden" />
             </Button>
             <Button
               size="sm"
-              className="rounded bg-[#006d54] border border-[#006d54] hidden lg:inline-block"
+              className="rounded bg-[#006d54] border border-[#006d54] "
               onClick={handleSubmit}
             >
-              <span>Guardar cambios</span>
+              <span className="hidden md:block">Guardar cambios</span>
+              <IoMdSave size={24} className="block md:hidden" />
             </Button>
-            ´
+
             <ButtonLogout />
           </div>
         </div>
@@ -269,9 +271,13 @@ export default function ProductsTable({
                         {row.brand}
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
-                        <div onClick={(e) => e.stopPropagation()}>
+                        <div
+                          className="min-w-[10rem]"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <CreatableSelect
                             isClearable
+                            className="w-full"
                             options={optionsCategory as any}
                             defaultValue={optionsCategory.find(
                               (op: any) => op.value === row.category
@@ -291,7 +297,7 @@ export default function ProductsTable({
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
                         <div
-                          className="w-44"
+                          className="min-w-[10rem]"
                           onClick={(e) => e.stopPropagation()}
                         >
                           <CreatableSelect
@@ -414,6 +420,6 @@ export default function ProductsTable({
           {snackBarMessage}
         </Alert>
       </Snackbar>
-    </>
+    </div>
   );
 }

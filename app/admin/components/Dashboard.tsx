@@ -12,17 +12,13 @@ async function Dashboard({}: Props) {
   const optionsBrands = getOptionsByProperty(data, "brand");
 
   return (
-    <>
-      <div className="flex flex-col gap-3 px-4 relative">
-        <ProductsTable
-          optionsSubcategory={optionsSubcategory}
-          optionsCategory={optionsCategory}
-          optionsBrands={optionsBrands}
-          products={data}
-          handleUpdateProducts={updateProducts}
-        />
-      </div>
-    </>
+    <ProductsTable
+      optionsSubcategory={optionsSubcategory}
+      optionsCategory={optionsCategory}
+      optionsBrands={optionsBrands}
+      products={data}
+      handleUpdateProducts={updateProducts}
+    />
   );
 }
 export default Dashboard;
