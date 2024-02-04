@@ -61,7 +61,7 @@ export default function FormCreateProduct({
     const formattedImages = `{${uploadedImages.join(",")}}`;
 
     try {
-      if (!formValues.image.length) {
+      if (!uploadedImages.length) {
         setSection("images");
 
         setError("image", {

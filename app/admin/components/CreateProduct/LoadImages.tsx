@@ -6,6 +6,7 @@ import { Loading } from "@/app/components";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
 import { OptionType } from "@/app/models/OptionType";
+import { error } from "console";
 
 type Props = {
   method: any;
@@ -24,7 +25,6 @@ export default function LoadImages({
     clearErrors,
     formState: { errors, isSubmitting, isValid },
   } = method;
-  console.log(errors);
 
   const [loadImage, setLoadImage] = useState(false);
 
@@ -128,6 +128,7 @@ export default function LoadImages({
               </div>
               <input
                 type="file"
+                name="imageInput"
                 style={{ display: "none" }}
                 {...field}
                 onChange={(e) => {
@@ -139,9 +140,7 @@ export default function LoadImages({
           )}
         />
       </div>
-      {errors?.image && (
-        <p className="text-red-500">Se requiere al menos una imagen</p>
-      )}
+      {errors?.image && <p className="text-red-500">{errors.image.message}</p>}
     </section>
   );
 }

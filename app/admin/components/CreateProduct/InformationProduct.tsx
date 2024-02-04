@@ -53,7 +53,7 @@ export default function InformationProduct({
               options={optionsBrands as any}
               className="w-44"
               placeholder="Marca"
-              value={optionsBrands.find((c) => c.value === field.value)}
+              value={optionsBrands.find((c) => c.value === field.value.value)}
               onChange={(val) => {
                 field.onChange(val);
               }}
@@ -73,7 +73,7 @@ export default function InformationProduct({
               options={optionsCategory as any}
               className="w-44"
               placeholder="Categoría"
-              value={optionsCategory.find((c) => c.value === field.value)}
+              value={optionsCategory.find((c) => c.value === field.value.value)}
               onChange={(val) => field.onChange(val)}
               styles={selectStyles(errors.category)}
             />
@@ -90,7 +90,9 @@ export default function InformationProduct({
               options={optionsSubcategory as any}
               className="w-44"
               placeholder="Subcategoría"
-              value={optionsSubcategory.find((c) => c.value === field.value)}
+              value={optionsSubcategory.find(
+                (c) => c.value === field.value.value
+              )}
               onChange={(val) => field.onChange(val)}
               styles={selectStyles(errors.subcategory)}
             />
