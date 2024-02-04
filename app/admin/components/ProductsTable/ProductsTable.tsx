@@ -313,7 +313,7 @@ export default function ProductsTable({
                             onChange={(e) => {
                               setSelected((prevProducts) =>
                                 updateProductInSelected(prevProducts, row.id, {
-                                  subcategory: e.label,
+                                  subcategory: e ? e.label : row.subcategory,
                                 })
                               );
                             }}
