@@ -5,6 +5,7 @@ import { useState, Dispatch } from "react";
 import { Button, IconButton, Collapse } from "@material-tailwind/react";
 import Select from "react-select";
 import { OptionType } from "@/app/models/OptionType";
+import { selectStyles } from "../StylesSelect";
 
 type Props = {
   setSelected: Dispatch<React.SetStateAction<Product[]>>;
@@ -78,6 +79,7 @@ export default function Percentage({
           name="color"
           options={optionsBrandsWithAll}
           onChange={handleBrandChange}
+          styles={selectStyles(false)}
         />
       </div>
       <TextField

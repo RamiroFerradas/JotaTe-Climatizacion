@@ -17,7 +17,15 @@ import { stableSort } from "./helpers/stableSort";
 import { createDataFromAPI } from "./helpers/createDataFromAPI";
 import { isSelected } from "./helpers/isSelected";
 import { getComparator } from "./helpers/getComparator";
-import { Alert, Input, Modal, Snackbar, TextField } from "@mui/material";
+import {
+  Alert,
+  Input,
+  Modal,
+  Slide,
+  SlideProps,
+  Snackbar,
+  TextField,
+} from "@mui/material";
 import { Loading } from "@/app/components";
 import SearchBar from "../Searchbar";
 import ButtonLogout from "../ButtonLogout";
@@ -27,6 +35,7 @@ import Image from "next/image";
 import Link from "next/link";
 import FormCreateProduct from "../CreateProduct/FormCreateProduct";
 import { OptionType } from "@/app/models/OptionType";
+import { selectStyles } from "../../StylesSelect";
 
 type Props = {
   products: Product[];
@@ -47,6 +56,9 @@ export default function ProductsTable({
   optionsCategory,
   handleUpdateProducts,
 }: Props) {
+  function SlideTransition(props: SlideProps) {
+    return <Slide {...props} direction="down" />;
+  }
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Product>("brand");
   const [selected, setSelected] = useState<Product[]>([]);
@@ -149,8 +161,7 @@ export default function ProductsTable({
     if (reason === "clickaway") {
       return;
     }
-
-    setViewAlert(false);
+    setSnackBarMessage("");
   };
 
   const defaultvalueNewPrice = (row: Product) => {
@@ -162,18 +173,6 @@ export default function ProductsTable({
 
   return (
     <>
-      <Modal open={openModalForm} onClose={() => setOpenModalForm(false)}>
-        <div className="flex justify-center items-center h-screen">
-          <FormCreateProduct
-            optionsCategory={optionsCategory}
-            optionsBrands={optionsBrands}
-            optionsSubcategory={optionsSubcategory}
-            setOpenModalForm={setOpenModalForm}
-            setSnackBarMessage={setSnackBarMessage}
-            setError={setError}
-          />
-        </div>
-      </Modal>
       <Box sx={{ width: "100%" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-full py-1">
           <Link href={"/"}>
@@ -219,7 +218,7 @@ export default function ProductsTable({
             setFilteredProducts={setFilteredProducts}
             setPage={setPage}
           />
-          <TableContainer>
+          <TableContainer className="w-full">
             <Table
               sx={{ minWidth: 750 }}
               aria-labelledby="tableTitle"
@@ -237,7 +236,6 @@ export default function ProductsTable({
                 {visibleRows.map((row, index) => {
                   const isItemSelected = isSelected(selected, row.id as string);
                   const labelId = `enhanced-table-checkbox-${index}`;
-
                   return (
                     <TableRow
                       hover
@@ -249,7 +247,7 @@ export default function ProductsTable({
                       selected={isItemSelected}
                       sx={{ cursor: "pointer" }}
                     >
-                      <TableCell padding="checkbox">
+                      <TableCell className="w-2/12" padding="checkbox">
                         <Checkbox
                           color="primary"
                           checked={isItemSelected}
@@ -263,16 +261,18 @@ export default function ProductsTable({
                         id={labelId}
                         scope="row"
                         padding="none"
+                        className="w-2/12"
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell align="right">{row.brand}</TableCell>
-                      <TableCell align="right">
+                      <TableCell className="w-2/12" align="left">
+                        {row.brand}
+                      </TableCell>
+                      <TableCell className="w-2/12" align="left">
                         <div onClick={(e) => e.stopPropagation()}>
                           <CreatableSelect
                             isClearable
                             options={optionsCategory as any}
-                            className="w-44"
                             defaultValue={optionsCategory.find(
                               (op: any) => op.value === row.category
                             )}
@@ -285,24 +285,20 @@ export default function ProductsTable({
                                 })
                               );
                             }}
+                            styles={selectStyles(false)}
                           />
                         </div>
                       </TableCell>
-                      <TableCell align="right">
-                        <div onClick={(e) => e.stopPropagation()}>
+                      <TableCell className="w-2/12" align="left">
+                        <div
+                          className="w-44"
+                          onClick={(e) => e.stopPropagation()}
+                        >
                           <CreatableSelect
-                            theme={(theme) => ({
-                              ...theme,
-                              borderRadius: 0,
-                              colors: {
-                                ...theme.colors,
-                                primary25: "black",
-                                // primary: "black",
-                              },
-                            })}
+                            className="w-full"
+                            styles={selectStyles(false)}
                             isClearable
                             options={optionsSubcategory as any}
-                            className="w-44"
                             defaultValue={optionsSubcategory.find(
                               (op: any) => op.value === row.subcategory
                             )}
@@ -318,7 +314,7 @@ export default function ProductsTable({
                           />
                         </div>
                       </TableCell>
-                      <TableCell align="right">
+                      <TableCell className="w-1/12" align="left">
                         <Checkbox
                           color="primary"
                           onClick={(e) => {
@@ -338,16 +334,21 @@ export default function ProductsTable({
                               })
                             );
                           }}
+                          className="w-20"
                         />
                       </TableCell>
-                      <TableCell align="right">{row.price}</TableCell>
-                      <TableCell align="right">
-                        <TextField
-                          // label="Nuevo precio"
+                      <TableCell className="w-2/12" align="left">
+                        {row.price}
+                      </TableCell>
+                      <TableCell className="w-2/12" align="left">
+                        <input
+                          className={
+                            "border border-green-principal p-2 rounded-md w-24 h- "
+                          }
+                          placeholder={"Nuevo precio"}
                           id="newPrice"
                           type="number"
                           defaultValue={defaultvalueNewPrice(row)}
-                          size="small"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleClickRow(row, true);
@@ -360,7 +361,6 @@ export default function ProductsTable({
                               })
                             );
                           }}
-                          color="success"
                         />
                       </TableCell>
                     </TableRow>
@@ -387,12 +387,24 @@ export default function ProductsTable({
       ) : (
         <></>
       )}
+      <Modal open={openModalForm} onClose={() => setOpenModalForm(false)}>
+        <div className="flex justify-center items-center h-screen">
+          <FormCreateProduct
+            optionsCategory={optionsCategory}
+            optionsBrands={optionsBrands}
+            optionsSubcategory={optionsSubcategory}
+            setOpenModalForm={setOpenModalForm}
+            setSnackBarMessage={setSnackBarMessage}
+            setError={setError}
+          />
+        </div>
+      </Modal>
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
         open={!!snackBarMessage}
-        autoHideDuration={6000}
+        autoHideDuration={4000}
         onClose={handleClose}
-        onAnimationEnd={() => setSnackBarMessage("")}
+        TransitionComponent={SlideTransition}
       >
         <Alert
           severity={!error ? "success" : "error"}

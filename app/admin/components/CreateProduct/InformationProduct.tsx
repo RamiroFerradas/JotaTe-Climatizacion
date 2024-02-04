@@ -2,6 +2,7 @@ import InputForm from "@/app/components/InputForm";
 import { OptionType } from "@/app/models/OptionType";
 import { Controller } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
+import { selectStyles } from "../../StylesSelect";
 type Props = {
   method: any;
   optionsSubcategory: OptionType[];
@@ -55,15 +56,7 @@ export default function InformationProduct({
               onChange={(val) => {
                 field.onChange(val);
               }}
-              styles={{
-                control: (provided, state) => ({
-                  ...provided,
-                  borderColor: "green",
-                  boxShadow: state.isFocused
-                    ? "0 0 0 1px green"
-                    : provided.boxShadow,
-                }),
-              }}
+              styles={selectStyles(errors.brand)}
             />
           )}
         />
@@ -81,15 +74,7 @@ export default function InformationProduct({
               placeholder="Categoría"
               value={optionsCategory.find((c) => c.value === field.value)}
               onChange={(val) => field.onChange(val)}
-              styles={{
-                control: (provided, state) => ({
-                  ...provided,
-                  borderColor: "green",
-                  boxShadow: state.isFocused
-                    ? "0 0 0 1px green"
-                    : provided.boxShadow,
-                }),
-              }}
+              styles={selectStyles(errors.category)}
             />
           )}
         />
@@ -106,15 +91,7 @@ export default function InformationProduct({
               placeholder="Subcategoría"
               value={optionsSubcategory.find((c) => c.value === field.value)}
               onChange={(val) => field.onChange(val)}
-              styles={{
-                control: (provided, state) => ({
-                  ...provided,
-                  borderColor: errors.subcategory ? "red" : "green",
-                  boxShadow: state.isFocused
-                    ? "0 0 0 1px " + (errors.subcategory ? "red" : "green")
-                    : provided.boxShadow,
-                }),
-              }}
+              styles={selectStyles(errors.subcategory)}
             />
           )}
         />
