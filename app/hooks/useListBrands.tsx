@@ -26,7 +26,9 @@ export default function useListBrands() {
   useEffect(() => {
     const listBrandsFiltered = new Set(
       allProducts
-        .filter((product) => product.subcategory.includes(subCategoryActive))
+        .filter((product) =>
+          (product.subcategory as string).includes(subCategoryActive)
+        )
         .map((prod: Product) => prod.brand)
     );
 

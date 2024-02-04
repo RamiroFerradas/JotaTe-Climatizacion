@@ -34,7 +34,7 @@ export const productsSlice = createSlice({
       state.filteredProducts = state.allProducts.filter(
         (product) =>
           product.name.toLowerCase().includes(searchTerm) ||
-          product.brand.toLowerCase().includes(searchTerm)
+          (product.brand as string).toLowerCase().includes(searchTerm)
       );
     },
     filterProductsByBrand: (state, action) => {
@@ -46,7 +46,7 @@ export const productsSlice = createSlice({
           brandsToFilter.length === 0 || brandsToFilter.includes(product.brand);
         const categoryMatches =
           isAllCategories ||
-          product.subcategory.includes(state.subCategoryActive);
+          (product.subcategory as string).includes(state.subCategoryActive);
         return brandMatches && categoryMatches;
       });
     },
@@ -73,7 +73,7 @@ export const productsSlice = createSlice({
           state.filteredProducts = state.allProducts.filter(
             (product) =>
               subcategoryToFilter?.toLowerCase() ===
-              product.subcategory?.toLowerCase()
+              (product.subcategory as string)?.toLowerCase()
           );
         }
       }
@@ -84,13 +84,13 @@ export const productsSlice = createSlice({
       if (type === "asc") {
         state.filteredProducts = [...state.filteredProducts]
           .filter((product) =>
-            product.subcategory.includes(state.subCategoryActive)
+            (product.subcategory as string).includes(state.subCategoryActive)
           )
           .sort((a, b) => Number(a.price) - Number(b.price));
       } else if (type === "desc") {
         state.filteredProducts = [...state.filteredProducts]
           .filter((product) =>
-            product.subcategory.includes(state.subCategoryActive)
+            (product.subcategory as string).includes(state.subCategoryActive)
           )
           .sort((a, b) => Number(b.price) - Number(a.price));
       }
@@ -101,13 +101,13 @@ export const productsSlice = createSlice({
       if (type === "asc") {
         state.filteredProducts = [...state.filteredProducts]
           .filter((product) =>
-            product.subcategory.includes(state.subCategoryActive)
+            (product.subcategory as string).includes(state.subCategoryActive)
           )
           .sort((a, b) => Number(b.consults) - Number(a.consults));
       } else if (type === "desc") {
         state.filteredProducts = [...state.filteredProducts]
           .filter((product) =>
-            product.subcategory.includes(state.subCategoryActive)
+            (product.subcategory as string).includes(state.subCategoryActive)
           )
           .sort((a, b) => Number(a.consults) - Number(b.consults));
       }

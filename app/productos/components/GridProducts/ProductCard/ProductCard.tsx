@@ -77,7 +77,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">
           <div className="max-h-24 overflow-hidden">
             <Typography color="blue-gray" className="text-center text-sm">
-              {product.brand}
+              {product.brand as string}
             </Typography>
             <Typography
               color="blue-gray"

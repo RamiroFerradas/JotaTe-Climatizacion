@@ -97,7 +97,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
           {uniqueCategories.map((cat, i) => {
             const submenu = allProducts.filter((prod) => prod.category === cat);
             const subcategoriesSet = new Set(
-              submenu.map((prod) => prod.subcategory.trim())
+              submenu.map((prod) => (prod.subcategory as string).trim())
             );
             const open = Boolean(anchorEl[i]);
             const options =
@@ -131,7 +131,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                         : `text-[#f9f4f4] cursor-pointer hover:text-[#ff6e25] hover:font-black`
                     }`}
                   >
-                    {cat}
+                    {cat as string}
                   </span>
                 </Button>
                 {options.length > 1 && (
@@ -148,7 +148,7 @@ const CategoriesNav: React.FC<CategoriesNavProps> = () => {
                     {options.map((option) => (
                       <MenuItem
                         key={option}
-                        onClick={() => handleClose(i, option, cat)}
+                        onClick={() => handleClose(i, option, cat as string)}
                       >
                         {option}
                       </MenuItem>
