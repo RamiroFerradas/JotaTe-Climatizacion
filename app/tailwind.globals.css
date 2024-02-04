@@ -24,10 +24,12 @@
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background-color: #555;
 }
-
+.MuiTabs-indicator css-ttwr4n,
 .css-1aquho2-MuiTabs-indicator {
   background-color: #006d54 !important;
 }
+
+.css-1q2h7u5.Mui-selected,
 .css-zc2y38-MuiCircularProgress-root,
 .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
   color: #006d54 !important;
