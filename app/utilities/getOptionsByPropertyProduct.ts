@@ -5,7 +5,7 @@ export const getOptionsByProperty = (data: Product[], propertyName: string) => {
   const uniqueValues = Array.from(propertySet);
 
   return uniqueValues.map((value) => ({
-    key: value,
+    value,
     label: value,
   }));
 };

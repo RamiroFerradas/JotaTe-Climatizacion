@@ -14,6 +14,14 @@ module.exports = withMT({
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      backgroundColor: {
+        "green-principal": "#006d54",
+        "orange-principal": "#F65B36",
+      },
+      colors: {
+        "green-principal": "#006d54",
+        "orange-principal": "#F65B36",
+      },
       scrollbar: {
         custom: {
           // Estilos de la barra de desplazamiento

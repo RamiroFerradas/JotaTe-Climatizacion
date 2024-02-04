@@ -17,7 +17,7 @@ import { stableSort } from "./helpers/stableSort";
 import { createDataFromAPI } from "./helpers/createDataFromAPI";
 import { isSelected } from "./helpers/isSelected";
 import { getComparator } from "./helpers/getComparator";
-import { Alert, Input, Snackbar, TextField } from "@mui/material";
+import { Alert, Input, Modal, Snackbar, TextField } from "@mui/material";
 import { Loading } from "@/app/components";
 import SearchBar from "../Searchbar";
 import ButtonLogout from "../ButtonLogout";
@@ -25,12 +25,14 @@ import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fond
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
+import FormCreateProduct from "../CreateProduct/FormCreateProduct";
+import { OptionType } from "@/app/models/OptionType";
 
 type Props = {
   products: Product[];
-  optionsSubcategory: { label: string; key: string }[];
-  optionsCategory: { label: string; key: string }[];
-  optionsBrands: { label: string; key: string }[];
+  optionsSubcategory: { label: string; value: string }[];
+  optionsCategory: { label: string; value: string }[];
+  optionsBrands: { label: string; value: string }[];
   handleUpdateProducts: (
     existingProducts: Product[],
     productsToUpdate: Product[]
@@ -54,7 +56,8 @@ export default function ProductsTable({
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
-
+  const [openModalForm, setOpenModalForm] = useState<boolean>(false);
+  const [snackBarMessage, setSnackBarMessage] = useState<string>("");
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
@@ -121,21 +124,22 @@ export default function ProductsTable({
 
   const handleSubmit = async () => {
     if (!selected || selected.length === 0) return;
+
     setLoading(true);
     setError("");
+
     try {
       await handleUpdateProducts(products, selected);
-      setViewAlert(true);
-      setSelected([]);
-      setLoading(false);
+      const message =
+        selected.length < 1 ? "Productos actualizados" : "Producto actualizado";
+      setSnackBarMessage(message);
     } catch (error) {
-      setLoading(false);
-
-      setViewAlert(true);
       setError(error.message);
+      setSnackBarMessage(error.message);
+    } finally {
+      setLoading(false);
+      setSelected([]);
     }
-
-    setSelected([]);
   };
 
   const handleClose = (
@@ -155,8 +159,21 @@ export default function ProductsTable({
       products.find((product: Product) => product.id === row.id).price
     );
   };
+
   return (
     <>
+      <Modal open={openModalForm} onClose={() => setOpenModalForm(false)}>
+        <div className="flex justify-center items-center h-screen">
+          <FormCreateProduct
+            optionsCategory={optionsCategory}
+            optionsBrands={optionsBrands}
+            optionsSubcategory={optionsSubcategory}
+            setOpenModalForm={setOpenModalForm}
+            setSnackBarMessage={setSnackBarMessage}
+            setError={setError}
+          />
+        </div>
+      </Modal>
       <Box sx={{ width: "100%" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-full py-1">
           <Link href={"/"}>
@@ -176,8 +193,9 @@ export default function ProductsTable({
             <Button
               size="sm"
               className="rounded bg-[#F65B36] border border-[#F65B36] hidden lg:inline-block"
+              onClick={() => setOpenModalForm(true)}
             >
-              <span>Nuevo</span>
+              <span>Nuevo prodcuto</span>
             </Button>
             <Button
               size="sm"
@@ -227,7 +245,7 @@ export default function ProductsTable({
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
-                      key={row.id}
+                      key={index}
                       selected={isItemSelected}
                       sx={{ cursor: "pointer" }}
                     >
@@ -256,7 +274,7 @@ export default function ProductsTable({
                             options={optionsCategory as any}
                             className="w-44"
                             defaultValue={optionsCategory.find(
-                              (op) => op.key === row.category
+                              (op: any) => op.value === row.category
                             )}
                             onMenuOpen={() => handleClickRow(row, true)}
                             onMenuClose={() => handleClickRow(row, true)}
@@ -286,7 +304,7 @@ export default function ProductsTable({
                             options={optionsSubcategory as any}
                             className="w-44"
                             defaultValue={optionsSubcategory.find(
-                              (op) => op.key === row.subcategory
+                              (op: any) => op.value === row.subcategory
                             )}
                             onMenuOpen={() => handleClickRow(row, true)}
                             onMenuClose={() => handleClickRow(row, true)}
@@ -371,20 +389,17 @@ export default function ProductsTable({
       )}
       <Snackbar
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={viewAlert}
+        open={!!snackBarMessage}
         autoHideDuration={6000}
         onClose={handleClose}
+        onAnimationEnd={() => setSnackBarMessage("")}
       >
         <Alert
           severity={!error ? "success" : "error"}
           variant="filled"
           sx={{ width: "100%" }}
         >
-          {!error
-            ? selected.length < 1
-              ? `Productos actualizados`
-              : `Producto actualizado`
-            : `Error al actualizar producto: ${error}`}
+          {snackBarMessage}
         </Alert>
       </Snackbar>
     </>

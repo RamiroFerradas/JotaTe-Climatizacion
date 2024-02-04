@@ -25,7 +25,7 @@ export default function SearchBar({
   return (
     <div className="flex items-center">
       <input
-        type="text"
+        type="search"
         placeholder="Producto..."
         value={searchValue}
         onChange={handleInputChange}

@@ -4,10 +4,11 @@ import { TextField } from "@mui/material";
 import { useState, Dispatch } from "react";
 import { Button, IconButton, Collapse } from "@material-tailwind/react";
 import Select from "react-select";
+import { OptionType } from "@/app/models/OptionType";
 
 type Props = {
   setSelected: Dispatch<React.SetStateAction<Product[]>>;
-  optionsBrands: { label: string; key: string }[];
+  optionsBrands: OptionType[];
   selectedProducts: Product[];
   products: Product[];
   setFilteredProducts: Dispatch<React.SetStateAction<Product[]>>;
@@ -44,18 +45,27 @@ export default function Percentage({
     }
   };
 
-  const handleBrandChange = (selectedOption: any) => {
-    if (selectedOption && selectedOption.key === "Todas") {
+  const handleBrandChange = (selectedOption: OptionType) => {
+    if (selectedOption && selectedOption.value === "Todas") {
       setSelected([]);
       setFilteredProducts([]);
     } else {
       const filteredProducts = products.filter(
-        (product) => product.brand === selectedOption.key
+        (product) => product.brand === selectedOption.value
       );
       setFilteredProducts(filteredProducts);
       setPage(0);
     }
   };
+
+  const sortedOptionsBrands = optionsBrands
+    .slice()
+    .sort((a, b) => a.label?.localeCompare(b.label));
+
+  const optionsBrandsWithAll: OptionType[] = [
+    { label: "Todas", value: "Todas" },
+    ...sortedOptionsBrands,
+  ];
 
   return (
     <div className="flex justify-end items-center gap-3 container mx-auto">
@@ -63,11 +73,10 @@ export default function Percentage({
         <Select
           className="basic-single"
           classNamePrefix="Marca"
-          defaultValue={optionsBrands[0]}
-          isClearable={true}
+          defaultValue={optionsBrandsWithAll[0]}
           isSearchable
           name="color"
-          options={optionsBrands}
+          options={optionsBrandsWithAll}
           onChange={handleBrandChange}
         />
       </div>

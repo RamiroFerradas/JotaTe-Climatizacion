@@ -7,16 +7,18 @@ import FilterListIcon from "@mui/icons-material/FilterList";
 import Percentage from "../Percentage";
 import { Product } from "@/app/models";
 import { Dispatch } from "react";
+import { OptionType } from "@/app/models/OptionType";
 
 interface EnhancedTableToolbarProps {
   numSelected: number;
-  optionsBrands: { label: string; key: string }[];
+  optionsBrands: OptionType[];
   selectedProducts: Product[];
   products: Product[];
   setFilteredProducts: Dispatch<React.SetStateAction<Product[]>>;
   setPage: Dispatch<React.SetStateAction<number>>;
   setSelected: Dispatch<React.SetStateAction<Product[]>>;
 }
+
 export default function EnhancedTableToolbar({
   numSelected,
   optionsBrands,

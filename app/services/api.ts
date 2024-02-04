@@ -85,8 +85,6 @@ export async function updateProduct(
   id: string,
   updatedData: Product
 ): Promise<Product | null> {
-  console.log(id, updatedData, "DATAAAAAAAAAAAA");
-
   try {
     const url = `${API_URL}/api/products/${id}`;
     const response = await fetch(url, {

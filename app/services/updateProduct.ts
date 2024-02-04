@@ -1,3 +1,5 @@
+"use server";
+
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Product } from "../models";
 import { revalidatePath } from "next/cache";
@@ -59,9 +61,7 @@ export const updateProducts = async (
     }
 
     console.log(`Total de productos actualizados: ${updatedProductsCount}`);
-    setTimeout(() => {
-      revalidatePath("/admin");
-    }, 300);
+    revalidatePath("/admin");
   } catch (error) {
     console.error("Error al guardar:", error.message);
     throw error;
