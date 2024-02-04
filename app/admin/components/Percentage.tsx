@@ -68,7 +68,7 @@ export default function Percentage({
   ];
 
   return (
-    <div className="flex justify-end items-center gap-3 container mx-auto">
+    <div className="flex justify-end items-center gap-3 container mx-16">
       <div className="w-44">
         <Select
           className="basic-single"
