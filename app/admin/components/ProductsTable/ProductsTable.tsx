@@ -287,7 +287,7 @@ export default function ProductsTable({
                             onChange={(e) => {
                               setSelected((prevProducts) =>
                                 updateProductInSelected(prevProducts, row.id, {
-                                  category: e.label,
+                                  category: e ? e.label : row.category,
                                 })
                               );
                             }}
