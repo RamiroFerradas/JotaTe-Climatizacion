@@ -13,7 +13,7 @@ const GridProducts: React.FC<GridProductsProps> = () => {
   const { loading, products, searchPerformed, subCategoryActive } =
     useProductList();
   const [currentPage, setCurrentPage] = useState(1);
-  const productsPerPage = 10;
+  const productsPerPage = 15;
 
   const productsToShow = useMemo(() => {
     const indexOfLastProduct = currentPage * productsPerPage;
