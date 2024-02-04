@@ -10,9 +10,11 @@ export async function POST(request) {
     const data = await request.formData();
 
     const image = data.get("image");
-    const product = data.get("product");
-    const { brand, name, category, subcategory } = product;
-
+    const brand = data.get("brand");
+    const name = data.get("name");
+    const category = data.get("category");
+    const subcategory = data.get("subcategory");
+    
     if (!image) {
       return NextResponse.json("No se ha detectado una imagen para subir");
     }

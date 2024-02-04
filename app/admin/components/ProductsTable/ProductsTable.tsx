@@ -58,7 +58,6 @@ export default function ProductsTable({
   const [selected, setSelected] = useState<Product[]>([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(40);
-  const [viewAlert, setViewAlert] = useState(false);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
@@ -67,7 +66,9 @@ export default function ProductsTable({
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
-
+  const { width } = useScreenSize();
+  const isMobile = width < 720;
+  const logoResponsive = isMobile ? jotaTeLogoResponsive : jotaTeLogo;
   const handleRequestSort = (
     event: MouseEvent<unknown>,
     property: keyof Product
@@ -164,12 +165,6 @@ export default function ProductsTable({
       products.find((product: Product) => product.id === row.id).price
     );
   };
-
-  const { width } = useScreenSize();
-
-  const isMobile = width < 720;
-
-  const logoResponsive = isMobile ? jotaTeLogoResponsive : jotaTeLogo;
 
   return (
     <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
@@ -394,14 +389,14 @@ export default function ProductsTable({
         <></>
       )}
       <Modal open={openModalForm} onClose={() => setOpenModalForm(false)}>
-        <div className="flex justify-center items-center h-screen">
+        <div className="flex justify-center items-start min-h-screen m-5">
           <FormCreateProduct
             optionsCategory={optionsCategory}
             optionsBrands={optionsBrands}
             optionsSubcategory={optionsSubcategory}
             setOpenModalForm={setOpenModalForm}
             setSnackBarMessage={setSnackBarMessage}
-            setError={setError}
+            setErrorSnackBar={setError}
           />
         </div>
       </Modal>

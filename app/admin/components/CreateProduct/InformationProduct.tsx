@@ -120,6 +120,9 @@ export default function InformationProduct({
             required
             errors={errors}
             className={classnameInputs}
+            rules={{
+              validate: (value) => value > 0 || "El valor debe ser mayor que 0",
+            }}
           />
           <InputForm
             type="number"

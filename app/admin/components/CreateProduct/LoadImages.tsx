@@ -5,6 +5,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { Loading } from "@/app/components";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
+import { OptionType } from "@/app/models/OptionType";
 
 type Props = {
   method: any;
@@ -20,8 +21,10 @@ export default function LoadImages({
   const {
     getValues,
     control,
+    clearErrors,
     formState: { errors, isSubmitting, isValid },
   } = method;
+  console.log(errors);
 
   const [loadImage, setLoadImage] = useState(false);
 
@@ -33,7 +36,10 @@ export default function LoadImages({
       const formData = new FormData();
       const product = getValues();
       formData.append("image", image);
-      formData.append("product", product);
+      formData.append("name", product.name);
+      formData.append("brand", product.brand.value);
+      formData.append("category", product.category.value);
+      formData.append("subcategory", product.subcategory.value);
 
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/api/upload-image`,
@@ -60,7 +66,7 @@ export default function LoadImages({
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
   };
-
+  console.log(!Array.isArray(uploadedImages) || uploadedImages.length === 0);
   return (
     <section id="load-images">
       <div className="flex flex-wrap items-center justify-start w-full h-full gap-3">
@@ -90,7 +96,22 @@ export default function LoadImages({
         <Controller
           name="image"
           control={control}
-          rules={{ validate: (value) => value?.length > 0 }}
+          rules={{
+            validate: (value: string) => {
+              if (
+                !Array.isArray(uploadedImages) ||
+                uploadedImages.length === 0
+              ) {
+                return "Debe seleccionar al menos una imagen";
+              }
+
+              if (uploadedImages.some((imageUrl) => imageUrl.trim() === "")) {
+                return "Las URLs de las imágenes no deben estar vacías";
+              }
+
+              return true;
+            },
+          }}
           render={({ field }) => (
             <label className="relative group inline-flex flex-col items-center justify-center border-[1px] h-48 border-gray-200 rounded-md shadow-lg">
               <Image
@@ -110,7 +131,7 @@ export default function LoadImages({
                 style={{ display: "none" }}
                 {...field}
                 onChange={(e) => {
-                  field.onChange(e);
+                  clearErrors("image");
                   handleFileChange(e);
                 }}
               />

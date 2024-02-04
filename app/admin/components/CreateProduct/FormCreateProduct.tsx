@@ -8,6 +8,7 @@ import InformationProduct from "./InformationProduct";
 import { Tabs, Tab } from "@mui/material";
 import LoadImages from "./LoadImages";
 import { OptionType } from "@/app/models/OptionType";
+import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,7 +16,7 @@ type FormPricingProps = {
   optionsCategory: OptionType[];
   optionsBrands: OptionType[];
   setSnackBarMessage: React.Dispatch<React.SetStateAction<string>>;
-  setError: React.Dispatch<React.SetStateAction<string>>;
+  setErrorSnackBar: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export default function FormCreateProduct({
@@ -23,7 +24,7 @@ export default function FormCreateProduct({
   optionsSubcategory,
   optionsCategory,
   optionsBrands,
-  setError,
+  setErrorSnackBar,
   setSnackBarMessage,
 }: FormPricingProps) {
   const method = useForm<Product>({
@@ -43,13 +44,14 @@ export default function FormCreateProduct({
     control,
     handleSubmit,
     getValues,
-    setValue,
+    clearErrors,
     watch,
     reset,
+    setError,
     formState: { errors, isSubmitting, isValid },
   } = method;
-
   const formValues = watch();
+  console.log(formValues);
   const [section, setSection] = useState<"info" | "images">("info");
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
@@ -59,6 +61,17 @@ export default function FormCreateProduct({
     const formattedImages = `{${uploadedImages.join(",")}}`;
 
     try {
+      if (!formValues.image.length) {
+        setSection("images");
+
+        setError("image", {
+          type: "manual",
+          message: "Debe cargar al menos una imagen",
+        });
+
+        return;
+      }
+
       await addProduct({
         ...data,
         image: formattedImages as any,
@@ -72,20 +85,20 @@ export default function FormCreateProduct({
     } catch (error) {
       console.error(error.message);
       setSnackBarMessage(`Error al crear el producto: , ${error.message}`);
-      setError(`Error al crear el producto: , ${error.message}`);
+      setErrorSnackBar(`Error al crear el producto: , ${error.message}`);
     }
   };
-
   const handleClose = () => {
     setOpenModalForm(false);
   };
-
+  console.log();
   useEffect(() => {
     const brand = watch("brand");
     const category = watch("category");
     const subcategory = watch("subcategory");
 
     if (!brand || !category || !subcategory) {
+      setSection("info");
     }
   }, [watch("brand"), watch("category"), watch("subcategory")]);
 
