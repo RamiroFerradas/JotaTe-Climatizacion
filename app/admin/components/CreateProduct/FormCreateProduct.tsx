@@ -57,8 +57,15 @@ export default function FormCreateProduct({
   // useOnClickOutside(refModal, () => setOpenModalForm(false));
   const onSubmit = async (data: Product) => {
     const formattedImages = `{${uploadedImages.join(",")}}`;
+
     try {
-      await addProduct({ ...data, image: formattedImages as any });
+      await addProduct({
+        ...data,
+        image: formattedImages as any,
+        brand: (formValues.brand as OptionType).value,
+        category: (formValues.category as OptionType).value,
+        subcategory: (formValues.subcategory as OptionType).value,
+      });
       setSnackBarMessage("Producto creado con exito");
       setOpenModalForm(false);
       reset();
