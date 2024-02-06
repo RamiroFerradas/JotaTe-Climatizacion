@@ -9,7 +9,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
 import CreatableSelect from "react-select/creatable";
-import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
+import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from "react";
 import { Product } from "@/app/models";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
@@ -66,6 +66,8 @@ export default function ProductsTable({
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
+  const [isMounted, setIsMounted] = useState(false);
+
   const { width } = useScreenSize();
   const isMobile = width < 720;
   const logoResponsive = isMobile ? jotaTeLogoResponsive : jotaTeLogo;
@@ -186,6 +188,7 @@ export default function ProductsTable({
   const defaultvalueNewPrice = (row: Product) => {
     return selected.find((product: Product) => product.id === row.id)?.newPrice;
   };
+  useEffect(() => setIsMounted(true), []);
 
   return (
     <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
@@ -287,54 +290,68 @@ export default function ProductsTable({
                         {row.brand}
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
-                        <div
-                          className="min-w-[10rem]"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <CreatableSelect
-                            isClearable
-                            className="w-full"
-                            options={optionsCategory as any}
-                            defaultValue={optionsCategory.find(
-                              (op: any) => op.value === row.category
-                            )}
-                            onMenuOpen={() => handleClickRow(row, true)}
-                            onMenuClose={() => handleClickRow(row, true)}
-                            onChange={(e) => {
-                              setSelected((prevProducts) =>
-                                updateProductInSelected(prevProducts, row.id, {
-                                  category: e ? e.label : row.category,
-                                })
-                              );
-                            }}
-                            styles={selectStyles(false)}
-                          />
-                        </div>
+                        {isMounted && (
+                          <div
+                            className="min-w-[10rem]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <CreatableSelect
+                              isClearable
+                              className="w-full"
+                              options={optionsCategory as any}
+                              defaultValue={optionsCategory.find(
+                                (op: any) => op.value === row.category
+                              )}
+                              onMenuOpen={() => handleClickRow(row, true)}
+                              onMenuClose={() => handleClickRow(row, true)}
+                              onChange={(e) => {
+                                setSelected((prevProducts) =>
+                                  updateProductInSelected(
+                                    prevProducts,
+                                    row.id,
+                                    {
+                                      category: e ? e.label : row.category,
+                                    }
+                                  )
+                                );
+                              }}
+                              styles={selectStyles(false)}
+                            />
+                          </div>
+                        )}
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
-                        <div
-                          className="min-w-[10rem]"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <CreatableSelect
-                            className="w-full"
-                            styles={selectStyles(false)}
-                            isClearable
-                            options={optionsSubcategory as any}
-                            defaultValue={optionsSubcategory.find(
-                              (op: any) => op.value === row.subcategory
-                            )}
-                            onMenuOpen={() => handleClickRow(row, true)}
-                            onMenuClose={() => handleClickRow(row, true)}
-                            onChange={(e) => {
-                              setSelected((prevProducts) =>
-                                updateProductInSelected(prevProducts, row.id, {
-                                  subcategory: e ? e.label : row.subcategory,
-                                })
-                              );
-                            }}
-                          />
-                        </div>
+                        {isMounted && (
+                          <div
+                            className="min-w-[10rem]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <CreatableSelect
+                              className="w-full"
+                              styles={selectStyles(false)}
+                              isClearable
+                              options={optionsSubcategory as any}
+                              defaultValue={optionsSubcategory.find(
+                                (op: any) => op.value === row.subcategory
+                              )}
+                              onMenuOpen={() => handleClickRow(row, true)}
+                              onMenuClose={() => handleClickRow(row, true)}
+                              onChange={(e) => {
+                                setSelected((prevProducts) =>
+                                  updateProductInSelected(
+                                    prevProducts,
+                                    row.id,
+                                    {
+                                      subcategory: e
+                                        ? e.label
+                                        : row.subcategory,
+                                    }
+                                  )
+                                );
+                              }}
+                            />
+                          </div>
+                        )}
                       </TableCell>
                       <TableCell className="w-1/12" align="left">
                         <Checkbox
