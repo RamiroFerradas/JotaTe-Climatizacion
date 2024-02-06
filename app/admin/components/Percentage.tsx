@@ -1,7 +1,7 @@
 "use client";
 import { Product } from "@/app/models";
 import { TextField } from "@mui/material";
-import { useState, Dispatch, useEffect } from "react";
+import { useState, Dispatch } from "react";
 import { Button, IconButton, Collapse } from "@material-tailwind/react";
 import Select from "react-select";
 import { OptionType } from "@/app/models/OptionType";
@@ -25,8 +25,6 @@ export default function Percentage({
   setPage,
 }: Props) {
   const [percentage, setPercentage] = useState("");
-  const [isMounted, setIsMounted] = useState(false);
-  useEffect(() => setIsMounted(true), []);
 
   const handlePercentageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPercentage(e.target.value);
@@ -73,18 +71,16 @@ export default function Percentage({
   return (
     <div className="flex justify-end items-center gap-3 container mx-16">
       <div className="w-44">
-        {isMounted && (
-          <Select
-            className="basic-single"
-            classNamePrefix="Marca"
-            defaultValue={optionsBrandsWithAll[0]}
-            isSearchable
-            name="color"
-            options={optionsBrandsWithAll}
-            onChange={handleBrandChange}
-            styles={selectStyles(false)}
-          />
-        )}
+        <Select
+          className="basic-single"
+          classNamePrefix="Marca"
+          defaultValue={optionsBrandsWithAll[0]}
+          isSearchable
+          name="color"
+          options={optionsBrandsWithAll}
+          onChange={handleBrandChange}
+          styles={selectStyles(false)}
+        />
       </div>
       <TextField
         label="Porcentage"

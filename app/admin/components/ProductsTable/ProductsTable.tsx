@@ -190,7 +190,9 @@ export default function ProductsTable({
   };
   useEffect(() => setIsMounted(true), []);
 
-  return (
+  return !isMounted ? (
+    <Loading />
+  ) : (
     <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
       <Box sx={{ width: "100%" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
@@ -290,7 +292,7 @@ export default function ProductsTable({
                         {row.brand}
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
-                        {isMounted && (
+                        {
                           <div
                             className="min-w-[10rem]"
                             onClick={(e) => e.stopPropagation()}
@@ -318,10 +320,10 @@ export default function ProductsTable({
                               styles={selectStyles(false)}
                             />
                           </div>
-                        )}
+                        }
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
-                        {isMounted && (
+                        {
                           <div
                             className="min-w-[10rem]"
                             onClick={(e) => e.stopPropagation()}
@@ -351,7 +353,7 @@ export default function ProductsTable({
                               }}
                             />
                           </div>
-                        )}
+                        }
                       </TableCell>
                       <TableCell className="w-1/12" align="left">
                         <Checkbox
