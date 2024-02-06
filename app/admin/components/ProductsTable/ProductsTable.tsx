@@ -39,7 +39,7 @@ type Props = {
   handleUpdateProducts: (
     existingProducts: Product[],
     productsToUpdate: Product[]
-  ) => Promise<void>;
+  ) => Promise<Product[]>;
 };
 type Order = "asc" | "desc";
 
@@ -136,10 +136,34 @@ export default function ProductsTable({
     setError("");
 
     try {
-      await handleUpdateProducts(products, selected);
-      const message =
-        selected.length < 1 ? "Productos actualizados" : "Producto actualizado";
-      setSnackBarMessage(message);
+      const response: Product[] = await handleUpdateProducts(
+        products,
+        selected
+      );
+
+      // Verifica si hay productos filtrados
+      if (filteredProducts.length > 0) {
+        // Actualiza los productos filtrados en función de la respuesta
+        const updatedFilteredProducts: Product[] = filteredProducts.map(
+          (filteredProduct: Product) => {
+            // Supongamos que hay un identificador único llamado 'id' en los productos
+            const updatedProduct: Product | undefined = response.find(
+              (updatedProduct) => updatedProduct.id === filteredProduct.id
+            );
+
+            // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
+            return updatedProduct || filteredProduct;
+          }
+        );
+
+        // Actualiza el estado de los productos filtrados
+        setFilteredProducts(updatedFilteredProducts);
+        const message =
+          selected.length < 1
+            ? "Productos actualizados"
+            : "Producto actualizado";
+        setSnackBarMessage(message);
+      }
     } catch (error) {
       setError(error.message);
       setSnackBarMessage(error.message);
@@ -160,10 +184,7 @@ export default function ProductsTable({
   };
 
   const defaultvalueNewPrice = (row: Product) => {
-    return (
-      selected.find((product: Product) => product.id === row.id)?.newPrice ||
-      products.find((product: Product) => product.id === row.id).price
-    );
+    return selected.find((product: Product) => product.id === row.id)?.newPrice;
   };
 
   return (

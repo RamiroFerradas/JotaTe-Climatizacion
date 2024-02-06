@@ -37,10 +37,11 @@ export default function Percentage({
         ...product,
         newPrice: Math.round(
           Number(product.price) * (1 + percentageValue / 100)
-        ),
+        ).toString(),
       }));
 
       setSelected(updatedProducts);
+      setPercentage("");
     }
   };
 

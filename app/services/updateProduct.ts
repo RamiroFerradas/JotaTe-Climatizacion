@@ -9,7 +9,7 @@ import { TABLE_PRODUCTS } from "../constants";
 export const updateProducts = async (
   existingProducts: Product[],
   productsToUpdate: Product[]
-) => {
+): Promise<Product[]> => {
   "use server";
 
   try {
@@ -20,7 +20,7 @@ export const updateProducts = async (
       return index;
     }, {});
 
-    let updatedProductsCount = 0; // Inicializar el contador
+    let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
 
     for (const selectedProduct of productsToUpdate) {
       // Obtener el producto correspondiente del índice
@@ -32,9 +32,11 @@ export const updateProducts = async (
         );
         continue;
       }
+
       const hasChanges = Object.keys(selectedProduct).some(
         (key) => selectedProduct[key] !== existingProduct[key]
       );
+
       if (hasChanges) {
         // Solo actualiza si hay cambios
 
@@ -43,11 +45,20 @@ export const updateProducts = async (
           category: selectedProduct.category,
           subcategory: selectedProduct.subcategory,
           destacado: selectedProduct.destacado,
+          stock: selectedProduct.stock,
+          description: selectedProduct.description,
+          name: selectedProduct.name,
+          image: selectedProduct.image,
+          brand: selectedProduct.brand,
+          id: selectedProduct.id,
+          newPrice: 0,
         };
-        const { error: updateError } = await supabase
+
+        const { data: updatedProduct, error: updateError } = await supabase
           .from(TABLE_PRODUCTS)
           .update(product)
-          .eq("id", selectedProduct.id);
+          .eq("id", selectedProduct.id)
+          .single();
 
         if (updateError) {
           throw new Error(
@@ -55,12 +66,14 @@ export const updateProducts = async (
           );
         }
 
-        updatedProductsCount++;
+        updatedProducts.push(product);
       }
     }
 
-    console.log(`Total de productos actualizados: ${updatedProductsCount}`);
+    console.log(`Total de productos actualizados: ${updatedProducts.length}`);
     revalidatePath("/admin");
+
+    return updatedProducts;
   } catch (error) {
     console.error("Error al guardar:", error.message);
     throw error;
