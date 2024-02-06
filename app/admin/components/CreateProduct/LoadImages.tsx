@@ -27,11 +27,12 @@ export default function LoadImages({
   } = method;
 
   const [loadImage, setLoadImage] = useState(false);
-
+  const [errorLoadImage, setErrorLoadImage] = useState(false);
   const handleFileChange = async (event: any) => {
     const image = event.target.files[0];
 
     try {
+      setErrorLoadImage(false);
       setLoadImage(true);
       const formData = new FormData();
       const product = getValues();
@@ -49,15 +50,19 @@ export default function LoadImages({
         }
       );
       const data = await response.json();
-
+      console.log(data.error);
       // Si la subida es exitosa, agrega el URL al array
-      if (data) {
+      if (!data.error) {
         setUploadedImages((prevImages) => [...prevImages, data.secure_url]);
         setLoadImage(false);
+      }
+      if (data.error) {
+        throw new Error(data.error);
       }
     } catch (error) {
       setLoadImage(false);
       console.error(error.message);
+      setErrorLoadImage(true);
     }
   };
 
@@ -66,6 +71,7 @@ export default function LoadImages({
     updatedImages.splice(index, 1);
     setUploadedImages(updatedImages);
   };
+
   return (
     <section id="load-images">
       <div className="flex flex-wrap items-center justify-start w-full h-full gap-3">
