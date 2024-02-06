@@ -15,16 +15,16 @@ export async function POST(req, res) {
     const category = data.get("category");
     const subcategory = data.get("subcategory");
 
-    res.headers.append("Access-Control-Allow-Credentials", "false");
-    res.headers.append("Access-Control-Allow-Origin", "*");
-    res.headers.append(
-      "Access-Control-Allow-Methods",
-      "GET,DELETE,PATCH,POST,PUT"
-    );
-    res.headers.append(
-      "Access-Control-Allow-Headers",
-      "Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date"
-    );
+    // res.headers.append("Access-Control-Allow-Credentials", "false");
+    // res.headers.append("Access-Control-Allow-Origin", "*");
+    // res.headers.append(
+    //   "Access-Control-Allow-Methods",
+    //   "GET,DELETE,PATCH,POST,PUT"
+    // );
+    // res.headers.append(
+    //   "Access-Control-Allow-Headers",
+    //   "Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date"
+    // );
 
     if (!image) {
       return NextResponse.json("No se ha detectado una imagen para subir");
