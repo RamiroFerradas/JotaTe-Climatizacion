@@ -358,7 +358,7 @@ export default function ProductsTable({
                             const newPrice = e.target.value;
                             setSelected((prevProducts) =>
                               updateProductInSelected(prevProducts, row.id, {
-                                price: newPrice,
+                                newPrice: newPrice,
                               })
                             );
                           }}

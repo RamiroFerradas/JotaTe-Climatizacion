@@ -37,14 +37,16 @@ export const updateProducts = async (
       );
       if (hasChanges) {
         // Solo actualiza si hay cambios
+
+        const product = {
+          price: selectedProduct.newPrice,
+          category: selectedProduct.category,
+          subcategory: selectedProduct.subcategory,
+          destacado: selectedProduct.destacado,
+        };
         const { error: updateError } = await supabase
           .from(TABLE_PRODUCTS)
-          .update({
-            price: selectedProduct.newPrice,
-            category: selectedProduct.category,
-            subcategory: selectedProduct.subcategory,
-            destacado: selectedProduct.destacado,
-          })
+          .update(product)
           .eq("id", selectedProduct.id);
 
         if (updateError) {
