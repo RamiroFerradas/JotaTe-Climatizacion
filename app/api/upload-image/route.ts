@@ -29,7 +29,7 @@ export async function POST(request) {
         enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
       }/${brand}/${category}/${subcategory}/${name}`,
     });
-
+    console.log(result);
     const resultCopy = { ...result };
     delete resultCopy.api_key;
 
