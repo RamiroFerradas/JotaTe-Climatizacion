@@ -2,12 +2,13 @@ import { NextResponse } from "next/server";
 import path from "path";
 import { writeFile } from "fs/promises";
 import cloudinary from "@/app/lib/cloudinary";
+import NextCors from "nextjs-cors";
 
-export async function POST(request) {
+export async function POST(req, res) {
   const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
 
   try {
-    const data = await request.formData();
+    const data = await req.formData();
 
     const image = data.get("image");
     const brand = data.get("brand");
@@ -32,7 +33,12 @@ export async function POST(request) {
 
     const resultCopy = { ...result };
     delete resultCopy.api_key;
-
+    await NextCors(req, res, {
+      // Options
+      methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+      origin: "*",
+      optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+    });
     return NextResponse.json(resultCopy);
   } catch (error) {
     console.error("Error al subir la imagen a Cloudinary:", error.message);
