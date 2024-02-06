@@ -9,6 +9,10 @@ const nextConfig = {
         source: "/api/:path*",
         destination: "https://www.jotateclimatizacion.com/:path*",
       },
+      {
+        source: "/api/:path*",
+        destination: "https://jotateclimatizacion-dev.vercel.app/:path*",
+      },
     ];
   },
   images: {
