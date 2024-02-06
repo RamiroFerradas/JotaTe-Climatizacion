@@ -51,7 +51,6 @@ export const updateProducts = async (
           image: selectedProduct.image,
           brand: selectedProduct.brand,
           id: selectedProduct.id,
-          newPrice: 0,
         };
 
         const { data: updatedProduct, error: updateError } = await supabase
@@ -66,7 +65,7 @@ export const updateProducts = async (
           );
         }
 
-        updatedProducts.push(product);
+        updatedProducts.push({ ...product, newPrice: 0 });
       }
     }
 

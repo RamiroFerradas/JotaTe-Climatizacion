@@ -30,6 +30,7 @@ import FormCreateProduct from "../CreateProduct/FormCreateProduct";
 import { selectStyles } from "../../StylesSelect";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
+import { updateProduct } from "@/app/services/api";
 
 type Props = {
   products: Product[];
@@ -79,6 +80,8 @@ export default function ProductsTable({
     setOrder(isAsc ? "desc" : "asc");
     setOrderBy(property);
   };
+
+  const [updateProductState, setUpdateProductState] = useState<boolean>(false);
 
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
@@ -131,49 +134,56 @@ export default function ProductsTable({
       product.id === productId ? { ...product, ...updateProps } : product
     );
 
-  const handleSubmit = async () => {
-    if (!selected || selected.length === 0) return;
+  useEffect(() => {
+    if (updateProductState) {
+      const handleSubmit = async () => {
+        if (!selected || selected.length === 0) return;
 
-    setLoading(true);
-    setError("");
+        setLoading(true);
+        setError("");
 
-    try {
-      const response: Product[] = await handleUpdateProducts(
-        products,
-        selected
-      );
+        try {
+          const response: Product[] = await handleUpdateProducts(
+            products,
+            selected
+          );
 
-      // Verifica si hay productos filtrados
-      if (filteredProducts.length > 0) {
-        // Actualiza los productos filtrados en función de la respuesta
-        const updatedFilteredProducts: Product[] = filteredProducts.map(
-          (filteredProduct: Product) => {
-            // Supongamos que hay un identificador único llamado 'id' en los productos
-            const updatedProduct: Product | undefined = response.find(
-              (updatedProduct) => updatedProduct.id === filteredProduct.id
+          // Verifica si hay productos filtrados
+          if (filteredProducts.length > 0) {
+            // Actualiza los productos filtrados en función de la respuesta
+            const updatedFilteredProducts: Product[] = filteredProducts.map(
+              (filteredProduct: Product) => {
+                // Supongamos que hay un identificador único llamado 'id' en los productos
+                const updatedProduct: Product | undefined = response.find(
+                  (updatedProduct) => updatedProduct.id === filteredProduct.id
+                );
+
+                // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
+                return updatedProduct || filteredProduct;
+              }
             );
 
-            // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
-            return updatedProduct || filteredProduct;
+            // Actualiza el estado de los productos filtrados
+            setFilteredProducts(updatedFilteredProducts);
+            const message =
+              selected.length < 1
+                ? "Productos actualizados"
+                : "Producto actualizado";
+            setSnackBarMessage(message);
           }
-        );
+        } catch (error) {
+          setError(error.message);
+          setSnackBarMessage(error.message);
+        } finally {
+          setLoading(false);
+          setSelected([]);
+          setUpdateProductState(false);
+        }
+      };
 
-        // Actualiza el estado de los productos filtrados
-        setFilteredProducts(updatedFilteredProducts);
-        const message =
-          selected.length < 1
-            ? "Productos actualizados"
-            : "Producto actualizado";
-        setSnackBarMessage(message);
-      }
-    } catch (error) {
-      setError(error.message);
-      setSnackBarMessage(error.message);
-    } finally {
-      setLoading(false);
-      setSelected([]);
+      handleSubmit();
     }
-  };
+  }, [updateProductState]);
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -221,7 +231,7 @@ export default function ProductsTable({
             <Button
               size="sm"
               className="rounded bg-[#006d54] border border-[#006d54] "
-              onClick={handleSubmit}
+              onClick={() => setUpdateProductState(true)}
             >
               <span className="hidden md:block">Guardar cambios</span>
               <IoMdSave size={24} className="block md:hidden" />
