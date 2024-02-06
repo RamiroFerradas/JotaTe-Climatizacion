@@ -50,9 +50,13 @@ export async function POST(req, res) {
     //   origin: "*",
     //   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     // });
+    console.log(res);
     return NextResponse.json(resultCopy);
   } catch (error) {
-    console.error("Error al subir la imagen a Cloudinary:", error.message);
-    throw error;
+    // throw error("Error al subir la imagen a Cloudinary:", error.message);
+    return NextResponse.json(
+      { error: "Error al subir la imagen a Cloudinary: " + error.message },
+      { status: 404 }
+    );
   }
 }

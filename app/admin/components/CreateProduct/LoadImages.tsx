@@ -57,7 +57,7 @@ export default function LoadImages({
       }
     } catch (error) {
       setLoadImage(false);
-      console.error("Error al manejar el archivo:", error.message);
+      console.error(error.message);
     }
   };
 
