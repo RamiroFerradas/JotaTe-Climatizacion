@@ -28,8 +28,6 @@ export async function uploadImage(formData) {
   "use server";
   const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   try {
-    // const data = await req.formData();
-    console.log(formData);
     const file = formData.get("image");
     const brand = formData.get("brand");
     const name = formData.get("name");
@@ -39,62 +37,39 @@ export async function uploadImage(formData) {
     if (!file) {
       throw new Error("No se ha detectado una imagen para subir");
     }
-    const { resources: sneakers } = await cloudinary.api.resources_by_tag(
-      "nextjs-server-actions-upload-sneakers"
-    );
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = new Uint8Array(arrayBuffer);
-    const uploadToCloudinary = () => {
-      return new Promise((resolve, reject) => {
-        var result = cloudinary.uploader
-          .upload(fileUri, {
-            invalidate: true,
-            folder: `${
-              enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
-            }/${brand}/${category}/${subcategory}/${name}`,
-          })
-          .then((result) => {
-            console.log(result);
-            resolve(result);
-          })
-          .catch((error) => {
-            console.log(error);
-            reject(error);
-          });
-      });
-    };
 
-    // const fileBuffer = await image.arrayBuffer();
+    const arrayBuffer = await file.arrayBuffer();
+
     var mime = file.type;
     var encoding = "base64";
     var base64Data = Buffer.from(arrayBuffer).toString("base64");
     var fileUri = "data:" + mime + ";" + encoding + "," + base64Data;
+    const uniqueParams = [brand, category, subcategory, name].filter(
+      (param, index, array) => array.indexOf(param) === index
+    );
 
-    const result = await uploadToCloudinary();
+    const folderPath = uniqueParams.join("/");
+    const finalFolderPath = `${
+      enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
+    }/${folderPath}`;
+    const result = await new Promise((resolve, reject) => {
+      var result = cloudinary.uploader
+        .upload(fileUri, {
+          invalidate: true,
+          folder: finalFolderPath,
+        })
+        .then((result) => {
+          console.log(result);
+          resolve(result);
+        })
+        .catch((error) => {
+          console.log(error);
+          reject(error);
+        });
+    });
 
     let imageUrl = (result as CloudinaryResponse).secure_url;
-    console.log(imageUrl);
-    // const response: CloudinaryResponse = await new Promise<CloudinaryResponse>(
-    //   (resolve, reject) => {
-    //     cloudinary.uploader
-    //       .upload_stream(
-    //         {
-    //           folder: `${
-    //             enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
-    //           }/${brand}/${category}/${subcategory}/${name}`,
-    //           tags: ["nextjs-server-actions-upload-sneakers"],
-    //         },
-    //         (err, result) => {
-    //           if (err) {
-    //             reject(err);
-    //             throw new Error(err.message);
-    //           }
-    //           resolve(result as any);
-    //         }
-    //       )
-    //       .end(buffer);
-    //   }
-    // );
+
     return {
       message: "Imagen subida correctamente",
       url: imageUrl,
