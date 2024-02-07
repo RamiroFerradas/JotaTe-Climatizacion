@@ -32,7 +32,6 @@ export default function LoadImages({
 
   const handleFileChange = async (e: any) => {
     const image = e.target.files[0];
-    console.log("image=>", image);
     try {
       setErrorLoadImage(false);
       setLoadImage(true);
@@ -45,7 +44,6 @@ export default function LoadImages({
       formData.append("subcategory", product.subcategory.value);
 
       const data = await uploadImage(formData);
-      console.log("data", data);
       if (!data.error) {
         setUploadedImages((prevImages) => [...prevImages, data.url]);
         setLoadImage(false);
