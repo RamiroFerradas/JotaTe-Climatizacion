@@ -1,12 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import noimage from "@/public/no-image.png";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Loading } from "@/app/components";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
-import { OptionType } from "@/app/models/OptionType";
-import { error } from "console";
 import { uploadImage } from "@/app/services/uploadImage";
 
 type Props = {
