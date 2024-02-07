@@ -59,6 +59,7 @@ export async function POST(req, res) {
             (err, result) => {
               if (err) {
                 reject(err);
+                throw new Error(err.message);
               }
               resolve(result as any);
             }
