@@ -47,7 +47,12 @@ export async function uploadImage(formData) {
     const uploadToCloudinary = () => {
       return new Promise((resolve, reject) => {
         var result = cloudinary.uploader
-          .upload(fileUri, { invalidate: true })
+          .upload(fileUri, {
+            invalidate: true,
+            folder: `${
+              enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
+            }/${brand}/${category}/${subcategory}/${name}`,
+          })
           .then((result) => {
             console.log(result);
             resolve(result);
