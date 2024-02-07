@@ -27,7 +27,6 @@ interface CloudinaryResponse {
 export async function uploadImage(formData) {
   "use server";
   const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
-  console.log(formData);
   try {
     // const data = await req.formData();
     console.log(formData);
