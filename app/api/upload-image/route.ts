@@ -3,6 +3,29 @@ import path from "path";
 import { writeFile } from "fs/promises";
 import cloudinary from "@/app/lib/cloudinary";
 import fs from "fs";
+interface CloudinaryResponse {
+  asset_id: string;
+  public_id: string;
+  version: number;
+  version_id: string;
+  signature: string;
+  width: number;
+  height: number;
+  format: string;
+  resource_type: string;
+  created_at: string;
+  tags: string[];
+  bytes: number;
+  type: string;
+  etag: string;
+  placeholder: boolean;
+  url: string;
+  secure_url: string;
+  folder: string;
+  access_mode: string;
+  original_filename: string;
+  api_key: string; // No incluir api_key en la interfaz si quieres omitirlo
+}
 
 export async function POST(req, res) {
   const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
@@ -17,35 +40,36 @@ export async function POST(req, res) {
     const subcategory = data.get("subcategory");
 
     if (!image) {
-      return NextResponse.json("No se ha detectado una imagen para subir");
+      throw new Error("No se ha detectado una imagen para subir");
     }
 
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const filePath = path.join(process.cwd(), "public", image.name);
+    // const filePath = path.join(process.cwd(), "public", image.name);
 
-    // Solo guarda la imagen localmente en entorno de desarrollo (dev)
-    if (enviroment === "dev") {
-      await writeFile(filePath, buffer);
+    const response: CloudinaryResponse = await new Promise<CloudinaryResponse>(
+      (resolve, reject) => {
+        cloudinary.uploader
+          .upload_stream(
+            {
+              folder: `${
+                enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
+              }/${brand}/${category}/${subcategory}/${name}`,
+            },
+            (err, result) => {
+              if (err) {
+                reject(err);
+              }
+              resolve(result as any);
+            }
+          )
+          .end(buffer);
+      }
+    );
+    if (response && response.api_key) {
+      delete response.api_key;
     }
-
-    const result = await cloudinary.uploader.upload(filePath, {
-      folder: `${
-        enviroment === "dev" ? "DEV" : "JotaTe Climatizacion"
-      }/${brand}/${category}/${subcategory}/${name}`,
-    });
-
-    // Elimina el archivo local después de subirlo a Cloudinary
-    if (enviroment === "dev") {
-      // Asegúrate de manejar cualquier error aquí si la eliminación falla
-      fs.unlinkSync(filePath);
-    }
-
-    const resultCopy = { ...result };
-    delete resultCopy.api_key;
-
-    console.log(res);
-    return NextResponse.json(resultCopy);
+    return NextResponse.json(response);
   } catch (error) {
     return NextResponse.json(
       { error: "Error al subir la imagen a Cloudinary: " + error.message },
