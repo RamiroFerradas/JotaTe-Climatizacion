@@ -63,7 +63,7 @@ export default function LoadImages({
 
   return (
     <section id="load-images">
-      <div className="flex flex-wrap items-center justify-start w-full h-full gap-3">
+      <div className="flex flex-wrap items-center justify-start w-full h-[70vh] gap-3 overflow-y-auto">
         {loadImage && (
           <div className="relative group h-48 w-48 shadow-lg flex justify-center items-center">
             <CircularProgressWithLabel />
