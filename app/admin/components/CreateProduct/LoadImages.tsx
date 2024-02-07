@@ -7,6 +7,7 @@ import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
 import { OptionType } from "@/app/models/OptionType";
 import { error } from "console";
+import { uploadImage } from "@/app/services/uploadImage";
 
 type Props = {
   method: any;
@@ -28,8 +29,9 @@ export default function LoadImages({
 
   const [loadImage, setLoadImage] = useState(false);
   const [errorLoadImage, setErrorLoadImage] = useState(false);
-  const handleFileChange = async (event: any) => {
-    const image = event.target.files[0];
+
+  const handleFileChange = async (e: any) => {
+    const image = e.target.files[0];
 
     try {
       setErrorLoadImage(false);
@@ -42,22 +44,8 @@ export default function LoadImages({
       formData.append("category", product.category.value);
       formData.append("subcategory", product.subcategory.value);
 
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/upload-image`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const data = await uploadImage(formData);
 
-      const data = await response.json();
-      console.log(data);
-      console.log(data.error);
-
-      console.log(data);
-
-
-      // Si la subida es exitosa, agrega el URL al array
       if (!data.error) {
         setUploadedImages((prevImages) => [...prevImages, data.url]);
         setLoadImage(false);
@@ -137,6 +125,7 @@ export default function LoadImages({
                   Elegir archivo
                 </p>
               </div>
+              {/* <form action={handleFileChange}> */}
               <input
                 type="file"
                 name="imageInput"
@@ -147,6 +136,7 @@ export default function LoadImages({
                   handleFileChange(e);
                 }}
               />
+              {/* </form> */}
             </label>
           )}
         />
