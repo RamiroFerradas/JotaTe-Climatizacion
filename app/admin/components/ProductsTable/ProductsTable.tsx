@@ -313,7 +313,7 @@ export default function ProductsTable({
                               isClearable
                               className="w-full"
                               options={optionsCategory as any}
-                              defaultValue={optionsCategory.find(
+                              value={optionsCategory.find(
                                 (op: any) => op.value === row.category
                               )}
                               onMenuOpen={() => handleClickRow(row, true)}
@@ -345,8 +345,9 @@ export default function ProductsTable({
                               styles={selectStyles(false)}
                               isClearable
                               options={optionsSubcategory as any}
-                              defaultValue={optionsSubcategory.find(
+                              value={optionsSubcategory.find(
                                 (op: any) => op.value === row.subcategory
+                                // console.log();
                               )}
                               onMenuOpen={() => handleClickRow(row, true)}
                               onMenuClose={() => handleClickRow(row, true)}
