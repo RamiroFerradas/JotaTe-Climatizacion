@@ -70,7 +70,10 @@ export async function POST(req, res) {
     if (response && response.api_key) {
       delete response.api_key;
     }
-    return NextResponse.json(response);
+    return NextResponse.json({
+      message: "Imagen subida correctamente",
+      url: response.secure_url,
+    });
   } catch (error) {
     return NextResponse.json(
       { error: "Error al subir la imagen a Cloudinary: " + error.message },

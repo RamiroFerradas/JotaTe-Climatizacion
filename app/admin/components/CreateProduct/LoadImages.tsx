@@ -50,10 +50,11 @@ export default function LoadImages({
         }
       );
       const data = await response.json();
+      console.log(data);
       console.log(data.error);
       // Si la subida es exitosa, agrega el URL al array
       if (!data.error) {
-        setUploadedImages((prevImages) => [...prevImages, data.secure_url]);
+        setUploadedImages((prevImages) => [...prevImages, data.url]);
         setLoadImage(false);
       }
       if (data.error) {
