@@ -5,6 +5,7 @@ import { Product } from "../models";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 import { TABLE_PRODUCTS } from "../constants";
+import { formattedImagesArrayToJson } from "../utilities/formattedImagesArrayToJson";
 
 export const updateProducts = async (
   existingProducts: Product[],
@@ -39,7 +40,6 @@ export const updateProducts = async (
 
       if (hasChanges) {
         // Solo actualiza si hay cambios
-
         const product = {
           price: selectedProduct.newPrice,
           category: selectedProduct.category,
@@ -48,7 +48,7 @@ export const updateProducts = async (
           stock: selectedProduct.stock,
           description: selectedProduct.description,
           name: selectedProduct.name,
-          image: selectedProduct.image,
+          image: formattedImagesArrayToJson(selectedProduct.image) as any,
           brand: selectedProduct.brand,
           id: selectedProduct.id,
         };

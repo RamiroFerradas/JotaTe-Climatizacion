@@ -9,6 +9,7 @@ import { Tabs, Tab } from "@mui/material";
 import LoadImages from "./LoadImages";
 import { OptionType } from "@/app/models/OptionType";
 import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
+import { formattedImagesArrayToJson } from "@/app/utilities/formattedImagesArrayToJson";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -57,8 +58,6 @@ export default function FormCreateProduct({
   const refModal = useRef(null);
   // useOnClickOutside(refModal, () => setOpenModalForm(false));
   const onSubmit = async (data: Product) => {
-    const formattedImages = `{${uploadedImages.join(",")}}`;
-
     try {
       if (!uploadedImages.length) {
         setSection("images");
@@ -73,7 +72,7 @@ export default function FormCreateProduct({
 
       await addProduct({
         ...data,
-        image: formattedImages as any,
+        image: formattedImagesArrayToJson(uploadedImages) as any,
         brand: (formValues.brand as OptionType).value,
         category: (formValues.category as OptionType).value,
         subcategory: (formValues.subcategory as OptionType).value,
