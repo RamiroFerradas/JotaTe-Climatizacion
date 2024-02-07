@@ -24,7 +24,7 @@ interface CloudinaryResponse {
   folder: string;
   access_mode: string;
   original_filename: string;
-  api_key: string; // No incluir api_key en la interfaz si quieres omitirlo
+  api_key: string;
 }
 
 export async function POST(req, res) {
@@ -45,7 +45,6 @@ export async function POST(req, res) {
 
     const bytes = await image.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    // const filePath = path.join(process.cwd(), "public", image.name);
 
     const response: CloudinaryResponse = await new Promise<CloudinaryResponse>(
       (resolve, reject) => {
@@ -67,9 +66,7 @@ export async function POST(req, res) {
           .end(buffer);
       }
     );
-    if (response && response.api_key) {
-      delete response.api_key;
-    }
+
     return NextResponse.json({
       message: "Imagen subida correctamente",
       url: response.secure_url,

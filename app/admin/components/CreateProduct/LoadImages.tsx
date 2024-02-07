@@ -49,19 +49,14 @@ export default function LoadImages({
           body: formData,
         }
       );
-      const response2 = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/test`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-
-      console.log(response2);
 
       const data = await response.json();
       console.log(data);
       console.log(data.error);
+
+      console.log(data);
+
+
       // Si la subida es exitosa, agrega el URL al array
       if (!data.error) {
         setUploadedImages((prevImages) => [...prevImages, data.url]);
