@@ -304,6 +304,12 @@ export default function ProductsTable({
                         {row.brand}
                       </TableCell>
                       <TableCell className="w-2/12" align="left">
+                        {row.category}
+                      </TableCell>
+                      <TableCell className="w-2/12" align="left">
+                        {row.subcategory}
+                      </TableCell>
+                      {/* <TableCell className="w-2/12" align="left">
                         {
                           <div
                             className="min-w-[10rem]"
@@ -367,7 +373,7 @@ export default function ProductsTable({
                             />
                           </div>
                         }
-                      </TableCell>
+                      </TableCell> */}
                       <TableCell className="w-1/12" align="left">
                         <Checkbox
                           color="primary"
