@@ -195,9 +195,9 @@ export default function ProductsTable({
     setSnackBarMessage("");
   };
 
-  const defaultvalueNewPrice = (row: Product) => {
+  const defaultvalueNewPrice = (row: Product) => {``
     return (
-      selected.find((product: Product) => product.id === row.id)?.newPrice ?? 0
+      selected.find((product: Product) => product.id === row.id)?.newPrice || products.find((product: Product) => product.id === row.id)?.newPrice  ||0
     );
   };
   useEffect(() => setIsMounted(true), []);
