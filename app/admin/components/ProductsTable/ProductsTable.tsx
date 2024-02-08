@@ -197,7 +197,7 @@ export default function ProductsTable({
 
   const defaultvalueNewPrice = (row: Product) => {``
     return (
-      selected.find((product: Product) => product.id === row.id)?.newPrice || products.find((product: Product) => product.id === row.id)?.newPrice  ||0
+      selected.find((product: Product) => product.id === row.id)?.newPrice || products.find((product: Product) => product.id === row.id)?.newPrice  
     );
   };
   useEffect(() => setIsMounted(true), []);
