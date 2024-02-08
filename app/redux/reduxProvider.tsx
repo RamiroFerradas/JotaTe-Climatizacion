@@ -5,10 +5,10 @@ import { NextPage } from "next";
 import { Toaster } from "react-hot-toast";
 import { ThemeProvider } from "@material-tailwind/react";
 import TagManager from "react-gtm-module";
-import { useEffect } from "react";
+import { ReactNode, useEffect } from "react";
 
 export type RootLayoutProps = {
-  children: React.ReactNode;
+  children: any;
 };
 
 const ReduxProvider: NextPage<RootLayoutProps> = ({ children }) => {
