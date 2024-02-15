@@ -137,40 +137,68 @@ export default function ProductsTable({
   useEffect(() => {
     if (updateProductState) {
       const handleSubmit = async () => {
+        const batchSize = 10;
         if (!selected || selected.length === 0) return;
-
+        const totalProducts = selected.length;
+        const batches = Math.ceil(totalProducts / batchSize);
         setLoading(true);
         setError("");
 
         try {
-          const response: Product[] = await handleUpdateProducts(
-            products,
-            selected
-          );
+          for (let i = 0; i < batches; i++) {
+            const startIdx = i * batchSize;
+            const endIdx = Math.min((i + 1) * batchSize, totalProducts);
+            const batchToUpdate = selected.slice(startIdx, endIdx);
 
-          // Verifica si hay productos filtrados
-          if (filteredProducts.length > 0) {
-            // Actualiza los productos filtrados en función de la respuesta
-            const updatedFilteredProducts: Product[] = filteredProducts.map(
-              (filteredProduct: Product) => {
-                // Supongamos que hay un identificador único llamado 'id' en los productos
-                const updatedProduct: Product | undefined = response.find(
+            const responseBatch = await handleUpdateProducts(
+              batchToUpdate,
+              selected
+            );
+
+            // Actualizar los productos filtrados en función de la respuesta del lote
+            const updatedFilteredProducts = filteredProducts.map(
+              (filteredProduct) => {
+                const updatedProduct = responseBatch?.find(
                   (updatedProduct) => updatedProduct.id === filteredProduct.id
                 );
 
-                // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
                 return updatedProduct || filteredProduct;
               }
             );
 
-            // Actualiza el estado de los productos filtrados
+            // Actualizar el estado de los productos filtrados
             setFilteredProducts(updatedFilteredProducts);
-            const message =
-              selected.length < 1
-                ? "Productos actualizados"
-                : "Producto actualizado";
-            setSnackBarMessage(message);
           }
+          const message =
+            selected.length < 1
+              ? "Productos actualizados"
+              : "Producto actualizado";
+          setSnackBarMessage(message);
+          // const response: Product[] = await handleUpdateProducts(
+          //   products,
+          //   selected
+          // );
+          // // Verifica si hay productos filtrados
+          // if (filteredProducts.length > 0) {
+          //   // Actualiza los productos filtrados en función de la respuesta
+          //   const updatedFilteredProducts: Product[] = filteredProducts.map(
+          //     (filteredProduct: Product) => {
+          //       // Supongamos que hay un identificador único llamado 'id' en los productos
+          //       const updatedProduct: Product | undefined = response.find(
+          //         (updatedProduct) => updatedProduct.id === filteredProduct.id
+          //       );
+          //       // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
+          //       return updatedProduct || filteredProduct;
+          //     }
+          //   );
+          //   // Actualiza el estado de los productos filtrados
+          //   setFilteredProducts(updatedFilteredProducts);
+          //   const message =
+          //     selected.length < 1
+          //       ? "Productos actualizados"
+          //       : "Producto actualizado";
+          //   setSnackBarMessage(message);
+          // }
         } catch (error) {
           setError(error.message);
           setSnackBarMessage(error.message);
@@ -195,9 +223,11 @@ export default function ProductsTable({
     setSnackBarMessage("");
   };
 
-  const defaultvalueNewPrice = (row: Product) => {``
+  const defaultvalueNewPrice = (row: Product) => {
+    ``;
     return (
-      selected.find((product: Product) => product.id === row.id)?.newPrice || products.find((product: Product) => product.id === row.id)?.newPrice  
+      selected.find((product: Product) => product.id === row.id)?.newPrice ||
+      products.find((product: Product) => product.id === row.id)?.newPrice
     );
   };
   useEffect(() => setIsMounted(true), []);

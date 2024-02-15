@@ -7,7 +7,7 @@ import localFont from "next/font/local";
 import ReduxProvider from "./redux/reduxProvider";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 import Favicon from "../public/favicon.ico";
-
+import { SpeedInsights } from "@vercel/speed-insights/next";
 const myFont = localFont({
   src: "../public/fonts/BNChester.otf",
 });
@@ -33,7 +33,9 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
           <div className="min-h-screen flex flex-col">
             <div className="flex-grow flex flex-col">{children}</div>
           </div>
+
           <Analytics />
+          <SpeedInsights />
         </ReduxProvider>
       </body>
     </html>
