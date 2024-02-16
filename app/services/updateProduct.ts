@@ -87,7 +87,7 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
 
     for (const producto of updateProducts) {
       const product = {
-        price: producto.newPrice,
+        price: producto.newPrice == 0 ? producto.price : producto.newPrice,
         category: producto.category,
         subcategory: producto.subcategory,
         destacado: producto.destacado,

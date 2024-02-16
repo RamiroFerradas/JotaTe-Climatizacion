@@ -83,8 +83,6 @@ export default function ProductsTable({
     setOrderBy(property);
   };
 
-  const [updateProductState, setUpdateProductState] = useState<boolean>(false);
-
   const handleSelectAllClick = (event: ChangeEvent<HTMLInputElement>) => {
     if (event.target.checked) {
       const newSelected = rows.map((n) => n);
@@ -135,7 +133,7 @@ export default function ProductsTable({
     prevSelected.map((product: Product) =>
       product.id === productId ? { ...product, ...updateProps } : product
     );
-  
+
   const handleSubmit = async () => {
     if (!selected || selected.length === 0) return;
 
@@ -188,7 +186,7 @@ export default function ProductsTable({
         return filteredProduct;
       });
     });
-  };
+  }; //
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
