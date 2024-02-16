@@ -69,7 +69,6 @@ export default function ProductsTable({
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
-  const [isMounted, setIsMounted] = useState(false);
 
   const { width } = useScreenSize();
   const isMobile = width > 720;
@@ -205,8 +204,7 @@ export default function ProductsTable({
       // products.find((product: Product) => product.id === row.id)?.newPrice
       0
     );
-  }; //2209636
-  useEffect(() => setIsMounted(true), []);
+  };
 
   return (
     <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
@@ -238,6 +236,7 @@ export default function ProductsTable({
               size="sm"
               className="rounded bg-[#006d54] border border-[#006d54] "
               onClick={handleSubmit}
+              disabled={selected.length === 0}
             >
               <span className="hidden md:block">Guardar cambios</span>
               <IoMdSave size={24} className="block md:hidden" />
@@ -284,11 +283,12 @@ export default function ProductsTable({
                       tabIndex={-1}
                       key={index}
                       selected={isItemSelected}
-                      sx={{ cursor: "pointer" }}
+                      style={{ padding: "0px" }}
+                      sx={{ cursor: "pointer", padding: "0px" }} // Ajusta la altura según tus necesidades
                     >
                       <TableCell className="w-2/12" padding="checkbox">
                         <Checkbox
-                          color="primary"
+                          color="success"
                           checked={isItemSelected}
                           inputProps={{
                             "aria-labelledby": labelId,
@@ -379,7 +379,7 @@ export default function ProductsTable({
                       </TableCell> */}
                       <TableCell className="w-1/12" align="left">
                         <Checkbox
-                          color="primary"
+                          color="success"
                           onClick={(e) => {
                             e.stopPropagation();
                             handleClickRow(row, true);
@@ -406,7 +406,7 @@ export default function ProductsTable({
                       <TableCell className="w-2/12" align="left">
                         <input
                           className={
-                            "border border-green-principal p-2 rounded-md w-24 h- "
+                            "border border-green-principal px-2 rounded-md w-20 "
                           }
                           placeholder={"Nuevo precio"}
                           id="newPrice"

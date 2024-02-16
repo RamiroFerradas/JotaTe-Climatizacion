@@ -90,7 +90,7 @@ export default function Percentage({
         size="small"
         onChange={handlePercentageChange}
         color="success"
-        className="w-32"
+        className="w-32 !border !border-green-principal"
       />
 
       <Button
