@@ -30,18 +30,7 @@ export default function LoadImages({
 
   const [loadImage, setLoadImage] = useState(false);
   const [errorLoadImage, setErrorLoadImage] = useState(false);
-  useEffect(() => {
-    if (editProduct.image) {
-      const formattedImagesArray = Array.isArray(editProduct.image)
-        ? editProduct.image
-        : formattedJsonToImagesArray(editProduct.image);
 
-      setUploadedImages(formattedImagesArray);
-      clearErrors("image");
-    } else {
-      setUploadedImages([]);
-    }
-  }, [editProduct.image]);
 
   const handleFileChange = async (e: any) => {
     const image = e.target.files[0];

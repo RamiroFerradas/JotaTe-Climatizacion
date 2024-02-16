@@ -9,7 +9,10 @@ import { Tabs, Tab } from "@mui/material";
 import LoadImages from "./LoadImages";
 import { OptionType } from "@/app/models/OptionType";
 import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
-import { formattedImagesArrayToJson } from "@/app/utilities/formattedImagesArrayToJson";
+import {
+  formattedImagesArrayToJson,
+  formattedJsonToImagesArray,
+} from "@/app/utilities/formattedImagesArrayToJson";
 import { updateProduct } from "@/app/services/api";
 import { updateProductsV2 } from "@/app/services/updateProduct";
 
@@ -22,6 +25,7 @@ type FormPricingProps = {
   setErrorSnackBar: React.Dispatch<React.SetStateAction<string>>;
   editProduct: Product;
   setEditProduct: React.Dispatch<React.SetStateAction<Product>>;
+  updatedFilteredProducts: (product: Product[]) => void;
 };
 
 export default function FormCreateProduct({
@@ -33,6 +37,7 @@ export default function FormCreateProduct({
   setSnackBarMessage,
   editProduct,
   setEditProduct,
+  updatedFilteredProducts,
 }: FormPricingProps) {
   const method = useForm<Product>({
     mode: "onChange",
@@ -91,24 +96,28 @@ export default function FormCreateProduct({
           ? formValues.subcategory
           : (formValues.subcategory as OptionType)?.value;
 
-      !editProduct
-        ? await addProduct({
+      if (!editProduct) {
+        await addProduct({
+          ...data,
+          image: formattedImagesArrayToJson(uploadedImages) as any,
+          brand: brandValue,
+          category: categoryValue,
+          subcategory: subcategoryValue,
+        });
+      } else {
+        const productToUpdate = await updateProductsV2([
+          {
             ...data,
             image: formattedImagesArrayToJson(uploadedImages) as any,
             brand: brandValue,
             category: categoryValue,
             subcategory: subcategoryValue,
-          })
-        : await updateProductsV2([
-            {
-              ...data,
-              image: formattedImagesArrayToJson(uploadedImages) as any,
-              brand: brandValue,
-              category: categoryValue,
-              subcategory: subcategoryValue,
-              id: editProduct.id,
-            },
-          ]);
+            id: editProduct.id,
+          },
+        ]);
+
+        updatedFilteredProducts(productToUpdate);
+      }
 
       setSnackBarMessage("Producto creado con exito");
       setOpenModalForm(false);
@@ -127,11 +136,25 @@ export default function FormCreateProduct({
     const brand = watch("brand");
     const category = watch("category");
     const subcategory = watch("subcategory");
+    console.log(brand, category, subcategory);
 
     if (!brand || !category || !subcategory) {
       setSection("info");
     }
-  }, [watch("brand"), watch("category"), watch("subcategory")]);
+  }, [formValues]);
+
+  useEffect(() => {
+    if (editProduct.image) {
+      const formattedImagesArray = Array.isArray(editProduct.image)
+        ? editProduct.image
+        : formattedJsonToImagesArray(editProduct.image);
+
+      setUploadedImages(formattedImagesArray);
+      clearErrors("image");
+    } else {
+      setUploadedImages([]);
+    }
+  }, [editProduct.image]);
 
   return (
     <div

@@ -458,6 +458,7 @@ export default function ProductsTable({
             setErrorSnackBar={setError}
             editProduct={editProduct}
             setEditProduct={setEditProduct}
+            updatedFilteredProducts={updatedFilteredProducts}
           />
         </div>
       </Modal>
