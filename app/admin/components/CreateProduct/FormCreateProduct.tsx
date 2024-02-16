@@ -136,8 +136,7 @@ export default function FormCreateProduct({
     const brand = watch("brand");
     const category = watch("category");
     const subcategory = watch("subcategory");
-    console.log(brand, category, subcategory);
-
+    
     if (!brand || !category || !subcategory) {
       setSection("info");
     }
