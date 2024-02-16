@@ -37,7 +37,7 @@ const InputForm: React.FC<InputFormProps> = ({
 
   return (
     <div className="w-full">
-      {label && <label>{label}:</label>}{" "}
+      {label && <label className="text-green-principal">{label}:</label>}{" "}
       <Controller
         name={name}
         control={control}

@@ -126,6 +126,7 @@ export default function InformationProduct({
             rules={{
               validate: (value) => value > 0 || "El valor debe ser mayor que 0",
             }}
+            label="Precio"
           />
           <InputForm
             type="number"
@@ -134,6 +135,7 @@ export default function InformationProduct({
             required
             errors={errors}
             className={classnameInputs}
+            label="Stock"
           />
         </div>
       </div>
