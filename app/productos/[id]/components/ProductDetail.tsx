@@ -34,13 +34,11 @@ type Props = {
   selectedProduct: Product;
 };
 const ProductDetail = ({ selectedProduct }: Props) => {
-  // const { id } = useParams();
   const dispatch = useDispatch();
 
   const { conditionProduct } = useConditionProducts({
     selectedProduct,
   });
-  console.log(selectedProduct);
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
