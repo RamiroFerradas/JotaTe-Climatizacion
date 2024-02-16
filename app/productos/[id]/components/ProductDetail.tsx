@@ -27,14 +27,20 @@ import { useConditionProducts, useProductList } from "@/app/hooks";
 import { useParams, useRouter } from "next/navigation";
 import ImagesProduct from "./ImagesProduct";
 import { ProductCard } from "../../components";
-const ProductDetail = ({ selectedProduct }) => {
+import { updateProductsV2 } from "@/app/services/updateProduct";
+import { Product } from "@/app/models";
+
+type Props = {
+  selectedProduct: Product;
+};
+const ProductDetail = ({ selectedProduct }: Props) => {
   // const { id } = useParams();
   const dispatch = useDispatch();
 
   const { conditionProduct } = useConditionProducts({
     selectedProduct,
   });
-
+  console.log(selectedProduct);
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
@@ -45,21 +51,26 @@ const ProductDetail = ({ selectedProduct }) => {
   const text = introText + productText;
 
   const formattedDescription = formattedText(selectedProduct?.description);
-
   const addConsult = async () => {
-    // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
-    const product = await fetchProductById(selectedProduct.id);
-    if (!product) return;
-    const newConsult =
-      product.consults && parseInt(product.consults as string) + 1;
-    const newData = { consults: newConsult };
+    // Generar una clave única basada en el ID del producto
+    const productKey = `consult_product_${selectedProduct.id}`;
 
-    const produtcUpdate = await updateProduct(
-      selectedProduct?.id,
-      newData as any
-    );
-    // AUMENTAR CONSULT DEL PRODCUTO AL CONSULTAR //
+    // Verificar si ya se ha ejecutado addConsult para este producto durante esta visita
+    const hasAlreadyExecuted = sessionStorage.getItem(productKey);
+
+    if (!hasAlreadyExecuted) {
+      const newConsult = parseInt(selectedProduct.consults as string) + 1;
+      const newData = { ...selectedProduct, consults: newConsult };
+
+      await updateProductsV2([newData] as Product[]);
+
+      // Establecer el indicador en sessionStorage para evitar futuras ejecuciones durante la misma visita
+      sessionStorage.setItem(productKey, "true");
+    }
   };
+  useEffect(() => {
+    addConsult();
+  }, []);
 
   const handleConsultProduct = () => {
     if (!selectedProduct) return;
@@ -142,7 +153,7 @@ const ProductDetail = ({ selectedProduct }) => {
                       component="div"
                       className="text-gray-600"
                     >
-                      {selectedProduct?.brand}
+                      {selectedProduct?.brand as string}
                     </Typography>
                     <Divider />
                   </div>

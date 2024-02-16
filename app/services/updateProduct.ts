@@ -16,7 +16,7 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
     for (const producto of updateProducts) {
       const product = {
         price:
-        producto.newPrice == 0
+          producto.newPrice == 0
             ? producto.price
             : producto.newPrice || producto.price,
         category: producto.category,
@@ -29,6 +29,7 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
         brand: producto.brand,
         id: producto.id,
         visible: producto.visible,
+        consults: producto.consults,
       };
 
       const { data, error } = await supabase
