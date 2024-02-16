@@ -1,21 +1,25 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import noimage from "@/public/no-image.png";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
 import { uploadImage } from "@/app/services/uploadImage";
+import { Product } from "@/app/models";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
 type Props = {
   method: any;
   uploadedImages: string[];
   setUploadedImages: React.Dispatch<React.SetStateAction<string[]>>;
+  editProduct: Product;
 };
 
 export default function LoadImages({
   method,
   uploadedImages,
   setUploadedImages,
+  editProduct,
 }: Props) {
   const {
     getValues,
@@ -26,6 +30,18 @@ export default function LoadImages({
 
   const [loadImage, setLoadImage] = useState(false);
   const [errorLoadImage, setErrorLoadImage] = useState(false);
+  useEffect(() => {
+    if (editProduct.image) {
+      const formattedImagesArray = Array.isArray(editProduct.image)
+        ? editProduct.image
+        : formattedJsonToImagesArray(editProduct.image);
+
+      setUploadedImages(formattedImagesArray);
+      clearErrors("image");
+    } else {
+      setUploadedImages([]);
+    }
+  }, [editProduct.image]);
 
   const handleFileChange = async (e: any) => {
     const image = e.target.files[0];
@@ -35,10 +51,22 @@ export default function LoadImages({
       const formData = new FormData();
       const product = getValues();
       formData.append("image", image);
-      formData.append("name", product.name);
-      formData.append("brand", product.brand.value);
-      formData.append("category", product.category.value);
-      formData.append("subcategory", product.subcategory.value);
+      // formData.append("name", product.name);
+      // formData.append("brand", product.brand.value);
+      // formData.append("category", product.category.value);
+      // formData.append("subcategory", product.subcategory.value);
+
+      const modifiedName = product.name.replace(/\//g, "-").replace(/\s+/g, "");
+      formData.append("name", modifiedName);
+      Object.entries(product).forEach(([key, value]) => {
+        formData.append(
+          key,
+          ["brand", "category", "subcategory"].includes(key) &&
+            typeof value === "object"
+            ? (value as any).value
+            : value
+        );
+      });
 
       const data = await uploadImage(formData);
       if (!data.error) {
@@ -63,7 +91,7 @@ export default function LoadImages({
 
   return (
     <section id="load-images">
-      <div className="flex flex-wrap items-center justify-start w-full h-[70vh] gap-3 overflow-y-auto">
+      <div className="flex flex-wrap items-center justify-start w-full min-h-[30vh] max-h-[65vh] gap-3 overflow-y-auto">
         {loadImage && (
           <div className="relative group h-48 w-48 shadow-lg flex justify-center items-center">
             <CircularProgressWithLabel />

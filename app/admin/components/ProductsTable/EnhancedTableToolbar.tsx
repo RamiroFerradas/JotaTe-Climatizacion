@@ -57,7 +57,7 @@ export default function EnhancedTableToolbar({
           variant="h6"
           id="tableTitle"
           component="div"
-          className="hidden md:block text-green-principal font-semibold"
+          className="hidden md:block text-green-principal font-base"
         >
           Listado de productos
         </Typography>

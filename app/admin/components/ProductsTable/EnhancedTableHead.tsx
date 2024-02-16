@@ -87,6 +87,12 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
       disablePadding: true,
       label: "Visible",
     },
+    {
+      id: "editar",
+      numeric: false,
+      disablePadding: true,
+      label: "Editar",
+    },
   ];
 
   return (

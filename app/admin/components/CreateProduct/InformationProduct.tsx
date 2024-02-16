@@ -3,23 +3,28 @@ import { OptionType } from "@/app/models/OptionType";
 import { Controller } from "react-hook-form";
 import CreatableSelect from "react-select/creatable";
 import { selectStyles } from "../../StylesSelect";
+import { Product } from "@/app/models";
 type Props = {
   method: any;
   optionsSubcategory: OptionType[];
   optionsCategory: OptionType[];
   optionsBrands: OptionType[];
+  editProduct: Product;
 };
 export default function InformationProduct({
   method,
   optionsSubcategory,
   optionsCategory,
   optionsBrands,
+  editProduct,
 }: Props) {
   const {
     control,
     formState: { errors, isSubmitting, isValid },
     getValues,
+    watch,
   } = method;
+
   const classnameInputs = "border border-green-principal p-1 rounded-md w-full";
   return (
     <section
@@ -53,6 +58,12 @@ export default function InformationProduct({
               className="w-44"
               placeholder="Marca"
               value={optionsBrands.find((c) => c.value === field.value?.value)}
+              defaultValue={
+                editProduct &&
+                optionsBrands.find(
+                  (option) => option.value === editProduct.brand
+                )
+              }
               onChange={(val) => {
                 field.onChange(val);
               }}
@@ -77,6 +88,12 @@ export default function InformationProduct({
               )}
               onChange={(val) => field.onChange(val)}
               styles={selectStyles(errors.category)}
+              defaultValue={
+                editProduct &&
+                optionsCategory.find(
+                  (option) => option.value === editProduct.category
+                )
+              }
             />
           )}
         />
@@ -96,6 +113,12 @@ export default function InformationProduct({
               )}
               onChange={(val) => field.onChange(val)}
               styles={selectStyles(errors.subcategory)}
+              defaultValue={
+                editProduct &&
+                optionsSubcategory.find(
+                  (option) => option.value === editProduct.subcategory
+                )
+              }
             />
           )}
         />

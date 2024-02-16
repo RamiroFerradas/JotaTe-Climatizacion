@@ -43,6 +43,7 @@ import FormCreateProduct from "../CreateProduct/FormCreateProduct";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
 import { updateProductsV2 } from "@/app/services/updateProduct";
+import { FaEdit } from "react-icons/fa";
 
 type Props = {
   products: Product[];
@@ -70,6 +71,7 @@ export default function ProductsTable({
   const [loading, setLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [openModalForm, setOpenModalForm] = useState<boolean>(false);
+  const [editProduct, setEditProduct] = useState<Product | null>(null);
   const [snackBarMessage, setSnackBarMessage] = useState<string>("");
   const [productosPorActualizar, setProductosPorActualizar] = useState(0);
 
@@ -399,6 +401,18 @@ export default function ProductsTable({
                           }}
                         />
                       </TableCell>
+                      <TableCell className="w-1/12 " align="center">
+                        <FaEdit
+                          className="text-green-principal border"
+                          size={18}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setOpenModalForm(true);
+                            setEditProduct(row);
+                            setSelected([]);
+                          }}
+                        />
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -442,6 +456,8 @@ export default function ProductsTable({
             setOpenModalForm={setOpenModalForm}
             setSnackBarMessage={setSnackBarMessage}
             setErrorSnackBar={setError}
+            editProduct={editProduct}
+            setEditProduct={setEditProduct}
           />
         </div>
       </Modal>

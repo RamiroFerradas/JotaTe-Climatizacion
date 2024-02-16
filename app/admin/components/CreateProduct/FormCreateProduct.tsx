@@ -10,6 +10,8 @@ import LoadImages from "./LoadImages";
 import { OptionType } from "@/app/models/OptionType";
 import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
 import { formattedImagesArrayToJson } from "@/app/utilities/formattedImagesArrayToJson";
+import { updateProduct } from "@/app/services/api";
+import { updateProductsV2 } from "@/app/services/updateProduct";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -18,6 +20,8 @@ type FormPricingProps = {
   optionsBrands: OptionType[];
   setSnackBarMessage: React.Dispatch<React.SetStateAction<string>>;
   setErrorSnackBar: React.Dispatch<React.SetStateAction<string>>;
+  editProduct: Product;
+  setEditProduct: React.Dispatch<React.SetStateAction<Product>>;
 };
 
 export default function FormCreateProduct({
@@ -27,18 +31,22 @@ export default function FormCreateProduct({
   optionsBrands,
   setErrorSnackBar,
   setSnackBarMessage,
+  editProduct,
+  setEditProduct,
 }: FormPricingProps) {
   const method = useForm<Product>({
     mode: "onChange",
     defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      stock: 0,
-      brand: "",
-      category: "",
-      subcategory: "",
+      name: editProduct?.name || "",
+      description: editProduct?.description || "",
+      price: editProduct?.price || 0,
+      stock: editProduct?.stock || 0,
+      brand: editProduct?.brand || "",
+      category: editProduct?.category || "",
+      subcategory: editProduct?.subcategory || "",
       image: [],
+      visible: true,
+      destacado: false,
     },
   });
   const {
@@ -70,13 +78,38 @@ export default function FormCreateProduct({
         return;
       }
 
-      await addProduct({
-        ...data,
-        image: formattedImagesArrayToJson(uploadedImages) as any,
-        brand: (formValues.brand as OptionType).value,
-        category: (formValues.category as OptionType).value,
-        subcategory: (formValues.subcategory as OptionType).value,
-      });
+      const brandValue =
+        typeof formValues.brand === "string"
+          ? formValues.brand
+          : (formValues.brand as OptionType)?.value;
+      const categoryValue =
+        typeof formValues.category === "string"
+          ? formValues.category
+          : (formValues.category as OptionType)?.value;
+      const subcategoryValue =
+        typeof formValues.subcategory === "string"
+          ? formValues.subcategory
+          : (formValues.subcategory as OptionType)?.value;
+
+      !editProduct
+        ? await addProduct({
+            ...data,
+            image: formattedImagesArrayToJson(uploadedImages) as any,
+            brand: brandValue,
+            category: categoryValue,
+            subcategory: subcategoryValue,
+          })
+        : await updateProductsV2([
+            {
+              ...data,
+              image: formattedImagesArrayToJson(uploadedImages) as any,
+              brand: brandValue,
+              category: categoryValue,
+              subcategory: subcategoryValue,
+              id: editProduct.id,
+            },
+          ]);
+
       setSnackBarMessage("Producto creado con exito");
       setOpenModalForm(false);
       reset();
@@ -88,6 +121,7 @@ export default function FormCreateProduct({
   };
   const handleClose = () => {
     setOpenModalForm(false);
+    setEditProduct(null);
   };
   useEffect(() => {
     const brand = watch("brand");
@@ -144,6 +178,7 @@ export default function FormCreateProduct({
             optionsCategory={optionsCategory}
             optionsSubcategory={optionsSubcategory}
             optionsBrands={optionsBrands}
+            editProduct={editProduct}
           />
         )}
         {section === "images" && (
@@ -151,6 +186,7 @@ export default function FormCreateProduct({
             method={method}
             uploadedImages={uploadedImages}
             setUploadedImages={setUploadedImages}
+            editProduct={editProduct}
           />
         )}
 
@@ -159,7 +195,7 @@ export default function FormCreateProduct({
             className="bg-orange-principal px-4 py-2 rounded-md text-white text-sm"
             type="submit"
           >
-            Crear
+            {editProduct ? "Actualizar producto" : "Crear producto"}
           </button>
         </div>
       </form>
