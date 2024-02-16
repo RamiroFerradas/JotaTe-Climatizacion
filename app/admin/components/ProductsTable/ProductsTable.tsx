@@ -227,7 +227,7 @@ export default function ProductsTable({
   };
 
   return (
-    <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
+    <div className="flex flex-col gap-3 px-1 relative overflow-hidden max-w-[100vw]">
       <Box sx={{ width: "100%" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
           <Link href={"/"}>
@@ -276,158 +276,163 @@ export default function ProductsTable({
             setFilteredProducts={setFilteredProducts}
             setPage={setPage}
           />
-          <TableContainer className="w-full">
-            <Table
-              sx={{ minWidth: 750 }}
-              aria-labelledby="tableTitle"
-              size={"medium"}
-            >
-              <EnhancedTableHead
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows.length}
-              />
-              <TableBody>
-                {visibleRows.map((row, index) => {
-                  const isItemSelected = isSelected(selected, row.id as string);
-                  const labelId = `enhanced-table-checkbox-${index}`;
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClickRow(row as any)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={index}
-                      selected={isItemSelected}
-                      style={{ padding: "0px" }}
-                      sx={{ cursor: "pointer", padding: "0px" }} // Ajusta la altura según tus necesidades
-                    >
-                      <TableCell className="w-1/12" padding="checkbox">
-                        <Checkbox
-                          color="success"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        className="w-/12"
+          <div className="w-full h-[80vh] overflow-auto">
+            <TableContainer className="w-full">
+              <Table
+                sx={{ minWidth: 750 }}
+                aria-labelledby="tableTitle"
+                size={"medium"}
+              >
+                <EnhancedTableHead
+                  numSelected={selected.length}
+                  order={order}
+                  orderBy={orderBy}
+                  onSelectAllClick={handleSelectAllClick}
+                  onRequestSort={handleRequestSort}
+                  rowCount={rows.length}
+                />
+                <TableBody>
+                  {visibleRows.map((row, index) => {
+                    const isItemSelected = isSelected(
+                      selected,
+                      row.id as string
+                    );
+                    const labelId = `enhanced-table-checkbox-${index}`;
+                    return (
+                      <TableRow
+                        hover
+                        onClick={(event) => handleClickRow(row as any)}
+                        role="checkbox"
+                        aria-checked={isItemSelected}
+                        tabIndex={-1}
+                        key={index}
+                        selected={isItemSelected}
+                        style={{ padding: "0px" }}
+                        sx={{ cursor: "pointer", padding: "0px" }} // Ajusta la altura según tus necesidades
                       >
-                        {row.name}
-                      </TableCell>
-                      <TableCell className="min-w-[8.3%]" align="left">
-                        {row.brand}
-                      </TableCell>
-                      <TableCell className="min-w-[8.3%]" align="left">
-                        {row.category}
-                      </TableCell>
-                      <TableCell className="min-w-[8.3%]" align="left">
-                        {row.subcategory}
-                      </TableCell>
+                        <TableCell className="w-1/12" padding="checkbox">
+                          <Checkbox
+                            color="success"
+                            checked={isItemSelected}
+                            inputProps={{
+                              "aria-labelledby": labelId,
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell
+                          component="th"
+                          id={labelId}
+                          scope="row"
+                          padding="none"
+                          className="w-/12"
+                        >
+                          {row.name}
+                        </TableCell>
+                        <TableCell className="min-w-[8.3%]" align="left">
+                          {row.brand}
+                        </TableCell>
+                        <TableCell className="min-w-[8.3%]" align="left">
+                          {row.category}
+                        </TableCell>
+                        <TableCell className="min-w-[8.3%]" align="left">
+                          {row.subcategory}
+                        </TableCell>
 
-                      <TableCell className="w-1/12" align="left">
-                        <Checkbox
-                          color="success"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleClickRow(row, true);
-                          }}
-                          defaultChecked={Boolean(
-                            products.find(
-                              (product: Product) => product.id === row.id
-                            )?.destacado
-                          )}
-                          onChange={(e) => {
-                            const { checked } = e.target;
-                            setSelected((prevProducts) =>
-                              updateProductInSelected(prevProducts, row.id, {
-                                destacado: checked,
-                              })
-                            );
-                          }}
-                          className="w-20"
-                        />
-                      </TableCell>
-                      <TableCell className="w-1/12" align="left">
-                        {row.price}
-                      </TableCell>
-                      <TableCell className="w-1/12" align="left">
-                        <input
-                          className={
-                            "border border-green-principal px-2 rounded-md w-20 "
-                          }
-                          placeholder={"Nuevo precio"}
-                          id="newPrice"
-                          type="number"
-                          value={defaultvalueNewPrice(row)}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleClickRow(row, true);
-                          }}
-                          onChange={(e) => {
-                            const newPrice = e.target.value;
-                            setSelected((prevProducts) =>
-                              updateProductInSelected(prevProducts, row.id, {
-                                newPrice: newPrice,
-                              })
-                            );
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell className="w-1/12" align="left">
-                        <Switch
-                          color="success"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleClickRow(row, true);
-                          }}
-                          checked={defaultvalueVisible(row)}
-                          onChange={(e) => {
-                            const { checked } = e.target;
-                            setSelected((prevProducts) =>
-                              updateProductInSelected(prevProducts, row.id, {
-                                visible: checked,
-                              })
-                            );
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell className="w-1/12 " align="center">
-                        <FaEdit
-                          className="text-green-principal border"
-                          size={18}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setOpenModalForm(true);
-                            setEditProduct(row);
-                            setSelected([]);
-                          }}
-                        />
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+                        <TableCell className="w-1/12" align="left">
+                          <Checkbox
+                            color="success"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleClickRow(row, true);
+                            }}
+                            defaultChecked={Boolean(
+                              products.find(
+                                (product: Product) => product.id === row.id
+                              )?.destacado
+                            )}
+                            onChange={(e) => {
+                              const { checked } = e.target;
+                              setSelected((prevProducts) =>
+                                updateProductInSelected(prevProducts, row.id, {
+                                  destacado: checked,
+                                })
+                              );
+                            }}
+                            className="w-20"
+                          />
+                        </TableCell>
+                        <TableCell className="w-1/12" align="left">
+                          {row.price}
+                        </TableCell>
+                        <TableCell className="w-1/12" align="left">
+                          <input
+                            className={
+                              "border border-green-principal px-2 rounded-md w-20 "
+                            }
+                            placeholder={"Nuevo precio"}
+                            id="newPrice"
+                            type="number"
+                            value={defaultvalueNewPrice(row)}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleClickRow(row, true);
+                            }}
+                            onChange={(e) => {
+                              const newPrice = e.target.value;
+                              setSelected((prevProducts) =>
+                                updateProductInSelected(prevProducts, row.id, {
+                                  newPrice: newPrice,
+                                })
+                              );
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell className="w-1/12" align="left">
+                          <Switch
+                            color="success"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleClickRow(row, true);
+                            }}
+                            checked={defaultvalueVisible(row)}
+                            onChange={(e) => {
+                              const { checked } = e.target;
+                              setSelected((prevProducts) =>
+                                updateProductInSelected(prevProducts, row.id, {
+                                  visible: checked,
+                                })
+                              );
+                            }}
+                          />
+                        </TableCell>
+                        <TableCell className="w-1/12 " align="center">
+                          <FaEdit
+                            className="text-green-principal border"
+                            size={18}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setOpenModalForm(true);
+                              setEditProduct(row);
+                              setSelected([]);
+                            }}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </TableContainer>
+            <TablePagination
+              rowsPerPageOptions={[5, 10, 25]}
+              component="div"
+              count={rows.length}
+              rowsPerPage={rowsPerPage}
+              page={page}
+              onPageChange={handleChangePage}
+              onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+          </div>
         </Paper>
       </Box>
       {loading ? (
