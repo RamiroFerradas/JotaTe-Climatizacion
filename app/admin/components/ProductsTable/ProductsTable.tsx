@@ -228,7 +228,7 @@ export default function ProductsTable({
 
   return (
     <div className="flex flex-col gap-3 px-1 relative overflow-hidden max-w-[100vw]">
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", marginBottom: "0" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
           <Link href={"/"}>
             <Image
@@ -276,7 +276,7 @@ export default function ProductsTable({
             setFilteredProducts={setFilteredProducts}
             setPage={setPage}
           />
-          <div className="w-full h-[80vh] overflow-auto">
+          <div className="w-full h-[75vh] overflow-auto">
             <TableContainer className="w-full">
               <Table
                 sx={{ minWidth: 750 }}
@@ -405,7 +405,7 @@ export default function ProductsTable({
                             }}
                           />
                         </TableCell>
-                        <TableCell className="w-1/12 " align="center">
+                        <TableCell className="w-[2%] " align="center">
                           <FaEdit
                             className="text-green-principal border"
                             size={18}
@@ -423,16 +423,16 @@ export default function ProductsTable({
                 </TableBody>
               </Table>
             </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 25]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
           </div>
+          <TablePagination
+            rowsPerPageOptions={[5, 10, 25]}
+            component="div"
+            count={rows.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
         </Paper>
       </Box>
       {loading ? (

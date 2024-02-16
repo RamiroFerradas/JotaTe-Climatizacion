@@ -47,3 +47,7 @@
 .css-1853znf-MuiTableRow-root.Mui-selected {
   background-color: rgba(0, 109, 84, 0.15) !important; /* 50% de opacidad */
 }
+
+.css-1mxz8qt-MuiPaper-root {
+  margin-bottom: 0px !important;
+}
