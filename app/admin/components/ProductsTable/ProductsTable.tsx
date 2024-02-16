@@ -120,7 +120,7 @@ export default function ProductsTable({
       ),
     [order, orderBy, page, rowsPerPage, products, filteredProducts, selected]
   );
-
+  console.log(selected.length);
   const updateProductInSelected = (
     prevSelected: Product[],
     productId: string,
@@ -146,11 +146,12 @@ export default function ProductsTable({
 
         const responseBatch = await updateProductsV2(batchToUpdate);
 
-        setFilteredProducts(responseBatch);
+        //setFilteredProducts(responseBatch);
       }
       const message =
         selected.length < 1 ? "Productos actualizados" : "Producto actualizado";
       setSnackBarMessage(message);
+
       // const response: Product[] = await handleUpdateProducts(
       //   products,
       //   selected
