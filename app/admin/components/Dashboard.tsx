@@ -4,7 +4,7 @@ import { getOptionsByProperty } from "@/app/utilities/getOptionsByPropertyProduc
 
 type Props = {};
 async function Dashboard({}: Props) {
-  const data = await fetchProducts();
+  const data = await fetchProducts({ filter: "all" });
 
   const optionsSubcategory = getOptionsByProperty(data, "subcategory");
   const optionsCategory = getOptionsByProperty(data, "category");

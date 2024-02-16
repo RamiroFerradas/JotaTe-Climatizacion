@@ -5,30 +5,36 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { processImagesString } from "../utilities/processImagesString";
 import { TABLE_PRODUCTS } from "../constants";
+interface FetchProductsOptions {
+  filter?: string;
+}
 
-export async function fetchProducts(): Promise<Product[]> {
+export async function fetchProducts(
+  options: FetchProductsOptions = {}
+): Promise<Product[]> {
   try {
-    // const url = `${API_URL}/api/products`;
-    // const response = await fetch(url, { headers });
-
+    const { filter = "visible" } = options;
     const supabase = createServerComponentClient({ cookies });
-    const { data, error } = await supabase.from(TABLE_PRODUCTS).select("*");
+
+    const query =
+      filter === "all"
+        ? supabase.from(TABLE_PRODUCTS).select("*")
+        : supabase.from(TABLE_PRODUCTS).select("*").filter(filter, "eq", true);
+
+    const { data, error } = await query; // <-- Corregir aquí
 
     if (error) {
       throw new Error(`Error al obtener datos de Supabase: ${error.message}`);
     }
-    // Procesar las imágenes para convertirlas en arrays de strings
+
     const productsWithParsedImages = data.map((product) => ({
       ...product,
       image: processImagesString(product.image || ""),
     }));
-    if (error) {
-      throw new Error("Error al obtener los productos");
-    }
-    // const data = await response.json();
+
     return productsWithParsedImages as Product[];
   } catch (error) {
-    throw new Error("Error al obtener los productos: " + error.message);
+    throw new Error(`Error al obtener los productos: ${error.message}`);
   }
 }
 

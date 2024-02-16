@@ -81,6 +81,12 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
       disablePadding: true,
       label: "Nuevo precio",
     },
+    {
+      id: "visible",
+      numeric: false,
+      disablePadding: true,
+      label: "Visible",
+    },
   ];
 
   return (

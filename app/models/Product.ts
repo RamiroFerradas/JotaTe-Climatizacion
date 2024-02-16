@@ -13,5 +13,6 @@ export interface Product {
   quantity?: string | number;
   consults?: string | number;
   destacado: boolean;
+  visible: boolean;
   newPrice?: string | number;
 }

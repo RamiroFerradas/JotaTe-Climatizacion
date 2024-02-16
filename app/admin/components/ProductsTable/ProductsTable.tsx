@@ -23,7 +23,14 @@ import { stableSort } from "./helpers/stableSort";
 import { createDataFromAPI } from "./helpers/createDataFromAPI";
 import { isSelected } from "./helpers/isSelected";
 import { getComparator } from "./helpers/getComparator";
-import { Alert, Modal, Slide, SlideProps, Snackbar } from "@mui/material";
+import {
+  Alert,
+  Modal,
+  Slide,
+  SlideProps,
+  Snackbar,
+  Switch,
+} from "@mui/material";
 import { Loading } from "@/app/components";
 import SearchBar from "../Searchbar";
 import ButtonLogout from "../ButtonLogout";
@@ -69,7 +76,6 @@ export default function ProductsTable({
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
-
   const { width } = useScreenSize();
   const isMobile = width > 720;
 
@@ -198,12 +204,24 @@ export default function ProductsTable({
   };
 
   const defaultvalueNewPrice = (row: Product) => {
-    ``;
     return (
-      selected.find((product: Product) => product.id === row.id)?.newPrice ||
-      // products.find((product: Product) => product.id === row.id)?.newPrice
-      0
+      selected.find((product: Product) => product.id === row.id)?.newPrice || 0
     );
+  };
+  const defaultvalueVisible = (row: Product): boolean => {
+    const selectedProduct = selected.find(
+      (product: Product) => product.id === row.id
+    );
+
+    if (selectedProduct && selectedProduct.visible !== undefined) {
+      return selectedProduct.visible;
+    }
+
+    const productsProduct = products.find(
+      (product: Product) => product.id === row.id
+    );
+
+    return productsProduct ? productsProduct.visible ?? false : false;
   };
 
   return (
@@ -358,6 +376,24 @@ export default function ProductsTable({
                             setSelected((prevProducts) =>
                               updateProductInSelected(prevProducts, row.id, {
                                 newPrice: newPrice,
+                              })
+                            );
+                          }}
+                        />
+                      </TableCell>
+                      <TableCell className="w-1/12" align="left">
+                        <Switch
+                          color="success"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleClickRow(row, true);
+                          }}
+                          checked={defaultvalueVisible(row)}
+                          onChange={(e) => {
+                            const { checked } = e.target;
+                            setSelected((prevProducts) =>
+                              updateProductInSelected(prevProducts, row.id, {
+                                visible: checked,
                               })
                             );
                           }}

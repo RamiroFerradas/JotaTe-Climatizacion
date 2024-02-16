@@ -12,5 +12,6 @@ export function createDataFromAPI(item: Product) {
     stock: item.stock,
     destacado: item.destacado,
     id: item.id,
+    visible: item.visible,
   };
 }

@@ -2,7 +2,7 @@
   "prettier.enable": true,
   "prettier.embeddedLanguageFormatting": "auto",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "eslint.validate": ["javascript"],
   "cSpell.words": ["Availables", "dirección", "Nombre", "Número"],
