@@ -59,7 +59,7 @@ export default function EnhancedTableToolbar({
           component="div"
           className="hidden md:block text-green-principal font-semibold"
         >
-          Productos
+          Listado de productos
         </Typography>
       )}
       {

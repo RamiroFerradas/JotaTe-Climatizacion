@@ -43,7 +43,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
       id: "name",
       numeric: false,
       disablePadding: true,
-      label: "Producto",
+      label: "Titulo",
     },
     {
       id: "brand",
@@ -88,7 +88,7 @@ export default function EnhancedTableHead(props: EnhancedTableProps) {
       <TableRow>
         <TableCell padding="checkbox">
           <Checkbox
-            color="primary"
+            color="success"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
             onChange={onSelectAllClick}

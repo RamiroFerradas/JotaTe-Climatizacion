@@ -40,3 +40,10 @@
 .css-1ex1afd-MuiTableCell-root {
   padding: 0px !important;
 }
+
+.css-2su6a6,
+.css-1zubi6.Mui-selected,
+.css-1whpjm6-MuiToolbar-root,
+.css-1853znf-MuiTableRow-root.Mui-selected {
+  background-color: rgba(0, 109, 84, 0.15) !important; /* 50% de opacidad */
+}
