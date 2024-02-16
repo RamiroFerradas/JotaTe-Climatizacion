@@ -97,6 +97,7 @@ export default function Percentage({
         size="sm"
         className="rounded bg-[#F65B36] border border-[#F65B36] hidden lg:inline-block"
         onClick={handleApplyPercentage}
+        disabled={percentage === ""}
       >
         <span>Aplicar</span>
       </Button>

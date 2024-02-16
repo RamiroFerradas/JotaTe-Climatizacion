@@ -72,8 +72,8 @@ export default function ProductsTable({
   const [isMounted, setIsMounted] = useState(false);
 
   const { width } = useScreenSize();
-  const isMobile = width < 720;
-  const logoResponsive = isMobile ? jotaTeLogoResponsive : jotaTeLogo;
+  const isMobile = width > 720;
+  console.log(isMobile);
   const handleRequestSort = (
     event: MouseEvent<unknown>,
     property: keyof Product
@@ -221,7 +221,7 @@ export default function ProductsTable({
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
           <Link href={"/"}>
             <Image
-              src={logoResponsive}
+              src={isMobile ? jotaTeLogoResponsive : jotaTeLogo}
               alt="logo_jota_te"
               width={!isMobile ? 130 : 50}
               height={!isMobile ? 130 : 50}
