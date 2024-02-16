@@ -300,17 +300,17 @@ export default function ProductsTable({
                         id={labelId}
                         scope="row"
                         padding="none"
-                        className="w-3/12"
+                        className="w-/12"
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell className="w-1/12" align="left">
+                      <TableCell className="min-w-[8.3%]" align="left">
                         {row.brand}
                       </TableCell>
-                      <TableCell className="w-1/12" align="left">
+                      <TableCell className="min-w-[8.3%]" align="left">
                         {row.category}
                       </TableCell>
-                      <TableCell className="w-1/12" align="left">
+                      <TableCell className="min-w-[8.3%]" align="left">
                         {row.subcategory}
                       </TableCell>
 
