@@ -148,7 +148,7 @@ export default function ProductsTable({
     setError("");
 
     try {
-      const batchSize = 10;
+      const batchSize = 20;
       const totalProducts = selected.length;
       setProductosPorActualizar(totalProducts);
       const batches = Math.ceil(totalProducts / batchSize);
