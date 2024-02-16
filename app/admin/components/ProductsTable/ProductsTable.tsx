@@ -31,16 +31,13 @@ import { selectStyles } from "../../StylesSelect";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
 import { updateProduct } from "@/app/services/api";
+import { updateProducts, updateProductsV2 } from "@/app/services/updateProduct";
 
 type Props = {
   products: Product[];
   optionsSubcategory: { label: string; value: string }[];
   optionsCategory: { label: string; value: string }[];
   optionsBrands: { label: string; value: string }[];
-  handleUpdateProducts: (
-    existingProducts: Product[],
-    productsToUpdate: Product[]
-  ) => Promise<Product[]>;
 };
 type Order = "asc" | "desc";
 
@@ -49,7 +46,6 @@ export default function ProductsTable({
   optionsSubcategory,
   optionsBrands,
   optionsCategory,
-  handleUpdateProducts,
 }: Props) {
   function SlideTransition(props: SlideProps) {
     return <Slide {...props} direction="down" />;
@@ -150,8 +146,8 @@ export default function ProductsTable({
             const endIdx = Math.min((i + 1) * batchSize, totalProducts);
             const batchToUpdate = selected.slice(startIdx, endIdx);
 
-            const responseBatch = await handleUpdateProducts(
-              batchToUpdate,
+            const responseBatch = await updateProductsV2(
+              // batchToUpdate,
               selected
             );
 
@@ -167,7 +163,7 @@ export default function ProductsTable({
             );
 
             // Actualizar el estado de los productos filtrados
-            setFilteredProducts(updatedFilteredProducts);
+            setFilteredProducts(responseBatch);
           }
           const message =
             selected.length < 1

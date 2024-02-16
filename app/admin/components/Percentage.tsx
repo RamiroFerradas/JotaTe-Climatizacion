@@ -70,9 +70,9 @@ export default function Percentage({
 
   return (
     <div className="flex justify-end items-center gap-3 container mx-16">
-      <div className="w-44">
+      <div className="w-44 z-50">
         <Select
-          className="basic-single"
+          className="basic-single z-50"
           classNamePrefix="Marca"
           defaultValue={optionsBrandsWithAll[0]}
           isSearchable

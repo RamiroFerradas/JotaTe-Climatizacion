@@ -1,7 +1,6 @@
 import ProductsTable from "./ProductsTable/ProductsTable";
 import { fetchProducts } from "@/app/services/fetchProducts";
 import { getOptionsByProperty } from "@/app/utilities/getOptionsByPropertyProduct";
-import { updateProducts } from "@/app/services/updateProduct";
 
 type Props = {};
 async function Dashboard({}: Props) {
@@ -17,7 +16,6 @@ async function Dashboard({}: Props) {
       optionsCategory={optionsCategory}
       optionsBrands={optionsBrands}
       products={data}
-      handleUpdateProducts={updateProducts}
     />
   );
 }

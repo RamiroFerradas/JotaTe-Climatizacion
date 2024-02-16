@@ -21,6 +21,8 @@ export const updateProducts = async (
       return index;
     }, {});
 
+    console.log(existingProductsIndex);
+
     let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
 
     for (const selectedProduct of productsToUpdate) {
@@ -76,5 +78,48 @@ export const updateProducts = async (
   } catch (error) {
     console.error("Error al guardar:", error.message);
     throw error;
+  }
+};
+
+export const updateProductsV2 = async (updateProducts: Product[]) => {
+  try {
+    ("use server");
+
+    const supabase = createServerComponentClient({ cookies });
+    let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
+
+    for (const producto of updateProducts) {
+      const product = {
+        price: producto.newPrice,
+        category: producto.category,
+        subcategory: producto.subcategory,
+        destacado: producto.destacado,
+        stock: producto.stock,
+        description: producto.description,
+        name: producto.name,
+        image: formattedImagesArrayToJson(producto.image) as any,
+        brand: producto.brand,
+        id: producto.id,
+      };
+
+      const { data, error } = await supabase
+        .from(TABLE_PRODUCTS)
+        .update(product)
+        .eq("id", producto.id)
+        .single();
+      updatedProducts.push({ ...product, newPrice: 0 });
+
+      if (error) {
+        console.error("Error al actualizar el producto:", error.message);
+      } else {
+        console.log("Producto actualizado con éxito:", product.name);
+      }
+    }
+    console.log(`Total de productos actualizados: ${updatedProducts.length}`);
+    revalidatePath("/admin");
+
+    return updatedProducts;
+  } catch (error) {
+    console.log(error.message);
   }
 };
