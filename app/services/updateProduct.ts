@@ -109,12 +109,12 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
       if (error) {
         console.error("Error al actualizar el producto:", error.message);
       } else {
-        revalidatePath("/admin", "page");
         console.log("Producto actualizado con éxito:", product.name);
       }
     }
     console.log(`Total de productos actualizados: ${updatedProducts.length}`);
 
+    revalidatePath("/admin");
     return updatedProducts;
   } catch (error) {
     console.log(error.message);

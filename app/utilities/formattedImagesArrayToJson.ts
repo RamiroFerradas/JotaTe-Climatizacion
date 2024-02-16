@@ -1,6 +1,9 @@
 export const formattedImagesArrayToJson = (
   uploadedImages: string[]
 ): string => {
-  const formattedImages = `{${uploadedImages.join(",")}}`;
-  return formattedImages;
+  if (Array.isArray(uploadedImages)) {
+    const formattedImages = `{${uploadedImages.join(",")}}`;
+    return formattedImages;
+  }
+  return uploadedImages;
 };

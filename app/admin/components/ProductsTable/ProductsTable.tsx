@@ -73,7 +73,7 @@ export default function ProductsTable({
 
   const { width } = useScreenSize();
   const isMobile = width > 720;
-  console.log(isMobile);
+
   const handleRequestSort = (
     event: MouseEvent<unknown>,
     property: keyof Product
@@ -135,6 +135,7 @@ export default function ProductsTable({
     prevSelected.map((product: Product) =>
       product.id === productId ? { ...product, ...updateProps } : product
     );
+  
   const handleSubmit = async () => {
     if (!selected || selected.length === 0) return;
 
@@ -153,12 +154,6 @@ export default function ProductsTable({
         setProductosPorActualizar(
           totalProducts - (startIdx + batchToUpdate.length)
         );
-        console.log(
-          `Productos restantes por actualizar: ${
-            totalProducts - (startIdx + batchToUpdate.length)
-          }`
-        );
-
         const response = await updateProductsV2(batchToUpdate);
 
         // Actualiza el estado de los productos filtrados
@@ -180,7 +175,7 @@ export default function ProductsTable({
     // Actualiza el estado de los productos filtrados
     setFilteredProducts((prevFilteredProducts) => {
       return prevFilteredProducts.map((filteredProduct) => {
-        const updatedProduct = updatedFilteredProducts.find(
+        const updatedProduct = updatedFilteredProducts?.find(
           (p) => p.id === filteredProduct.id
         );
 
@@ -364,7 +359,6 @@ export default function ProductsTable({
                               options={optionsSubcategory as any}
                               value={optionsSubcategory.find(
                                 (op: any) => op.value === row.subcategory
-                                // console.log();
                               )}
                               onMenuOpen={() => handleClickRow(row, true)}
                               onMenuClose={() => handleClickRow(row, true)}
