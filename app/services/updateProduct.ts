@@ -7,84 +7,81 @@ import { cookies } from "next/headers";
 import { TABLE_PRODUCTS } from "../constants";
 import { formattedImagesArrayToJson } from "../utilities/formattedImagesArrayToJson";
 
-export const updateProducts = async (
-  existingProducts: Product[],
-  productsToUpdate: Product[]
-): Promise<Product[]> => {
-  "use server";
+// export const updateProducts = async (
+//   existingProducts: Product[],
+//   productsToUpdate: Product[]
+// ): Promise<Product[]> => {
+//   "use server";
 
-  try {
-    const supabase = createServerComponentClient({ cookies });
-    // Indexar los productos existentes por su ID
-    const existingProductsIndex = existingProducts.reduce((index, product) => {
-      index[product.id] = product;
-      return index;
-    }, {});
+//   try {
+//     const supabase = createServerComponentClient({ cookies });
+//     // Indexar los productos existentes por su ID
+//     const existingProductsIndex = existingProducts.reduce((index, product) => {
+//       index[product.id] = product;
+//       return index;
+//     }, {});
 
-    console.log(existingProductsIndex);
+//     console.log(existingProductsIndex);
 
-    let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
+//     let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
 
-    for (const selectedProduct of productsToUpdate) {
-      // Obtener el producto correspondiente del índice
-      const existingProduct = existingProductsIndex[selectedProduct.id];
+//     for (const selectedProduct of productsToUpdate) {
+//       // Obtener el producto correspondiente del índice
+//       const existingProduct = existingProductsIndex[selectedProduct.id];
 
-      if (!existingProduct) {
-        console.error(
-          `Error: No se pudo encontrar el producto existente con ID: ${selectedProduct.id}`
-        );
-        continue;
-      }
+//       if (!existingProduct) {
+//         console.error(
+//           `Error: No se pudo encontrar el producto existente con ID: ${selectedProduct.id}`
+//         );
+//         continue;
+//       }
 
-      const hasChanges = Object.keys(selectedProduct).some(
-        (key) => selectedProduct[key] !== existingProduct[key]
-      );
+//       const hasChanges = Object.keys(selectedProduct).some(
+//         (key) => selectedProduct[key] !== existingProduct[key]
+//       );
 
-      if (hasChanges) {
-        // Solo actualiza si hay cambios
-        const product = {
-          price: selectedProduct.newPrice,
-          category: selectedProduct.category,
-          subcategory: selectedProduct.subcategory,
-          destacado: selectedProduct.destacado,
-          stock: selectedProduct.stock,
-          description: selectedProduct.description,
-          name: selectedProduct.name,
-          image: formattedImagesArrayToJson(selectedProduct.image) as any,
-          brand: selectedProduct.brand,
-          id: selectedProduct.id,
-        };
+//       if (hasChanges) {
+//         // Solo actualiza si hay cambios
+//         const product = {
+//           price: selectedProduct.newPrice,
+//           category: selectedProduct.category,
+//           subcategory: selectedProduct.subcategory,
+//           destacado: selectedProduct.destacado,
+//           stock: selectedProduct.stock,
+//           description: selectedProduct.description,
+//           name: selectedProduct.name,
+//           image: formattedImagesArrayToJson(selectedProduct.image) as any,
+//           brand: selectedProduct.brand,
+//           id: selectedProduct.id,
+//         };
 
-        const { data: updatedProduct, error: updateError } = await supabase
-          .from(TABLE_PRODUCTS)
-          .update(product)
-          .eq("id", selectedProduct.id)
-          .single();
+//         const { data: updatedProduct, error: updateError } = await supabase
+//           .from(TABLE_PRODUCTS)
+//           .update(product)
+//           .eq("id", selectedProduct.id)
+//           .single();
 
-        if (updateError) {
-          throw new Error(
-            `Error al actualizar el producto: ${updateError.message}`
-          );
-        }
+//         if (updateError) {
+//           throw new Error(
+//             `Error al actualizar el producto: ${updateError.message}`
+//           );
+//         }
 
-        updatedProducts.push({ ...product, newPrice: 0 });
-      }
-    }
+//         updatedProducts.push({ ...product, newPrice: 0 });
+//       }
+//     }
 
-    console.log(`Total de productos actualizados: ${updatedProducts.length}`);
-    revalidatePath("/admin");
+//     console.log(`Total de productos actualizados: ${updatedProducts.length}`);
 
-    return updatedProducts;
-  } catch (error) {
-    console.error("Error al guardar:", error.message);
-    throw error;
-  }
-};
+//     return updatedProducts;
+//   } catch (error) {
+//     console.error("Error al guardar:", error.message);
+//     throw error;
+//   }
+// };
 
 export const updateProductsV2 = async (updateProducts: Product[]) => {
   try {
-    ("use server");
-
     const supabase = createServerComponentClient({ cookies });
     let updatedProducts: Product[] = []; // Inicializar el arreglo de productos actualizados
 
@@ -112,11 +109,11 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
       if (error) {
         console.error("Error al actualizar el producto:", error.message);
       } else {
+        revalidatePath("/admin", "page");
         console.log("Producto actualizado con éxito:", product.name);
       }
     }
     console.log(`Total de productos actualizados: ${updatedProducts.length}`);
-    revalidatePath("/admin");
 
     return updatedProducts;
   } catch (error) {

@@ -8,8 +8,14 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import CreatableSelect from "react-select/creatable";
-import { ChangeEvent, MouseEvent, useEffect, useMemo, useState } from "react";
+import {
+  ChangeEvent,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Product } from "@/app/models";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
@@ -27,11 +33,9 @@ import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
 import FormCreateProduct from "../CreateProduct/FormCreateProduct";
-import { selectStyles } from "../../StylesSelect";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
-import { updateProduct } from "@/app/services/api";
-import { updateProducts, updateProductsV2 } from "@/app/services/updateProduct";
+import { updateProductsV2 } from "@/app/services/updateProduct";
 
 type Props = {
   products: Product[];
@@ -60,6 +64,8 @@ export default function ProductsTable({
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [openModalForm, setOpenModalForm] = useState<boolean>(false);
   const [snackBarMessage, setSnackBarMessage] = useState<string>("");
+  const [productosPorActualizar, setProductosPorActualizar] = useState(0);
+
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
@@ -120,7 +126,7 @@ export default function ProductsTable({
       ),
     [order, orderBy, page, rowsPerPage, products, filteredProducts, selected]
   );
-  console.log(selected.length);
+
   const updateProductInSelected = (
     prevSelected: Product[],
     productId: string,
@@ -138,60 +144,56 @@ export default function ProductsTable({
     try {
       const batchSize = 10;
       const totalProducts = selected.length;
+      setProductosPorActualizar(totalProducts);
       const batches = Math.ceil(totalProducts / batchSize);
       for (let i = 0; i < batches; i++) {
         const startIdx = i * batchSize;
         const endIdx = Math.min((i + 1) * batchSize, totalProducts);
         const batchToUpdate = selected.slice(startIdx, endIdx);
+        setProductosPorActualizar(
+          totalProducts - (startIdx + batchToUpdate.length)
+        );
+        console.log(
+          `Productos restantes por actualizar: ${
+            totalProducts - (startIdx + batchToUpdate.length)
+          }`
+        );
 
-        const responseBatch = await updateProductsV2(batchToUpdate);
+        const response = await updateProductsV2(batchToUpdate);
 
-        //setFilteredProducts(responseBatch);
+        // Actualiza el estado de los productos filtrados
+        updatedFilteredProducts(response);
       }
       const message =
         selected.length < 1 ? "Productos actualizados" : "Producto actualizado";
       setSnackBarMessage(message);
-
-      // const response: Product[] = await handleUpdateProducts(
-      //   products,
-      //   selected
-      // );
-      // // Verifica si hay productos filtrados
-      // if (filteredProducts.length > 0) {
-      //   // Actualiza los productos filtrados en función de la respuesta
-      //   const updatedFilteredProducts: Product[] = filteredProducts.map(
-      //     (filteredProduct: Product) => {
-      //       // Supongamos que hay un identificador único llamado 'id' en los productos
-      //       const updatedProduct: Product | undefined = response.find(
-      //         (updatedProduct) => updatedProduct.id === filteredProduct.id
-      //       );
-      //       // Si se encuentra el producto actualizado, lo devuelve; de lo contrario, mantiene el producto filtrado original
-      //       return updatedProduct || filteredProduct;
-      //     }
-      //   );
-      //   // Actualiza el estado de los productos filtrados
-      //   setFilteredProducts(updatedFilteredProducts);
-      //   const message =
-      //     selected.length < 1
-      //       ? "Productos actualizados"
-      //       : "Producto actualizado";
-      //   setSnackBarMessage(message);
-      // }
     } catch (error) {
       setError(error.message);
       setSnackBarMessage(error.message);
     } finally {
       setLoading(false);
       setSelected([]);
-      setUpdateProductState(false);
     }
   };
 
-  // useEffect(() => {
-  //   if (updateProductState) {
-  //     handleSubmit();
-  //   }
-  // }, [updateProductState]);
+  const updatedFilteredProducts = (updatedFilteredProducts: Product[]) => {
+    // Actualiza el estado de los productos filtrados
+    setFilteredProducts((prevFilteredProducts) => {
+      return prevFilteredProducts.map((filteredProduct) => {
+        const updatedProduct = updatedFilteredProducts.find(
+          (p) => p.id === filteredProduct.id
+        );
+
+        // Si se encuentra el producto actualizado con el mismo ID, lo actualiza
+        if (updatedProduct) {
+          return updatedProduct;
+        }
+
+        // Si no se encuentra el producto actualizado, conserva el producto original
+        return filteredProduct;
+      });
+    });
+  };
 
   const handleClose = (
     event?: React.SyntheticEvent | Event,
@@ -207,14 +209,13 @@ export default function ProductsTable({
     ``;
     return (
       selected.find((product: Product) => product.id === row.id)?.newPrice ||
-      products.find((product: Product) => product.id === row.id)?.newPrice
+      // products.find((product: Product) => product.id === row.id)?.newPrice
+      0
     );
-  };
+  }; //2209636
   useEffect(() => setIsMounted(true), []);
 
-  return !isMounted ? (
-    <Loading />
-  ) : (
+  return (
     <div className="flex flex-col gap-3 px-1 md:px-4 relative overflow-hidden max-w-[100vw]">
       <Box sx={{ width: "100%" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
@@ -243,7 +244,6 @@ export default function ProductsTable({
             <Button
               size="sm"
               className="rounded bg-[#006d54] border border-[#006d54] "
-              // onClick={() => setUpdateProductState(true)}
               onClick={handleSubmit}
             >
               <span className="hidden md:block">Guardar cambios</span>
@@ -419,7 +419,7 @@ export default function ProductsTable({
                           placeholder={"Nuevo precio"}
                           id="newPrice"
                           type="number"
-                          defaultValue={defaultvalueNewPrice(row)}
+                          value={defaultvalueNewPrice(row)}
                           onClick={(e) => {
                             e.stopPropagation();
                             handleClickRow(row, true);
@@ -452,7 +452,17 @@ export default function ProductsTable({
         </Paper>
       </Box>
       {loading ? (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/50 z-50 flex justify-center items-center">
+        <div className="fixed top-0 left-0 w-full h-full bg-black/60 z-50 flex justify-center items-center flex-col backdrop-blur-[1px]">
+          {productosPorActualizar > 0 && (
+            <>
+              <p className="z-50 text-white font-black text-2xl">
+                {`Productos a actualizar: ${selected.length}`}
+              </p>
+              <p className="z-50 text-white font-black text-2xl">
+                {`Productos restantes por actualizar: ${productosPorActualizar}`}
+              </p>
+            </>
+          )}
           <Loading />
         </div>
       ) : (
