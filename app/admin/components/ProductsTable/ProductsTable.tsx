@@ -286,7 +286,7 @@ export default function ProductsTable({
                       style={{ padding: "0px" }}
                       sx={{ cursor: "pointer", padding: "0px" }} // Ajusta la altura según tus necesidades
                     >
-                      <TableCell className="w-2/12" padding="checkbox">
+                      <TableCell className="w-1/12" padding="checkbox">
                         <Checkbox
                           color="success"
                           checked={isItemSelected}
@@ -300,83 +300,20 @@ export default function ProductsTable({
                         id={labelId}
                         scope="row"
                         padding="none"
-                        className="w-2/12"
+                        className="w-3/12"
                       >
                         {row.name}
                       </TableCell>
-                      <TableCell className="w-2/12" align="left">
+                      <TableCell className="w-1/12" align="left">
                         {row.brand}
                       </TableCell>
-                      <TableCell className="w-2/12" align="left">
+                      <TableCell className="w-1/12" align="left">
                         {row.category}
                       </TableCell>
-                      <TableCell className="w-2/12" align="left">
+                      <TableCell className="w-1/12" align="left">
                         {row.subcategory}
                       </TableCell>
-                      {/* <TableCell className="w-2/12" align="left">
-                        {
-                          <div
-                            className="min-w-[10rem]"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <CreatableSelect
-                              isClearable
-                              className="w-full"
-                              options={optionsCategory as any}
-                              value={optionsCategory.find(
-                                (op: any) => op.value === row.category
-                              )}
-                              onMenuOpen={() => handleClickRow(row, true)}
-                              onMenuClose={() => handleClickRow(row, true)}
-                              onChange={(e) => {
-                                setSelected((prevProducts) =>
-                                  updateProductInSelected(
-                                    prevProducts,
-                                    row.id,
-                                    {
-                                      category: e ? e.label : row.category,
-                                    }
-                                  )
-                                );
-                              }}
-                              styles={selectStyles(false)}
-                            />
-                          </div>
-                        }
-                      </TableCell>
-                      <TableCell className="w-2/12" align="left">
-                        {
-                          <div
-                            className="min-w-[10rem]"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <CreatableSelect
-                              className="w-full"
-                              styles={selectStyles(false)}
-                              isClearable
-                              options={optionsSubcategory as any}
-                              value={optionsSubcategory.find(
-                                (op: any) => op.value === row.subcategory
-                              )}
-                              onMenuOpen={() => handleClickRow(row, true)}
-                              onMenuClose={() => handleClickRow(row, true)}
-                              onChange={(e) => {
-                                setSelected((prevProducts) =>
-                                  updateProductInSelected(
-                                    prevProducts,
-                                    row.id,
-                                    {
-                                      subcategory: e
-                                        ? e.label
-                                        : row.subcategory,
-                                    }
-                                  )
-                                );
-                              }}
-                            />
-                          </div>
-                        }
-                      </TableCell> */}
+
                       <TableCell className="w-1/12" align="left">
                         <Checkbox
                           color="success"
@@ -400,10 +337,10 @@ export default function ProductsTable({
                           className="w-20"
                         />
                       </TableCell>
-                      <TableCell className="w-2/12" align="left">
+                      <TableCell className="w-1/12" align="left">
                         {row.price}
                       </TableCell>
-                      <TableCell className="w-2/12" align="left">
+                      <TableCell className="w-1/12" align="left">
                         <input
                           className={
                             "border border-green-principal px-2 rounded-md w-20 "
@@ -489,4 +426,71 @@ export default function ProductsTable({
       </Snackbar>
     </div>
   );
+}
+
+{
+  /* <TableCell className="w-2/12" align="left">
+                        {
+                          <div
+                            className="min-w-[10rem]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <CreatableSelect
+                              isClearable
+                              className="w-full"
+                              options={optionsCategory as any}
+                              value={optionsCategory.find(
+                                (op: any) => op.value === row.category
+                              )}
+                              onMenuOpen={() => handleClickRow(row, true)}
+                              onMenuClose={() => handleClickRow(row, true)}
+                              onChange={(e) => {
+                                setSelected((prevProducts) =>
+                                  updateProductInSelected(
+                                    prevProducts,
+                                    row.id,
+                                    {
+                                      category: e ? e.label : row.category,
+                                    }
+                                  )
+                                );
+                              }}
+                              styles={selectStyles(false)}
+                            />
+                          </div>
+                        }
+                      </TableCell>
+                      <TableCell className="w-2/12" align="left">
+                        {
+                          <div
+                            className="min-w-[10rem]"
+                            onClick={(e) => e.stopPropagation()}
+                          >
+                            <CreatableSelect
+                              className="w-full"
+                              styles={selectStyles(false)}
+                              isClearable
+                              options={optionsSubcategory as any}
+                              value={optionsSubcategory.find(
+                                (op: any) => op.value === row.subcategory
+                              )}
+                              onMenuOpen={() => handleClickRow(row, true)}
+                              onMenuClose={() => handleClickRow(row, true)}
+                              onChange={(e) => {
+                                setSelected((prevProducts) =>
+                                  updateProductInSelected(
+                                    prevProducts,
+                                    row.id,
+                                    {
+                                      subcategory: e
+                                        ? e.label
+                                        : row.subcategory,
+                                    }
+                                  )
+                                );
+                              }}
+                            />
+                          </div>
+                        }
+                      </TableCell> */
 }
