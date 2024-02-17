@@ -1,5 +1,5 @@
+"use client";
 import { ProductCard } from "./ProductCard";
-import CardSkeleton from "./ProductCard/CardSkeleton";
 import { Paginate } from "../Paginate";
 import { useState, useMemo, useEffect } from "react";
 import { useProductList } from "@/app/hooks";

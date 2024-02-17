@@ -8,6 +8,9 @@ import ReduxProvider from "./redux/reduxProvider";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 import Favicon from "../public/favicon.ico";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { ThemeProvider } from "@material-tailwind/react";
+
 const myFont = localFont({
   src: "../public/fonts/BNChester.otf",
 });
@@ -29,14 +32,15 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ReduxProvider>
+        <GoogleAnalytics gaId="GTM-KNWJJVW" /> {/* <ReduxProvider> */}
+        <ThemeProvider>
           <div className="min-h-screen flex flex-col">
             <div className="flex-grow flex flex-col">{children}</div>
           </div>
-
-          <Analytics />
-          <SpeedInsights />
-        </ReduxProvider>
+        </ThemeProvider>
+        <Analytics />
+        <SpeedInsights />
+        {/* </ReduxProvider> */}
       </body>
     </html>
   );
