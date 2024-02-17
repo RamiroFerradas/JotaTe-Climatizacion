@@ -136,24 +136,24 @@ export default function FormCreateProduct({
     const brand = watch("brand");
     const category = watch("category");
     const subcategory = watch("subcategory");
-    
+
     if (!brand || !category || !subcategory) {
       setSection("info");
     }
   }, [formValues]);
 
   useEffect(() => {
-    if (editProduct.image) {
-      const formattedImagesArray = Array.isArray(editProduct.image)
-        ? editProduct.image
-        : formattedJsonToImagesArray(editProduct.image);
+    if (editProduct?.image) {
+      const formattedImagesArray = Array.isArray(editProduct?.image)
+        ? editProduct?.image
+        : formattedJsonToImagesArray(editProduct?.image);
 
       setUploadedImages(formattedImagesArray);
       clearErrors("image");
     } else {
       setUploadedImages([]);
     }
-  }, [editProduct.image]);
+  }, [editProduct?.image]);
 
   return (
     <div
