@@ -1,6 +1,6 @@
 "use server";
 
-import cloudinary from "../lib/cloudinary";
+import cloudinary from "../../lib/cloudinary";
 interface CloudinaryResponse {
   asset_id: string;
   public_id: string;
@@ -25,7 +25,6 @@ interface CloudinaryResponse {
   api_key: string;
 }
 export async function uploadImage(formData) {
-  "use server";
   const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
   try {
     const file = formData.get("image");

@@ -42,7 +42,7 @@ import Link from "next/link";
 import FormCreateProduct from "../CreateProduct/FormCreateProduct";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
-import { updateProductsV2 } from "@/app/services/updateProduct";
+import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { FaEdit } from "react-icons/fa";
 
 type Props = {

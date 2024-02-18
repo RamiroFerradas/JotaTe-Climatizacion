@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addProducts } from "../redux/slices/products";
 import { useSelector } from "react-redux";
 import { AppStore } from "../redux/store";
-import { fetchProducts } from "../services/fetchProducts";
+import { fetchProducts } from "../services/fetchs/fetchProducts";
 
 export default function useProductList() {
   const dispatch = useDispatch();

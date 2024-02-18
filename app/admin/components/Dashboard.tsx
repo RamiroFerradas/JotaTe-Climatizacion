@@ -1,5 +1,5 @@
 import ProductsTable from "./ProductsTable/ProductsTable";
-import { fetchProducts } from "@/app/services/fetchProducts";
+import { fetchProducts } from "@/app/services/fetchs/fetchProducts";
 import { getOptionsByProperty } from "@/app/utilities/getOptionsByPropertyProduct";
 
 type Props = {};

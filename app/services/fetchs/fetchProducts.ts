@@ -1,10 +1,10 @@
 "use server";
 
-import { Product } from "../models";
+import { Product } from "../../models";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { processImagesString } from "../utilities/processImagesString";
-import { TABLE_PRODUCTS } from "../constants";
+import { processImagesString } from "../../utilities/processImagesString";
+import { TABLE_PRODUCTS } from "../../constants";
 interface FetchProductsOptions {
   filter?: string;
 }

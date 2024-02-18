@@ -2,8 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Product } from "@/app/models/Product";
 import { IoIosClose } from "react-icons/io";
-import { useOnClickOutside } from "@/app/hooks/onClickOutsideRef";
-import { addProduct } from "@/app/services/addProduct";
+import { addProduct } from "@/app/services/crud/addProduct";
 import InformationProduct from "./InformationProduct";
 import { Tabs, Tab } from "@mui/material";
 import LoadImages from "./LoadImages";
@@ -13,8 +12,7 @@ import {
   formattedImagesArrayToJson,
   formattedJsonToImagesArray,
 } from "@/app/utilities/formattedImagesArrayToJson";
-import { updateProduct } from "@/app/services/api";
-import { updateProductsV2 } from "@/app/services/updateProduct";
+import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;

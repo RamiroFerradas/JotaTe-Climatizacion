@@ -6,7 +6,6 @@ export type SidebarProps = {
 
 import { ChangeEvent, useState } from "react";
 import { Card, Typography, List } from "@material-tailwind/react";
-import { MenuCheckbox, SubMenu } from "./components";
 import { useDispatch } from "react-redux";
 import {
   filterProductsBySubCategory,
@@ -16,6 +15,7 @@ import {
 import { useFilterProducts, useListBrands } from "@/app/hooks";
 import { AppStore } from "@/app/redux/store";
 import { useSelector } from "react-redux";
+import MenuCheckbox from "./components/MenuCheckbox";
 import Orders from "./components/Orders";
 
 export interface Option {

@@ -4,7 +4,7 @@ import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";
-import { uploadImage } from "@/app/services/uploadImage";
+import { uploadImage } from "@/app/services/crud/uploadImage";
 import { Product } from "@/app/models";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 

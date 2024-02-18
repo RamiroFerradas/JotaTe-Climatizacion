@@ -53,7 +53,7 @@ const ProductDetail = ({ selectedProduct }: Props) => {
     const productKey = `consult_product_${selectedProduct.id}`;
 
     // Verificar si ya se ha ejecutado addConsult para este producto durante esta visita
-    const hasAlreadyExecuted = sessionStorage.getItem(productKey);
+    const hasAlreadyExecuted = Boolean(sessionStorage.getItem(productKey));
 
     if (!hasAlreadyExecuted) {
       const newConsult = parseInt(selectedProduct.consults as string) + 1;
@@ -66,7 +66,9 @@ const ProductDetail = ({ selectedProduct }: Props) => {
     }
   };
   useEffect(() => {
-    addConsult();
+    return () => {
+      addConsult();
+    };
   }, []);
 
   const handleConsultProduct = () => {
@@ -96,7 +98,7 @@ const ProductDetail = ({ selectedProduct }: Props) => {
     if (zoom) {
       setZoom(false);
     } else {
-      router.push("/productos");
+      router.push("/productos-v2");
     }
   };
   const [zoom, setZoom] = useState(false);

@@ -3,8 +3,7 @@ import { cookies } from "next/headers";
 
 import FormLogin from "./FormLogin";
 import Dashboard from "./components/Dashboard";
-export const dynamic = "force-dynamic";
-
+export const revalidate = 0;
 export default async function Login() {
   const supabase = createServerComponentClient({ cookies });
 

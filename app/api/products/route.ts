@@ -11,6 +11,7 @@ import {
   createServerComponentClient,
 } from "@supabase/auth-helpers-nextjs";
 import { processImagesString } from "@/app/utilities/processImagesString";
+import { TABLE_PRODUCTS } from "@/app/constants";
 
 const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
@@ -76,7 +77,7 @@ async function getAllProducts() {
     // const text = await new Response(blob).text();
 
     const supabase = createServerComponentClient({ cookies });
-    const { data, error } = await supabase.from("products").select("*");
+    const { data, error } = await supabase.from(TABLE_PRODUCTS).select("*");
 
     if (error) {
       throw new Error(`Error al obtener datos de Supabase: ${error.message}`);

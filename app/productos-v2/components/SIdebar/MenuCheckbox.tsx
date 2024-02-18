@@ -13,17 +13,20 @@ import {
   ListItemPrefix,
   Typography,
 } from "@material-tailwind/react";
+
+import { FilterProductsByBrand } from "@/app/services/filters/filterProductsByBrand";
+import { Product } from "@/app/models";
 import { FormEvent } from "react";
-import { useDispatch } from "react-redux";
 
 type Props = {
   open: number;
   handleOpen: (value: number) => void;
-  items: any;
+  items: { label: string }[];
   title: string;
   isOpen: number;
   setSelected: (product: any) => void;
   selected: string[];
+  setProductsFiltered: (product: Product[]) => void;
 };
 export default function MenuCheckbox({
   open,
@@ -33,24 +36,34 @@ export default function MenuCheckbox({
   isOpen,
   setSelected,
   selected,
+  setProductsFiltered,
 }: Props) {
-  const dispatch = useDispatch();
-  const handleChecked = (event: FormEvent<HTMLInputElement>) => {
+  const handleChecked = async (event: FormEvent<HTMLInputElement>) => {
     const { value, checked } = event.currentTarget;
+
+    const updateFilterAndSelected = async (selectedBrands: string[]) => {
+      try {
+        const [filteredProducts, selected] = await Promise.all([
+          FilterProductsByBrand(selectedBrands),
+          setSelected(selectedBrands),
+        ]);
+
+        setProductsFiltered(filteredProducts);
+      } catch (error) {
+        console.error("Error al actualizar productos y marcas:", error.message);
+      }
+    };
 
     if (value !== "Todos") {
       if (checked) {
-        setSelected((prevSelected: string[]) => [...prevSelected, value]);
+        await updateFilterAndSelected([...selected, value]);
       } else {
-        setSelected((prevSelected: string[]) =>
-          prevSelected.filter((sel) => sel !== value)
-        );
+        await updateFilterAndSelected(selected.filter((sel) => sel !== value));
       }
     } else {
-      setSelected([]);
+      await updateFilterAndSelected([]);
     }
   };
-
   return (
     <Accordion
       open={open === isOpen}
