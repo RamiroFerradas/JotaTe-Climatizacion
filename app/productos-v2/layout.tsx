@@ -23,13 +23,11 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
       <Toaster position="top-right" />
       {children}
 
-      <Suspense fallback={<Loading />}>
-        <GridProducts
-          categoriesSubCategories={categoriesSubCategories}
-          brands={brands}
-          products={products}
-        />
-      </Suspense>
+      <GridProducts
+        categoriesSubCategories={categoriesSubCategories}
+        brands={brands}
+        products={products}
+      />
 
       <Footer />
     </CartProvider>
