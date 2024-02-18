@@ -1,15 +1,25 @@
 type Props = {};
 import { Footer } from "./components";
-import Home from "./home/home";
-import ReduxProvider from "./redux/reduxProvider";
+import {
+  Appbar,
+  Landing,
+  About,
+  Services,
+  Installations,
+  Featured,
+} from "./home/components";
+export const revalidate = 0;
 
 export default function page({}: Props) {
   return (
     <>
-      <ReduxProvider>
-        <Home />
-        <Footer />
-      </ReduxProvider>
+      <Appbar />
+      <Landing />
+      <About />
+      <Services />
+      <Installations />
+      <Featured />
+      <Footer />
     </>
   );
 }

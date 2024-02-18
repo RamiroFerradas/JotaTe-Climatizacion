@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { SwipperProducts } from "./SwipperProducts";
-import { fetchProducts } from "@/app/services/fetchs/fetchProducts";
+import { FilterProductsDestacate } from "@/app/services/filters/FilterProductsDestacate";
 
 export type FeaturedProps = {};
 
 const Featured: React.FC<FeaturedProps> = async () => {
-  const products = await fetchProducts();
+  const products = await FilterProductsDestacate();
   return (
     <section
       className="min-h-[100vh] flex justify-center items-center flex-col gap-20"

@@ -8,7 +8,7 @@ import TagManager from "react-gtm-module";
 import { useEffect } from "react";
 
 export type RootLayoutProps = {
-  children: any
+  children: any;
 };
 
 const ReduxProvider: NextPage<RootLayoutProps> = ({ children }) => {

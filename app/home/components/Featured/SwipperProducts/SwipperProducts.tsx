@@ -45,10 +45,10 @@ const SwipperProducts = ({ products }: Props) => {
           }`}
         >
           {productosDestacadosFiltrados.map((prod: Product, i) => (
-            <Suspense fallback={<SkeletonFeatured key={i} />}>
+            <Suspense fallback={<SkeletonFeatured />} key={prod.id + i}>
               <div
                 className="relative flex items-center justify-center flex-col text-center w-full"
-                key={i}
+                key={prod.id + i}
                 onMouseUp={() => setIsDraggin(false)}
                 onMouseDown={() => setIsDraggin(true)}
               >
