@@ -2,8 +2,6 @@
 import { Provider } from "react-redux";
 import { store } from "./store";
 import { NextPage } from "next";
-
-import { ThemeProvider } from "@material-tailwind/react";
 import TagManager from "react-gtm-module";
 import { useEffect } from "react";
 
