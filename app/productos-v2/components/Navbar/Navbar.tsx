@@ -27,7 +27,7 @@ export default function Navbar({
   useOnClickOutside(cartRef, () => closeMenuCart());
 
   return (
-    <div className="mx-auto mt-1 w- md:py-3 px-2 md:px-8 relative z-50">
+    <div className="mx-auto mt-1 w- md:py-3 px-2 md:px-8 relative w-full">
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
         <Link href="/">
           <Image

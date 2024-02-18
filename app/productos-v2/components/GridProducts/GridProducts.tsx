@@ -41,7 +41,7 @@ export default function GridProducts({
   }, [subCategoryActive]);
 
   return (
-    <main>
+    <>
       <Navbar
         setProductsFiltered={setProductsFiltered}
         openSidebar={openSidebar}
@@ -71,7 +71,7 @@ export default function GridProducts({
         <div className="md:w-3/4">
           <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
             {loadProducts
-              ? Array.from({ length: 10 }).map((_, i) => (
+              ? Array.from({ length: 5 }).map((_, i) => (
                   <CardSkeleton key={i} />
                 ))
               : productsToShow.map((prod) => (
@@ -95,6 +95,6 @@ export default function GridProducts({
           />
         </div>
       </div>
-    </main>
+    </>
   );
 }
