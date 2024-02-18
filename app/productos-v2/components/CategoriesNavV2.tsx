@@ -135,19 +135,18 @@ export default function CategoriesNavV2({
             >
               <ul>
                 {categorySubcategory.options.map((option) => (
-                  <li key={option}>
-                    <MenuItem
-                      className="z-10"
-                      onClick={(e) => {
-                        handleOptionClick(option);
-                        setCategoryActive(categorySubcategory.category);
+                  <MenuItem
+                    key={option}
+                    className="z-10"
+                    onClick={(e) => {
+                      handleOptionClick(option);
+                      setCategoryActive(categorySubcategory.category);
 
-                        handleClose(e);
-                      }}
-                    >
-                      {option}
-                    </MenuItem>
-                  </li>
+                      handleClose(e);
+                    }}
+                  >
+                    {option}
+                  </MenuItem>
                 ))}
               </ul>
             </Menu>

@@ -92,19 +92,12 @@ const ProductDetail = ({ selectedProduct }: Props) => {
     }
   };
 
-  const toggleDrawer = () => () => {
-    if (zoom) {
-      setZoom(false);
-    } else {
-      router.push("/productos-v2");
-    }
-  };
   const [zoom, setZoom] = useState(false);
   return (
     <Drawer
       anchor={"right"}
       open={true}
-      onClose={toggleDrawer()}
+      onClose={backModal()}
       className="min-h-screen z-50"
     >
       <Card className="flex flex-col md:w-[48rem] justify-between items-center px-0 h-full overflow-y-auto w-screen">

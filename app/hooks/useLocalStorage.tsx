@@ -4,22 +4,25 @@ import { useState, useEffect } from "react";
 export default function useLocalStorage<T>(key: string, initialValue: T): any {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  const setValue = (value: any) => {
-    window.localStorage.setItem(key, JSON.stringify(value));
-    setStoredValue(value);
+  const setValue = (value: T) => {
+    if (value) {
+      const jsonString = JSON.stringify(value);
+      window.localStorage.setItem(key, jsonString);
+      setStoredValue(value);
+    }
   };
 
   useEffect(() => {
-    const value = window.localStorage.getItem(key);
-    if (value) {
-      try {
-        const parsed = JSON.parse(value) as T;
+    try {
+      const value = window.localStorage.getItem(key);
+      if (value) {
+        const parsed = JSON.parse(value || "") as T;
         setStoredValue(parsed);
-      } catch (error) {
-        console.log(error);
+      } else {
         setStoredValue(initialValue);
       }
-    } else {
+    } catch (error) {
+      console.error(error);
       setStoredValue(initialValue);
     }
   }, [key]);

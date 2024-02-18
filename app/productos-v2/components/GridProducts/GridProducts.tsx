@@ -39,23 +39,23 @@ export default function GridProducts({
     setCurrentPage(1);
   }, [subCategoryActive]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollPosition = window.scrollY;
-      sessionStorage.setItem("scrollPosition", String(scrollPosition));
-    };
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const scrollPosition = window.scrollY;
+  //     sessionStorage.setItem("scrollPosition", String(scrollPosition));
+  //   };
 
-    window.addEventListener("scroll", handleScroll);
+  //   window.addEventListener("scroll", handleScroll);
 
-    const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-    if (savedScrollPosition) {
-      window.scrollTo(0, parseInt(savedScrollPosition, 10));
-    }
+  //   const savedScrollPosition = sessionStorage.getItem("scrollPosition");
+  //   if (savedScrollPosition) {
+  //     window.scrollTo(0, parseInt(savedScrollPosition, 10));
+  //   }
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [pathname]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [pathname]);
 
   return (
     <main>
