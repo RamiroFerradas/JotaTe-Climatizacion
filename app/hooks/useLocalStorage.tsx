@@ -1,22 +1,16 @@
 import { useState, useEffect } from "react";
 
-type SetValueFunction<T> = (value: T) => void;
-type UseLocalStorageReturnType<T> = [T, SetValueFunction<T>];
-
-export default function useLocalStorage<T>(
-  key: string,
-  initialValue: T
-): UseLocalStorageReturnType<T> {
+// Implementación de useLocalStorage
+export default function useLocalStorage<T>(key: string, initialValue: T): any {
   const [storedValue, setStoredValue] = useState<T>(initialValue);
 
-  const setValue: SetValueFunction<T> = (value) => {
+  const setValue = (value: any) => {
     window.localStorage.setItem(key, JSON.stringify(value));
     setStoredValue(value);
   };
 
   useEffect(() => {
     const value = window.localStorage.getItem(key);
-
     if (value) {
       try {
         const parsed = JSON.parse(value) as T;
@@ -28,7 +22,7 @@ export default function useLocalStorage<T>(
     } else {
       setStoredValue(initialValue);
     }
-  }, [key, initialValue]);
+  }, [key]);
 
   return [storedValue, setValue];
 }

@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { SwipperProducts } from "./SwipperProducts";
+import { fetchProducts } from "@/app/services/fetchs/fetchProducts";
 
 export type FeaturedProps = {};
 
-const Featured: React.FC<FeaturedProps> = () => {
+const Featured: React.FC<FeaturedProps> = async () => {
+  const products = await fetchProducts();
   return (
     <section
       className="min-h-[100vh] flex justify-center items-center flex-col gap-20"
@@ -16,12 +18,12 @@ const Featured: React.FC<FeaturedProps> = () => {
         </div>
       </div>
       <div className="w-full">
-        <SwipperProducts />
+        <SwipperProducts products={products} />
       </div>
       <div className="p-10">
         <Link
           className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center h-12 w-52 text-center justify-center"
-          href="/productos"
+          href="/productos-v2"
         >
           <p className="font-semibold">Ver todos los productos</p>
         </Link>

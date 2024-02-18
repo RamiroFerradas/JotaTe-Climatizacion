@@ -1,7 +1,7 @@
-import { Product } from "../models";
+import { CartProduct } from "../models";
 
-export function convertPropertiesToNumbers(product: Product): Product {
-  const convertedProduct: Product = { ...product };
+export function convertPropertiesToNumbers(product: CartProduct): CartProduct {
+  const convertedProduct: CartProduct = { ...product };
 
   if (typeof convertedProduct.price === "string") {
     convertedProduct.price = Number(convertedProduct.price);

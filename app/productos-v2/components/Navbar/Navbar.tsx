@@ -1,30 +1,33 @@
-"use client";
-
 import Image from "next/image";
-
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CartMenu from "./CartMenu";
 import CartIcon from "./CartIcon";
 import Searchbar from "./Searchbar";
 import { Product } from "@/app/models";
+import { useOnClickOutside } from "@/app/hooks/onClickOutsideRef";
+import { useCart } from "../../context/CartContext";
 
 type Props = {
-  // openSidebar: boolean;
-  // setopenSidebar: (value: boolean) => void;
+  openSidebar: boolean;
+  setOpenSidebar: (value: boolean) => void;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-export default function Navbar({ setProductsFiltered }: Props) {
-  const [showCartMenu, setShowCartMenu] = useState(false);
+export default function Navbar({
+  setProductsFiltered,
+  openSidebar,
+  setOpenSidebar,
+}: Props) {
+  const cartRef = useRef(null);
+  const { closeMenuCart } = useCart();
+
+  useOnClickOutside(cartRef, () => closeMenuCart());
 
   return (
-    <div
-      className="mx-auto w- md:py-3 px-2 md:px-8 relative z-50"
-      onClick={() => setShowCartMenu(false)}
-    >
+    <div className="mx-auto mt-1 w- md:py-3 px-2 md:px-8 relative z-50">
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
         <Link href="/">
           <Image
@@ -43,7 +46,7 @@ export default function Navbar({ setProductsFiltered }: Props) {
           <button
             onClick={(e) => {
               e.stopPropagation();
-              // setopenSidebar(!openSidebar);
+              setOpenSidebar(!openSidebar);
             }}
             className="rounded bg-[#006d54] border border-[#006d54] overflow-hidden md:hidden w-10 flex items-center justify-center h-9 text-white mr-2"
             color="green"
@@ -51,13 +54,12 @@ export default function Navbar({ setProductsFiltered }: Props) {
             <AdjustmentsHorizontalIcon className="h-5 w-5" />
           </button>
         </div>
-        <div className="md:gap-6 gap-3 text-gray-600 flex justify-center items-center order-2 md:order-3">
-          <CartIcon
-            // setopenSidebar={setopenSidebar}
-            showCartMenu={showCartMenu}
-          />
+        <div ref={cartRef} className="order-2 md:order-3">
+          <div className="md:gap-6 gap-3 text-gray-600 flex justify-center items-center ">
+            <CartIcon setOpenSidebar={setOpenSidebar} />
+          </div>
+          <CartMenu />
         </div>
-        <CartMenu />
       </div>
     </div>
   );

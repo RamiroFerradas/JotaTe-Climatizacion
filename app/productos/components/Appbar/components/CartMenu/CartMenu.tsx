@@ -1,4 +1,4 @@
-import { Product } from "@/app/models";
+import { CartProduct } from "@/app/models";
 import {
   addToCart,
   clearCart,
@@ -26,7 +26,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
   const totalPriceCart = parseCurrency(
-    cart.reduce((acc: number, product: Product) => {
+    cart.reduce((acc: number, product: CartProduct) => {
       if (product.quantity && product.price) {
         return acc + Number(product.quantity) * Number(product.price);
       }
@@ -38,7 +38,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
     const introText =
       "¡Hola! Estoy interesado/a en los siguientes productos:\n\n";
     const productText = cart.reduce(
-      (message: string, product: Product) =>
+      (message: string, product: CartProduct) =>
         message.concat(
           `- ${product.name} (${product.quantity ?? 0} unidades) - $${
             Number(product.price) * (Number(product.quantity) ?? 0)
@@ -75,7 +75,7 @@ const CartMenu: React.FunctionComponent<CartMenuProps> = () => {
               </Typography>
             </div>
           ) : (
-            cart?.map((product: Product) => (
+            cart?.map((product: CartProduct) => (
               <div key={product.id} className="flex items-center p-2">
                 <Image
                   src={product.image[0]}

@@ -1,30 +1,26 @@
-import { Product } from "@/app/models";
-import {
-  addToCart,
-  clearCart,
-  decrementQuantityCart,
-  removeFromCart,
-} from "@/app/redux/slices/cart";
-
-import { AppStore } from "@/app/redux/store";
+import { CartProduct } from "@/app/models";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { Typography } from "@material-tailwind/react";
 import Image from "next/image";
-import { useMemo } from "react";
+import { useMemo, useRef } from "react";
 import { BsDash, BsFillCartXFill, BsPlus } from "react-icons/bs";
-import { useSelector } from "react-redux";
-import { useDispatch } from "react-redux";
+import { useCart } from "../../context/CartContext";
 
 type Props = {};
 export default function CartMenu({}: Props) {
-  const dispatch = useDispatch();
-
-  const { cart, open } = useSelector((state: AppStore) => state.cart);
+  const {
+    addToCart,
+    clearCart,
+    decrementQuantityCart,
+    removeFromCart,
+    cart,
+    openCart,
+  } = useCart();
 
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
 
   const totalPriceCart = parseCurrency(
-    cart.reduce((acc: number, product: Product) => {
+    cart.reduce((acc: number, product: CartProduct) => {
       if (product.quantity && product.price) {
         return acc + Number(product.quantity) * Number(product.price);
       }
@@ -36,7 +32,7 @@ export default function CartMenu({}: Props) {
     const introText =
       "¡Hola! Estoy interesado/a en los siguientes productos:\n\n";
     const productText = cart.reduce(
-      (message: string, product: Product) =>
+      (message: string, product: CartProduct) =>
         message.concat(
           `- ${product.name} (${product.quantity ?? 0} unidades) - $${
             Number(product.price) * (Number(product.quantity) ?? 0)
@@ -60,7 +56,7 @@ export default function CartMenu({}: Props) {
   };
 
   return (
-    open && (
+    openCart && (
       <div
         className="min-h-[30%] absolute right-0 top-16 w-96 bg-white shadow-lg rounded-lg z-50"
         onClick={(e) => e.stopPropagation()}
@@ -73,7 +69,7 @@ export default function CartMenu({}: Props) {
               </Typography>
             </div>
           ) : (
-            cart?.map((product: Product) => (
+            cart?.map((product: CartProduct) => (
               <div key={product.id} className="flex items-center p-2">
                 <Image
                   src={product.image[0]}
@@ -90,7 +86,7 @@ export default function CartMenu({}: Props) {
                 </div>
                 <div className="flex items-center gap-2 ml-auto">
                   <button
-                    onClick={() => dispatch(decrementQuantityCart(product.id))}
+                    onClick={() => decrementQuantityCart(product.id)}
                     className={`text-white px-1 py-1 rounded-md bg-red-500 enabled:hover:bg-red-800 focus:outline-none focus:bg-red-700 
                   disabled:opacity-50 cursor-not-allowe`}
                     disabled={product.quantity === 1}
@@ -108,7 +104,7 @@ export default function CartMenu({}: Props) {
                     className="text-center text-gray-800 w-12 border-gray-400 border rounded-md flex items-center"
                   />
                   <button
-                    onClick={() => dispatch(addToCart(product))}
+                    onClick={() => addToCart(product)}
                     className="text-white px-1 py-1 rounded-md bg-teal-500 hover:bg-teal-800 focus:outline-none focus:bg-teal-700"
                   >
                     <BsPlus className="text-gray-200 text-lg" />
@@ -116,7 +112,7 @@ export default function CartMenu({}: Props) {
                 </div>
                 <div className="flex items-end gap-2 ml-4">
                   <button
-                    onClick={() => dispatch(removeFromCart(product.id))}
+                    onClick={() => removeFromCart(product.id)}
                     className={` text-white px-2 py-2 rounded-md bg-red-500 hover:bg-red-800 focus:outline-none focus:bg-gray-700 `}
                   >
                     <BsFillCartXFill className="text-gray-200 text-lg" />
@@ -135,7 +131,7 @@ export default function CartMenu({}: Props) {
           <div className="p-2 flex justify-center gap-4">
             <button
               disabled={!cart.length}
-              onClick={() => dispatch(clearCart())}
+              onClick={() => clearCart()}
               className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:bg-red-700 mr-2 disabled:bg-gray-500"
             >
               Vaciar carrito

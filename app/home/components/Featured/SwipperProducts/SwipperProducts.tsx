@@ -1,7 +1,7 @@
 "use client";
 // import { products } from "@/api/producjs";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
 import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
@@ -12,17 +12,19 @@ import { settings } from "./settingsSlider";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import Link from "next/link";
 import SkeletonFeatured from "./skeletonFeatured";
-import { useProductList } from "@/app/hooks";
+import { Product } from "@/app/models";
 
-const SwipperProducts = () => {
+type Props = {
+  products: Product[];
+};
+
+const SwipperProducts = ({ products }: Props) => {
   const slider = useRef<Slider>(null);
 
   const [isDraggin, setIsDraggin] = useState(false);
 
-  const { products, loading } = useProductList();
-
   const productosDestacadosFiltrados = products.filter(
-    (prod) =>
+    (prod: Product) =>
       prod.image.some((img) => typeof img === "string") && prod.destacado
   );
 
@@ -42,44 +44,44 @@ const SwipperProducts = () => {
             isDraggin && `cursor-grabbing`
           }`}
         >
-          {loading
-            ? [1, 2, 3, 4].map((index) => <SkeletonFeatured key={index} />)
-            : productosDestacadosFiltrados.map((prod, i) => (
-                <div
-                  className="relative flex items-center justify-center flex-col text-center w-full"
-                  key={i}
-                  onMouseUp={() => setIsDraggin(false)}
-                  onMouseDown={() => setIsDraggin(true)}
-                >
-                  <div>
-                    <p className="text-xl font-bold uppercase">{prod.name}</p>
-                  </div>
-
-                  <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
-                    <Image
-                      height={300}
-                      width={300}
-                      src={prod.image[0]}
-                      alt="asparri"
-                      className="object-cover"
-                    />
-                  </div>
-
-                  <div>
-                    <p className="text-[#f18500] font-black text-2xl">
-                      {parseCurrency(Number(prod.price))}
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center justify-center">
-                    <Link
-                      href={`/productos/${prod.id}`}
-                      className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
-                    >
-                      <p className="font-semibold">Consultar</p>
-                    </Link>
-                  </div>
+          {productosDestacadosFiltrados.map((prod: Product, i) => (
+            <Suspense fallback={<SkeletonFeatured key={i} />}>
+              <div
+                className="relative flex items-center justify-center flex-col text-center w-full"
+                key={i}
+                onMouseUp={() => setIsDraggin(false)}
+                onMouseDown={() => setIsDraggin(true)}
+              >
+                <div>
+                  <p className="text-xl font-bold uppercase">{prod.name}</p>
                 </div>
-              ))}
+
+                <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
+                  <Image
+                    height={300}
+                    width={300}
+                    src={prod.image[0]}
+                    alt="asparri"
+                    className="object-cover"
+                  />
+                </div>
+
+                <div>
+                  <p className="text-[#f18500] font-black text-2xl">
+                    {parseCurrency(Number(prod.price))}
+                  </p>
+                </div>
+                <div className="flex flex-col items-center justify-center">
+                  <Link
+                    href={`/productos-v2/${prod.id}`}
+                    className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
+                  >
+                    <p className="font-semibold">Consultar</p>
+                  </Link>
+                </div>
+              </div>
+            </Suspense>
+          ))}
         </Slider>
       </div>
       <button

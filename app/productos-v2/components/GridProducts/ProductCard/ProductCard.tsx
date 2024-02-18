@@ -1,5 +1,4 @@
 "use client";
-import { useDispatch } from "react-redux";
 import { Product } from "@/app/models/Product";
 import {
   Card,
@@ -8,19 +7,15 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Image from "next/image";
-import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
-import { openProductDetails, selectProduct } from "@/app/redux/slices/product";
-import { BaseSyntheticEvent, useState } from "react";
-import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 import Link from "next/link";
+import { useState } from "react";
 
 interface Props {
   product: Product;
 }
 
 export default function ProductCard({ product }: Props) {
-  const dispatch = useDispatch();
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseEnter = () => {
@@ -30,23 +25,9 @@ export default function ProductCard({ product }: Props) {
   const handleMouseLeave = () => {
     setIsHovered(false);
   };
-  const handleAddToCart = (event: BaseSyntheticEvent) => {
-    event.stopPropagation();
-    dispatch(addToCart(product));
-    toastAddToCart();
-  };
-
-  const handleClick = () => {
-    dispatch(selectProduct(product));
-    dispatch(openProductDetails());
-  };
 
   return (
-    <Link
-      scroll={false}
-      href={`/productos-v2/${product.id}`}
-      onClick={handleClick}
-    >
+    <Link shallow scroll={false} href={`/productos-v2/${product.id}`}>
       <Card
         className={`border border-gray-400/50 md:h-72 h-60 w-44 md:w-52 flex gap-2 overflow-hidden shadow-md hover:shadow-lg transform ${
           isHovered ? "hover:scale-105 transition-all duration-300" : ""
@@ -58,7 +39,6 @@ export default function ProductCard({ product }: Props) {
           shadow={false}
           floated={false}
           className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
-          onClick={handleClick}
         >
           <Image
             src={

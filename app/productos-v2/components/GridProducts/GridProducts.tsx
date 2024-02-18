@@ -58,13 +58,16 @@ export default function GridProducts({
   }, [pathname]);
 
   return (
-    <>
-      <Navbar setProductsFiltered={setProductsFiltered} />
+    <main>
+      <Navbar
+        setProductsFiltered={setProductsFiltered}
+        openSidebar={openSidebar}
+        setOpenSidebar={setopenSidebar}
+      />
 
       <CategoriesNavV2
         setCategoryActive={setCategoryActive}
         categoryActive={categoryActive}
-        productsFiltered={productsFiltered}
         categoriesSubCategories={categoriesSubCategories}
         setSubCategoryActive={setSubCategoryActive}
         setProductsFiltered={setProductsFiltered}
@@ -103,6 +106,6 @@ export default function GridProducts({
           />
         </div>
       </div>
-    </>
+    </main>
   );
 }

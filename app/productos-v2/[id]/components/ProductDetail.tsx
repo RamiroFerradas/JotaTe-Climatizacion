@@ -1,9 +1,7 @@
 "use client";
-import { addToCart } from "@/app/redux/slices/cart";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import Drawer from "@mui/material/Drawer";
@@ -21,23 +19,23 @@ import { Button } from "@material-tailwind/react";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { formattedText } from "@/app/utilities/formattedText";
 import { Loading } from "@/app/components";
-import { fetchProductById } from "@/app/services/fetchs/fetchProducts";
-import { useConditionProducts, useProductList } from "@/app/hooks";
-import { useParams, useRouter } from "next/navigation";
+import { useConditionProducts } from "@/app/hooks";
+import { useRouter } from "next/navigation";
 import ImagesProduct from "./ImagesProduct";
 import { ProductCard } from "../../components";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
-import { Product } from "@/app/models";
+import { CartProduct, Product } from "@/app/models";
+import { useCart } from "../../context/CartContext";
 
 type Props = {
   selectedProduct: Product;
 };
 const ProductDetail = ({ selectedProduct }: Props) => {
-  const dispatch = useDispatch();
-
   const { conditionProduct } = useConditionProducts({
     selectedProduct,
   });
+
+  const { addToCart } = useCart();
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
@@ -65,11 +63,11 @@ const ProductDetail = ({ selectedProduct }: Props) => {
       sessionStorage.setItem(productKey, "true");
     }
   };
-  useEffect(() => {
-    return () => {
-      addConsult();
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     addConsult();
+  //   };
+  // }, []);
 
   const handleConsultProduct = () => {
     if (!selectedProduct) return;
@@ -82,7 +80,7 @@ const ProductDetail = ({ selectedProduct }: Props) => {
   };
 
   const handleAddToCart = () => {
-    dispatch(addToCart(selectedProduct));
+    addToCart(selectedProduct as CartProduct);
     toastAddToCart();
   };
 
@@ -107,7 +105,7 @@ const ProductDetail = ({ selectedProduct }: Props) => {
       anchor={"right"}
       open={true}
       onClose={toggleDrawer()}
-      className="min-h-screen w-scree"
+      className="min-h-screen z-50"
     >
       <Card className="flex flex-col md:w-[48rem] justify-between items-center px-0 h-full overflow-y-auto w-screen">
         <div className="overflow-y-auto w-full">

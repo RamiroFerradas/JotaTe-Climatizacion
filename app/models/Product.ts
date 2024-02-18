@@ -10,9 +10,12 @@ export interface Product {
   category?: OptionType | string;
   subcategory?: OptionType | string;
   stock?: string | number;
-  quantity?: string | number;
   consults?: string | number;
   destacado: boolean;
   visible: boolean;
   newPrice?: string | number;
+}
+
+export interface CartProduct extends Product {
+  quantity: number;
 }
