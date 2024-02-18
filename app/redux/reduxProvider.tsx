@@ -16,11 +16,7 @@ const ReduxProvider: NextPage<RootLayoutProps> = ({ children }) => {
     TagManager.initialize({ gtmId: "GTM-KNWJJVW" });
   }, []);
 
-  return (
-    <Provider store={store}>
-      <ThemeProvider>{children}</ThemeProvider>
-    </Provider>
-  );
+  return <Provider store={store}>{children}</Provider>;
 };
 
 export default ReduxProvider;
