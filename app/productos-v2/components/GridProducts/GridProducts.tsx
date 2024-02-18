@@ -1,5 +1,5 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, Suspense } from "react";
 import { useProductList } from "@/app/hooks";
 import { Product } from "@/app/models";
 import Paginate from "../Paginate";
@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import ProductCard from "./ProductCard/ProductCard";
 import CategoriesNavV2 from "../CategoriesNavV2";
 import Navbar from "../Navbar/Navbar";
+import CardSkeleton from "./ProductCard/CardSkeleton";
 
 type Props = {
   products: Product[];
@@ -88,7 +89,9 @@ export default function GridProducts({
           <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
             {productsToShow.length > 0
               ? productsToShow.map((prod) => (
-                  <ProductCard key={prod.id} product={prod} />
+                  <Suspense key={prod.id} fallback={<CardSkeleton />}>
+                    <ProductCard product={prod} />
+                  </Suspense>
                 ))
               : searchPerformed && (
                   <div className="flex items-center justify-center h-48">

@@ -20,7 +20,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import { formattedText } from "@/app/utilities/formattedText";
 import { Loading } from "@/app/components";
 import { useConditionProducts } from "@/app/hooks";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import ImagesProduct from "./ImagesProduct";
 import { ProductCard } from "../../components";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
@@ -39,10 +39,8 @@ const ProductDetail = ({ selectedProduct }: Props) => {
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
 
-  const query = useParams();
   const searchParams = useSearchParams();
   const prevRoute = searchParams.get("prevRoute");
-  console.log(prevRoute);
 
   const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
   const productText = `${selectedProduct?.name} - ${parseCurrency(
