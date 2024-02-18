@@ -11,7 +11,7 @@ export async function searchProducts(query: string) {
     let queryBuilder = supabase
       .from(TABLE_PRODUCTS)
       .select("*")
-      .filter("visible", "eq", true);
+      .eq("visible", "true");
 
     if (query.trim() !== "") {
       queryBuilder = queryBuilder.ilike("name", `%${query}%`);

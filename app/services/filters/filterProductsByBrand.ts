@@ -11,13 +11,13 @@ export async function FilterProductsByBrand(uniqueBrands: string[]) {
     let { data: filteredProducts, error } = await supabase
       .from(TABLE_PRODUCTS)
       .select("*")
-      .filter("visible", "eq", true);
+      .eq("visible", "true");
 
     if (uniqueBrands.length > 0) {
       ({ data: filteredProducts, error } = await supabase
         .from(TABLE_PRODUCTS)
-        .select("*")
-        .filter("visible", "eq", true)
+        .select()
+        .eq("visible", "true")
         .in("brand", uniqueBrands));
     }
 

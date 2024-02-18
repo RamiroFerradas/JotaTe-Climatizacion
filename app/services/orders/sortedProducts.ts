@@ -24,7 +24,7 @@ export async function FetchAndSortProducts(
       const { data, error } = await supabase
         .from(TABLE_PRODUCTS)
         .select("*")
-        .filter("visible", "eq", true);
+        .eq("visible", "true");
 
       if (error) {
         throw error;

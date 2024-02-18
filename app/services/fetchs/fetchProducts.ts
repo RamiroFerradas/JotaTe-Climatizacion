@@ -44,7 +44,7 @@ export async function fetchProductById(id: string): Promise<Product> {
     const { data, error } = await supabase
       .from(TABLE_PRODUCTS)
       .select("*")
-      .filter("visible", "eq", true)
+      .eq("visible", "true")
       .eq("id", id);
     const productsWithParsedImages = data.map((product) => ({
       ...product,

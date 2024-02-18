@@ -9,9 +9,9 @@ export async function FilterProductsBySubcategories(subcategories: string) {
   try {
     const { data: filteredProducts, error } = await supabase
       .from(TABLE_PRODUCTS)
-      .select("*")
-      .filter("visible", "eq", true)
-      .in("subcategory", [subcategories]);
+      .select()
+      .in("subcategory", [subcategories])
+      .eq("visible", "true");
 
     if (error) {
       throw error;

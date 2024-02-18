@@ -9,7 +9,8 @@ export async function fetchCategories() {
     const supabase = createServerComponentClient({ cookies });
     const { data, error } = await supabase
       .from(TABLE_PRODUCTS)
-      .select("category");
+      .select("category")
+      .eq("visible", "true");
 
     if (error) {
       throw error;

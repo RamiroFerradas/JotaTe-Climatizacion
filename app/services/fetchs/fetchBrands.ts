@@ -9,8 +9,9 @@ export async function fetchBrands() {
     const supabase = createServerComponentClient({ cookies });
 
     const { data, error } = await supabase
-      .from(TABLE_PRODUCTS) // Reemplaza 'products' con el nombre de tu tabla
-      .select("brand");
+      .from(TABLE_PRODUCTS)
+      .select("brand")
+      .eq("visible", "true");
 
     if (error) {
       throw error;
