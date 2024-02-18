@@ -11,6 +11,7 @@ type Props = {
   categoriesSubCategories: { category: string; options: string[] }[];
   setSubCategoryActive: (subCategory: string) => void;
   setProductsFiltered: (products: Product[]) => void;
+  setLoadProducts: (load: boolean) => void;
 };
 export default function CategoriesNavV2({
   setCategoryActive,
@@ -19,6 +20,7 @@ export default function CategoriesNavV2({
   setSubCategoryActive,
   setProductsFiltered,
   allProducts,
+  setLoadProducts,
 }: Props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -64,6 +66,7 @@ export default function CategoriesNavV2({
 
   const handleOptionClick = async (option: string) => {
     try {
+      setLoadProducts(true);
       if (option == "Todos") {
         setProductsFiltered(allProducts);
         setCategoryActive("Todos");
@@ -71,9 +74,11 @@ export default function CategoriesNavV2({
         const productsFilteres = await FilterProductsBySubcategories(option);
         setProductsFiltered(productsFilteres);
       }
-
+      setLoadProducts(false);
       setSubCategoryActive(option);
     } catch (error) {
+      setLoadProducts(false);
+
       console.error("Error al filtrar productos:", error.message);
     }
   };

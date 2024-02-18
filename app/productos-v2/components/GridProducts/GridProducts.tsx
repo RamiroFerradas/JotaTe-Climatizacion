@@ -26,6 +26,7 @@ export default function GridProducts({
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
   const [openSidebar, setopenSidebar] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loadProducts, setLoadProducts] = useState(false);
   const productsPerPage = 15;
 
   const productsToShow = useMemo(() => {
@@ -34,29 +35,10 @@ export default function GridProducts({
     return productsFiltered?.slice(indexOfFirstProduct, indexOfLastProduct);
   }, [productsFiltered, currentPage]);
   const totalPages = Math.ceil(productsFiltered?.length / productsPerPage);
-  const pathname = usePathname();
 
   useEffect(() => {
     setCurrentPage(1);
   }, [subCategoryActive]);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const scrollPosition = window.scrollY;
-  //     sessionStorage.setItem("scrollPosition", String(scrollPosition));
-  //   };
-
-  //   window.addEventListener("scroll", handleScroll);
-
-  //   const savedScrollPosition = sessionStorage.getItem("scrollPosition");
-  //   if (savedScrollPosition) {
-  //     window.scrollTo(0, parseInt(savedScrollPosition, 10));
-  //   }
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [pathname]);
 
   return (
     <main>
@@ -73,6 +55,7 @@ export default function GridProducts({
         setSubCategoryActive={setSubCategoryActive}
         setProductsFiltered={setProductsFiltered}
         allProducts={products}
+        setLoadProducts={setLoadProducts}
       />
 
       <div className="flex justify-center items-start relative">
@@ -87,19 +70,22 @@ export default function GridProducts({
         </div>
         <div className="md:w-3/4">
           <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
-            {productsToShow.length > 0
-              ? productsToShow.map((prod) => (
+            {loadProducts
+              ? Array.from({ length: 10 }).map((_, i) => (
+                  <CardSkeleton key={i} />
+                ))
+              : productsToShow.map((prod) => (
                   <Suspense key={prod.id} fallback={<CardSkeleton />}>
                     <ProductCard product={prod} />
                   </Suspense>
-                ))
-              : searchPerformed && (
-                  <div className="flex items-center justify-center h-48">
-                    <p className="text-center text-gray-600 text-lg">
-                      No hubo resultados para tu búsqueda.
-                    </p>
-                  </div>
-                )}
+                ))}
+            {searchPerformed && (
+              <div className="flex items-center justify-center h-48">
+                <p className="text-center text-gray-600 text-lg">
+                  No hubo resultados para tu búsqueda.
+                </p>
+              </div>
+            )}
           </div>
 
           <Paginate

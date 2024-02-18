@@ -8,7 +8,7 @@ import { Footer, Loading } from "../components";
 import { useDispatch } from "react-redux";
 import { closeMenuCart } from "../redux/slices/cart";
 import { Toaster } from "react-hot-toast";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useProductList } from "../hooks";
 
 export default function RootLayout({
@@ -20,6 +20,11 @@ export default function RootLayout({
   const dispatch = useDispatch();
   const { loading } = useProductList();
   const pathname = usePathname();
+  const router = useRouter();
+
+  useEffect(() => {
+    pathname === "/productos" && router.replace("/productos-v2");
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
