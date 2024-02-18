@@ -18,7 +18,7 @@ export const toastErrorAdmin = (text: string) =>
     icon: <MdErrorOutline className="text-xl" />,
     style: {
       borderRadius: "10px",
-      background: "red",
+      background: "#ff3916",
       color: "#fff",
       zIndex: 9999,
       position: "relative",
