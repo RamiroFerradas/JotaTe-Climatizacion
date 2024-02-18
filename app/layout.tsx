@@ -8,6 +8,8 @@ import ReduxProvider from "./redux/reduxProvider";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 import Favicon from "../public/favicon.ico";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { GoogleAnalytics } from "@next/third-parties/google";
+
 const myFont = localFont({
   src: "../public/fonts/BNChester.otf",
 });
@@ -29,6 +31,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <GoogleAnalytics gaId="GTM-KNWJJVW" />{" "}
         <ReduxProvider>
           <div className="min-h-screen flex flex-col">
             <div className="flex-grow flex flex-col">{children}</div>

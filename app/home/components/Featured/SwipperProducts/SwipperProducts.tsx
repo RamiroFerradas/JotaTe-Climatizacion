@@ -13,6 +13,7 @@ import { parseCurrency } from "@/app/utilities/parseCurrency";
 import Link from "next/link";
 import SkeletonFeatured from "./skeletonFeatured";
 import { Product } from "@/app/models";
+import { useRouter } from "next/navigation";
 
 type Props = {
   products: Product[];
@@ -20,7 +21,7 @@ type Props = {
 
 const SwipperProducts = ({ products }: Props) => {
   const slider = useRef<Slider>(null);
-
+  const router = useRouter();
   const [isDraggin, setIsDraggin] = useState(false);
 
   const productosDestacadosFiltrados = products.filter(
@@ -73,7 +74,10 @@ const SwipperProducts = ({ products }: Props) => {
                 </div>
                 <div className="flex flex-col items-center justify-center">
                   <Link
-                    href={`/productos-v2/${prod.id}`}
+                    href={{
+                      pathname: `/productos-v2/${prod.id}`,
+                      query: { prevRoute: "home" },
+                    }}
                     className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
                   >
                     <p className="font-semibold">Consultar</p>
