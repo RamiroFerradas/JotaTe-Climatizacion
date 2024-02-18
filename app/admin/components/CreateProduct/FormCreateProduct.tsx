@@ -13,14 +13,13 @@ import {
   formattedJsonToImagesArray,
 } from "@/app/utilities/formattedImagesArrayToJson";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
+import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;
   optionsSubcategory: OptionType[];
   optionsCategory: OptionType[];
   optionsBrands: OptionType[];
-  setSnackBarMessage: React.Dispatch<React.SetStateAction<string>>;
-  setErrorSnackBar: React.Dispatch<React.SetStateAction<string>>;
   editProduct: Product;
   setEditProduct: React.Dispatch<React.SetStateAction<Product>>;
   updatedFilteredProducts: (product: Product[]) => void;
@@ -31,8 +30,6 @@ export default function FormCreateProduct({
   optionsSubcategory,
   optionsCategory,
   optionsBrands,
-  setErrorSnackBar,
-  setSnackBarMessage,
   editProduct,
   setEditProduct,
   updatedFilteredProducts,
@@ -117,13 +114,12 @@ export default function FormCreateProduct({
         updatedFilteredProducts(productToUpdate);
       }
 
-      setSnackBarMessage("Producto creado con exito");
+      toastOkAdmin("Producto creado con exito");
       setOpenModalForm(false);
       reset();
     } catch (error) {
       console.error(error.message);
-      setSnackBarMessage(`Error al crear el producto: , ${error.message}`);
-      setErrorSnackBar(`Error al crear el producto: , ${error.message}`);
+      toastErrorAdmin(`Error al crear el producto: , ${error.message}`);
     }
   };
   const handleClose = () => {

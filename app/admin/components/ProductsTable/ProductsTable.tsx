@@ -44,6 +44,7 @@ import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";
 import { useScreenSize } from "@/app/hooks";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { FaEdit } from "react-icons/fa";
+import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
 
 type Props = {
   products: Product[];
@@ -72,7 +73,6 @@ export default function ProductsTable({
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [openModalForm, setOpenModalForm] = useState<boolean>(false);
   const [editProduct, setEditProduct] = useState<Product | null>(null);
-  const [snackBarMessage, setSnackBarMessage] = useState<string>("");
   const [productosPorActualizar, setProductosPorActualizar] = useState(0);
 
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
@@ -166,10 +166,10 @@ export default function ProductsTable({
       }
       const message =
         selected.length < 1 ? "Productos actualizados" : "Producto actualizado";
-      setSnackBarMessage(message);
+      toastOkAdmin(message);
     } catch (error) {
       setError(error.message);
-      setSnackBarMessage(error.message);
+      toastErrorAdmin(error.message);
     } finally {
       setLoading(false);
       setSelected([]);
@@ -202,7 +202,6 @@ export default function ProductsTable({
     if (reason === "clickaway") {
       return;
     }
-    setSnackBarMessage("");
   };
 
   const defaultvalueNewPrice = (row: Product) => {
@@ -459,96 +458,12 @@ export default function ProductsTable({
             optionsBrands={optionsBrands}
             optionsSubcategory={optionsSubcategory}
             setOpenModalForm={setOpenModalForm}
-            setSnackBarMessage={setSnackBarMessage}
-            setErrorSnackBar={setError}
             editProduct={editProduct}
             setEditProduct={setEditProduct}
             updatedFilteredProducts={updatedFilteredProducts}
           />
         </div>
       </Modal>
-      <Snackbar
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-        open={!!snackBarMessage}
-        autoHideDuration={4000}
-        onClose={handleClose}
-        TransitionComponent={SlideTransition}
-      >
-        <Alert
-          severity={!error ? "success" : "error"}
-          variant="filled"
-          sx={{ width: "100%" }}
-        >
-          {snackBarMessage}
-        </Alert>
-      </Snackbar>
     </div>
   );
-}
-
-{
-  /* <TableCell className="w-2/12" align="left">
-                        {
-                          <div
-                            className="min-w-[10rem]"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <CreatableSelect
-                              isClearable
-                              className="w-full"
-                              options={optionsCategory as any}
-                              value={optionsCategory.find(
-                                (op: any) => op.value === row.category
-                              )}
-                              onMenuOpen={() => handleClickRow(row, true)}
-                              onMenuClose={() => handleClickRow(row, true)}
-                              onChange={(e) => {
-                                setSelected((prevProducts) =>
-                                  updateProductInSelected(
-                                    prevProducts,
-                                    row.id,
-                                    {
-                                      category: e ? e.label : row.category,
-                                    }
-                                  )
-                                );
-                              }}
-                              styles={selectStyles(false)}
-                            />
-                          </div>
-                        }
-                      </TableCell>
-                      <TableCell className="w-2/12" align="left">
-                        {
-                          <div
-                            className="min-w-[10rem]"
-                            onClick={(e) => e.stopPropagation()}
-                          >
-                            <CreatableSelect
-                              className="w-full"
-                              styles={selectStyles(false)}
-                              isClearable
-                              options={optionsSubcategory as any}
-                              value={optionsSubcategory.find(
-                                (op: any) => op.value === row.subcategory
-                              )}
-                              onMenuOpen={() => handleClickRow(row, true)}
-                              onMenuClose={() => handleClickRow(row, true)}
-                              onChange={(e) => {
-                                setSelected((prevProducts) =>
-                                  updateProductInSelected(
-                                    prevProducts,
-                                    row.id,
-                                    {
-                                      subcategory: e
-                                        ? e.label
-                                        : row.subcategory,
-                                    }
-                                  )
-                                );
-                              }}
-                            />
-                          </div>
-                        }
-                      </TableCell> */
 }
