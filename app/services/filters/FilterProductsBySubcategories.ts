@@ -1,17 +1,12 @@
 "use server";
-
 import { TABLE_PRODUCTS } from "@/app/constants";
-import { SortOrderOptions } from "@/app/models/SortOrderOption";
 import { processImagesString } from "@/app/utilities/processImagesString";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-
-import { Product } from "@/app/models";
+const supabase = createServerComponentClient({ cookies });
 
 export async function FilterProductsBySubcategories(subcategories: string) {
   try {
-    const supabase = createServerComponentClient({ cookies });
-
     const { data: filteredProducts, error } = await supabase
       .from(TABLE_PRODUCTS)
       .select("*")

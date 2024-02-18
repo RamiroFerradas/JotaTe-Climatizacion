@@ -1,28 +1,35 @@
-"use client";
-
 export type SearchbarProps = {};
-import { searchProducts } from "@/app/redux/slices/products";
+import { Product } from "@/app/models";
+import { searchProducts } from "@/app/services/filters/searchProducts";
 import { Input, Button } from "@material-tailwind/react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 
-type Props = {};
-export default function Searchbar({}: Props) {
-  const dispatch = useDispatch();
+type Props = {
+  setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
+};
+export default function Searchbar({ setProductsFiltered }: Props) {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    dispatch(searchProducts(search));
-    setIsSearching(true);
+    try {
+      const results = await searchProducts(search);
+      setProductsFiltered(results);
+      setIsSearching(true);
+    } catch (error) {
+      console.error("Error al buscar productos:", error.message);
+    }
   };
-
-  const handleClear = () => {
-    dispatch(searchProducts(""));
-    setSearch("");
-    setIsSearching(false);
+  const handleClear = async () => {
+    try {
+      const results = await searchProducts("");
+      setProductsFiltered(results);
+      setSearch("");
+      setIsSearching(false);
+    } catch (error) {
+      console.error("Error al buscar productos:", error.message);
+    }
   };
 
   return (

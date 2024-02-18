@@ -19,7 +19,7 @@ import { SortOrderOptions } from "@/app/models/SortOrderOption";
 type Props = {
   open: number;
   handleOpen: (value: number) => void;
-  setProductsFiltered: (product: Product[]) => void;
+  setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   productsFiltered: Product[];
 };
 

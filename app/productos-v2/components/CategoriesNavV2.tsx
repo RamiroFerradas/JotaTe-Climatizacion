@@ -25,18 +25,16 @@ export default function CategoriesNavV2({
   const [activeMenu, setActiveMenu] = useState(null);
 
   const handleCloseAll = () => {
-    setCategoryActive("Todos");
     setActiveMenu(null);
   };
 
-  useOnClickOutside(menuRef, handleCloseAll);
+  useOnClickOutside(menuRef, () => handleCloseAll());
 
   const handleOpen = (
     event: React.MouseEvent<HTMLButtonElement>,
     category: string
   ) => {
     setAnchorEl(event.currentTarget);
-    setCategoryActive(category);
     setActiveMenu(category);
   };
 
@@ -68,6 +66,7 @@ export default function CategoriesNavV2({
     try {
       if (option == "Todos") {
         setProductsFiltered(allProducts);
+        setCategoryActive("Todos");
       } else {
         const productsFilteres = await FilterProductsBySubcategories(option);
         setProductsFiltered(productsFilteres);
@@ -76,16 +75,12 @@ export default function CategoriesNavV2({
       setSubCategoryActive(option);
     } catch (error) {
       console.error("Error al filtrar productos:", error.message);
-      // Manejar el error según tus necesidades
     }
   };
 
   return (
-    <nav
-      ref={menuRef}
-      className="bg-[#006d54] h-16 flex items-center w-full overflow-x-auto text-center px-4 md:justify-center"
-    >
-      <div>
+    <nav className="bg-[#006d54] h-16 flex items-center w-full overflow-x-auto text-center px-4 md:justify-center">
+      <div ref={menuRef}>
         <Button
           aria-owns={anchorEl ? `menu-all` : null}
           aria-haspopup="true"
@@ -145,6 +140,8 @@ export default function CategoriesNavV2({
                     <MenuItem
                       onClick={(e) => {
                         handleOptionClick(option);
+                        setCategoryActive(categorySubcategory.category);
+
                         handleClose(e);
                       }}
                     >

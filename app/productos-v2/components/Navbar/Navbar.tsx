@@ -9,13 +9,15 @@ import { useState } from "react";
 import CartMenu from "./CartMenu";
 import CartIcon from "./CartIcon";
 import Searchbar from "./Searchbar";
+import { Product } from "@/app/models";
 
 type Props = {
   // openSidebar: boolean;
   // setopenSidebar: (value: boolean) => void;
+  setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-export default function Navbar({}: Props) {
+export default function Navbar({ setProductsFiltered }: Props) {
   const [showCartMenu, setShowCartMenu] = useState(false);
 
   return (
@@ -35,7 +37,7 @@ export default function Navbar({}: Props) {
           />
         </Link>
         <div className="flex md:w-max order-4 sm:order-3 md:order-2 justify-center items-center gap-2 flex-wrap">
-          <Searchbar />
+          <Searchbar setProductsFiltered={setProductsFiltered} />
         </div>
         <div className="md:hidden flex md:w-max xs:order-4 md:order-4 justify-center items-center gap-2 flex-wrap order-3">
           <button

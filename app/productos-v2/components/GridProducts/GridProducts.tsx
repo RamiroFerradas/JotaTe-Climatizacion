@@ -7,6 +7,7 @@ import Sidebar from "../SIdebar/Sidebar";
 import { usePathname } from "next/navigation";
 import ProductCard from "./ProductCard/ProductCard";
 import CategoriesNavV2 from "../CategoriesNavV2";
+import Navbar from "../Navbar/Navbar";
 
 type Props = {
   products: Product[];
@@ -58,6 +59,8 @@ export default function GridProducts({
 
   return (
     <>
+      <Navbar setProductsFiltered={setProductsFiltered} />
+
       <CategoriesNavV2
         setCategoryActive={setCategoryActive}
         categoryActive={categoryActive}

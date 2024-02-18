@@ -1,9 +1,7 @@
-"use client";
 export type AppbarProps = {
   setopenSidebar: React.Dispatch<React.SetStateAction<boolean>>;
   openSidebar: boolean;
 };
-import { Navbar } from "@material-tailwind/react";
 import Image from "next/image";
 
 import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";

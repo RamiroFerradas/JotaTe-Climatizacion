@@ -26,7 +26,7 @@ type Props = {
   isOpen: number;
   setSelected: (product: any) => void;
   selected: string[];
-  setProductsFiltered: (product: Product[]) => void;
+  setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 export default function MenuCheckbox({
   open,

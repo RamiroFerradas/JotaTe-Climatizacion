@@ -24,7 +24,7 @@ export async function fetchProducts(
     const { data, error } = await query; // <-- Corregir aquí
 
     if (error) {
-      throw new Error(`Error al obtener datos de Supabase: ${error.message}`);
+      throw new Error();
     }
 
     const productsWithParsedImages = data.map((product) => ({
@@ -41,10 +41,10 @@ export async function fetchProducts(
 export async function fetchProductById(id: string): Promise<Product> {
   try {
     const supabase = createServerComponentClient({ cookies });
-    // const { id } = params;
     const { data, error } = await supabase
       .from(TABLE_PRODUCTS)
       .select("*")
+      .filter("visible", "eq", true)
       .eq("id", id);
     const productsWithParsedImages = data.map((product) => ({
       ...product,
@@ -52,9 +52,7 @@ export async function fetchProductById(id: string): Promise<Product> {
     }));
 
     if (error) {
-      throw new Error(
-        `Error al obtener el producto con ID ${id}: ${error.message}`
-      );
+      throw new Error();
     }
     // const data = await response.json();
 

@@ -25,32 +25,26 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
       <Toaster position="top-right" />
       {children}
 
-      <div className="">
-        <Appbar />
+      {/* <CategoriesNavV2 products={products} /> */}
 
-        <div>
-          {/* <CategoriesNavV2 products={products} /> */}
-
-          {/* <div className="flex justify-center items-start relative"> */}
-          {/* <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:minh-[80vh] overflow-y-auto p-4 custom-scrollbar">
+      {/* <div className="flex justify-center items-start relative"> */}
+      {/* <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:minh-[80vh] overflow-y-auto p-4 custom-scrollbar">
               <Sidebar
 
               // setopenSidebar={setopenSidebar}
               // openSidebar={openSidebar}
               />
             </div> */}
-          {/* <div className="md:w-3/4"> */}
-          <Suspense fallback={<Loading />}>
-            <GridProducts
-              categoriesSubCategories={categoriesSubCategories}
-              brands={brands}
-              products={products}
-            />
-          </Suspense>
-          {/* </div> */}
-          {/* </div> */}
-        </div>
-      </div>
+      {/* <div className="md:w-3/4"> */}
+      <Suspense fallback={<Loading />}>
+        <GridProducts
+          categoriesSubCategories={categoriesSubCategories}
+          brands={brands}
+          products={products}
+        />
+      </Suspense>
+      {/* </div> */}
+      {/* </div> */}
       <Footer />
     </main>
   );
