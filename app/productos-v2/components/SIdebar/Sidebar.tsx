@@ -17,6 +17,7 @@ type Props = {
   productsFiltered: Product[];
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   brands: { label: string }[];
+  setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Sidebar({
@@ -25,6 +26,7 @@ export default function Sidebar({
   setProductsFiltered,
   productsFiltered,
   brands,
+  setLoadProducts,
 }: Props) {
   const [brandsFiltered, setBrandsFiltered] = useState<[]>([]);
 
@@ -65,6 +67,7 @@ export default function Sidebar({
           setSelected={setBrandsFiltered}
           selected={brandsFiltered}
           setProductsFiltered={setProductsFiltered}
+          setLoadProducts={setLoadProducts}
         />
 
         <Orders
@@ -72,6 +75,7 @@ export default function Sidebar({
           handleOpen={handleOpen}
           setProductsFiltered={setProductsFiltered}
           productsFiltered={productsFiltered}
+          setLoadProducts={setLoadProducts}
         />
       </List>
     </Card>

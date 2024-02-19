@@ -1,7 +1,7 @@
 export const settings = {
   dots: false,
   infinite: true,
-  autoplay: true,
+  autoplay: false,
   autoplaySpeed: 3000,
   speed: 1000,
   slidesToShow: 3,

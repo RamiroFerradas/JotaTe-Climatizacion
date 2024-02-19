@@ -21,6 +21,7 @@ type Props = {
   handleOpen: (value: number) => void;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   productsFiltered: Product[];
+  setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function Orders({
@@ -28,12 +29,14 @@ export default function Orders({
   handleOpen,
   setProductsFiltered,
   productsFiltered,
+  setLoadProducts,
 }: Props) {
   const handleOrderChange = async (e: ChangeEvent<HTMLInputElement>) => {
     e.stopPropagation();
     const type = e.target.value;
 
     try {
+      setLoadProducts(true);
       const sortedProducts = await FetchAndSortProducts(
         "price",
         type as SortOrderOptions,
@@ -45,6 +48,8 @@ export default function Orders({
         "Error al cambiar el orden de los productos:",
         error.message
       );
+    } finally {
+      setLoadProducts(false);
     }
   };
 

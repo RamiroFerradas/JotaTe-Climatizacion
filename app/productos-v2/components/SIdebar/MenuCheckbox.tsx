@@ -26,6 +26,7 @@ type Props = {
   isOpen: number;
   setSelected: (product: any) => void;
   selected: string[];
+  setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 export default function MenuCheckbox({
@@ -36,6 +37,7 @@ export default function MenuCheckbox({
   isOpen,
   setSelected,
   selected,
+  setLoadProducts,
   setProductsFiltered,
 }: Props) {
   const handleChecked = async (event: FormEvent<HTMLInputElement>) => {
@@ -43,14 +45,14 @@ export default function MenuCheckbox({
 
     const updateFilterAndSelected = async (selectedBrands: string[]) => {
       try {
-        const [filteredProducts, selected] = await Promise.all([
-          FilterProductsByBrand(selectedBrands),
-          setSelected(selectedBrands),
-        ]);
+        setLoadProducts(true);
+        const filteredProducts = await FilterProductsByBrand(selectedBrands);
 
-        setProductsFiltered(filteredProducts);
+        setSelected(selectedBrands), setProductsFiltered(filteredProducts);
       } catch (error) {
         console.error("Error al actualizar productos y marcas:", error.message);
+      } finally {
+        setLoadProducts(false);
       }
     };
 
@@ -64,6 +66,7 @@ export default function MenuCheckbox({
       await updateFilterAndSelected([]);
     }
   };
+
   return (
     <Accordion
       open={open === isOpen}

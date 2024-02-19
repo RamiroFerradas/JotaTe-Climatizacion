@@ -48,7 +48,7 @@ const SwipperProducts = ({ products }: Props) => {
           {productosDestacadosFiltrados.map((prod: Product, i) => (
             <Suspense fallback={<SkeletonFeatured />} key={prod.id + i}>
               <div
-                className="relative flex items-center justify-center flex-col text-center w-full"
+                className="relative flex items-center justify-between flex-col text-center w-full h-[500px] px-4"
                 key={prod.id + i}
                 onMouseUp={() => setIsDraggin(false)}
                 onMouseDown={() => setIsDraggin(true)}
@@ -63,7 +63,7 @@ const SwipperProducts = ({ products }: Props) => {
                     width={300}
                     src={prod.image[0]}
                     alt="asparri"
-                    className="object-cover"
+                    className="object-cover rounded-xl"
                   />
                 </div>
 

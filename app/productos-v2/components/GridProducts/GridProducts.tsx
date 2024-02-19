@@ -67,6 +67,7 @@ export default function GridProducts({
             setopenSidebar={setopenSidebar}
             openSidebar={openSidebar}
             brands={brands}
+            setLoadProducts={setLoadProducts}
           />
         </div>
         <div className="md:w-3/4">
@@ -96,11 +97,13 @@ export default function GridProducts({
             )}
           </div>
 
-          <Paginate
-            totalPages={totalPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
+          {!loadProducts && (
+            <Paginate
+              totalPages={totalPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
         </div>
       </div>
     </>
