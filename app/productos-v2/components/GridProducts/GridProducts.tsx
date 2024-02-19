@@ -1,6 +1,5 @@
 "use client";
 import { useState, useMemo, useEffect, Suspense } from "react";
-import { useProductList } from "@/app/hooks";
 import { Product } from "@/app/models";
 import Paginate from "../Paginate";
 import Sidebar from "../SIdebar/Sidebar";
@@ -21,7 +20,6 @@ export default function GridProducts({
   brands,
   categoriesSubCategories,
 }: Props) {
-  const { searchPerformed } = useProductList();
   const [categoryActive, setCategoryActive] = useState<string>("Todos");
   const [subCategoryActive, setSubCategoryActive] = useState<string>("");
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
@@ -88,7 +86,7 @@ export default function GridProducts({
                     </Link>
                   </Suspense>
                 ))}
-            {searchPerformed && (
+            {!productsToShow.length && (
               <div className="flex items-center justify-center h-48">
                 <p className="text-center text-gray-600 text-lg">
                   No hubo resultados para tu búsqueda.

@@ -1,4 +1,7 @@
-import { fetchProductById } from "@/app/services/fetchs/fetchProducts";
+import {
+  fetchProductById,
+  fetchProducts,
+} from "@/app/services/fetchs/fetchProducts";
 import ProductDetail from "./components/ProductDetail";
 import { Suspense } from "react";
 import { Loading } from "@/app/components";
@@ -8,5 +11,12 @@ type Props = {
 };
 export default async function ProductPage({ params }: Props) {
   const selectedProduct = await fetchProductById(params.id);
-  return <ProductDetail selectedProduct={selectedProduct} />;
+  const allProducts = await fetchProducts();
+
+  return (
+    <ProductDetail
+      selectedProduct={selectedProduct}
+      allProducts={allProducts}
+    />
+  );
 }

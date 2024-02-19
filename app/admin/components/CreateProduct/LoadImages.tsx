@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+"use client";
+
+import { useState } from "react";
 import noimage from "@/public/no-image.png";
 import Image from "next/image";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -30,7 +32,6 @@ export default function LoadImages({
 
   const [loadImage, setLoadImage] = useState(false);
   const [errorLoadImage, setErrorLoadImage] = useState(false);
-
 
   const handleFileChange = async (e: any) => {
     const image = e.target.files[0];

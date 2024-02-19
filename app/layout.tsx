@@ -4,7 +4,6 @@ import "./tailwind.globals.css";
 import { Rubik } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 import localFont from "next/font/local";
-import ReduxProvider from "./redux/reduxProvider";
 const inter = Rubik({ subsets: ["latin"], weight: "300" });
 import Favicon from "../public/favicon.ico";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -32,14 +31,11 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <html lang="en">
       <body className={inter.className}>
         <GoogleAnalytics gaId="GTM-KNWJJVW" />{" "}
-        <ReduxProvider>
-          <div className="min-h-screen flex flex-col">
-            <div className="flex-grow flex flex-col">{children}</div>
-          </div>
-
-          <Analytics />
-          <SpeedInsights />
-        </ReduxProvider>
+        <div className="min-h-screen flex flex-col">
+          <div className="flex-grow flex flex-col">{children}</div>
+        </div>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

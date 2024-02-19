@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Product } from "@/app/models/Product";

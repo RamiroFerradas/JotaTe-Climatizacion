@@ -14,7 +14,10 @@ export async function searchProducts(query: string) {
       .eq("visible", "true");
 
     if (query.trim() !== "") {
-      queryBuilder = queryBuilder.ilike("name", `%${query}%`);
+      // Intenta buscar por nombre
+      queryBuilder = queryBuilder
+        .ilike("name", `%${query}%`)
+        .or(`id.eq.${query}`);
     }
 
     const { data, error } = await queryBuilder;

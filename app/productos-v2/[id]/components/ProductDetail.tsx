@@ -31,10 +31,12 @@ import Link from "next/link";
 
 type Props = {
   selectedProduct: Product;
+  allProducts: Product[];
 };
-const ProductDetail = ({ selectedProduct }: Props) => {
+const ProductDetail = ({ selectedProduct, allProducts }: Props) => {
   const { conditionProduct } = useConditionProducts({
     selectedProduct,
+    allProducts,
   });
 
   const { addToCart } = useCart();

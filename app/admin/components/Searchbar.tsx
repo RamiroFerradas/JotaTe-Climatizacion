@@ -1,3 +1,5 @@
+"use client";
+
 import { Product } from "@/app/models";
 import React, { ChangeEvent, useState } from "react";
 
