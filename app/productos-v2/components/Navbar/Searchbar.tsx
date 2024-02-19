@@ -6,7 +6,7 @@ import { useState } from "react";
 
 type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
-  onChangue: boolean;
+  onChangue?: boolean;
 };
 export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
   const [search, setSearch] = useState("");
