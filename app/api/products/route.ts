@@ -10,8 +10,8 @@ import {
   createRouteHandlerClient,
   createServerComponentClient,
 } from "@supabase/auth-helpers-nextjs";
-import { processImagesString } from "@/app/utilities/processImagesString";
 import { TABLE_PRODUCTS } from "@/app/constants";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
 const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
 
@@ -86,7 +86,7 @@ async function getAllProducts() {
     // Procesar las imágenes para convertirlas en arrays de strings
     const productsWithParsedImages = data.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ""),
+      image: formattedJsonToImagesArray(product.image || ""),
     }));
 
     return productsWithParsedImages;

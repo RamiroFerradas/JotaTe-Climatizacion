@@ -17,7 +17,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
 }) => {
   const images = selectedProduct?.image;
   const imagesLengthCondition = images?.length > 1;
-
+  console.log(images);
   return (
     <div
       className={`flex items-center flex-col md:flex-row h-96 justify-center mdmax-w-2xl ${
@@ -82,7 +82,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
              
              `}
           >
-            <Image
+            {/* <Image
               priority
               width={!zoom ? 300 : 768}
               height={!zoom ? 200 : 320}
@@ -95,7 +95,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
                   : "hover:cursor-zoom-out"
               }`}
               onClick={() => setZoom(!zoom)}
-            />
+            /> */}
           </div>
         ))}
       </Carousel>

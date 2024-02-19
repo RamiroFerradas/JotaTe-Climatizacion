@@ -1,8 +1,8 @@
 "use server";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { processImagesString } from "../../utilities/processImagesString";
 import { TABLE_PRODUCTS } from "@/app/constants";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
 export async function FilterProductsByBrand(uniqueBrands: string[]) {
   try {
@@ -27,7 +27,7 @@ export async function FilterProductsByBrand(uniqueBrands: string[]) {
 
     const productsWithParsedImages = filteredProducts.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ""),
+      image: formattedJsonToImagesArray(product.image || ""),
     }));
 
     return productsWithParsedImages;

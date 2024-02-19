@@ -1,6 +1,6 @@
 "use server";
 import { TABLE_PRODUCTS } from "@/app/constants";
-import { processImagesString } from "@/app/utilities/processImagesString";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 const supabase = createServerComponentClient({ cookies });
@@ -19,7 +19,7 @@ export async function FilterProductsBySubcategories(subcategories: string) {
 
     const productsWithParsedImages = filteredProducts.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ("" as any)),
+      image: formattedJsonToImagesArray(product.image || ("" as any)),
     }));
 
     return productsWithParsedImages;

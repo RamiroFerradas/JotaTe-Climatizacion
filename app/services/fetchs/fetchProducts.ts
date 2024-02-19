@@ -3,8 +3,8 @@
 import { Product } from "../../models";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-import { processImagesString } from "../../utilities/processImagesString";
 import { TABLE_PRODUCTS } from "../../constants";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 interface FetchProductsOptions {
   filter?: string;
 }
@@ -29,7 +29,7 @@ export async function fetchProducts(
 
     const productsWithParsedImages = data.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ""),
+      image: formattedJsonToImagesArray(product.image || ""),
     }));
 
     return productsWithParsedImages as Product[];
@@ -48,7 +48,7 @@ export async function fetchProductById(id: string): Promise<Product> {
       .eq("id", id);
     const productsWithParsedImages = data.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ""),
+      image: formattedJsonToImagesArray(product.image || ""),
     }));
 
     if (error) {

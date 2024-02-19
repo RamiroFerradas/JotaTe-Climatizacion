@@ -15,10 +15,10 @@ export const formattedJsonToImagesArray = (
     const imagesArray = formattedImages
       .replace(/^\{|\}$/g, "") // Elimina las llaves al principio y al final
       .split(",")
-      .map((url) => url.trim());
+      .map((url) => url.trim())
+      .filter((url) => url !== "" && url !== '""'); // Filtra las cadenas vacías y las cadenas que contienen solo comillas dobles
 
     return imagesArray;
   }
   return [];
 };
-

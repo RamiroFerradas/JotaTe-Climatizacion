@@ -2,11 +2,11 @@
 
 import { TABLE_PRODUCTS } from "@/app/constants";
 import { SortOrderOptions } from "@/app/models/SortOrderOption";
-import { processImagesString } from "@/app/utilities/processImagesString";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 
 import { Product } from "@/app/models";
+import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
 export async function FetchAndSortProducts(
   sortBy: string,
@@ -41,7 +41,7 @@ export async function FetchAndSortProducts(
 
     const productsWithParsedImages = sortedProducts.map((product) => ({
       ...product,
-      image: processImagesString(product.image || ("" as any)),
+      image: formattedJsonToImagesArray(product.image || ("" as any)),
     }));
 
     return productsWithParsedImages;

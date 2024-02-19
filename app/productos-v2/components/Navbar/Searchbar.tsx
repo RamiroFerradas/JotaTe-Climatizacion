@@ -6,8 +6,9 @@ import { useState } from "react";
 
 type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
+  onChangue: boolean;
 };
-export default function Searchbar({ setProductsFiltered }: Props) {
+export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
 
@@ -33,9 +34,12 @@ export default function Searchbar({ setProductsFiltered }: Props) {
   };
 
   return (
-    <form className="flex relative gap-10 flex-row" onSubmit={handleSubmit}>
+    <form
+      className="flex relative gap-10 flex-row"
+      onSubmit={!onChangue && handleSubmit}
+    >
       <Input
-        type="input"
+        type={onChangue ? "search" : "input"}
         label="Buscar producto"
         className="pr-20 md:w-[40vw]"
         color="green"
@@ -43,28 +47,36 @@ export default function Searchbar({ setProductsFiltered }: Props) {
           className: "minw-[288px]",
         }}
         value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        onChange={(e: any) => {
+          onChangue && handleSubmit(e);
+          setSearch(e.target.value);
+        }}
       />
 
       {isSearching && (
         <Button
           size="sm"
           type="button" // Cambiado de "submit" a "button"
-          className="!absolute right-[5.8rem] top-1 rounded bg-[#006d54] border border-[#006d54]"
+          className={`!absolute  ${
+            onChangue ? "right-1" : "right-[5.8rem]"
+          } top-1 rounded bg-[#006d54] border border-[#006d54]`}
           color="green"
           onClick={handleClear}
         >
           X
         </Button>
       )}
-      <Button
-        size="sm"
-        type="submit"
-        className="!absolute right-1 top-1 rounded bg-[#006d54] border border-[#006d54]"
-        color="green"
-      >
-        Buscar
-      </Button>
+
+      {!onChangue && (
+        <Button
+          size="sm"
+          type="submit"
+          className="!absolute right-1 top-1 rounded bg-[#006d54] border border-[#006d54]"
+          color="green"
+        >
+          Buscar
+        </Button>
+      )}
     </form>
   );
 }

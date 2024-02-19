@@ -45,6 +45,7 @@ import { useScreenSize } from "@/app/hooks";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { FaEdit } from "react-icons/fa";
 import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
+import { Searchbar } from "@/app/productos-v2/components";
 
 type Props = {
   products: Product[];
@@ -238,10 +239,9 @@ export default function ProductsTable({
               className="cursor-pointer"
             />
           </Link>
-          <SearchBar
-            products={products}
-            setFilteredProducts={setFilteredProducts}
-          />
+
+          <Searchbar onChangue setProductsFiltered={setFilteredProducts} />
+
           <div className="flex gap-1 md:gap-2 justify-center items-center">
             <Button
               size="sm"
