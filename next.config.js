@@ -37,6 +37,10 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_ENVIRONMENT === "dev"
         ? "products_dev"
         : "products",
+    NEXT_PUBLIC_TABLE_CONSULTS:
+      process.env.NEXT_PUBLIC_ENVIRONMENT === "dev"
+        ? "consults_dev"
+        : "consults",
   },
   webpack5: true,
   webpack: (config) => {

@@ -9,6 +9,7 @@ import ProductCard from "./ProductCard/ProductCard";
 import CategoriesNavV2 from "../CategoriesNavV2";
 import Navbar from "../Navbar/Navbar";
 import CardSkeleton from "./ProductCard/CardSkeleton";
+import Link from "next/link";
 
 type Props = {
   products: Product[];
@@ -74,9 +75,16 @@ export default function GridProducts({
               ? Array.from({ length: 5 }).map((_, i) => (
                   <CardSkeleton key={i} />
                 ))
-              : productsToShow.map((prod) => (
+              : productsToShow.map((prod: Product) => (
                   <Suspense key={prod.id} fallback={<CardSkeleton />}>
-                    <ProductCard product={prod} />
+                    <Link
+                      key={prod.id}
+                      shallow
+                      scroll={false}
+                      href={`/productos-v2/${prod.id}`}
+                    >
+                      <ProductCard product={prod} />
+                    </Link>
                   </Suspense>
                 ))}
             {searchPerformed && (

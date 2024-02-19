@@ -6,9 +6,7 @@ export default function ProductCard({ product }: Props) {
     <div className="">
       <div className="border border-black rounded-lg p-2 flex justify-between">
         <p>{product.name}</p>
-        <div>
-          <p>{product.price}</p>
-        </div>
+        <p>{product.price}</p>
       </div>
     </div>
   );

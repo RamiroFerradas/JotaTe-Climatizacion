@@ -1,7 +1,7 @@
 "use client";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
 import Drawer from "@mui/material/Drawer";
@@ -26,6 +26,8 @@ import { ProductCard } from "../../components";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { CartProduct, Product } from "@/app/models";
 import { useCart } from "../../context/CartContext";
+import { updateConsults } from "@/app/services/crud/updateConsults";
+import Link from "next/link";
 
 type Props = {
   selectedProduct: Product;
@@ -53,24 +55,21 @@ const ProductDetail = ({ selectedProduct }: Props) => {
     // Generar una clave única basada en el ID del producto
     const productKey = `consult_product_${selectedProduct.id}`;
 
-    // Verificar si ya se ha ejecutado addConsult para este producto durante esta visita
     const hasAlreadyExecuted = Boolean(sessionStorage.getItem(productKey));
 
     if (!hasAlreadyExecuted) {
       const newConsult = parseInt(selectedProduct.consults as string) + 1;
-      const newData = { ...selectedProduct, consults: newConsult };
 
-      await updateProductsV2([newData] as Product[]);
+      await updateConsults(selectedProduct.id, newConsult);
 
-      // Establecer el indicador en sessionStorage para evitar futuras ejecuciones durante la misma visita
       sessionStorage.setItem(productKey, "true");
     }
   };
-  // useEffect(() => {
-  //   return () => {
-  //     addConsult();
-  //   };
-  // }, []);
+  useEffect(() => {
+    return () => {
+      addConsult();
+    };
+  }, []);
 
   const handleConsultProduct = () => {
     if (!selectedProduct) return;
@@ -179,14 +178,21 @@ const ProductDetail = ({ selectedProduct }: Props) => {
                     </Typography>
                     <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
                       {conditionProduct.products.map((kit, index) => (
-                        <ProductCard key={kit.id} product={kit} />
+                        <Link
+                          key={kit.id + index}
+                          shallow
+                          scroll={false}
+                          href={`/productos-v2/${kit.id}`}
+                        >
+                          <ProductCard product={kit} />
+                        </Link>
                       ))}
                     </div>
                   </div>
                 )}
                 <div className={!zoom ? "block mt-10" : "hidden"}>
                   <Divider />
-                  <p className="flex justify-between items-center text-xl font-bold w-full ">
+                  <div className="flex justify-between items-center text-xl font-bold w-full ">
                     <Typography
                       variant="h6"
                       component="div"
@@ -201,7 +207,7 @@ const ProductDetail = ({ selectedProduct }: Props) => {
                     >
                       {parseCurrency(Number(selectedProduct?.price))}
                     </Typography>
-                  </p>
+                  </div>
                 </div>
               </div>
               <div className={`sticky bottom-0 ${zoom ? "hidden" : ""}`}>

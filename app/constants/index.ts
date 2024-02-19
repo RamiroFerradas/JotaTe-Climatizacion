@@ -1,1 +1,2 @@
 export const TABLE_PRODUCTS = process.env.NEXT_PUBLIC_TABLE_PRODUCTS;
+export const TABLE_CONSULTS = process.env.NEXT_PUBLIC_TABLE_CONSULTS;
