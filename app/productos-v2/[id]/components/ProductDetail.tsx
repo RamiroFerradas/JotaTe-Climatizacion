@@ -155,7 +155,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
               </div>
               <Divider />
             </div>
-            {recommendedProducts.length ? (
+            {recommendedProducts?.length ? (
               <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
                 <Typography
                   variant="h6"
