@@ -64,11 +64,11 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
       sessionStorage.setItem(productKey, "true");
     }
   };
-  useEffect(() => {
-    return () => {
-      addConsult();
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //    // addConsult();
+  //   };
+  // }, []);
 
   const handleConsultProduct = () => {
     if (!selectedProduct) return;
@@ -86,7 +86,6 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
   };
 
   const backModal = () => () => {
-    console.log(window.history.length);
     if (zoom) {
       setZoom(false);
     } else {
@@ -163,7 +162,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
                   component="div"
                   className="font-semibold"
                 >
-                  ¡Agrega tambien alguna de estas opciones!
+                  {selectedProduct.recommendedJson.text}
                 </Typography>
                 <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
                   {recommendedProducts.map((kit, index) => (

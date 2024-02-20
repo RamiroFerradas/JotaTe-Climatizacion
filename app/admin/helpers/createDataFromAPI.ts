@@ -13,6 +13,6 @@ export function createDataFromAPI(item: Product) {
     destacado: item.destacado,
     id: item.id,
     visible: item.visible,
-    recommended: item.recommended,
+    recommendedJson: item.recommendedJson,
   };
 }
