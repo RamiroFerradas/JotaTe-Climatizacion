@@ -15,11 +15,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   const prevRoute = searchParams.get("prevRoute");
 
   const backModal = () => () => {
-    if (prevRoute === "home" || window.history.length <= 1) {
-      router.push("/productos-v2");
-    } else {
-      router.back();
-    }
+    router.push("/productos-v2");
   };
 
   return (

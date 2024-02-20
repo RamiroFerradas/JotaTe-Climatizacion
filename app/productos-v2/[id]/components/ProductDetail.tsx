@@ -86,6 +86,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
   };
 
   const backModal = () => () => {
+    console.log(window.history.length);
     if (zoom) {
       setZoom(false);
     } else {
