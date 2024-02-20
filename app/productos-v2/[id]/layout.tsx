@@ -1,7 +1,7 @@
 "use client";
 import { Card, Drawer } from "@mui/material";
 import { NextPage } from "next";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 
 export const revalidate = 0;
@@ -11,8 +11,6 @@ export type RootLayoutProps = {
 
 const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const prevRoute = searchParams.get("prevRoute");
 
   const backModal = () => () => {
     router.push("/productos-v2");
