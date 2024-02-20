@@ -16,7 +16,11 @@ type Props = {
   brands: { label: string }[];
   categoriesSubCategories: { category: string; options: string[] }[];
 };
-export default function GridProducts({ products, brands, categoriesSubCategories }: Props) {
+export default function GridProducts({
+  products,
+  brands,
+  categoriesSubCategories,
+}: Props) {
   const [categoryActive, setCategoryActive] = useState<string>("Todos");
   const [subCategoryActive, setSubCategoryActive] = useState<string>("");
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
@@ -72,16 +76,14 @@ export default function GridProducts({ products, brands, categoriesSubCategories
                   <CardSkeleton key={i} />
                 ))
               : productsToShow.map((prod: Product) => (
-                  <Suspense key={prod.id} fallback={<CardSkeleton />}>
-                    <Link
-                      key={prod.id}
-                      shallow
-                      scroll={false}
-                      href={`/productos-v2/${prod.id}`}
-                    >
-                      <ProductCard product={prod} />
-                    </Link>
-                  </Suspense>
+                  <Link
+                    key={prod.id}
+                    shallow
+                    scroll={false}
+                    href={`/productos-v2/${prod.id}`}
+                  >
+                    <ProductCard product={prod} />
+                  </Link>
                 ))}
           </div>
           {!productsFiltered.length && (
