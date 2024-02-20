@@ -32,25 +32,32 @@ export default function RecommendedProducts({ products, method }: Props) {
 
     setFilteredProducts(filteredProducts);
   };
-  const currentRecommended = watch("recommended");
-
+  const currentRecommended = watch("recommendedJson") as {
+    text: string;
+    products: string[];
+  };
   const handleCheckboxChange = (id: string) => {
-    const currentRecommended = watch("recommended");
+    if (currentRecommended && currentRecommended.products) {
+      const updatedRecommended = currentRecommended.products.includes(id)
+        ? currentRecommended.products.filter(
+            (productId: string) => productId !== id
+          )
+        : [...currentRecommended.products, id];
 
-    const updatedRecommended = currentRecommended.includes(id)
-      ? currentRecommended.filter((productId) => productId !== id)
-      : [...currentRecommended, id];
-
-    setValue("recommended", updatedRecommended);
+      setValue("recommendedJson", {
+        text: currentRecommended.text,
+        products: updatedRecommended,
+      });
+    }
   };
 
   // Separar productos recomendados de los no recomendados
   const recommendedProducts = FilteredProducts.filter((product) =>
-    currentRecommended.includes(product.id)
+    currentRecommended?.products.includes(product.id)
   );
 
   const nonRecommendedProducts = FilteredProducts.filter(
-    (product) => !currentRecommended.includes(product.id)
+    (product) => !currentRecommended?.products.includes(product.id)
   );
 
   return (
@@ -58,10 +65,23 @@ export default function RecommendedProducts({ products, method }: Props) {
       <TableContainer component={Paper}>
         <Table>
           <TableHead>
+            <TableRow className="w-full">
+              <Input
+                placeholder="¡Agrega tambien alguna de estas opciones!"
+                defaultValue={watch("recommendedJson")?.text}
+                onChange={(e) =>
+                  setValue("recommendedJson", {
+                    ...watch("recommendedJson"),
+                    text: e.target.value,
+                  })
+                }
+                className="w-full"
+              />
+            </TableRow>
             <TableRow>
               <TableCell>
                 <Input
-                  placeholder="Search Products"
+                  placeholder="Buscar"
                   startAdornment={
                     <InputAdornment position="start">
                       <Search color="success" />
@@ -78,11 +98,12 @@ export default function RecommendedProducts({ products, method }: Props) {
             {recommendedProducts.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>{product.name}</TableCell>
-                <TableCell>
+                <TableCell className="!p-0" align="center">
                   <Checkbox
                     color="success"
-                    checked={currentRecommended.includes(product.id)}
+                    checked={currentRecommended?.products.includes(product.id)}
                     onChange={() => handleCheckboxChange(product.id)}
+                    className="!p-0"
                   />
                 </TableCell>
               </TableRow>
@@ -92,11 +113,12 @@ export default function RecommendedProducts({ products, method }: Props) {
             {nonRecommendedProducts.map((product) => (
               <TableRow key={product.id}>
                 <TableCell>{product.name}</TableCell>
-                <TableCell>
+                <TableCell className="!p-0" align="center">
                   <Checkbox
                     color="success"
-                    checked={currentRecommended.includes(product.id)}
+                    checked={currentRecommended?.products.includes(product.id)}
                     onChange={() => handleCheckboxChange(product.id)}
+                    className="!p-0"
                   />
                 </TableCell>
               </TableRow>
