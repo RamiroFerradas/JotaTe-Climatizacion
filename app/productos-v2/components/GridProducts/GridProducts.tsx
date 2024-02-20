@@ -71,13 +71,22 @@ export default function GridProducts({
         </div>
         <div className="md:w-3/4">
           <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
-            {productsToShow.map((prod: Product) => (
-              <Suspense fallback={<CardSkeleton />} key={prod.id}>
-                <Link shallow scroll={false} href={`/productos-v2/${prod.id}`}>
-                  <ProductCard product={prod} />
-                </Link>
-              </Suspense>
-            ))}
+            {loadProducts
+              ? Array.from({ length: 5 }).map((_, i) => (
+                  <CardSkeleton key={i} />
+                ))
+              : productsToShow.map((prod: Product) => (
+                  // <Suspense fallback={<CardSkeleton />} key={prod.id}>
+                  <Link
+                    shallow
+                    scroll={false}
+                    href={`/productos-v2/${prod.id}`}
+                    key={prod.id}
+                  >
+                    <ProductCard product={prod} />
+                  </Link>
+                  //  </Suspense>
+                ))}
           </div>
           {!productsFiltered.length && (
             <div className="flex items-center justify-center h-48">
