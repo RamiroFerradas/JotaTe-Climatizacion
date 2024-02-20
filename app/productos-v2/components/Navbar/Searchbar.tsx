@@ -39,7 +39,7 @@ export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
       onSubmit={!onChangue && handleSubmit}
     >
       <Input
-        type={onChangue ? "search" : "input"}
+        type={!onChangue ? "search" : "input"}
         label="Buscar producto"
         className="pr-20 md:w-[40vw]"
         color="green"

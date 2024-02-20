@@ -8,14 +8,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import Checkbox from "@mui/material/Checkbox";
-import {
-  ChangeEvent,
-  MouseEvent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { Product } from "@/app/models";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
@@ -23,16 +16,8 @@ import { stableSort } from "./helpers/stableSort";
 import { createDataFromAPI } from "./helpers/createDataFromAPI";
 import { isSelected } from "./helpers/isSelected";
 import { getComparator } from "./helpers/getComparator";
-import {
-  Alert,
-  Modal,
-  Slide,
-  SlideProps,
-  Snackbar,
-  Switch,
-} from "@mui/material";
+import { Modal, Slide, SlideProps, Switch } from "@mui/material";
 import { Loading } from "@/app/components";
-import SearchBar from "../Searchbar";
 import ButtonLogout from "../ButtonLogout";
 import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
@@ -195,15 +180,6 @@ export default function ProductsTable({
       });
     });
   }; //
-
-  const handleClose = (
-    event?: React.SyntheticEvent | Event,
-    reason?: string
-  ) => {
-    if (reason === "clickaway") {
-      return;
-    }
-  };
 
   const defaultvalueNewPrice = (row: Product) => {
     return (

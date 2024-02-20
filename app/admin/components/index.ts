@@ -13,5 +13,4 @@ export * from "./ProductsTable/helpers/createDataFromAPI";
 export * from "./ProductsTable/helpers/getComparator";
 export * from "./ProductsTable/helpers/isSelected";
 export * from "./ProductsTable/helpers/stableSort";
-export { default as Searchbar } from "./Searchbar";
 export * from "./index";
