@@ -51,3 +51,8 @@
 .css-1mxz8qt-MuiPaper-root {
   margin-bottom: 0px !important;
 }
+
+.css-1rqoqxy::after,
+.css-bz5ng3-MuiInputBase-root-MuiInput-root::after {
+  border-bottom: solid 2px #006d54 !important;
+}

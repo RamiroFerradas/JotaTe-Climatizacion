@@ -64,7 +64,7 @@ export default function RecommendedProducts({ products, method }: Props) {
                   placeholder="Search Products"
                   startAdornment={
                     <InputAdornment position="start">
-                      <Search />
+                      <Search color="success" />
                     </InputAdornment>
                   }
                   onChange={handleSearchChange}
