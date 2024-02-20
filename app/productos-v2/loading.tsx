@@ -1,6 +1,10 @@
-import { Loading } from "../components";
+import { CircularProgress } from "@mui/material";
 
 type Props = {};
 export default function LoadingProducts({}: Props) {
-  return <div className="fixed">{/* <Loading />; */}</div>;
+  return (
+    <div className=" h-screen w-screen">
+      <CircularProgress size={45} color="success" />
+    </div>
+  );
 }
