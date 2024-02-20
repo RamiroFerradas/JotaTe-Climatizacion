@@ -16,12 +16,7 @@ type Props = {
   brands: { label: string }[];
   categoriesSubCategories: { category: string; options: string[] }[];
 };
-export default function GridProducts({
-  products,
-  brands,
-  categoriesSubCategories,
-}: Props) {
-  const { searchPerformed } = useProductList();
+export default function GridProducts({ products, brands, categoriesSubCategories }: Props) {
   const [categoryActive, setCategoryActive] = useState<string>("Todos");
   const [subCategoryActive, setSubCategoryActive] = useState<string>("");
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
@@ -88,14 +83,14 @@ export default function GridProducts({
                     </Link>
                   </Suspense>
                 ))}
-            {searchPerformed && (
-              <div className="flex items-center justify-center h-48">
-                <p className="text-center text-gray-600 text-lg">
-                  No hubo resultados para tu búsqueda.
-                </p>
-              </div>
-            )}
           </div>
+          {!productsFiltered.length && (
+            <div className="flex items-center justify-center h-48">
+              <p className="text-center text-gray-600 text-lg">
+                No hubo resultados para tu búsqueda.
+              </p>
+            </div>
+          )}
 
           {!loadProducts && (
             <Paginate

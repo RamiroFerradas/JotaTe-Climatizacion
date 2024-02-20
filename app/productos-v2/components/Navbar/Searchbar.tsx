@@ -19,7 +19,8 @@ export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
       setProductsFiltered(results);
       setIsSearching(true);
     } catch (error) {
-      console.error("Error al buscar productos:", error.message);
+      console.error(error.message);
+      setProductsFiltered([]);
     }
   };
   const handleClear = async () => {
@@ -29,7 +30,8 @@ export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
       setSearch("");
       setIsSearching(false);
     } catch (error) {
-      console.error("Error al buscar productos:", error.message);
+      console.error(error.message);
+      setProductsFiltered([]);
     }
   };
 
