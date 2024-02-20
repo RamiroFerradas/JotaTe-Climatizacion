@@ -20,9 +20,7 @@ export default function InformationProduct({
 }: Props) {
   const {
     control,
-    formState: { errors, isSubmitting, isValid },
-    getValues,
-    watch,
+    formState: { errors },
   } = method;
 
   const classnameInputs = "border border-green-principal p-1 rounded-md w-full";

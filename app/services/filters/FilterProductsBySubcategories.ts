@@ -3,9 +3,9 @@ import { TABLE_PRODUCTS } from "@/app/constants";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
-const supabase = createServerComponentClient({ cookies });
 
 export async function FilterProductsBySubcategories(subcategories: string) {
+  const supabase = createServerComponentClient({ cookies });
   try {
     const { data: filteredProducts, error } = await supabase
       .from(TABLE_PRODUCTS)

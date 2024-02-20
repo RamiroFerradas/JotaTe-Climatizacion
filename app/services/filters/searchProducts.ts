@@ -4,9 +4,8 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { TABLE_PRODUCTS } from "@/app/constants";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
-const supabase = createServerComponentClient({ cookies });
-
 export async function searchProducts(query: string) {
+  const supabase = createServerComponentClient({ cookies });
   try {
     let queryBuilder = supabase
       .from(TABLE_PRODUCTS)

@@ -23,7 +23,6 @@ import { useConditionProducts } from "@/app/hooks";
 import { useRouter, useSearchParams } from "next/navigation";
 import ImagesProduct from "./ImagesProduct";
 import { ProductCard } from "../../components";
-import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { CartProduct, Product } from "@/app/models";
 import { useCart } from "../../context/CartContext";
 import { updateConsults } from "@/app/services/crud/updateConsults";
@@ -31,11 +30,12 @@ import Link from "next/link";
 
 type Props = {
   selectedProduct: Product;
+  recommendedProducts: Product[];
 };
-const ProductDetail = ({ selectedProduct }: Props) => {
-  const { conditionProduct } = useConditionProducts({
-    selectedProduct,
-  });
+const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
+  // const { conditionProduct } = useConditionProducts({
+  //   selectedProduct,
+  // });
 
   const { addToCart } = useCart();
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
@@ -167,17 +167,17 @@ const ProductDetail = ({ selectedProduct }: Props) => {
                   </div>
                   <Divider />
                 </div>
-                {conditionProduct && (
+                {recommendedProducts.length ? (
                   <div className={`w-full ${!zoom ? "block" : "md:hidden"}`}>
                     <Typography
                       variant="h6"
                       component="div"
                       className="font-semibold"
                     >
-                      {conditionProduct.text}
+                      ¡Agrega tambien alguna de estas opciones!
                     </Typography>
                     <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
-                      {conditionProduct.products.map((kit, index) => (
+                      {recommendedProducts.map((kit, index) => (
                         <Link
                           key={kit.id + index}
                           shallow
@@ -189,6 +189,8 @@ const ProductDetail = ({ selectedProduct }: Props) => {
                       ))}
                     </div>
                   </div>
+                ) : (
+                  <></>
                 )}
                 <div className={!zoom ? "block mt-10" : "hidden"}>
                   <Divider />

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Product } from "@/app/models/Product";
@@ -7,13 +8,13 @@ import InformationProduct from "./InformationProduct";
 import { Tabs, Tab } from "@mui/material";
 import LoadImages from "./LoadImages";
 import { OptionType } from "@/app/models/OptionType";
-import { setActive } from "@material-tailwind/react/components/Tabs/TabsContext";
 import {
   formattedImagesArrayToJson,
   formattedJsonToImagesArray,
 } from "@/app/utilities/formattedImagesArrayToJson";
-import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
+import { updateProduct } from "@/app/services/crud/updateProduct";
+import RecommendedProducts from "./RecommendedProducts";
 
 type FormPricingProps = {
   setOpenModalForm: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,10 +22,15 @@ type FormPricingProps = {
   optionsCategory: OptionType[];
   optionsBrands: OptionType[];
   editProduct: Product;
+  products: Product[];
   setEditProduct: React.Dispatch<React.SetStateAction<Product>>;
   updatedFilteredProducts: (product: Product[]) => void;
 };
-
+enum Section {
+  Info = "info",
+  Images = "images",
+  Recommended = "recommended",
+}
 export default function FormCreateProduct({
   setOpenModalForm,
   optionsSubcategory,
@@ -33,6 +39,7 @@ export default function FormCreateProduct({
   editProduct,
   setEditProduct,
   updatedFilteredProducts,
+  products,
 }: FormPricingProps) {
   const method = useForm<Product>({
     mode: "onChange",
@@ -47,20 +54,13 @@ export default function FormCreateProduct({
       image: [],
       visible: true,
       destacado: false,
+      recommended: editProduct?.recommended || [],
     },
   });
-  const {
-    control,
-    handleSubmit,
-    getValues,
-    clearErrors,
-    watch,
-    reset,
-    setError,
-    formState: { errors, isSubmitting, isValid },
-  } = method;
+
+  const { handleSubmit, clearErrors, watch, reset, setError } = method;
   const formValues = watch();
-  const [section, setSection] = useState<"info" | "images">("info");
+  const [section, setSection] = useState<Section>(Section.Info);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
 
   const refModal = useRef(null);
@@ -68,7 +68,7 @@ export default function FormCreateProduct({
   const onSubmit = async (data: Product) => {
     try {
       if (!uploadedImages.length) {
-        setSection("images");
+        setSection(Section.Images);
 
         setError("image", {
           type: "manual",
@@ -100,18 +100,16 @@ export default function FormCreateProduct({
           subcategory: subcategoryValue,
         });
       } else {
-        const productToUpdate = await updateProductsV2([
-          {
-            ...data,
-            image: formattedImagesArrayToJson(uploadedImages) as any,
-            brand: brandValue,
-            category: categoryValue,
-            subcategory: subcategoryValue,
-            id: editProduct.id,
-          },
-        ]);
+        const productToUpdate = await updateProduct({
+          ...data,
+          image: formattedImagesArrayToJson(uploadedImages) as any,
+          brand: brandValue,
+          category: categoryValue,
+          subcategory: subcategoryValue,
+          id: editProduct.id,
+        });
 
-        updatedFilteredProducts(productToUpdate);
+        updatedFilteredProducts([productToUpdate]);
       }
 
       toastOkAdmin("Producto creado con exito");
@@ -131,8 +129,11 @@ export default function FormCreateProduct({
     const category = watch("category");
     const subcategory = watch("subcategory");
 
-    if (!brand || !category || !subcategory) {
-      setSection("info");
+    if (
+      (!brand || !category || !subcategory) &&
+      section !== Section.Recommended
+    ) {
+      setSection(Section.Info);
     }
   }, [formValues]);
 
@@ -162,7 +163,7 @@ export default function FormCreateProduct({
       </button>
       <div className="flex flex-col justify-center items-center gap-2">
         <h1 className="text-orange-principal text-xl font-semibold">
-          Nuevo producto
+          {!editProduct ? `Nuevo producto` : editProduct.name}
         </h1>
       </div>
       <form
@@ -175,7 +176,7 @@ export default function FormCreateProduct({
           textColor="primary"
           aria-label="secondary tabs example"
         >
-          <Tab value="info" label="Informacion" />
+          <Tab value={Section.Info} label="Informacion" />
           <Tab
             disabled={
               !formValues.brand ||
@@ -183,12 +184,14 @@ export default function FormCreateProduct({
               !formValues.category ||
               !formValues.subcategory
             }
-            value="images"
+            value={Section.Images}
             label="Imagenes"
           />
+
+          <Tab value={Section.Recommended} label="Productos recomendados" />
         </Tabs>
 
-        {section === "info" && (
+        {section === Section.Info && (
           <InformationProduct
             method={method}
             optionsCategory={optionsCategory}
@@ -197,13 +200,17 @@ export default function FormCreateProduct({
             editProduct={editProduct}
           />
         )}
-        {section === "images" && (
+
+        {section === Section.Images && (
           <LoadImages
             method={method}
             uploadedImages={uploadedImages}
             setUploadedImages={setUploadedImages}
             editProduct={editProduct}
           />
+        )}
+        {section === Section.Recommended && (
+          <RecommendedProducts method={method} products={products} />
         )}
 
         <div className="flex justify-end items-end w-full">

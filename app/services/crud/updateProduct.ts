@@ -7,8 +7,8 @@ import { cookies } from "next/headers";
 import { TABLE_PRODUCTS } from "../../constants";
 import { formattedImagesArrayToJson } from "../../utilities/formattedImagesArrayToJson";
 
-const supabase = createServerComponentClient({ cookies });
 export const updateProductsV2 = async (updateProducts: Product[]) => {
+  const supabase = createServerComponentClient({ cookies });
   try {
     const updatedProducts: Product[] = [];
 
@@ -24,8 +24,10 @@ export const updateProductsV2 = async (updateProducts: Product[]) => {
   }
 };
 
-const updateProduct = async (product: Product) => {
+export const updateProduct = async (product: Product) => {
   try {
+    const supabase = createServerComponentClient({ cookies });
+
     const updatedProduct = {
       price:
         product.newPrice === 0
@@ -42,6 +44,7 @@ const updateProduct = async (product: Product) => {
       id: product.id,
       visible: product.visible,
       consults: product.consults,
+      recommended: product.recommended,
     };
 
     const { data, error } = await supabase

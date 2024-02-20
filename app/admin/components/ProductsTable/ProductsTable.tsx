@@ -12,10 +12,10 @@ import { ChangeEvent, MouseEvent, useMemo, useState } from "react";
 import { Product } from "@/app/models";
 import EnhancedTableToolbar from "./EnhancedTableToolbar";
 import EnhancedTableHead from "./EnhancedTableHead";
-import { stableSort } from "./helpers/stableSort";
-import { createDataFromAPI } from "./helpers/createDataFromAPI";
-import { isSelected } from "./helpers/isSelected";
-import { getComparator } from "./helpers/getComparator";
+import { stableSort } from "../../helpers/stableSort";
+import { createDataFromAPI } from "../../helpers/createDataFromAPI";
+import { isSelected } from "../../helpers/isSelected";
+import { getComparator } from "../../helpers/getComparator";
 import { Modal, Slide, SlideProps, Switch } from "@mui/material";
 import { Loading } from "@/app/components";
 import ButtonLogout from "../ButtonLogout";
@@ -46,9 +46,6 @@ export default function ProductsTable({
   optionsBrands,
   optionsCategory,
 }: Props) {
-  function SlideTransition(props: SlideProps) {
-    return <Slide {...props} direction="down" />;
-  }
   const [order, setOrder] = useState<Order>("asc");
   const [orderBy, setOrderBy] = useState<keyof Product>("brand");
   const [selected, setSelected] = useState<Product[]>([]);
@@ -437,6 +434,7 @@ export default function ProductsTable({
             editProduct={editProduct}
             setEditProduct={setEditProduct}
             updatedFilteredProducts={updatedFilteredProducts}
+            products={products}
           />
         </div>
       </Modal>

@@ -25,12 +25,11 @@ export default function LoadImages({
     getValues,
     control,
     clearErrors,
-    formState: { errors, isSubmitting, isValid },
+    formState: { errors },
   } = method;
 
   const [loadImage, setLoadImage] = useState(false);
   const [errorLoadImage, setErrorLoadImage] = useState(false);
-
 
   const handleFileChange = async (e: any) => {
     const image = e.target.files[0];
