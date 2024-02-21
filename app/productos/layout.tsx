@@ -3,11 +3,11 @@ import { ReactNode, Suspense } from "react";
 import { fetchProducts } from "../services/fetchs/fetchProducts";
 import { Toaster } from "react-hot-toast";
 import { Footer, Loading } from "../components";
-import Appbar from "./components/Navbar/Navbar";
 import GridProducts from "./components/GridProducts/GridProducts";
 import { fetchBrands } from "../services/fetchs/fetchBrands";
 import { getCategoriesWithSubcategories } from "../services/fetchs/getCategoriesWithSubcategories";
 import { CartProvider } from "./context/CartContext";
+import LoadingProducts from "./loading";
 export const revalidate = 0;
 export type RootLayoutProps = {
   children: ReactNode;
@@ -21,7 +21,6 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
   return (
     <CartProvider>
       <Toaster position="top-right" />
-      {children}
       <main className="min-h-screen flex justify-between flex-col">
         <GridProducts
           categoriesSubCategories={categoriesSubCategories}
@@ -31,6 +30,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
 
         <Footer />
       </main>
+      {children}
     </CartProvider>
   );
 };

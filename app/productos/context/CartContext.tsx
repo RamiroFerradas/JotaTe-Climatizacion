@@ -1,6 +1,7 @@
 "use client";
 import { useLocalStorage } from "@/app/hooks";
 import { CartProduct } from "@/app/models";
+import { toastAddToCart } from "@/app/utilities/toastAddToCart";
 import { createContext, useContext, ReactNode, useState, useMemo } from "react";
 
 interface CartContextProps {
@@ -35,6 +36,7 @@ function CartProvider({ children }: Props) {
     }
 
     setCart(updatedCart);
+    toastAddToCart();
   };
 
   const removeFromCart = (productId: string) => {

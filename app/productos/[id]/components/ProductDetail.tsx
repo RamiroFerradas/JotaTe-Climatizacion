@@ -17,75 +17,33 @@ import {
 import { Button } from "@material-tailwind/react";
 
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
-import { formattedText } from "@/app/utilities/formattedText";
 import { useRouter, useSearchParams } from "next/navigation";
 import ImagesProduct from "./ImagesProduct";
 import { ProductCard } from "../../components";
 import { CartProduct, Product } from "@/app/models";
 import { useCart } from "../../context/CartContext";
-import { updateConsults } from "@/app/services/crud/updateConsults";
 import Link from "next/link";
-import LoadingProduct from "../loading";
+import FormattedDescription from "./FormattedDescription";
+import { consultProductWhatsApp } from "@/app/utilities/consultProductWhatsApp";
 
 type Props = {
   selectedProduct: Product;
   recommendedProducts: Product[];
 };
 const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
-  // const { conditionProduct } = useConditionProducts({
-  //   selectedProduct,
-  // });
+  const [zoom, setZoom] = useState(false);
 
   const { addToCart } = useCart();
-  const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   const router = useRouter();
-
   const searchParams = useSearchParams();
-  const prevRoute = searchParams.get("prevRoute");
-
-  const introText = "¡Hola! Estoy interesado/a en el siguiente producto:\n\n";
-  const productText = `${selectedProduct?.name} - ${parseCurrency(
-    Number(selectedProduct?.price)
-  )}\n`;
-  const text = introText + productText;
-
-  const formattedDescription = formattedText(selectedProduct?.description);
-  const addConsult = async () => {
-    // Generar una clave única basada en el ID del producto
-    const productKey = `consult_product_${selectedProduct.id}`;
-
-    const hasAlreadyExecuted = Boolean(sessionStorage.getItem(productKey));
-
-    if (!hasAlreadyExecuted) {
-      const newConsult = parseInt(selectedProduct.consults as string) + 1;
-
-      await updateConsults(selectedProduct.id, newConsult);
-
-      sessionStorage.setItem(productKey, "true");
-    }
-  };
-  // useEffect(() => {
-  //   return () => {
-  //    // addConsult();
-  //   };
-  // }, []);
-
-  const handleConsultProduct = () => {
-    if (!selectedProduct) return;
-
-    const encodedText = encodeURIComponent(text);
-    const url = `https://wa.me/${phone}?text=${encodedText}`;
-    window.open(url, "_blank");
-
-    // addConsult();
-  };
 
   const handleAddToCart = () => {
     addToCart(selectedProduct as CartProduct);
-    toastAddToCart();
   };
 
   const backModal = () => () => {
+    const prevRoute = searchParams.get("prevRoute");
+
     if (zoom) {
       setZoom(false);
     } else {
@@ -97,7 +55,6 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
     }
   };
 
-  const [zoom, setZoom] = useState(false);
   return (
     <Card className="flex flex-col md:w-[48rem] justify-between items-center px-0 h-full overflow-y-auto w-screen fixed right-0">
       <div className="overflow-y-auto w-full">
@@ -142,17 +99,9 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
                 <Divider />
               </div>
 
-              <div className="flex flex-col justify-center items-center flex-growh-auto w-full">
-                <ul className="w-full overflow-y-auto">
-                  {formattedDescription?.map((linea, index) => (
-                    <li key={index} className="mb-1">
-                      <Typography variant="body2" color="text.secondary">
-                        {linea}
-                      </Typography>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              {<FormattedDescription text={selectedProduct.description} />}
+
+              <div className="flex flex-col justify-center items-center flex-growh-auto w-full"></div>
               <Divider />
             </div>
             {recommendedProducts?.length ? (
@@ -214,7 +163,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
                 <Button
                   color="green"
                   className="flex items-center gap-3 w-full justify-center"
-                  onClick={handleConsultProduct}
+                  onClick={() => consultProductWhatsApp(selectedProduct)}
                 >
                   <BsWhatsapp className="h-5 w-5" />
                   <span>Consultar</span>
@@ -229,3 +178,22 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
 };
 
 export default ProductDetail;
+// const addConsult = async () => {
+//   // Generar una clave única basada en el ID del producto
+//   const productKey = `consult_product_${selectedProduct.id}`;
+
+//   const hasAlreadyExecuted = Boolean(sessionStorage.getItem(productKey));
+
+//   if (!hasAlreadyExecuted) {
+//     const newConsult = parseInt(selectedProduct.consults as string) + 1;
+
+//     await updateConsults(selectedProduct.id, newConsult);
+
+//     sessionStorage.setItem(productKey, "true");
+//   }
+// };
+// useEffect(() => {
+//   return () => {
+//    // addConsult();
+//   };
+// }, []);
