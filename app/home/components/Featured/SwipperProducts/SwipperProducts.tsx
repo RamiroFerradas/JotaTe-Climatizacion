@@ -75,7 +75,7 @@ const SwipperProducts = ({ products }: Props) => {
                 <div className="flex flex-col items-center justify-center">
                   <Link
                     href={{
-                      pathname: `/productos-v2/${prod.id}`,
+                      pathname: `/productos/${prod.id}`,
                       query: { prevRoute: "home" },
                     }}
                     className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"

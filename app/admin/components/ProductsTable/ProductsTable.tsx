@@ -30,7 +30,7 @@ import { useScreenSize } from "@/app/hooks";
 import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { FaEdit } from "react-icons/fa";
 import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
-import { Searchbar } from "@/app/productos-v2/components";
+import { Searchbar } from "@/app/productos/components";
 
 type Props = {
   products: Product[];

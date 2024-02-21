@@ -36,7 +36,7 @@ const Appbar: React.FC<NavbarProps> = () => {
         <div className="hidden lg:block">
           <Navlist />
         </div>
-        <Link href="/productos-v2">
+        <Link href="/productos">
           <Button
             size="sm"
             className="rounded bg-[#006d54] border border-[#006d54] hidden lg:inline-block"

@@ -90,7 +90,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
       setZoom(false);
     } else {
       if (prevRoute === "home") {
-        router.push("/productos-v2");
+        router.push("/productos");
       } else {
         router.back();
       }
@@ -170,7 +170,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
                       key={kit.id + index}
                       shallow
                       scroll={false}
-                      href={`/productos-v2/${kit.id}`}
+                      href={`/productos/${kit.id}`}
                     >
                       <ProductCard product={kit} />
                     </Link>

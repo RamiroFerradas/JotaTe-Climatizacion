@@ -3,7 +3,6 @@ import { useState, useMemo, useEffect, Suspense } from "react";
 import { Product } from "@/app/models";
 import Paginate from "../Paginate";
 import Sidebar from "../SIdebar/Sidebar";
-import { usePathname } from "next/navigation";
 import ProductCard from "./ProductCard/ProductCard";
 import CategoriesNavV2 from "../CategoriesNavV2";
 import Navbar from "../Navbar/Navbar";
@@ -79,7 +78,7 @@ export default function GridProducts({
                   <Link
                     shallow
                     scroll={false}
-                    href={`/productos-v2/${prod.id}`}
+                    href={`/productos/${prod.id}`}
                     key={prod.id}
                   >
                     <ProductCard product={prod} />
