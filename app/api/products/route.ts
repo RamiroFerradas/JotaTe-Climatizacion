@@ -1,15 +1,9 @@
 import { Product } from "@/app/models";
-import { findDuplicateIds } from "@/app/utilities/findDuplicateIds";
-import { imagesToArray } from "@/app/utilities/imagesToArray";
 import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 import { cookies } from "next/headers";
 
-import Papa from "papaparse";
-import {
-  createRouteHandlerClient,
-  createServerComponentClient,
-} from "@supabase/auth-helpers-nextjs";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { TABLE_PRODUCTS } from "@/app/constants";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
@@ -32,14 +26,15 @@ export async function GET(req: NextRequest, res: NextResponse) {
     const { searchParams } = new URL(req.url);
     const id = searchParams.get("id");
     if (id) {
-      return getProductById(id);
+      const product = getProductById(id);
+      NextResponse.json(product);
     } else {
       const allProduscts = await getAllProducts();
-      return NextResponse.json(allProduscts);
+      NextResponse.json(allProduscts);
     }
   } catch (error: any) {
     console.error(error.message);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
