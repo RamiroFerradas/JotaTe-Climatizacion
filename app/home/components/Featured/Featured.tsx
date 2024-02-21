@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { SwipperProducts } from "./SwipperProducts";
-import { FilterProductsDestacate } from "@/app/services/filters/filterProductsDestacate";
+import { FilterProductsDestacate } from "@/app/services/filters/filterProdDestacate";
 
 export type FeaturedProps = {};
 
