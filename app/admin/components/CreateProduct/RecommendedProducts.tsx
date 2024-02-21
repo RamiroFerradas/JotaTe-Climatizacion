@@ -32,7 +32,7 @@ export default function RecommendedProducts({ products, method }: Props) {
 
     setFilteredProducts(filteredProducts);
   };
-  const currentRecommended = watch("recommendedJson") as {
+  const currentRecommended = watch("recommended") as {
     text: string;
     products: string[];
   };
@@ -44,7 +44,7 @@ export default function RecommendedProducts({ products, method }: Props) {
           )
         : [...currentRecommended.products, id];
 
-      setValue("recommendedJson", {
+      setValue("recommended", {
         text: currentRecommended.text,
         products: updatedRecommended,
       });
@@ -68,10 +68,10 @@ export default function RecommendedProducts({ products, method }: Props) {
             <TableRow className="w-full">
               <Input
                 placeholder="¡Agrega tambien alguna de estas opciones!"
-                defaultValue={watch("recommendedJson")?.text}
+                defaultValue={watch("recommended")?.text}
                 onChange={(e) =>
-                  setValue("recommendedJson", {
-                    ...watch("recommendedJson"),
+                  setValue("recommended", {
+                    ...watch("recommended"),
                     text: e.target.value,
                   })
                 }

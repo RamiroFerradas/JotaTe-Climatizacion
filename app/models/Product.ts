@@ -14,7 +14,7 @@ export interface Product {
   destacado: boolean;
   visible: boolean;
   newPrice?: string | number;
-  recommendedJson?: { text: string; products: string[] };
+  recommended?: { text: string; products: string[] };
 }
 
 export interface CartProduct extends Product {

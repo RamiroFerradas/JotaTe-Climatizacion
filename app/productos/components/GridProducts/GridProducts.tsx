@@ -65,6 +65,8 @@ export default function GridProducts({
             openSidebar={openSidebar}
             brands={brands}
             setLoadProducts={setLoadProducts}
+            subCategoryActive={subCategoryActive}
+            categoryActive={categoryActive}
           />
         </div>
         <div className="md:w-3/4">

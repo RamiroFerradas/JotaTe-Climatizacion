@@ -111,7 +111,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
                   component="div"
                   className="font-semibold"
                 >
-                  {selectedProduct.recommendedJson.text}
+                  {selectedProduct.recommended.text}
                 </Typography>
                 <div className="flex flex-wrap gap-6 mt-2 justify-start items-center">
                   {recommendedProducts.map((kit, index) => (

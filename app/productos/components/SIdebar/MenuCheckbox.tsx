@@ -28,6 +28,7 @@ type Props = {
   selected: string[];
   setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
+  subCategoryActive: string;
 };
 export default function MenuCheckbox({
   open,
@@ -39,6 +40,7 @@ export default function MenuCheckbox({
   selected,
   setLoadProducts,
   setProductsFiltered,
+  subCategoryActive,
 }: Props) {
   const handleChecked = async (event: FormEvent<HTMLInputElement>) => {
     const { value, checked } = event.currentTarget;
@@ -46,7 +48,10 @@ export default function MenuCheckbox({
     const updateFilterAndSelected = async (selectedBrands: string[]) => {
       try {
         setLoadProducts(true);
-        const filteredProducts = await FilterProductsByBrand(selectedBrands);
+        const filteredProducts = await FilterProductsByBrand(
+          selectedBrands,
+          subCategoryActive
+        );
 
         setSelected(selectedBrands), setProductsFiltered(filteredProducts);
       } catch (error) {

@@ -44,7 +44,7 @@ export const updateProduct = async (product: Product) => {
       id: product.id,
       visible: product.visible,
       consults: product.consults,
-      recommendedJson: product.recommendedJson,
+      recommended: product.recommended,
     };
 
     const { data, error } = await supabase

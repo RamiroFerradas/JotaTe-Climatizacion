@@ -15,7 +15,7 @@ type Props = {
 
 export default async function ProductPage({ params }: Props) {
   const selectedProduct = await fetchProductById(params.id);
-  const recommendedProductIds = selectedProduct.recommendedJson?.products;
+  const recommendedProductIds = selectedProduct.recommended?.products;
   const recommendedProducts =
     recommendedProductIds &&
     (await fetchRecommendedProductsByIds(recommendedProductIds));

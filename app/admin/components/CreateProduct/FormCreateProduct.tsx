@@ -54,7 +54,7 @@ export default function FormCreateProduct({
       image: [],
       visible: true,
       destacado: false,
-      recommendedJson: editProduct?.recommendedJson || {
+      recommended: editProduct?.recommended || {
         text: "¡Agrega tambien alguna de estas opciones!",
         products: [],
       },

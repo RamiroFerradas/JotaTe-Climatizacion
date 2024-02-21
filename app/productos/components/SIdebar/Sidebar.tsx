@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Card, Typography, List } from "@material-tailwind/react";
 import Orders from "../../../productos/components/SIdebar/Orders";
 import { Product } from "@/app/models";
@@ -18,6 +18,8 @@ type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   brands: { label: string }[];
   setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
+  subCategoryActive: string;
+  categoryActive: string;
 };
 
 export default function Sidebar({
@@ -27,8 +29,14 @@ export default function Sidebar({
   productsFiltered,
   brands,
   setLoadProducts,
+  subCategoryActive,
+  categoryActive,
 }: Props) {
   const [brandsFiltered, setBrandsFiltered] = useState<[]>([]);
+
+  useEffect(() => {
+    setBrandsFiltered([]);
+  }, [categoryActive]);
 
   const [open, setOpen] = useState(0);
 
@@ -68,6 +76,7 @@ export default function Sidebar({
           selected={brandsFiltered}
           setProductsFiltered={setProductsFiltered}
           setLoadProducts={setLoadProducts}
+          subCategoryActive={subCategoryActive}
         />
 
         <Orders

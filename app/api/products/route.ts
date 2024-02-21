@@ -14,9 +14,6 @@ import { TABLE_PRODUCTS } from "@/app/constants";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
 
 const DB_URL = process.env.NEXT_PUBLIC_DB_BASE_URL as string;
-
-const isProduction = process.env.NODE_ENV === "production";
-
 if (!DB_URL) {
   throw new Error("DB_URL is not defined");
 }
@@ -27,9 +24,9 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const headersInstance = headers();
   const authorization = headersInstance.get("authorization");
 
-  // if (!authorization || authorization !== TOKEN) {
-  //   return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  // }
+  if (!authorization || authorization !== TOKEN) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
 
   try {
     const { searchParams } = new URL(req.url);
@@ -48,20 +45,23 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 async function getProductById(id: string) {
   try {
-    const products = await getAllProducts();
-    // Buscar el producto por su ID en la lista de productos
-    const product = products.find((product) => product.id === id);
+    const supabase = createServerComponentClient({ cookies });
+    const { data, error } = await supabase
+      .from(TABLE_PRODUCTS)
+      .select("*")
+      .eq("visible", "true")
+      .eq("id", id);
+    const productsWithParsedImages = data.map((product) => ({
+      ...product,
+      image: formattedJsonToImagesArray(product.image || ""),
+    }));
 
-    if (product) {
-      // Devolver el producto si se encuentra
-      return NextResponse.json(product);
-    } else {
-      // Devolver una respuesta de error si no se encuentra el producto
-      return NextResponse.json(
-        { error: `Producto con ID ${id} no encontrado` },
-        { status: 404 }
-      );
+    if (error) {
+      throw new Error();
     }
+    // const data = await response.json();
+
+    return productsWithParsedImages[0] as Product;
   } catch (error) {
     console.error(error.message);
     return NextResponse.json({ error: error.message }, { status: 500 });
@@ -70,15 +70,11 @@ async function getProductById(id: string) {
 
 async function getAllProducts() {
   try {
-    // const response = await fetch(DB_URL, {
-    //   next: { revalidate: 0, tags: ["productos"] },
-    // });
-    // const blob = await response.blob();
-    // const text = await new Response(blob).text();
-
     const supabase = createServerComponentClient({ cookies });
-    const { data, error } = await supabase.from(TABLE_PRODUCTS).select("*");
-
+    const { data, error } = await supabase
+      .from(TABLE_PRODUCTS)
+      .select("*")
+      .eq("visible", "true");
     if (error) {
       throw new Error(`Error al obtener datos de Supabase: ${error.message}`);
     }
@@ -90,38 +86,6 @@ async function getAllProducts() {
     }));
 
     return productsWithParsedImages;
-
-    // const products = await new Promise<Product[]>((resolve, reject) => {
-    //   Papa.parse(text, {
-    //     header: true,
-    //     complete: (results) => {
-    //       const parsedProducts = results.data as Product[];
-    //       // Filtrar solo los productos que tengan "name" y "id"
-    //       const filteredProducts = parsedProducts.filter(
-    //         (product) => product.name && product.id
-    //       );
-
-    //       // Crear un array con las urls de las imagenes proporcionadas
-    //       const productsWithMultipleImages = filteredProducts.map((product) =>
-    //         imagesToArray(product)
-    //       );
-
-    //       resolve(productsWithMultipleImages);
-    //     },
-    //     error: (error: Error) => reject(new Error(error.message)),
-    //   });
-    // });
-
-    // const duplicateIds = findDuplicateIds(products);
-    // if (duplicateIds.length) console.error("IDs duplicadas:", duplicateIds);
-
-    // const filteredProducts = products.filter(
-    //   (product) => !duplicateIds.includes(product.id)
-    // );
-    // filteredProducts.forEach((producto) => {
-    //   producto.destacado = !!producto.destacado;
-    // });
-    // return filteredProducts;
   } catch (error) {
     throw new Error((error as Error).message);
   }
