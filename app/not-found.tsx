@@ -1,9 +1,11 @@
-import Link from "next/link";
+"use client";
 import jotateLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 export default function NotFound({}: Props) {
+  const router = useRouter();
   return (
     <div className="flex items-center justify-center h-screen bg-gray-100 flex-col pb-16 gap-10">
       <Image src={jotateLogo} alt="Logo" width={120} height={120} />
@@ -15,9 +17,12 @@ export default function NotFound({}: Props) {
           Lo sentimos, la página que estás buscando no existe.
         </p>
         <div className="mt-8">
-          <Link href="/" className="text-green-principal hover:underline">
+          <p
+            onClick={() => router.push("/")}
+            className="text-green-principal hover:underline cursor-pointer"
+          >
             Volver a la página de inicio
-          </Link>
+          </p>
         </div>
       </div>
     </div>
