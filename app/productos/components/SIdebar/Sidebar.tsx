@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Card, Typography, List } from "@material-tailwind/react";
 import Orders from "../../../productos/components/SIdebar/Orders";
-import MenuCheckbox from "./MenuCheckbox";
 import { Product } from "@/app/models";
+import MenuCheckbox from "./MenuCheckbox";
 
 export interface Option {
   label: string;

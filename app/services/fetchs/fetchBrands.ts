@@ -19,9 +19,12 @@ export async function fetchBrands() {
 
     const marcasUnicasSet = new Set(data.map((row) => row.brand));
 
-    const marcasUnicas = Array.from(marcasUnicasSet).map((brand) => ({
-      label: brand,
-    }));
+    // Convierte el Set ordenado alfabéticamente a un array y asigna el resultado
+    const marcasUnicas = Array.from(marcasUnicasSet)
+      .sort()
+      .map((brand) => ({
+        label: brand,
+      }));
 
     return marcasUnicas;
   } catch (error) {
