@@ -32,7 +32,6 @@ export async function FetchAndSortProducts(
 
       productsToSort = data || [];
     }
-
     const sortedProducts = [...productsToSort].sort((a, b) => {
       return sortOrder === SortOrderOptions.Descending
         ? (a[sortBy] as number) - (b[sortBy] as number)
@@ -41,7 +40,7 @@ export async function FetchAndSortProducts(
 
     const productsWithParsedImages = sortedProducts.map((product) => ({
       ...product,
-      image: formattedJsonToImagesArray(product.image || ("" as any)),
+      image: formattedJsonToImagesArray(product.image),
     }));
 
     return productsWithParsedImages;

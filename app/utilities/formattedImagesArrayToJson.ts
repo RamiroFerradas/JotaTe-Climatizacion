@@ -9,7 +9,7 @@ export const formattedImagesArrayToJson = (
 };
 
 export const formattedJsonToImagesArray = (
-  formattedImages: string
+  formattedImages: string | string[]
 ): string[] => {
   if (typeof formattedImages === "string") {
     const imagesArray = formattedImages
@@ -19,6 +19,10 @@ export const formattedJsonToImagesArray = (
       .filter((url) => url !== "" && url !== '""'); // Filtra las cadenas vacías y las cadenas que contienen solo comillas dobles
 
     return imagesArray;
+  } else if (Array.isArray(formattedImages)) {
+    // Si ya es un array, simplemente devuélvelo
+    return formattedImages;
   }
+
   return [];
 };
