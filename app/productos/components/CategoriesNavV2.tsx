@@ -1,5 +1,5 @@
 import { Button, Menu, MenuItem } from "@mui/material";
-import { useState, Fragment, useRef, useEffect } from "react";
+import { useState, Fragment, useRef } from "react";
 import { Product } from "@/app/models";
 import { useOnClickOutside } from "@/app/hooks/onClickOutsideRef";
 import { FilterProductsBySubcategories } from "@/app/services/filters/filterProductsBySubcategories";
