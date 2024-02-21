@@ -1,4 +1,4 @@
-export { default as CategoriesNavV2 } from "./CategoriesNavV2";
+export { default as CategoriesNavV2 } from "./CategoriesNav";
 export { default as GridProducts } from "./GridProducts/GridProducts";
 export { default as CardSkeleton } from "./GridProducts/ProductCard/CardSkeleton";
 export { default as ProductCard } from "./GridProducts/ProductCard/ProductCard";

@@ -4,7 +4,7 @@ import { Product } from "@/app/models";
 import Paginate from "../Paginate";
 import Sidebar from "../SIdebar/Sidebar";
 import ProductCard from "./ProductCard/ProductCard";
-import CategoriesNavV2 from "../CategoriesNavV2";
+import CategoriesNavV2 from "../CategoriesNav";
 import Navbar from "../Navbar/Navbar";
 import CardSkeleton from "./ProductCard/CardSkeleton";
 import Link from "next/link";
