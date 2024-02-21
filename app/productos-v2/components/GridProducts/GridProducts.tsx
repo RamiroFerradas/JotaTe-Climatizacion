@@ -1,6 +1,5 @@
 "use client";
 import { useState, useMemo, useEffect, Suspense } from "react";
-import { useProductList } from "@/app/hooks";
 import { Product } from "@/app/models";
 import Paginate from "../Paginate";
 import Sidebar from "../SIdebar/Sidebar";

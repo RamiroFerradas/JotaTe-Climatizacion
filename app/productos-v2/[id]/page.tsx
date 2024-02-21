@@ -1,5 +1,7 @@
-"use server";
-import { fetchProductById } from "@/app/services/fetchs/fetchProducts";
+import {
+  fetchProductById,
+  fetchProducts,
+} from "@/app/services/fetchs/fetchProducts";
 import ProductDetail from "./components/ProductDetail";
 import { fetchRecommendedProductsByIds } from "@/app/services/fetchs/fetchRecommendedProductsByIds";
 import { Suspense } from "react";

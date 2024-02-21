@@ -1,3 +1,4 @@
+"use client";
 import CircularProgress, {
   CircularProgressProps,
 } from "@mui/material/CircularProgress";

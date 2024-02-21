@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Product } from "../models";
-import useProductList from "./useProductList";
+import { fetchProducts } from "../services/fetchs/fetchProducts";
 
-type Props = { selectedProduct: Product };
-export default function useConditionProducts({ selectedProduct }: Props) {
+type Props = { selectedProduct: Product; allProducts: Product[] };
+export default function useConditionProducts({
+  selectedProduct,
+  allProducts,
+}: Props) {
   if (!selectedProduct) return null;
-  const { loading, allProducts } = useProductList();
-
   var optionalText: string | undefined;
   var optionalProducts: Product[] = [];
 
