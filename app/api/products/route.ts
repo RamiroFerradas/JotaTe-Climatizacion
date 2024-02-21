@@ -19,7 +19,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
   const authorization = headersInstance.get("authorization");
 
   if (!authorization || authorization !== TOKEN) {
-     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
@@ -59,7 +59,7 @@ async function getProductById(id: string) {
     return productsWithParsedImages[0] as Product;
   } catch (error) {
     console.error(error.message);
-    return return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
