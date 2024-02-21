@@ -14,9 +14,9 @@ import {
   Typography,
 } from "@material-tailwind/react";
 
-import { FilterProductsByBrand } from "@/app/services/filters/filterProductsByBrand";
 import { Product } from "@/app/models";
 import { FormEvent } from "react";
+import { FilterProductsByBrand } from "@/app/services/filters/filterProdByBrand";
 
 type Props = {
   open: number;
