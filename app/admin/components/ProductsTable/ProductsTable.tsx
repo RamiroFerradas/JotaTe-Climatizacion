@@ -31,6 +31,7 @@ import { updateProductsV2 } from "@/app/services/crud/updateProduct";
 import { FaEdit } from "react-icons/fa";
 import { toastErrorAdmin, toastOkAdmin } from "@/app/utilities/toastAdmin";
 import { Searchbar } from "@/app/productos/components";
+import LoadUpdateProducts from "../LoadUpdateProducts";
 
 type Props = {
   products: Product[];
@@ -407,23 +408,11 @@ export default function ProductsTable({
           />
         </Paper>
       </Box>
-      {loading ? (
-        <div className="fixed top-0 left-0 w-full h-full bg-black/60 z-50 flex justify-center items-center flex-col backdrop-blur-[1px]">
-          {productosPorActualizar > 0 && (
-            <>
-              <p className="z-50 text-white font-black text-2xl">
-                {`Productos a actualizar: ${selected.length}`}
-              </p>
-              <p className="z-50 text-white font-black text-2xl">
-                {`Productos restantes por actualizar: ${productosPorActualizar}`}
-              </p>
-            </>
-          )}
-          <Loading />
-        </div>
-      ) : (
-        <></>
-      )}
+      <LoadUpdateProducts
+        productosPorActualizar={productosPorActualizar}
+        loading={loading}
+        productsSelected={selected}
+      />
       <Modal open={openModalForm} onClose={() => setOpenModalForm(false)}>
         <div className="flex justify-center items-start min-h-screen m-5">
           <FormCreateProduct
