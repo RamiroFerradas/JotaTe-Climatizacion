@@ -19,7 +19,7 @@ import { getComparator } from "../../helpers/getComparator";
 import { Modal, Switch } from "@mui/material";
 import ButtonLogout from "../ButtonLogout";
 import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
-import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
+import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté símbolo1.png";
 import { Button } from "@material-tailwind/react";
 import Image from "next/image";
 import Link from "next/link";
@@ -61,8 +61,7 @@ export default function ProductsTable({
   const rows = (filteredProducts.length > 0 ? filteredProducts : products).map(
     (item: Product) => createDataFromAPI(item)
   );
-  const { width } = useScreenSize();
-  const isMobile = width > 720;
+  const { isMobile } = useScreenSize();
 
   const handleRequestSort = (
     event: MouseEvent<unknown>,
@@ -204,13 +203,23 @@ export default function ProductsTable({
       <Box sx={{ width: "100%", marginBottom: "0" }}>
         <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
           <Link href={"/"}>
-            <Image
-              src={isMobile ? jotaTeLogoResponsive : jotaTeLogo}
-              alt="logo_jota_te"
-              width={!isMobile ? 130 : 50}
-              height={!isMobile ? 130 : 50}
-              className="cursor-pointer"
-            />
+            {isMobile ? (
+              <Image
+                src={jotaTeLogoResponsive}
+                alt="logo_jota_te"
+                width={50}
+                height={50}
+                className="cursor-pointer"
+              />
+            ) : (
+              <Image
+                src={jotaTeLogo}
+                alt="logo_jota_te"
+                width={130}
+                height={130}
+                className="cursor-pointer"
+              />
+            )}
           </Link>
 
           <Searchbar onChangue setProductsFiltered={setFilteredProducts} />

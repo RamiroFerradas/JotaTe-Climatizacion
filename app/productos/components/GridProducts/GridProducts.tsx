@@ -81,7 +81,6 @@ export default function GridProducts({
                   <CardSkeleton key={i} />
                 ))
               : productsToShow.map((prod: Product) => (
-                  // <Suspense fallback={<CardSkeleton />} key={prod.id}>
                   <Link
                     shallow
                     scroll={false}
@@ -90,7 +89,6 @@ export default function GridProducts({
                   >
                     <ProductCard product={prod} />
                   </Link>
-                  //  </Suspense>
                 ))}
           </div>
           {!productsFiltered.length && (

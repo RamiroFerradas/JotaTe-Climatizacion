@@ -46,45 +46,43 @@ const SwipperProducts = ({ products }: Props) => {
           }`}
         >
           {productosDestacadosFiltrados.map((prod: Product, i) => (
-            <Suspense fallback={<SkeletonFeatured />} key={prod.id + i}>
-              <div
-                className="relative flex items-center justify-between flex-col text-center w-full h-[500px] px-4"
-                key={prod.id + i}
-                onMouseUp={() => setIsDraggin(false)}
-                onMouseDown={() => setIsDraggin(true)}
-              >
-                <div>
-                  <p className="text-xl font-bold uppercase">{prod.name}</p>
-                </div>
-
-                <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
-                  <Image
-                    height={300}
-                    width={300}
-                    src={prod.image[0]}
-                    alt="asparri"
-                    className="object-cover rounded-xl"
-                  />
-                </div>
-
-                <div>
-                  <p className="text-[#f18500] font-black text-2xl">
-                    {parseCurrency(Number(prod.price))}
-                  </p>
-                </div>
-                <div className="flex flex-col items-center justify-center">
-                  <Link
-                    href={{
-                      pathname: `/productos/${prod.id}`,
-                      query: { prevRoute: "home" },
-                    }}
-                    className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
-                  >
-                    <p className="font-semibold">Consultar</p>
-                  </Link>
-                </div>
+            <div
+              className="relative flex items-center justify-between flex-col text-center w-full h-[500px] px-4"
+              key={prod.id + i}
+              onMouseUp={() => setIsDraggin(false)}
+              onMouseDown={() => setIsDraggin(true)}
+            >
+              <div>
+                <p className="text-xl font-bold uppercase">{prod.name}</p>
               </div>
-            </Suspense>
+
+              <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
+                <Image
+                  height={300}
+                  width={300}
+                  src={prod.image[0]}
+                  alt="asparri"
+                  className="object-cover rounded-xl"
+                />
+              </div>
+
+              <div>
+                <p className="text-[#f18500] font-black text-2xl">
+                  {parseCurrency(Number(prod.price))}
+                </p>
+              </div>
+              <div className="flex flex-col items-center justify-center">
+                <Link
+                  href={{
+                    pathname: `/productos/${prod.id}`,
+                    query: { prevRoute: "home" },
+                  }}
+                  className="border-2 border-[#d3a265] rounded-lg uppercase px-5 text-sm transition-all hover:bg-[#d3a165b8] flex items-center  text-center justify-center flex-col h-12 w-52"
+                >
+                  <p className="font-semibold">Consultar</p>
+                </Link>
+              </div>
+            </div>
           ))}
         </Slider>
       </div>

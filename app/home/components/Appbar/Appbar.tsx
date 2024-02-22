@@ -89,11 +89,9 @@ const Appbar: React.FC<NavbarProps> = () => {
           <Navlist />
           <Link href={"/productos"}>
             <Button
-              variant="gradient"
               size="sm"
-              fullWidth
-              className="mb-2 w-28"
-              onClick={() => setOpenNav(false)}
+              className="rounded bg-[#006d54] border border-[#006d54 mb-2 w-28"
+              color="green"
             >
               <span>Productos</span>
             </Button>

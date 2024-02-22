@@ -1,14 +1,14 @@
 import Image from "next/image";
-import jotaTeLogo from "../../../../public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import CartMenu from "./CartMenu";
 import CartIcon from "./CartIcon";
 import Searchbar from "./Searchbar";
 import { Product } from "@/app/models";
 import { useOnClickOutside } from "@/app/hooks/onClickOutsideRef";
 import { useCart } from "../../context/CartContext";
+import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 
 type Props = {
   openSidebar: boolean;
@@ -21,9 +21,8 @@ export default function Navbar({
   openSidebar,
   setOpenSidebar,
 }: Props) {
-  const cartRef = useRef(null);
   const { closeMenuCart } = useCart();
-
+  const cartRef = useRef(null);
   useOnClickOutside(cartRef, () => closeMenuCart());
 
   return (
