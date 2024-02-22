@@ -12,6 +12,8 @@ type Props = {
   setSubCategoryActive: (subCategory: string) => void;
   setProductsFiltered: (products: Product[]) => void;
   setLoadProducts: (load: boolean) => void;
+  brandsFiltered: string[];
+  setBrandsFiltered: (brands: string[]) => void;
 };
 export default function CategoriesNavV2({
   setCategoryActive,
@@ -21,6 +23,8 @@ export default function CategoriesNavV2({
   setProductsFiltered,
   allProducts,
   setLoadProducts,
+  brandsFiltered,
+  setBrandsFiltered,
 }: Props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -70,9 +74,15 @@ export default function CategoriesNavV2({
       if (option == "Todos") {
         setProductsFiltered(allProducts);
         setCategoryActive("Todos");
+        setBrandsFiltered([]);
       } else {
         const productsFilteres = await FilterProductsBySubcategories(option);
         setProductsFiltered(productsFilteres);
+        const filteredBrands = productsFilteres.map((product) => product.brand);
+
+        const uniqueFilteredBrands = Array.from(new Set(filteredBrands));
+
+        setBrandsFiltered(uniqueFilteredBrands);
       }
       setLoadProducts(false);
       setSubCategoryActive(option);

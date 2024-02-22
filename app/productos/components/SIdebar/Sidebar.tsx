@@ -20,6 +20,8 @@ type Props = {
   setLoadProducts: React.Dispatch<React.SetStateAction<boolean>>;
   subCategoryActive: string;
   categoryActive: string;
+  brandsFiltered: string[];
+  setBrandsFiltered: (brands: string[]) => void;
 };
 
 export default function Sidebar({
@@ -30,13 +32,14 @@ export default function Sidebar({
   brands,
   setLoadProducts,
   subCategoryActive,
-  categoryActive,
+  brandsFiltered,
+  setBrandsFiltered,
 }: Props) {
-  const [brandsFiltered, setBrandsFiltered] = useState<[]>([]);
-
-  useEffect(() => {
-    setBrandsFiltered([]);
-  }, [categoryActive]);
+  // useEffect(() => {
+  //   const brands = productsFiltered.map((product) => product.brand as string);
+  //   console.log("");
+  //   setBrandsFiltered(brands);
+  // }, [categoryActive]);
 
   const [open, setOpen] = useState(0);
 

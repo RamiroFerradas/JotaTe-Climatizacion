@@ -22,6 +22,7 @@ export default function GridProducts({
   const [categoryActive, setCategoryActive] = useState<string>("Todos");
   const [subCategoryActive, setSubCategoryActive] = useState<string>("");
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
+  const [brandsFiltered, setBrandsFiltered] = useState<string[]>([]);
   const [openSidebar, setopenSidebar] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadProducts, setLoadProducts] = useState(false);
@@ -54,6 +55,8 @@ export default function GridProducts({
         setProductsFiltered={setProductsFiltered}
         allProducts={products}
         setLoadProducts={setLoadProducts}
+        brandsFiltered={brandsFiltered}
+        setBrandsFiltered={setBrandsFiltered}
       />
 
       <div className="flex justify-center items-start relative">
@@ -67,6 +70,8 @@ export default function GridProducts({
             setLoadProducts={setLoadProducts}
             subCategoryActive={subCategoryActive}
             categoryActive={categoryActive}
+            brandsFiltered={brandsFiltered}
+            setBrandsFiltered={setBrandsFiltered}
           />
         </div>
         <div className="md:w-3/4">

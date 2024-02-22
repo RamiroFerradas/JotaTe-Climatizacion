@@ -52,7 +52,6 @@ export default function MenuCheckbox({
           selectedBrands,
           subCategoryActive
         );
-
         setSelected(selectedBrands), setProductsFiltered(filteredProducts);
       } catch (error) {
         console.error("Error al actualizar productos y marcas:", error.message);
