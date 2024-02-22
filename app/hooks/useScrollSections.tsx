@@ -7,7 +7,6 @@ interface ScrollSectionProps {
 }
 
 const useScrollSections = (): ScrollSectionProps => {
-  const [scrolled, setScrolled] = useLocalStorage("scrolled", false);
   const [sectionActive, setSectionActive] = useLocalStorage(
     "section active",
     "home"
@@ -19,13 +18,19 @@ const useScrollSections = (): ScrollSectionProps => {
     ) as HTMLElement[];
   }, []);
 
+  const [scrolled, setScrolled] = useState(false);
   const handleScroll = useCallback(() => {
-    if (window.scrollY > 0) {
+    console.log("Scrolling:", window.scrollY);
+    if (window.scrollY > 20) {
       setScrolled(true);
     } else {
       setScrolled(false);
     }
-  }, []);
+  }, [setScrolled]);
+
+  useEffect(() => {
+    localStorage.setItem("scrolled", scrolled.toString());
+  }, [scrolled]);
 
   const handleScrollSection = useCallback(() => {
     sectionRef.current.forEach((section) => {

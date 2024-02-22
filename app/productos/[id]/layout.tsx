@@ -20,7 +20,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <Drawer
       anchor={"right"}
       open={true}
-      onClose={backModal()}
+      onClose={backModal}
       className="min-h-screen z-50"
     >
       <Card className="flex flex-col md:w-[48rem] justify-between items-center px-0 h-full overflow-y-auto w-screen">
