@@ -20,7 +20,6 @@ const useScrollSections = (): ScrollSectionProps => {
 
   const [scrolled, setScrolled] = useState(false);
   const handleScroll = useCallback(() => {
-    console.log("Scrolling:", window.scrollY);
     if (window.scrollY > 20) {
       setScrolled(true);
     } else {
