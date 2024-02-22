@@ -22,15 +22,17 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
     <CartProvider>
       <Toaster position="top-right" />
       <main className="min-h-screen flex justify-between flex-col">
-        <GridProducts
-          categoriesSubCategories={categoriesSubCategories}
-          brands={brands}
-          products={products}
-        />
+        {children}
 
+        <Suspense fallback={<LoadingProducts />}>
+          <GridProducts
+            categoriesSubCategories={categoriesSubCategories}
+            brands={brands}
+            products={products}
+          />
+        </Suspense>
         <Footer />
       </main>
-      {children}
     </CartProvider>
   );
 };
