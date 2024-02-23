@@ -8,7 +8,6 @@ import { TABLE_PRODUCTS } from "../../constants";
 import { formattedImagesArrayToJson } from "../../utilities/formattedImagesArrayToJson";
 
 export const updateProductsV2 = async (updateProducts: Product[]) => {
-  const supabase = createServerComponentClient({ cookies });
   try {
     const updatedProducts: Product[] = [];
 

@@ -1,6 +1,8 @@
 import ProductsTable from "./ProductsTable/ProductsTable";
 import { fetchProducts } from "@/app/services/fetchs/fetchProducts";
 import { getOptionsByProperty } from "@/app/utilities/getOptionsByPropertyProduct";
+import { Suspense } from "react";
+import LoadingAdmin from "./LoadingAdmin";
 
 type Props = {};
 async function Dashboard({}: Props) {
@@ -11,12 +13,14 @@ async function Dashboard({}: Props) {
   const optionsBrands = getOptionsByProperty(data, "brand");
 
   return (
-    <ProductsTable
-      optionsSubcategory={optionsSubcategory}
-      optionsCategory={optionsCategory}
-      optionsBrands={optionsBrands}
-      products={data}
-    />
+    <Suspense fallback={<LoadingAdmin />}>
+      <ProductsTable
+        optionsSubcategory={optionsSubcategory}
+        optionsCategory={optionsCategory}
+        optionsBrands={optionsBrands}
+        products={data}
+      />
+    </Suspense>
   );
 }
 export default Dashboard;
