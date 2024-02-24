@@ -5,7 +5,9 @@ export { default as InformationProduct } from "./CreateProduct/InformationProduc
 export { default as LoadImages } from "./CreateProduct/LoadImages";
 export { default as RecommendedProducts } from "./CreateProduct/RecommendedProducts";
 export { default as Dashboard } from "./Dashboard";
+export { default as Header } from "./Header/Header";
 export { default as LoadUpdateProducts } from "./LoadUpdateProducts";
+export { default as LoadingAdmin } from "./LoadingAdmin";
 export { default as Percentage } from "./Percentage";
 export { default as ProductCard } from "./ProductCard";
 export { default as EnhancedTableHead } from "./ProductsTable/EnhancedTableHead";
