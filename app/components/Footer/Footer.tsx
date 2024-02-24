@@ -54,14 +54,14 @@ const Footer: React.FC<FooterProps> = () => {
         </a>
       </div>
       <div
-        className={`flex flex-col justify-center items-center text-white bg-[#212121] py-5`}
+        className={`flex flex-col justify-center items-center text-white bg-[#212121] py-5 px-5 md:px-0 text-center`}
       >
-        <p className="text-[#dbd8d8] ml-4">
+        <p className="text-[#dbd8d8]">
           Horario de atención: Lunes a viernes de 8:30 AM a 12:00 PM y de 4:00
           PM a 8:00 PM, sábados de 9:00 AM a 1:00 PM.
         </p>
 
-        <p>
+        <p className="text-sm">
           {`© Derechos de autor Jotaté Climatización. Todos los derechos reservados. Diseñado y desarrollado por `}
           <a
             href="https://www.ramiroferradas.com.ar/"

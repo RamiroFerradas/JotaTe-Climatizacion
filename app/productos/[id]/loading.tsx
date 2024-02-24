@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 
 type Props = {};
-export default function Loading({}: Props) {
+export default function LoadingProduct({}: Props) {
   return (
     <div className="overflow-y-auto w-full">
       <div className="flex flex-col min-h-screen justify-between">

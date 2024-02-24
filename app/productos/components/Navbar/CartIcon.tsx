@@ -15,7 +15,6 @@ export default function CartIcon({ setOpenSidebar }: Props) {
       <button
         className={`flex-col flex justify-center hover:text-[#006d54] transition-all items-center`}
         onClick={(e) => {
-          e.stopPropagation();
           setOpenSidebar(false);
           toggleCartMenu();
         }}

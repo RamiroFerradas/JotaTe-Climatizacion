@@ -8,6 +8,9 @@ import CategoriesNavV2 from "../CategoriesNav";
 import Navbar from "../Navbar/Navbar";
 import CardSkeleton from "./ProductCard/CardSkeleton";
 import Link from "next/link";
+import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
+import { handleScrollToTop } from "@/app/utilities/handleScrollTop";
+import { useScreenSize } from "@/app/hooks";
 
 type Props = {
   products: Product[];
@@ -23,10 +26,11 @@ export default function GridProducts({
   const [subCategoryActive, setSubCategoryActive] = useState<string>("");
   const [productsFiltered, setProductsFiltered] = useState<Product[]>(products);
   const [brandsFiltered, setBrandsFiltered] = useState<string[]>([]);
-  const [openSidebar, setopenSidebar] = useState(false);
+  const [openSidebar, setOpenSidebar] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadProducts, setLoadProducts] = useState(false);
-  const productsPerPage = 15;
+  const { isMobile } = useScreenSize();
+  const productsPerPage = isMobile ? 16 : 15;
 
   const productsToShow = useMemo(() => {
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -44,7 +48,7 @@ export default function GridProducts({
       <Navbar
         setProductsFiltered={setProductsFiltered}
         openSidebar={openSidebar}
-        setOpenSidebar={setopenSidebar}
+        setOpenSidebar={setOpenSidebar}
       />
 
       <CategoriesNavV2
@@ -60,11 +64,11 @@ export default function GridProducts({
       />
 
       <div className="flex justify-center items-start relative">
-        <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:minh-[80vh] overflow-y-auto p-4 custom-scrollbar">
+        <div className="md:w-1/4 absolute md:sticky md:top-0 left-0 w-full max-w-[80rem] h-full md:max-h-[100vh] overflow-y-auto p-4 custom-scrollbar">
           <Sidebar
             productsFiltered={productsFiltered}
             setProductsFiltered={setProductsFiltered}
-            setopenSidebar={setopenSidebar}
+            setopenSidebar={setOpenSidebar}
             openSidebar={openSidebar}
             brands={brands}
             setLoadProducts={setLoadProducts}
@@ -74,21 +78,24 @@ export default function GridProducts({
             setBrandsFiltered={setBrandsFiltered}
           />
         </div>
-        <div className="md:w-3/4">
+
+        <div className="md:w-3/4 relative w-full">
           <div className="flex flex-wrap gap-4 md:justify-start justify-center md:items-start py-5">
             {loadProducts
               ? Array.from({ length: 5 }).map((_, i) => (
                   <CardSkeleton key={i} />
                 ))
               : productsToShow.map((prod: Product) => (
-                  <Link
-                    shallow
-                    scroll={false}
-                    href={`/productos/${prod.id}`}
-                    key={prod.id}
-                  >
-                    <ProductCard product={prod} />
-                  </Link>
+                  <Suspense key={prod.id} fallback={<CardSkeleton />}>
+                    <Link
+                      shallow
+                      scroll={false}
+                      href={`/productos/${prod.id}`}
+                      key={prod.id}
+                    >
+                      <ProductCard product={prod} />
+                    </Link>
+                  </Suspense>
                 ))}
           </div>
           {!productsFiltered.length && (
@@ -106,6 +113,19 @@ export default function GridProducts({
               setCurrentPage={setCurrentPage}
             />
           )}
+          <div className="md:hidden w-10 h-10 flex justify-center items-center sticky bottom-3 left-96 right-0 rounded-full bg-[#006d54] border border-[#006d54] shadow-2xl mr-2 mb-2 overflow-hidden z-50">
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                setOpenSidebar(!openSidebar);
+                handleScrollToTop();
+              }}
+              className="rounded  overflow-hidden md:hidden flex items-center justify-center text-white"
+              color="green"
+            >
+              <AdjustmentsHorizontalIcon className="h-6 w-6" />
+            </button>
+          </div>
         </div>
       </div>
     </>

@@ -105,7 +105,7 @@ export default function CartMenu({}: Props) {
                   />
                   <button
                     onClick={() => addToCart(product)}
-                    className="text-white px-1 py-1 rounded-md bg-teal-500 hover:bg-teal-800 focus:outline-none focus:bg-teal-700"
+                    className="text-white px-1 py-1 rounded-md bg-green-principal hover:bg-teal-700 focus:outline-none focus:bg-teal-700"
                   >
                     <BsPlus className="text-gray-200 text-lg" />
                   </button>
@@ -138,7 +138,7 @@ export default function CartMenu({}: Props) {
             </button>
             <button
               disabled={!cart.length}
-              className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:bg-blue-700"
+              className="bg-green-principal text-white px-4 py-2 rounded-md hover:bg-teal-700 focus:outline-none focus:bg-teal-700"
             >
               <span onClick={handleOrderClick}>Completar pedido</span>
             </button>

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
+import { FaSearch } from "react-icons/fa";
 import { useRef } from "react";
 import CartMenu from "./CartMenu";
 import CartIcon from "./CartIcon";
@@ -9,6 +9,8 @@ import { Product } from "@/app/models";
 import { useOnClickOutside } from "@/app/hooks/onClickOutsideRef";
 import { useCart } from "../../context/CartContext";
 import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
+import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
+import { useScreenSize } from "@/app/hooks";
 
 type Props = {
   openSidebar: boolean;
@@ -16,12 +18,9 @@ type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
 };
 
-export default function Navbar({
-  setProductsFiltered,
-  openSidebar,
-  setOpenSidebar,
-}: Props) {
+export default function Navbar({ setProductsFiltered, setOpenSidebar }: Props) {
   const { closeMenuCart } = useCart();
+  const { isMobile } = useScreenSize();
   const cartRef = useRef(null);
   useOnClickOutside(cartRef, () => closeMenuCart());
 
@@ -30,30 +29,19 @@ export default function Navbar({
       <div className="flex flex-wrap items-center justify-between gap-y-4 text-blue-gray-900 w-full">
         <Link href="/">
           <Image
-            src={jotaTeLogo}
+            src={isMobile ? jotaTeLogoResponsive : jotaTeLogo}
             alt="logo_jota_te"
-            width={130}
-            height={130}
-            className="order-1"
+            width={isMobile ? 50 : 130}
+            height={isMobile ? 50 : 130}
+            // className="order-1"
             priority
           />
         </Link>
-        <div className="flex md:w-max order-4 sm:order-3 md:order-2 justify-center items-center gap-2 flex-wrap">
+        <div className="flex md:w-max justify-center items-center gap-2 flex-wrap">
           <Searchbar setProductsFiltered={setProductsFiltered} />
         </div>
-        <div className="md:hidden flex md:w-max xs:order-4 md:order-4 justify-center items-center gap-2 flex-wrap order-3">
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              setOpenSidebar(!openSidebar);
-            }}
-            className="rounded bg-[#006d54] border border-[#006d54] overflow-hidden md:hidden w-10 flex items-center justify-center h-9 text-white mr-2"
-            color="green"
-          >
-            <AdjustmentsHorizontalIcon className="h-5 w-5" />
-          </button>
-        </div>
-        <div ref={cartRef} className="order-2 md:order-3">
+
+        <div ref={cartRef} className="order-">
           <div className="md:gap-6 gap-3 text-gray-600 flex justify-center items-center ">
             <CartIcon setOpenSidebar={setOpenSidebar} />
           </div>
