@@ -79,9 +79,9 @@ export default function Footer({}: Props) {
       </div>
       <button
         onClick={() => router.push("/admin")}
-        className="absolute right-0 bottom-0 z-50"
+        className="absolute right-1 bottom-1 z-50"
       >
-        <RiAdminLine color="white" />
+        <RiAdminLine size={18} color="white" />
       </button>
     </section>
   );
