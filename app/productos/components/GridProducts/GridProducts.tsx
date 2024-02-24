@@ -11,6 +11,7 @@ import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { handleScrollToTop } from "@/app/utilities/handleScrollTop";
 import { useScreenSize } from "@/app/hooks";
+import LoadingProducts from "@/app/loading";
 
 type Props = {
   products: Product[];
@@ -37,6 +38,7 @@ export default function GridProducts({
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     return productsFiltered?.slice(indexOfFirstProduct, indexOfLastProduct);
   }, [productsFiltered, currentPage]);
+
   const totalPages = Math.ceil(productsFiltered?.length / productsPerPage);
 
   useEffect(() => {

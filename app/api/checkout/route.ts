@@ -21,22 +21,22 @@ export interface Item {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { unit_price } = await req.json();
+  const { price, name, id } = await req.json();
   // Crear un objeto de preferencia
   let preference = {
     // el "purpose": "wallet_purchase" solo permite pagos registrados
     // para permitir pagos de guests puede omitir esta propiedad
     purpose: "wallet_purchase",
     back_urls: {
-      success: "http://localhost:3000/shop",
+      success: "https://www.jotateclimatizacion.com/productos/",
     },
     // notification_url: "https://localhost:3000/shop",
     items: [
       {
-        id: "item-ID-1234",
-        title: "Producto test",
+        id,
+        title: name,
         quantity: 1,
-        unit_price: unit_price,
+        unit_price: price,
         currency_id: "ARS",
       },
     ] as Item[],
