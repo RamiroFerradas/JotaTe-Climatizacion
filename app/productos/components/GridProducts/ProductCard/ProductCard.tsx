@@ -6,7 +6,7 @@ import {
   CardBody,
   Typography,
 } from "@material-tailwind/react";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import Link from "next/link";
 import { useState } from "react";
@@ -39,7 +39,7 @@ export default function ProductCard({ product }: Props) {
         floated={false}
         className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
       >
-        <img
+        <Image
           src={
             isHovered && product.image[1] ? product.image[1] : product.image[0]
           }
