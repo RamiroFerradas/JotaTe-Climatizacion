@@ -88,7 +88,6 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
               height={!zoom ? 200 : 320}
               src={img}
               alt={selectedProduct.name}
-              onLoad={() => <Loading />}
               className={`md:max-w-3xl max-w-screen pb-20 object-cover md:transition-all ${
                 !zoom
                   ? "md:h-80 hover:cursor-zoom-in pointer-events-none md:pointer-events-auto"
