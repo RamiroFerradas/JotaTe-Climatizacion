@@ -1,3 +1,4 @@
+"use client";
 import { Service, servicesData } from "./serviceData";
 
 export type ServicesProps = {};
