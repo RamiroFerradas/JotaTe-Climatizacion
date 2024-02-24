@@ -14,24 +14,25 @@ export type RootLayoutProps = {
 };
 
 const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
-  const products = await fetchProducts();
-  const brands = await fetchBrands();
-  const categoriesSubCategories = await getCategoriesWithSubcategories();
+const products = await fetchProducts();
+const first30Products = products.slice(0, 30);
+const brands = await fetchBrands();
+const categoriesSubCategories = await getCategoriesWithSubcategories();
 
-  return (
-    <CartProvider>
-      <Toaster position="top-right" />
-      <main className="min-h-screen flex justify-between flex-col">
-        {children}
-        <GridProducts
-          categoriesSubCategories={categoriesSubCategories}
-          brands={brands}
-          products={products}
-        />
+return (
+  <CartProvider>
+    <Toaster position="top-right" />
+    <main className="min-h-screen flex justify-between flex-col">
+      {children}
+      <GridProducts
+        categoriesSubCategories={categoriesSubCategories}
+        brands={brands}
+        products={first30Products}
+      />
 
-        <Footer />
-      </main>
-    </CartProvider>
-  );
+      <Footer />
+    </main>
+  </CartProvider>
+);
 };
 export default RootLayout;
