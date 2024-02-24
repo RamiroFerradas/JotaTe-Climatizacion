@@ -5,6 +5,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { TABLE_PRODUCTS } from "../../constants";
 import { formattedJsonToImagesArray } from "@/app/utilities/formattedImagesArrayToJson";
+import { redirect } from "next/navigation";
 interface FetchProductsOptions {
   filter?: string;
 }
@@ -24,7 +25,7 @@ export async function fetchProducts(
     const { data, error } = await query; // <-- Corregir aquí
 
     if (error) {
-      throw new Error();
+      redirect("/productos");
     }
 
     const productsWithParsedImages = data.map((product) => ({
@@ -34,7 +35,7 @@ export async function fetchProducts(
 
     return productsWithParsedImages as Product[];
   } catch (error) {
-    throw new Error(`Error al obtener los productos: ${error.message}`);
+    console.error(`Error al obtener los productos: ${error.message}`);
   }
 }
 
@@ -50,15 +51,14 @@ export async function fetchProductById(id: string): Promise<Product> {
       ...product,
       image: formattedJsonToImagesArray(product.image || ""),
     }));
-
     if (error) {
-      throw new Error();
+      redirect("/productos");
     }
     // const data = await response.json();
 
     return productsWithParsedImages[0] as Product;
   } catch (error) {
-    throw new Error(
+    console.error(
       `Error al obtener el producto con ID ${id}: ` + error.message
     );
   }
