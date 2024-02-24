@@ -1,3 +1,4 @@
+import { Product } from "@/app/models";
 import { NextRequest, NextResponse } from "next/server";
 
 // SDK de Mercado Pago
@@ -12,16 +13,13 @@ mercadopago.configure({
 
 // Crear un objeto de preferencia
 
-export interface Item {
-  id: string;
-  title: string;
-  unit_price: number;
-  quantity: number;
+export interface Item extends Product {
   currency_id: "ARS";
+  quantity: number;
+  unit_price: number;
 }
-
 export async function POST(req: NextRequest, res: NextResponse) {
-  const { price, name, id } = await req.json();
+  const { price, name, id, description } = await req.json();
   // Crear un objeto de preferencia
   let preference = {
     // el "purpose": "wallet_purchase" solo permite pagos registrados
@@ -34,10 +32,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
     items: [
       {
         id,
-        title: name,
+        name,
         quantity: 1,
         unit_price: price,
         currency_id: "ARS",
+        description: name,
       },
     ] as Item[],
   };
