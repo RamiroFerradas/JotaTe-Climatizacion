@@ -14,7 +14,6 @@ export default async function ProductPage({ params }: Props) {
   const recommendedProducts =
     recommendedProductIds &&
     (await fetchRecommendedProductsByIds(recommendedProductIds));
-  console.log(recommendedProductIds);
 
   if (!selectedProduct) {
     return redirect("/productos");

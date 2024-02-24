@@ -13,7 +13,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
   const router = useRouter();
 
   const backModal = () => () => {
-    router.back();
+    router.push("/productos");
   };
 
   return (
