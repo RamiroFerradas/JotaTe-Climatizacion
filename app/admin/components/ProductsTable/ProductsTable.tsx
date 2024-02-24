@@ -21,7 +21,7 @@ import ButtonLogout from "../ButtonLogout";
 import jotaTeLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté nombre1.png";
 import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté símbolo1.png";
 import { Button } from "@material-tailwind/react";
-import { Image } from "@unpic/react/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 import FormCreateProduct from "../CreateProduct/FormCreateProduct";
 import { IoMdAddCircleOutline, IoMdSave } from "react-icons/io";

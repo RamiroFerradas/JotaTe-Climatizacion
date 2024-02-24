@@ -1,12 +1,16 @@
+"use client";
 export type FooterProps = {};
 import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { BiMailSend, BiPhoneCall } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
-
-const Footer: React.FC<FooterProps> = () => {
+import { RiAdminLine } from "react-icons/ri";
+import { useRouter } from "next/navigation";
+type Props = {};
+export default function Footer({}: Props) {
+  const router = useRouter();
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   return (
-    <section id="footer">
+    <section id="footer" className="relative">
       <div
         className={`flex item-center justify-center text-white bg-[#6b6b6b] text-5xl py-8 gap-5`}
       >
@@ -73,8 +77,12 @@ const Footer: React.FC<FooterProps> = () => {
           </a>
         </p>
       </div>
+      <button
+        onClick={() => router.push("/admin")}
+        className="absolute right-0 bottom-0 z-50"
+      >
+        <RiAdminLine color="white" />
+      </button>
     </section>
   );
-};
-
-export default Footer;
+}
