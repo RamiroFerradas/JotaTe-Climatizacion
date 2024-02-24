@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import noimage from "@/public/no-image.png";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { CircularProgressWithLabel } from "..";
 import { Controller } from "react-hook-form";

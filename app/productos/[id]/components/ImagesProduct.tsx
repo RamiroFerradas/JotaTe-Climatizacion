@@ -3,6 +3,7 @@ import { Loading } from "@/app/components";
 import { Product } from "@/app/models";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Carousel, IconButton } from "@material-tailwind/react";
+import { Image } from "@unpic/react/nextjs";
 
 export type ImagesProductProps = {
   selectedProduct: Product;
@@ -82,9 +83,9 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
              
              `}
           >
-            <img
-              // width={!zoom ? 300 : 768}
-              // height={!zoom ? 200 : 320}
+            <Image
+              width={!zoom ? 300 : 768}
+              height={!zoom ? 200 : 320}
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}

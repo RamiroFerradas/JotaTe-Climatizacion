@@ -31,7 +31,7 @@ export default function GridProducts({
   const [currentPage, setCurrentPage] = useState(1);
   const [loadProducts, setLoadProducts] = useState(false);
   const { isMobile } = useScreenSize();
-  const productsPerPage = isMobile ? 16 : 15;
+  const productsPerPage = 10;
 
   const productsToShow = useMemo(() => {
     const indexOfLastProduct = currentPage * productsPerPage;

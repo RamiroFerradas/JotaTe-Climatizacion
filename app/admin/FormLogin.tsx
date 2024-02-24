@@ -4,7 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import jotaTeLogoResponsive from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { CircularProgress } from "@mui/material";
 
 export default function FormLogin({ session }) {

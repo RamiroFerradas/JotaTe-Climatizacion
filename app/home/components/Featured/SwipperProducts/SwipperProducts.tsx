@@ -1,6 +1,6 @@
 "use client";
 // import { products } from "@/api/producjs";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { Suspense, useRef, useState } from "react";
 import Slider from "react-slick";
 

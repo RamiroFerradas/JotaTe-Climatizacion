@@ -8,7 +8,6 @@ import {
 } from "@material-tailwind/react";
 import { Image } from "@unpic/react/nextjs";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
-import Link from "next/link";
 import { useState } from "react";
 
 interface Props {
@@ -47,6 +46,7 @@ export default function ProductCard({ product }: Props) {
           alt={product.name}
           height={200}
           width={200}
+          loading="lazy"
         />
       </CardHeader>
       <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">

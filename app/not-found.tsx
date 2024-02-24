@@ -1,6 +1,6 @@
 "use client";
 import jotateLogo from "@/public/logotipo-20221208T001432Z-001/logotipo/sin fondo/jotaté logotipo1.png";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { useRouter } from "next/navigation";
 
 type Props = {};

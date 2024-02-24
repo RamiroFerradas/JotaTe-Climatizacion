@@ -1,7 +1,7 @@
 import { CartProduct } from "@/app/models";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import { Typography } from "@material-tailwind/react";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 import { useMemo, useRef } from "react";
 import { BsDash, BsFillCartXFill, BsPlus } from "react-icons/bs";
 import { useCart } from "../../context/CartContext";

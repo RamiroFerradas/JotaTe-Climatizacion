@@ -2,7 +2,7 @@
 
 import { CarrouselImages } from "@/app/models/Carrousel";
 import { Carousel } from "@material-tailwind/react";
-import Image from "next/image";
+import { Image } from "@unpic/react/nextjs";
 
 interface CarrouselProps {
   dataImage: CarrouselImages[];
