@@ -1,6 +1,5 @@
 "use client";
 // import { products } from "@/api/producjs";
-import { Image } from "@unpic/react/nextjs";
 import { Suspense, useRef, useState } from "react";
 import Slider from "react-slick";
 
@@ -11,9 +10,7 @@ import { FcNext, FcPrevious } from "react-icons/fc";
 import { settings } from "./settingsSlider";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
 import Link from "next/link";
-import SkeletonFeatured from "./skeletonFeatured";
 import { Product } from "@/app/models";
-import { useRouter } from "next/navigation";
 
 type Props = {
   products: Product[];
@@ -21,7 +18,6 @@ type Props = {
 
 const SwipperProducts = ({ products }: Props) => {
   const slider = useRef<Slider>(null);
-  const router = useRouter();
   const [isDraggin, setIsDraggin] = useState(false);
 
   const productosDestacadosFiltrados = products.filter(
@@ -57,7 +53,7 @@ const SwipperProducts = ({ products }: Props) => {
               </div>
 
               <div className="flex flex-col items-center justify-center my-6 h-72 overflow-hidden">
-                <Image
+                <img
                   height={300}
                   width={300}
                   src={prod.image[0]}

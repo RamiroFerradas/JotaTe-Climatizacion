@@ -4,7 +4,8 @@ import { FilterProductsDestacate } from "@/app/services/filters/filterProdDestac
 
 export type FeaturedProps = {};
 
-const Featured: React.FC<FeaturedProps> = async () => {
+type Props = {};
+export default async function Featured({}: Props) {
   const products = await FilterProductsDestacate();
   return (
     <section
@@ -30,6 +31,4 @@ const Featured: React.FC<FeaturedProps> = async () => {
       </div>
     </section>
   );
-};
-
-export default Featured;
+}
