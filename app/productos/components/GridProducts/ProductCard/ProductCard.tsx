@@ -47,7 +47,7 @@ export default function ProductCard({ product }: Props) {
           alt={product.name}
           height={200}
           width={200}
-          priority
+          loading="lazy" // Agregar lazy loading aquí
         />
       </CardHeader>
       <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">

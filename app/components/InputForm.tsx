@@ -1,12 +1,6 @@
 import React from "react";
-import {
-  useForm,
-  SubmitHandler,
-  Controller,
-  FieldValues,
-  FieldErrors,
-} from "react-hook-form";
 import { capitalizeFirstLetter } from "../utilities/capitalizeFirstLetter";
+import { Controller } from "react-hook-form";
 
 interface InputFormProps {
   type: "text" | "email" | "tel" | "textarea" | "number"; // Tipos de campo de entrada admitidos
