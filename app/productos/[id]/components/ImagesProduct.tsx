@@ -83,7 +83,7 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
              
              `}
           >
-            <Image
+            <img
               width={!zoom ? 300 : 768}
               height={!zoom ? 200 : 320}
               src={img}
