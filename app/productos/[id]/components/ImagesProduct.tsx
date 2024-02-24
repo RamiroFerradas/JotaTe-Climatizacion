@@ -1,8 +1,8 @@
+/* eslint-disable @next/next/no-img-element */
 import { Loading } from "@/app/components";
 import { Product } from "@/app/models";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/solid";
 import { Carousel, IconButton } from "@material-tailwind/react";
-import Image from "next/image";
 
 export type ImagesProductProps = {
   selectedProduct: Product;
@@ -82,10 +82,9 @@ const ImagesProduct: React.FC<ImagesProductProps> = ({
              
              `}
           >
-            <Image
-              priority
-              width={!zoom ? 300 : 768}
-              height={!zoom ? 200 : 320}
+            <img
+              // width={!zoom ? 300 : 768}
+              // height={!zoom ? 200 : 320}
               src={img}
               alt={selectedProduct.name}
               onLoad={() => <Loading />}
