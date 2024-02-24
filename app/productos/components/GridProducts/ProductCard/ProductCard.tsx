@@ -39,7 +39,7 @@ export default function ProductCard({ product }: Props) {
         floated={false}
         className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
       >
-        <Image
+        <img
           src={
             isHovered && product.image[1] ? product.image[1] : product.image[0]
           }
@@ -47,7 +47,6 @@ export default function ProductCard({ product }: Props) {
           alt={product.name}
           height={200}
           width={200}
-          loading="lazy" // Agregar lazy loading aquí
         />
       </CardHeader>
       <CardBody className="relative p-1 md:p-4 flex items-center justify-between mb-2 flex-col flex-grow">
