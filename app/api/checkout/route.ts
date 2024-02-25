@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // para permitir pagos de guests puede omitir esta propiedad
     purpose: "wallet_purchase",
     back_urls: {
-      success: `${process.env.NEXT_PUBLIC_API_URL}/productos/"`,
+      success: `${process.env.NEXT_PUBLIC_API_URL}/productos/`,
     },
     // notification_url: "https://localhost:3000/shop",
     items: [
@@ -52,10 +52,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     ] as Item[],
   };
-
+  console.log(new Date().toISOString());
   try {
     const response = await mercadopago.preferences.create(preference);
     const preferenceId = response.body;
+
+    console.log(preferenceId);
 
     return NextResponse.json(preferenceId);
   } catch (error) {
