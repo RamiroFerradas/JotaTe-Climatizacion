@@ -5,8 +5,7 @@ import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
 type Props = {
-  params: any;
-  product: any;
+  params: { id: string };
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
