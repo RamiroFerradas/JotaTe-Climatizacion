@@ -42,10 +42,10 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_ENVIRONMENT === "dev"
         ? "consults_dev"
         : "consults",
-    NEXT_PUBLIC_TABLE_CONSULTS:
+    NEXT_PUBLIC_MP_ACCES_TOKEN:
       process.env.NEXT_PUBLIC_ENVIRONMENT === "dev"
-        ? process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_TEST
-        : process.env.NEXT_PUBLIC_MP_ACCESS_TOKEN,
+        ? process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_DEV
+        : process.env.NEXT_PUBLIC_MP_ACCESS_TOKEN_PROD,
   },
   webpack5: true,
   webpack: (config) => {
