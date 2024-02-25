@@ -34,7 +34,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // para permitir pagos de guests puede omitir esta propiedad
     purpose: "wallet_purchase",
     back_urls: {
-      success: "https://www.jotateclimatizacion.com/productos/",
+      success: `${process.env.NEXT_PUBLIC_API_URL}/productos/"`,
     },
     // notification_url: "https://localhost:3000/shop",
     items: [
