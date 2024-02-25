@@ -16,17 +16,17 @@ export async function generateMetadata(
   { params, searchParams }: Props,
   parent: ResolvingMetadata
 ): Promise<Metadata> {
+  // read route params
   const id = params.id;
 
   const product = await fetchProductById(id);
-  const previousImages = (await parent).openGraph?.images || [];
-  const productImage = product?.image || "/default-product-image.jpg"; // Adjust the default image accordingly
-  console.log(previousImages);
 
+  const previousImages = (await parent).openGraph?.images || [];
+  console.log(previousImages);
   return {
     title: product.name,
     openGraph: {
-      images: [productImage, ...previousImages],
+      images: ["/some-specific-page-image.jpg", ...previousImages],
     },
   };
 }
