@@ -10,7 +10,6 @@ const ACCES_TOKEN =
   enviroment === "dev"
     ? process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_DEV
     : process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_PROD;
-console.log(ACCES_TOKEN);
 mercadopago.configure({
   access_token: ACCES_TOKEN,
 });
@@ -56,8 +55,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const response = await mercadopago.preferences.create(preference);
     const preferenceId = response.body;
-
-    console.log(preferenceId);
 
     return NextResponse.json(preferenceId);
   } catch (error) {

@@ -5,6 +5,12 @@ import FormLogin from "./FormLogin";
 import Dashboard from "./components/Dashboard";
 import { Toaster } from "react-hot-toast";
 export const revalidate = 0;
+
+export function generateMetadata() {
+  return {
+    title: "Administracion",
+  };
+}
 export default async function Login() {
   const supabase = createServerComponentClient({ cookies });
 

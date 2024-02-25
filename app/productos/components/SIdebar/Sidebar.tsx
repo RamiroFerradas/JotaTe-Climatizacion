@@ -35,12 +35,6 @@ export default function Sidebar({
   brandsFiltered,
   setBrandsFiltered,
 }: Props) {
-  // useEffect(() => {
-  //   const brands = productsFiltered.map((product) => product.brand as string);
-  //   console.log("");
-  //   setBrandsFiltered(brands);
-  // }, [categoryActive]);
-
   const [open, setOpen] = useState(0);
 
   const handleOpen = (value: number): void => {
