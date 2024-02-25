@@ -1,12 +1,10 @@
 "use client";
-export type FooterProps = {};
 import { BsInstagram, BsWhatsapp } from "react-icons/bs";
 import { BiMailSend, BiPhoneCall } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { RiAdminLine } from "react-icons/ri";
 import { useRouter } from "next/navigation";
-type Props = {};
-export default function Footer({}: Props) {
+export default function FooterJT() {
   const router = useRouter();
   const phone = process.env.NEXT_PUBLIC_WPP_PHONE;
   return (

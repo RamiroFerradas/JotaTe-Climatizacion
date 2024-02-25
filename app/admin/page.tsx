@@ -19,7 +19,7 @@ export default async function Login() {
   } = await supabase.auth.getSession();
   return (
     <>
-      <Toaster position="top-right" />;
+      <Toaster position="top-right" />
       {!session ? <FormLogin session={session} /> : <Dashboard />}
     </>
   );

@@ -31,9 +31,7 @@ const RootLayout: NextPage<RootLayoutProps> = ({ children }) => {
     <html lang="en">
       <body className={inter.className}>
         <GoogleAnalytics gaId="GTM-KNWJJVW" />{" "}
-        <div className="min-h-screen flex flex-col">
-          <div className="flex-grow flex flex-col">{children}</div>
-        </div>
+        <div className="min-h-screen flex flex-col">{children}</div>
         <Analytics />
         <SpeedInsights />
       </body>

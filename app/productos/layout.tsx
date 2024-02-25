@@ -2,11 +2,11 @@ import { NextPage } from "next";
 import { ReactNode, Suspense } from "react";
 import { fetchProducts } from "../services/fetchs/fetchProducts";
 import { Toaster } from "react-hot-toast";
-import { Footer, Loading } from "../components";
 import GridProducts from "./components/GridProducts/GridProducts";
 import { fetchBrands } from "../services/fetchs/fetchBrands";
 import { getCategoriesWithSubcategories } from "../services/fetchs/getCategoriesWithSubcategories";
 import { CartProvider } from "./context/CartContext";
+import FooterJT from "../components/FooterJT";
 export const revalidate = 0;
 export type RootLayoutProps = {
   children: ReactNode;
@@ -27,8 +27,7 @@ const RootLayout: NextPage<RootLayoutProps> = async ({ children }) => {
           brands={brands}
           products={products}
         />
-
-        <Footer />
+        <FooterJT />
       </main>
     </CartProvider>
   );

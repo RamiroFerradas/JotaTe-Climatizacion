@@ -1,5 +1,5 @@
 type Props = {};
-import { Footer } from "./components";
+import FooterJT from "./components/FooterJT";
 import {
   Appbar,
   Landing,
@@ -19,7 +19,7 @@ export default function page({}: Props) {
       <Services />
       <Installations />
       <Featured />
-      <Footer />
+      <FooterJT />
     </>
   );
 }
