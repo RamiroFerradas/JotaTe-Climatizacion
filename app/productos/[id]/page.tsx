@@ -20,6 +20,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: product.image[0],
     },
     metadataBase: new URL(`${process.env.NEXT_PUBLIC_API_URL}/productos/${id}`),
+    alternates: {
+      canonical: new URL(`${process.env.NEXT_PUBLIC_API_URL}/productos/${id}`),
+      languages: {
+        "es-ES": "/es-ES",
+      },
+    },
   };
 }
 
