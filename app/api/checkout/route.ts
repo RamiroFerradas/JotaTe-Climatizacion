@@ -4,9 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 // SDK de Mercado Pago
 const mercadopago = require("mercadopago");
-// const ACCES_TOKEN = process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_TEST;
+
+const enviroment = process.env.NEXT_PUBLIC_ENVIRONMENT;
+const ACCES_TOKEN =
+  enviroment === "dev"
+    ? process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_DEV
+    : process.env.NEXT_PUBLIC_MP_ACCES_TOKEN_PROD;
+console.log(ACCES_TOKEN);
 mercadopago.configure({
-  access_token: MP_ACCESS_TOKEN,
+  access_token: ACCES_TOKEN,
 });
 
 // Crear un objeto de preferencia
