@@ -1,21 +1,15 @@
 import { fetchProductById } from "@/app/services/fetchs/fetchProducts";
 import ProductDetail from "./components/ProductDetail";
 import { fetchRecommendedProductsByIds } from "@/app/services/fetchs/fetchRecommendedProductsByIds";
-import { Seo } from "@/app/components";
 import { redirect } from "next/navigation";
-import { Metadata, ResolvingMetadata } from "next";
-import { Product } from "@/app/models";
+import { Metadata } from "next";
 
 type Props = {
-  params: { id: string };
-  searchParams: { [key: string]: string | string[] | undefined };
-  product: Product;
+  params: any;
+  product: any;
 };
 
-export async function generateMetadata(
-  { params, searchParams }: Props,
-  parent: ResolvingMetadata
-): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   // read route params
   const id = params.id;
 
