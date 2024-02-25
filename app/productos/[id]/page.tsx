@@ -21,20 +21,19 @@ export async function generateMetadata(
 
   const product = await fetchProductById(id);
 
-  const previousImages = (await parent).openGraph?.images || [];
-  console.log(previousImages);
   return {
     title: product.name,
+    description: `$${product.price}`,
     openGraph: {
-      images: ["/some-specific-page-image.jpg", ...previousImages],
+      images: product.image[0],
     },
+    metadataBase: new URL(`${process.env.NEXT_PUBLIC_API_URL}/productos/${id}`),
   };
 }
 
-export default async function Page({ params, searchParams }: Props) {
+export default async function Page({ params }: Props) {
   const product = await fetchProductById(params.id);
   const recommendedProductIds = product?.recommended?.products;
-  console.log(product);
 
   if (!product) {
     return redirect("/productos");
