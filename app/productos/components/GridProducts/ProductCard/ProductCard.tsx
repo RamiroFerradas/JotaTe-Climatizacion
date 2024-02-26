@@ -38,7 +38,7 @@ export default function ProductCard({ product }: Props) {
         floated={false}
         className="h-32 overflow-hidden flex justify-center items-center cursor-pointer"
       >
-        <Image
+        <img
           src={
             isHovered && product.image[1] ? product.image[1] : product.image[0]
           }
