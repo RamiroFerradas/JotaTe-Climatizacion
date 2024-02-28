@@ -16,6 +16,7 @@ type Props = {
   setFilteredProducts: Dispatch<SetStateAction<Product[]>>;
   updatedFilteredProducts: (updatedFilteredProducts: Product[]) => void; // Ajustar el tipo aquí
   selected: Product[];
+  products: Product[];
   setOpenModalForm: Dispatch<SetStateAction<boolean>>;
   setLoading: Dispatch<SetStateAction<boolean>>;
   setProductosPorActualizar: Dispatch<SetStateAction<number>>;
@@ -34,6 +35,7 @@ export default function Header({
   setLoading,
   setProductosPorActualizar,
   setSelected,
+  products,
 }: Props) {
   const { isMobile } = useScreenSize();
 
@@ -91,7 +93,11 @@ export default function Header({
         )}
       </Link>
 
-      <Searchbar onChangue setProductsFiltered={setFilteredProducts} />
+      <Searchbar
+        onChangue
+        setProductsFiltered={setFilteredProducts}
+        products={products}
+      />
 
       <div className="flex gap-1 md:gap-2 justify-center items-center">
         <Button

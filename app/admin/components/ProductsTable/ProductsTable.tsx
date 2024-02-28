@@ -164,6 +164,7 @@ export default function ProductsTable({
           setProductosPorActualizar={setProductosPorActualizar}
           updateProductInSelected={updateProductInSelected}
           setSelected={setSelected}
+          products={products}
         />
 
         <Paper sx={{ width: "100%", mb: 2 }}>

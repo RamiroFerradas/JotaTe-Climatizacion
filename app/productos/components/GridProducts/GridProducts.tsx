@@ -51,6 +51,7 @@ export default function GridProducts({
         setProductsFiltered={setProductsFiltered}
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
+        products={products}
       />
 
       <CategoriesNavV2

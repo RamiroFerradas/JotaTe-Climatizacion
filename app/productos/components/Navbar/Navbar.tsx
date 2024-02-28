@@ -16,9 +16,14 @@ type Props = {
   openSidebar: boolean;
   setOpenSidebar: (value: boolean) => void;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
+  products: Product[];
 };
 
-export default function Navbar({ setProductsFiltered, setOpenSidebar }: Props) {
+export default function Navbar({
+  setProductsFiltered,
+  setOpenSidebar,
+  products,
+}: Props) {
   const { closeMenuCart } = useCart();
   const { isMobile } = useScreenSize();
   const cartRef = useRef(null);
@@ -38,7 +43,10 @@ export default function Navbar({ setProductsFiltered, setOpenSidebar }: Props) {
           />
         </Link>
         <div className="flex md:w-max justify-center items-center gap-2 flex-wrap">
-          <Searchbar setProductsFiltered={setProductsFiltered} />
+          <Searchbar
+            products={products}
+            setProductsFiltered={setProductsFiltered}
+          />
         </div>
 
         <div ref={cartRef} className="order-">

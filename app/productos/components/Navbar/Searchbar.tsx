@@ -8,27 +8,45 @@ import { FaSearch } from "react-icons/fa";
 
 type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
+  products: Product[];
   onChangue?: boolean;
 };
-export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
+export default function Searchbar({
+  products,
+  setProductsFiltered,
+  onChangue,
+}: Props) {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const { isMobile } = useScreenSize();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    try {
-      const results = await searchProducts(search);
-      setProductsFiltered(results);
-      setIsSearching(true);
-    } catch (error) {
-      console.error(error.message);
-      setProductsFiltered([]);
-    }
+    if (!onChangue)
+      try {
+        const results = await searchProducts(search, products);
+        setProductsFiltered(results as any);
+        setIsSearching(true);
+      } catch (error) {
+        console.error(error.message);
+        setProductsFiltered([]);
+      }
+  };
+  const handleSubmitOnChangue = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (onChangue)
+      try {
+        const results = await searchProducts(search, products);
+        setProductsFiltered(results as any);
+        setIsSearching(true);
+      } catch (error) {
+        console.error(error.message);
+        setProductsFiltered([]);
+      }
   };
   const handleClear = async () => {
     try {
-      const results = await searchProducts("");
-      setProductsFiltered(results);
+      const results = await searchProducts("", products);
+      setProductsFiltered(results as any);
       setSearch("");
       setIsSearching(false);
     } catch (error) {
@@ -38,10 +56,7 @@ export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
   };
 
   return (
-    <form
-      className="flex relative gap-10 flex-row"
-      onSubmit={!onChangue && handleSubmit}
-    >
+    <form className="flex relative gap-10 flex-row" onSubmit={handleSubmit}>
       <Input
         type={!onChangue ? "search" : "input"}
         label="Buscar producto"
@@ -49,7 +64,8 @@ export default function Searchbar({ setProductsFiltered, onChangue }: Props) {
         color="green"
         value={search}
         onChange={(e: any) => {
-          onChangue && handleSubmit(e);
+          e.preventDefault();
+          handleSubmitOnChangue(e);
           setSearch(e.target.value);
         }}
       />
