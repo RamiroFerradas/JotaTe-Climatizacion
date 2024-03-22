@@ -1,5 +1,11 @@
 export const Routes = [
   {
+    id: 5,
+    active: "featured",
+    text: `Destacados`,
+    href: "featured",
+  },
+  {
     id: 1,
     active: "home",
     text: `Inicio`,
@@ -22,11 +28,5 @@ export const Routes = [
     active: "installations",
     text: `Instalaciones`,
     href: "installations",
-  },
-  {
-    id: 5,
-    active: "featured",
-    text: `Destacados`,
-    href: "featured",
   },
 ];

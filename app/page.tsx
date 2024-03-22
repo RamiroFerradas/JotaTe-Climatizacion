@@ -14,11 +14,11 @@ export default function page({}: Props) {
   return (
     <>
       <Appbar />
+      <Featured />
       <Landing />
       <About />
       <Services />
       <Installations />
-      <Featured />
       <FooterJT />
     </>
   );

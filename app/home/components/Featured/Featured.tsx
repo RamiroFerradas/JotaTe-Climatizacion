@@ -9,7 +9,7 @@ export default async function Featured({}: Props) {
   const products = await FilterProductsDestacate();
   return (
     <section
-      className="min-h-[100vh] flex justify-center items-center flex-col gap-20"
+      className="min-h-[100vh] flex justify-center items-center flex-col gap-20 pt-28 p-4"
       id="featured"
     >
       <div className="flex flex-col">

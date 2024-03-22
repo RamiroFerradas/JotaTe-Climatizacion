@@ -19,7 +19,7 @@ const Navlist: React.FC<NavlistProps> = () => {
           color="blue-gray"
           className={`w-28 relative flex justify-center text-center hover:font-bold items-center hover:text-[#008545] ${
             sectionActive !== r.active
-              ? `text-black`
+              ? `text-black font-semibold`
               : `text-[#008545] font-bold`
           }`}
         >
