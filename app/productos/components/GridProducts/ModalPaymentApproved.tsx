@@ -57,7 +57,7 @@ const ModalPaymentApproved = ({ setOpenModal, openModal }: Props) => {
       <DialogContent>
         <div className="min-h-[8rem] min-w-[17rem] flex flex-col justify-center items-center w-full p-6 text-center font-semibold">
           <p className="text-lg text-center mb-4">
-            ¡Felicitaciones! Estás a un paso de obtener tu producto!
+            ¡Felicitaciones, estás a un paso de obtener tu producto!
           </p>
           <p className="text-base mb-6">
             Completa tu compra comunicándote con un asesor a través de WhatsApp:

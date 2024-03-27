@@ -17,17 +17,18 @@ type Props = {
   setOpenSidebar: (value: boolean) => void;
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   products: Product[];
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 
 export default function Navbar({
   setProductsFiltered,
   setOpenSidebar,
   products,
+  setCurrentPage,
 }: Props) {
   const { closeMenuCart } = useCart();
   const { isMobile } = useScreenSize();
 
-  console.log(isMobile);
   const cartRef = useRef(null);
   useOnClickOutside(cartRef, () => closeMenuCart());
 
@@ -48,6 +49,7 @@ export default function Navbar({
           <Searchbar
             products={products}
             setProductsFiltered={setProductsFiltered}
+            setCurrentPage={setCurrentPage}
           />
         </div>
 

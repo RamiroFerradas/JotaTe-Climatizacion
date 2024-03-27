@@ -10,7 +10,7 @@ import CardSkeleton from "./ProductCard/CardSkeleton";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { handleScrollToTop } from "@/app/utilities/handleScrollTop";
-import { useScreenSize, usePaymentStatus } from "@/app/hooks";
+import { usePaymentStatus } from "@/app/hooks";
 import ModalPaymentApproved from "./ModalPaymentApproved";
 
 type Props = {
@@ -52,6 +52,7 @@ export default function GridProducts({
         openSidebar={openSidebar}
         setOpenSidebar={setOpenSidebar}
         products={products}
+        setCurrentPage={setCurrentPage}
       />
 
       <CategoriesNavV2

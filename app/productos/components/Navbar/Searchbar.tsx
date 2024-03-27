@@ -10,17 +10,20 @@ type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   products: Product[];
   onChangue?: boolean;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
 };
 export default function Searchbar({
   products,
   setProductsFiltered,
   onChangue,
+  setCurrentPage,
 }: Props) {
   const [search, setSearch] = useState("");
   const [isSearching, setIsSearching] = useState(false);
   const { isMobile } = useScreenSize();
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!onChangue)
       try {
         const results = await searchProducts(search, products);
@@ -30,6 +33,8 @@ export default function Searchbar({
         console.error(error.message);
         setProductsFiltered([]);
       }
+
+    setCurrentPage(1);
   };
   const handleSubmitOnChangue = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
