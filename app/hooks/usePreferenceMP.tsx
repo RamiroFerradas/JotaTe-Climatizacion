@@ -15,6 +15,7 @@ export default function usePreferenceMP(products: Product[]): {
   useEffect(() => {
     async function fetchPreference() {
       try {
+        setPreference(null);
         setLoading(true);
         const response = await getPreference(products);
 
