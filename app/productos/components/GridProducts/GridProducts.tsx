@@ -10,8 +10,8 @@ import CardSkeleton from "./ProductCard/CardSkeleton";
 import Link from "next/link";
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { handleScrollToTop } from "@/app/utilities/handleScrollTop";
-import { useScreenSize } from "@/app/hooks";
-import LoadingProducts from "@/app/loading";
+import { useScreenSize, usePaymentStatus } from "@/app/hooks";
+import ModalPaymentApproved from "./ModalPaymentApproved";
 
 type Props = {
   products: Product[];
@@ -30,8 +30,8 @@ export default function GridProducts({
   const [openSidebar, setOpenSidebar] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [loadProducts, setLoadProducts] = useState(false);
-  const { isMobile } = useScreenSize();
   const productsPerPage = 10;
+  const { openModalPayment, setOpenModalPayment } = usePaymentStatus();
 
   const productsToShow = useMemo(() => {
     const indexOfLastProduct = currentPage * productsPerPage;
@@ -131,6 +131,12 @@ export default function GridProducts({
           </div>
         </div>
       </div>
+      {openModalPayment && (
+        <ModalPaymentApproved
+          openModal={openModalPayment}
+          setOpenModal={setOpenModalPayment}
+        />
+      )}
     </>
   );
 }

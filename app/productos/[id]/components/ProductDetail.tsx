@@ -1,10 +1,8 @@
 "use client";
 import { parseCurrency } from "@/app/utilities/parseCurrency";
-import { toastAddToCart } from "@/app/utilities/toastAddToCart";
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 import { FaCartPlus } from "react-icons/fa";
 import { BsWhatsapp } from "react-icons/bs";
-import Drawer from "@mui/material/Drawer";
 
 import {
   CardActions,
@@ -151,9 +149,9 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
           </div>
           <div className={`sticky bottom-0 ${zoom ? "hidden" : ""}`}>
             <CardActions>
-              <div className="w-full items-center flex justify-center gap-5">
+              <div className="w-full items-start flex justify-center gap-5">
                 <Button
-                  className="flex w-full items-center gap-3 justify-center"
+                  className="flex w-full items-center gap-3 justify-center mt-4"
                   onClick={handleAddToCart}
                 >
                   <FaCartPlus className="h-5 w-5" />
@@ -162,7 +160,7 @@ const ProductDetail = ({ selectedProduct, recommendedProducts }: Props) => {
 
                 <Button
                   color="green"
-                  className="flex items-center gap-3 w-full justify-center"
+                  className="flex items-center gap-3 w-full justify-center mt-4"
                   onClick={() => consultProductWhatsApp(selectedProduct)}
                 >
                   <BsWhatsapp className="h-5 w-5" />

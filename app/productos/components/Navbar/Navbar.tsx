@@ -26,6 +26,8 @@ export default function Navbar({
 }: Props) {
   const { closeMenuCart } = useCart();
   const { isMobile } = useScreenSize();
+
+  console.log(isMobile);
   const cartRef = useRef(null);
   useOnClickOutside(cartRef, () => closeMenuCart());
 
