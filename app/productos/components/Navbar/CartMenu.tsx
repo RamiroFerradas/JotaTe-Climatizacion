@@ -103,11 +103,11 @@ export default function CartMenu({}: Props) {
           </div>
 
           <div className="border-t border-gray-700/50">
-            <div className="flex justify-between p-2">
+            <div className="flex justify-between pt-2">
               <p className="text-gray-800 font-bold">Total:</p>
               <p className="text-gray-800 font-bold">{totalPriceCart}</p>
             </div>
-            <div className="p-2 flex justify-between items-start gap-4 w-full h-20">
+            <div className="p-2 flex justify-between items-start gap-4 w-full">
               <button
                 disabled={!cart.length}
                 onClick={() => clearCart()}
