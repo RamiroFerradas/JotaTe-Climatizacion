@@ -12,6 +12,9 @@ import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/solid";
 import { handleScrollToTop } from "@/app/utilities/handleScrollTop";
 import { usePaymentStatus } from "@/app/hooks";
 import ModalPaymentApproved from "./ModalPaymentApproved";
+import Image from "next/image";
+import wppButton from "@/public/WhatsApp_icon.png";
+import { consultProductWhatsApp } from "@/app/utilities/consultProductWhatsApp";
 
 type Props = {
   products: Product[];
@@ -132,6 +135,17 @@ export default function GridProducts({
           </div>
         </div>
       </div>
+      <button className="rounded full size-[50px] fixed bottom-16 md:bottom-4 right-1 z-50">
+        <Image
+          height={50}
+          width={50}
+          src={wppButton}
+          alt="wppLogo"
+          className="hover:drop-shadow-2xl"
+          onClick={() => consultProductWhatsApp()}
+        />
+      </button>
+
       {openModalPayment && (
         <ModalPaymentApproved
           openModal={openModalPayment}
