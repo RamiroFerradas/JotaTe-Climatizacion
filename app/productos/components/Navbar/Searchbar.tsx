@@ -10,7 +10,7 @@ type Props = {
   setProductsFiltered: React.Dispatch<React.SetStateAction<Product[]>>;
   products: Product[];
   onChangue?: boolean;
-  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage?: React.Dispatch<React.SetStateAction<number>>;
 };
 export default function Searchbar({
   products,
