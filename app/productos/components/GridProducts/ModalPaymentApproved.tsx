@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { forwardRef } from "react";
 import Image from "next/image";
 import wppLogo from "@/public/wpp.png";
+import { useRouter } from "next/navigation";
 type Props = {
   openModal: boolean;
   setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,6 +13,7 @@ const ModalPaymentApproved = ({ setOpenModal, openModal }: Props) => {
   const handleClose = () => {
     setOpenModal(false);
   };
+  const router = useRouter();
 
   const Transition = forwardRef(function Transition(
     props: TransitionProps & {
@@ -29,6 +31,7 @@ const ModalPaymentApproved = ({ setOpenModal, openModal }: Props) => {
     const url = `https://wa.me/${phone}?text=${encodedText}`;
 
     window.open(url, "_blank");
+    router.replace("/productos");
   };
 
   return (
