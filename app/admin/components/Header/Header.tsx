@@ -73,7 +73,7 @@ export default function Header({
   };
   return (
     <div className="container mx-auto flex items-center justify-between text-blue-gray-900 w-screen py-1 n">
-      <Link href={"/"}>
+      <Link href={"/productos"}>
         {isMobile ? (
           <Image
             src={jotaTeLogoResponsive}
